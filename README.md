@@ -3,7 +3,8 @@
 - Scene and script names names should be in `snake_case`
 - If you rename or move anything, do it in the Godot editor (not your file system) otherwise you may mess up dependencies.
 
-Here's the general file structure we'll be using as a reference:
+Here's the general file structure we'll be using as a reference. 
+No strict rules, this is just a general guideline.
 ```
 /
     assets/
@@ -78,6 +79,7 @@ Here's the general file structure we'll be using as a reference:
 1. Clone the repo
 2. Download latest Godot (4.7.1) [here](https://godotengine.org/download/), and extract it, giving you the Godot executable. **Everyone should have the latest version otherwise it might create conflicts anytime you save a scene.** 
     a. You can consider using the [godotenv version manager](https://github.com/chickensoft-games/godotenv) which allows you to switch between versions with less hassle
+3. Open Godot then click `Import` and select the project repo folder.
 
 ### VSCode setup (if you prefer to use it)
 1.  If you are using VSCode, install the godot-tools extension
