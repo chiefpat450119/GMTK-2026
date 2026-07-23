@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cnt7cah78t0v5"]
+
+[ext_resource type="Script" uid="uid://bcj1uy352fofb" path="res://scenes/player_movement.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder player sprite.png" id="2_g2els"]
+
+[node name="Player" type="Node2D" unique_id=73221101]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1653452240]
+script = ExtResource("1_3vyb7")
+speed = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1306389928]
+texture = ExtResource("2_g2els")
