@@ -11,8 +11,8 @@ func _ready() -> void:
 	time_listener.response.connect(_on_time_change)
 	health_listener.response.connect(_on_health_change)
 	# set initial fill
-	_on_health_change()
-	_on_time_change()     
+	call_deferred("_on_health_change")
+	call_deferred("_on_time_change")
 	
 func _on_health_change() -> void:
 	health_bar.max_value = health_component.max_hp.current_val()

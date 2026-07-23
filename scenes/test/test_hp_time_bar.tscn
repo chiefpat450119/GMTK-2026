@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2e0d2cmqy2ox"]
 
 [ext_resource type="PackedScene" uid="uid://dt2rievpqwg1n" path="res://scenes/ui/hp_time_bar.tscn" id="1_3f0rq"]
-[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/player.tscn" id="2_8pjvw"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_8pjvw"]
 [ext_resource type="PackedScene" uid="uid://pbeg32ow3s31" path="res://scenes/autoload/player_manager.tscn" id="3_62w1y"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="4_e3ly1"]
 
@@ -20,4 +20,5 @@ position = Vector2(496, 336)
 [node name="TimeComponent" parent="PlayerManager" index="1" unique_id=925432473]
 time_changed_event = ExtResource("4_e3ly1")
 
+[editable path="HpTimeBar"]
 [editable path="PlayerManager"]
