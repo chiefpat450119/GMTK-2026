@@ -5,12 +5,14 @@
 [ext_resource type="Script" uid="uid://bytadyaeehtje" path="res://scenes/entities/player/player_shoot.gd" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://bjte2vr1ia54r" path="res://assets/placeholder_gun_sprite.png" id="4_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://ceefjo2r83hdl" path="res://scenes/entities/player/camera.gd" id="6_8akj5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
-radius = 41.0
-height = 162.0
+radius = 36.0
+height = 72.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1653452240]
+collision_mask = 3
 script = ExtResource("1_3vyb7")
 speed = 500.0
 
@@ -32,5 +34,8 @@ texture = ExtResource("4_qlg0r")
 position = Vector2(100, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170624263]
-position = Vector2(0, 8)
+position = Vector2(0, 52)
 shape = SubResource("CapsuleShape2D_g4v7s")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=803023975]
+script = ExtResource("6_8akj5")

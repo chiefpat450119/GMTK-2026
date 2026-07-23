@@ -52,6 +52,11 @@ M1={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="wall"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
