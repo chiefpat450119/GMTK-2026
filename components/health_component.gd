@@ -1,3 +1,5 @@
+# Health component used for both enemies and player
+
 class_name HealthComponent
 extends Node
 
@@ -16,5 +18,5 @@ func remove_hp(amount: float) -> void:
 
 
 func _set_hp(value: float) -> void:
-	hp = clamp(value, 0, max_hp)
+	hp = clamp(value, 0, max_hp.current_val())
 	hp_changed_event.raise()

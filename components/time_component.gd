@@ -1,3 +1,5 @@
+# Time component to be used for player time only
+
 class_name TimeComponent
 extends Node
 
@@ -20,4 +22,4 @@ func remove_time(amount: float) -> void:
 
 
 func _set_time(value: float) -> void:
-	time_left = clamp(value, 0, max_time)
+	time_left = clamp(value, 0, max_time.current_val())
