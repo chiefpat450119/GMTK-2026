@@ -1,6 +1,12 @@
-[gd_scene format=3 uid="uid://b774qtk351p8o"]
+[gd_scene format=3 uid="uid://pbeg32ow3s31"]
 
-[ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/autoload/player_manager.gd" id="1_tmcl2"]
+[ext_resource type="Script" path="res://scenes/autoload/player_manager.gd" id="1_jcstx"]
+[ext_resource type="Resource" uid="uid://dfkd78us4w3tb" path="res://resources/stats/player_stats/player_max_hp_stat.tres" id="2_shyas"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="3_bprd3"]
+[ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="4_eyy46"]
 
-[node name="PlayerManager" type="Node2D" unique_id=1335920734]
-script = ExtResource("1_tmcl2")
+[node name="Node" type="Node" unique_id=1089320958]
+script = ExtResource("1_jcstx")
+max_health = ExtResource("2_shyas")
+max_time = ExtResource("3_bprd3")
+time_decay_scale = ExtResource("4_eyy46")

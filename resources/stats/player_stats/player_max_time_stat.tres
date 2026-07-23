@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://frrqtqnfhira"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_1eggf"]
+
+[resource]
+script = ExtResource("1_1eggf")
+stat_name = "Max Time"
+base_val = 120.0
+min_val = 0.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"

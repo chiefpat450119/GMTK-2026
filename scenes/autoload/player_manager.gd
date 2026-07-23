@@ -1,19 +1,17 @@
 extends Node
 
-@export var max_health: int = 100
-@export var max_time: float = 120.0
-@export var time_drain_per_second: float = 1.0
+@export var max_health: Stat
+@export var max_time: Stat
+@export var time_decay_scale: Stat
 
-var health: int = 0
-var time_left: float = 0.0
-var default_time_drain_per_second: float = 1.0
+@onready var health := max_health.current_val()
+@onready var time_left := max_time.current_val()
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	health = max_health
-	time_left = max_time
-	default_time_drain_per_second = time_drain_per_second
+## Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+	#health = max_health.current_val()
+	#time_left = max_time.current_val()
 
 
 func add_health(amount: int) -> void:
@@ -42,5 +40,5 @@ func set_time(value: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	remove_time(time_drain_per_second * delta)
+	remove_time(time_decay_scale.current_val() * delta)
 	print(time_left)
