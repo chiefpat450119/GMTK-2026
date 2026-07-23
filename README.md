@@ -89,3 +89,7 @@ No strict rules, this is just a general guideline.
 	2. Go to `External` under the `Text Editor` section and check the `Use External Editor` box
 	3. In exec path put your VSCode executable Path (On Windows you should be able to right click the VSCode app and click "Go to file location"). If you paste in the path make sure to remove any quotes because otherwise it won't work.
 3. If you create a script then double-click it in the editor, it should open in VSCode!
+
+## Before Opening a PR
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md)
+
