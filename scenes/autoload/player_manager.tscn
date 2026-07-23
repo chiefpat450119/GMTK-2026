@@ -1,6 +1,26 @@
-[gd_scene format=3 uid="uid://b774qtk351p8o"]
+[gd_scene format=3 uid="uid://pbeg32ow3s31"]
 
-[ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/autoload/player_manager.gd" id="1_tmcl2"]
+[ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/autoload/player_manager.gd" id="1_jcstx"]
+[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="2_bprd3"]
+[ext_resource type="Resource" uid="uid://dfkd78us4w3tb" path="res://resources/stats/player_stats/player_max_hp_stat.tres" id="2_shyas"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="3_bprd3"]
+[ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="4_eyy46"]
+[ext_resource type="Resource" uid="uid://udrqunq3d2gv" path="res://resources/events/event_channels/player_hp_changed_event.tres" id="4_khy42"]
+[ext_resource type="Script" uid="uid://ulsgba0wksf4" path="res://components/time_component.gd" id="4_rod5f"]
 
-[node name="PlayerManager" type="Node2D" unique_id=1335920734]
-script = ExtResource("1_tmcl2")
+[node name="PlayerManager" type="Node" unique_id=1089320958 node_paths=PackedStringArray("health_component", "time_componentn")]
+script = ExtResource("1_jcstx")
+health_component = NodePath("HealthComponent")
+time_componentn = NodePath("TimeComponent")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=355396353]
+script = ExtResource("2_bprd3")
+max_hp = ExtResource("2_shyas")
+hp_changed_event = ExtResource("4_khy42")
+metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
+
+[node name="TimeComponent" type="Node" parent="." unique_id=925432473]
+script = ExtResource("4_rod5f")
+max_time = ExtResource("3_bprd3")
+time_decay_scale = ExtResource("4_eyy46")
+metadata/_custom_type_script = "uid://ulsgba0wksf4"

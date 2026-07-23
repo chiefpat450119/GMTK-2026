@@ -92,4 +92,3 @@ No strict rules, this is just a general guideline.
 
 ## Before Opening a PR
 Please read the [CONTRIBUTING.md](CONTRIBUTING.md)
-
