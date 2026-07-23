@@ -14,6 +14,10 @@ config/name="GMTK 2026"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerManager="*uid://b774qtk351p8o"
+
 [display]
 
 window/stretch/mode="canvas_items"

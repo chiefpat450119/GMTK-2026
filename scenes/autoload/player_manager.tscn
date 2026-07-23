@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b774qtk351p8o"]
+
+[ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/autoload/player_manager.gd" id="1_tmcl2"]
+
+[node name="PlayerManager" type="Node2D" unique_id=1335920734]
+script = ExtResource("1_tmcl2")
