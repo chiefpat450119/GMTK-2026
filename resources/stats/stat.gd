@@ -28,7 +28,7 @@ func current_val(base : float = base_val) -> float:
 			Modifier.Operation.ADD:
 				add_total += mod.value
 			Modifier.Operation.MULT:
-				mult_total *= mod.value
+				mult_total += mod.value
 	
 	var val := (base + add_total) * mult_total
 	return clamp(val, min_val, max_val)
