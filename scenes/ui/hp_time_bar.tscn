@@ -11,7 +11,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w464l"]
 bg_color = Color(0.6960329, 0.06915245, 0, 1)
 
-[node name="HpTimeBar" type="Node2D" unique_id=733327054 node_paths=PackedStringArray("time_bar", "health_bar", "time_listener", "health_listener")]
+[node name="HpTimeBar" type="CanvasLayer" unique_id=1910484437 node_paths=PackedStringArray("time_bar", "health_bar", "time_listener", "health_listener")]
 script = ExtResource("1_mnu3t")
 time_bar = NodePath("TimeBar")
 health_bar = NodePath("HealthBar")
@@ -19,8 +19,10 @@ time_listener = NodePath("TimeChangeListener")
 health_listener = NodePath("HealthChangeListener")
 
 [node name="TimeBar" type="TextureProgressBar" parent="." unique_id=1928956054]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 6.0
+offset_top = 471.0
+offset_right = 94.0
+offset_bottom = 639.0
 value = 60.0
 fill_mode = 3
 texture_under = ExtResource("2_b41rr")
@@ -28,10 +30,10 @@ texture_over = ExtResource("3_ym3fq")
 texture_progress = ExtResource("4_gebwg")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1076253973]
-offset_left = 93.0
-offset_top = 136.0
-offset_right = 449.0
-offset_bottom = 163.0
+offset_left = 104.0
+offset_top = 604.0
+offset_right = 460.0
+offset_bottom = 631.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_w464l")
 step = 1.0
 value = 21.0
