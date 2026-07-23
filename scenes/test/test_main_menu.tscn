@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://c6tgwxn6vyi1t"]
+
+[ext_resource type="Script" uid="uid://q13ju87fimmv" path="res://scenes/test/test_main_menu.gd" id="1_a8488"]
+[ext_resource type="Texture2D" uid="uid://b3auktx6lhwcf" path="res://assets/placeholder_background.png" id="1_q0bl2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
+bg_color = Color(0.34407574, 0.34407577, 0.3440756, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57qmd"]
+
+[node name="TestMainMenu" type="Control" unique_id=973746356 node_paths=PackedStringArray("play_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a8488")
+play_button = NodePath("Button")
+
+[node name="Background" type="TextureRect" parent="." unique_id=873281861]
+modulate = Color(0.51718444, 0.5171845, 0.51718444, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_q0bl2")
+expand_mode = 1
+
+[node name="Game Title" type="Label" parent="." unique_id=1553049370]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -382.0
+offset_top = 102.0
+offset_right = 384.0
+offset_bottom = 198.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 13
+theme_override_font_sizes/font_size = 70
+text = "Awesome Game Name"
+
+[node name="Button" type="Button" parent="." unique_id=964991383]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 275.0
+offset_right = 674.0
+offset_bottom = 351.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yf5fn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_57qmd")
+text = "Play"
