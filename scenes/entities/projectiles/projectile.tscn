@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq8c1vnhfjykf"]
 
 [ext_resource type="Texture2D" uid="uid://dc6l22uy3gfvf" path="res://assets/placeholder_bullet.png" id="1_c8fcr"]
-[ext_resource type="Script" uid="uid://cv2es8eidtixv" path="res://scenes/projectile.gd" id="1_q3m7n"]
+[ext_resource type="Script" uid="uid://cv2es8eidtixv" path="res://scenes/entities/projectiles/projectile.gd" id="1_q3m7n"]
 
 [node name="Projectile" type="CharacterBody2D" unique_id=1243975335]
 top_level = true
