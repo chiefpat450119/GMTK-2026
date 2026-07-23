@@ -13,5 +13,6 @@ func _ready() -> void:
 	
 func _on_body_entered(body):
 	#as sand is being picked up it adds time I think, then it deletes the item
-	PlayerManager.add_time(pickup_amount)
-	queue_free()
+	if body.is_in_group("Player"):
+		PlayerManager.add_time(pickup_amount)
+		queue_free()

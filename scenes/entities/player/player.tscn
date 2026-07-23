@@ -10,7 +10,7 @@
 radius = 41.0
 height = 162.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1653452240]
+[node name="Player" type="CharacterBody2D" unique_id=1653452240 groups=["Player"]]
 script = ExtResource("1_3vyb7")
 speed = 500.0
 
