@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://jddx10muda0k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="TestPauseMenu" type="Control" unique_id=335478659]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=499242425]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -250.0
+offset_right = 196.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paused Text" type="Label" parent="ColorRect" unique_id=1409511102]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -230.0
+offset_right = 132.0
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 75
+text = "Paused"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=1715666231]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 57.0
+offset_top = 161.0
+offset_right = -57.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Resume Button" type="Button" parent="ColorRect/VBoxContainer" unique_id=661180747]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = "Resume"
+
+[node name="Options Button" type="Button" parent="ColorRect/VBoxContainer" unique_id=1096685955]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = "Options
+"
+
+[node name="Quit Button" type="Button" parent="ColorRect/VBoxContainer" unique_id=1793253822]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_g4v7s")
+text = "Quit"
