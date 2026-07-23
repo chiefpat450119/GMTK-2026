@@ -1,13 +1,36 @@
 [gd_scene format=3 uid="uid://cnt7cah78t0v5"]
 
 [ext_resource type="Script" uid="uid://bcj1uy352fofb" path="res://scenes/player_movement.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder player sprite.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
+[ext_resource type="Script" uid="uid://bytadyaeehtje" path="res://scenes/player_shoot.gd" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://bjte2vr1ia54r" path="res://assets/placeholder_gun_sprite.png" id="4_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/projectile.tscn" id="4_tuyoq"]
 
-[node name="Player" type="Node2D" unique_id=73221101]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 41.0
+height = 162.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1653452240]
+[node name="Player" type="CharacterBody2D" unique_id=1653452240]
 script = ExtResource("1_3vyb7")
 speed = 500.0
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1306389928]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
 texture = ExtResource("2_g2els")
+
+[node name="Gun Body" type="CharacterBody2D" parent="." unique_id=1415299828 node_paths=PackedStringArray("sprite", "bullet_spawn_point")]
+script = ExtResource("3_dqkch")
+sprite = NodePath("Sprite2D")
+bullet_scene = ExtResource("4_tuyoq")
+bullet_spawn_point = NodePath("Bullet Spawn Point")
+
+[node name="Sprite2D" type="Sprite2D" parent="Gun Body" unique_id=31572719]
+position = Vector2(62, -2.861023e-06)
+scale = Vector2(0.52229303, 0.522293)
+texture = ExtResource("4_qlg0r")
+
+[node name="Bullet Spawn Point" type="Node2D" parent="Gun Body" unique_id=723765235]
+position = Vector2(100, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170624263]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_g4v7s")

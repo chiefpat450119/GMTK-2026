@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doul1psrqmff6"
-path="res://.godot/imported/bob.png-69339e5ab0be655c4ada8cc07fe62205.ctex"
+uid="uid://dc6l22uy3gfvf"
+path="res://.godot/imported/placeholder_bullet.png-835712913502096c78efbdc966bcc4a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/bob.png"
-dest_files=["res://.godot/imported/bob.png-69339e5ab0be655c4ada8cc07fe62205.ctex"]
+source_file="res://assets/placeholder_bullet.png"
+dest_files=["res://.godot/imported/placeholder_bullet.png-835712913502096c78efbdc966bcc4a9.ctex"]
 
 [params]
 
