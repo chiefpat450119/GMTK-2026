@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://2e0d2cmqy2ox"]
+
+[ext_resource type="PackedScene" uid="uid://dt2rievpqwg1n" path="res://scenes/ui/hp_time_bar.tscn" id="1_3f0rq"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/player.tscn" id="2_8pjvw"]
+[ext_resource type="PackedScene" uid="uid://pbeg32ow3s31" path="res://scenes/autoload/player_manager.tscn" id="3_62w1y"]
+[ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="4_e3ly1"]
+
+[node name="Main" type="Node2D" unique_id=229503325]
+
+[node name="HpTimeBar" parent="." unique_id=733327054 node_paths=PackedStringArray("health_component", "time_component") instance=ExtResource("1_3f0rq")]
+position = Vector2(25, 467)
+health_component = NodePath("../PlayerManager/HealthComponent")
+time_component = NodePath("../PlayerManager/TimeComponent")
+
+[node name="Player" parent="." unique_id=1653452240 instance=ExtResource("2_8pjvw")]
+position = Vector2(496, 336)
+
+[node name="PlayerManager" parent="." unique_id=1089320958 instance=ExtResource("3_62w1y")]
+
+[node name="TimeComponent" parent="PlayerManager" index="1" unique_id=925432473]
+time_changed_event = ExtResource("4_e3ly1")
+
+[editable path="PlayerManager"]
