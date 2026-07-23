@@ -4,7 +4,7 @@ class_name TimeComponent
 extends Node
 
 @export var max_time: Stat
-@export var time_decay_scale: Stat
+@export var time_decay_scale: Stat  # Measured in seconds (value of time bar) per second (real life)
 
 @onready var time_left := max_time.current_val()
 
