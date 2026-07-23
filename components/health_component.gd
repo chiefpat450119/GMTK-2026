@@ -7,7 +7,7 @@ extends Node
 
 @onready var hp := max_hp.current_val()
 
-@export var hp_changed_event : GameEvent # Use this for players
+@export var hp_changed_event : GameEvent # Use this for players for changes to current and/or max hp
 signal hp_changed_signal # Use this for enemies
 
 func add_hp(amount: float) -> void:
