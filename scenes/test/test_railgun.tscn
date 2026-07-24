@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://railgun_test_scene"]
+
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_railgt"]
+
+[node name="Main" type="Node2D" unique_id=100000001]
+
+[node name="Player" parent="." unique_id=100000002 instance=ExtResource("1_railgt")]
+position = Vector2(496, 336)
+
+[editable path="Player"]
+[editable path="Player/Railgun"]
