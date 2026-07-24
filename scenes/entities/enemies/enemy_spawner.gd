@@ -6,12 +6,13 @@ extends Node
 const spawn_radius: float = 400.0
 
 @export var enemy_scene_ref: PackedScene
+@export var wave_timer: Timer
+@export var wave_changed_event : GameEvent
 
 @export var enemy_pool: Array[EnemySpawnData]
 
-@export var wave_timer: Timer
-
 @onready var budget: int = 10
+
 
 # test spawn -- replace with custom spawning behavior
 func _ready() -> void:
@@ -35,6 +36,7 @@ func spawn_wave():
 	msg += "]"
 	print(msg)
 	increase_budget()
+	wave_changed_event.raise()
 
 #TODO: not this
 func increase_budget():
