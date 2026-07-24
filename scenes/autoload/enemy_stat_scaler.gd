@@ -17,8 +17,6 @@ func _process(delta: float) -> void:
 	_elapsed += delta
 	tick(_elapsed)
 
-# Updates every global enemy stat for the given total elapsed play time (seconds).
-# Each line is that stat's scaling function: the fractional MULT increase at time t.
 func tick(elapsed: float) -> void:
 	_scale(hp_stat, 0.030 * elapsed)     # +3.0% max hp per second
 	_scale(atk_stat, 0.020 * elapsed)    # +2.0% attack per second
