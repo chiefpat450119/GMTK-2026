@@ -10,6 +10,10 @@ const GRAB_RADIUS: float = 24.0
 @export var attract_trans: Tween.TransitionType = Tween.TRANS_CUBIC
 @export var attract_ease: Tween.EaseType = Tween.EASE_IN
 
+# the item shrinks away as it homes in; curve for that shrink
+@export var shrink_trans: Tween.TransitionType = Tween.TRANS_CUBIC
+@export var shrink_ease: Tween.EaseType = Tween.EASE_IN
+
 var _attracting: bool = false
 var _collected: bool = false
 
@@ -33,8 +37,11 @@ func start_attract(player: Player) -> void:
 
 	var tween := create_tween()
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	tween.set_trans(attract_trans).set_ease(attract_ease)
-	tween.tween_method(step, 0.0, 1.0, attract_duration)
+	tween.set_parallel(true)  # home and shrink at the same time
+	tween.tween_method(step, 0.0, 1.0, attract_duration) \
+		.set_trans(attract_trans).set_ease(attract_ease)
+	tween.tween_property(self, "scale", Vector2.ZERO, attract_duration) \
+		.set_trans(shrink_trans).set_ease(shrink_ease)
 	# if the player outran the pull, let it re-home from the new position
 	tween.finished.connect(func() -> void: _attracting = false)
 
