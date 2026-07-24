@@ -43,15 +43,17 @@ func _physics_process(delta: float) -> void:
 
 func shoot():
 	can_fire = false
-	# Spawn bullet
-	var bullet : Bullet = bullet_scene.instantiate()
-	bullet.global_transform = bullet_spawn_point.global_transform
-	bullet.damage = damage_stat.current_val(base_damage + pow(cur_charge_amt, 2))
-	# Add inaccuracy
-	var rng := RandomNumberGenerator.new()
+	# Spawn projectile
+	var projectile : Projectile = projectile_scene.instantiate()
+	get_tree().current_scene.add_child(projectile)
 	var accuracy := accuracy_stat.current_val(base_accuracy)
-	bullet.rotation = rotation + deg_to_rad(rng.randf_range(-accuracy, accuracy))
-	add_child(bullet)
+	projectile.launch(
+		projectile_spawn_point.global_position,
+		global_rotation + deg_to_rad(randf_range(-accuracy, accuracy)),
+		Projectile.Team.PLAYER,
+		damage_stat.current_val(base_damage + pow(cur_charge_amt, 2)),
+		base_penetration,
+	)
 	
 	# Fire cooldown
 	sprite.modulate = Color(0.198, 0.198, 0.198, 1.0)
