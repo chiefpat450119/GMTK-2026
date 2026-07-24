@@ -14,8 +14,10 @@ enum Team { PLAYER, ENEMY }
 
 var team: Team = Team.PLAYER
 var damage: float
+var penetration: int = 0
 
 var _velocity := Vector2.ZERO
+var _spent_on: Array[Node2D] = []
 
 
 func _ready() -> void:
@@ -26,11 +28,12 @@ func _ready() -> void:
 
 ## Places, aims and arms the projectile. Call once, right after adding it to the
 ## tree. Damage is the final rolled number — the projectile applies it as given.
-func launch(from: Vector2, angle: float, fired_by: Team, dmg: float) -> void:
+func launch(from: Vector2, angle: float, fired_by: Team, dmg: float, pierce: int = 0) -> void:
 	global_position = from
 	global_rotation = angle
 	team = fired_by
 	damage = dmg
+	penetration = pierce
 	_velocity = Vector2(speed, 0).rotated(angle)
 
 	# Target filtering: mask in the opposing team only, so a projectile is
@@ -48,6 +51,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if body in _spent_on:
+		return
+	_spent_on.append(body)
+
 	# The mask already guarantees body is a valid target, so anything with a
 	# damageable pool takes the hit regardless of its concrete type. Enemies
 	# spend health; the player spends time.
@@ -59,4 +66,9 @@ func _on_body_entered(body: Node2D) -> void:
 		if time:
 			time.remove_time(damage)
 
-	queue_free()
+	# A body with no damageable pool still soaks a pierce — it blocked the shot
+	# either way.
+	if penetration <= 0:
+		queue_free()
+	else:
+		penetration -= 1

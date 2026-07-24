@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var base_fire_cooldown : float
 @export var base_accuracy : float
 @export var base_cost : float
+@export var base_penetration : int = 0
 
 @export_category("Player Weapon Stats")
 @export var damage_stat : Stat
@@ -62,4 +63,5 @@ func _spawn_projectile():
 		global_rotation + deg_to_rad(randf_range(-accuracy, accuracy)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage),
+		base_penetration,
 	)
