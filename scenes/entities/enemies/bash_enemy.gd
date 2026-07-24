@@ -106,4 +106,4 @@ func _update_bash() -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body is Player:
-		hit(1)
+		hit(9.28125)

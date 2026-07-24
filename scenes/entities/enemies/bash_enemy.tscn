@@ -7,11 +7,13 @@
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="4_5ajpc"]
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="5_o334c"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
+[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="8_u55qa"]
+[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="9_f05rv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk")]
+[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
 script = ExtResource("1_txa1i")
 attack_interval = 1.0
 charge_time = 0.75
@@ -26,6 +28,7 @@ sprite = NodePath("Sprite2D")
 hurtbox = NodePath("Area2D")
 movement = NodePath("MovementComponent")
 atk = NodePath("AtkComponent")
+hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=853140976]
@@ -36,13 +39,19 @@ texture = ExtResource("2_d5vmj")
 script = ExtResource("3_1d37s")
 body = NodePath("..")
 speed_stat = ExtResource("4_5ajpc")
-base_speed = 600.0
+base_speed = 550.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
 [node name="AtkComponent" type="Node" parent="." unique_id=692120435]
 script = ExtResource("5_o334c")
 atk_stat = ExtResource("6_4gxjr")
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1932891258]
+script = ExtResource("8_u55qa")
+max_hp = ExtResource("9_f05rv")
+base_hp = 27.0
+metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=955698249]
 monitoring = false

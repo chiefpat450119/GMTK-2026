@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var player = Player.instance
 @export var movement: MovementComponent
 @export var atk: AtkComponent
+@export var hp: HealthComponent
 
 func move_towards_player(speed_mul: float):
 	movement.move(get_to_player_vec().normalized() * speed_mul)
