@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ckjn56w55dgq1"]
+
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_flah2"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy.tscn" id="2_0ys45"]
+[ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy.tscn" id="3_1aolq"]
+[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy.tscn" id="4_ursbe"]
+
+[node name="WinterTestScene" type="Node2D" unique_id=512743553]
+
+[node name="Player" parent="." unique_id=1339333072 instance=ExtResource("1_flah2")]
+position = Vector2(532, 33)
+
+[node name="MeleeEnemy" parent="." unique_id=2072227410 instance=ExtResource("2_0ys45")]
+accel_time = 0.2
+
+[node name="ShooterEnemy" parent="." unique_id=1808921831 instance=ExtResource("3_1aolq")]
+position = Vector2(77, 333)
+
+[node name="BashEnemy" parent="." unique_id=43920097 instance=ExtResource("4_ursbe")]
+position = Vector2(600, 399)

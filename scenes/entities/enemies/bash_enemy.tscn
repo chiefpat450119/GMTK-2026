@@ -9,12 +9,14 @@
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="8_u55qa"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="9_f05rv"]
+[ext_resource type="PackedScene" uid="uid://bjpwo0ik7dkvf" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="10_fskrf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
+[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("health_component", "sprite", "hurtbox", "movement", "atk", "hp")]
 script = ExtResource("1_txa1i")
+health_component = NodePath("HealthComponent")
 attack_interval = 1.0
 charge_time = 0.75
 bash_duration = 0.5
@@ -59,3 +61,6 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_hitbx")
+
+[node name="HealthGauge" parent="." unique_id=1640253679 instance=ExtResource("10_fskrf")]
+position = Vector2(1, 47)

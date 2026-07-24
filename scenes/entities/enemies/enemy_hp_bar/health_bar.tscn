@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bjpwo0ik7dkvf"]
+
+[ext_resource type="Script" uid="uid://bbdwgiu1otevh" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.gd" id="1_soll8"]
+[ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar_meter.tscn" id="2_3lj45"]
+
+[node name="HealthGauge" type="Node2D" unique_id=1640253679]
+script = ExtResource("1_soll8")
+
+[node name="HealthBar" parent="." unique_id=220369966 instance=ExtResource("2_3lj45")]
+offset_left = -97.0
+offset_top = 6.0
+offset_right = 98.5
+offset_bottom = 33.0

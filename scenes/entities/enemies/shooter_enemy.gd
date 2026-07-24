@@ -15,6 +15,8 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @export var accel_time: float  # Seconds to reach full speed
 @export var decel_time: float  # Seconds to coast to a stop
 
+@export var health_component : HealthComponent #health details, used in hp bar
+
 @onready var shoot_cooldown := Cooldown.new(shoot_interval)
 @onready var wait_period := Cooldown.new(wait_interval)
 @onready var base_scale_y: float = sprite.scale.y

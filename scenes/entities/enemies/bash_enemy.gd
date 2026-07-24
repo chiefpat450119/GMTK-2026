@@ -6,6 +6,8 @@ const ROTATION_SPEED := 12.0  # Radians per second the body turns to face the pl
 const CHARGE_SQUASH := 0.6  # Sprite scale.y multiplier at the end of the wind-up
 const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fires
 
+@export var health_component : HealthComponent #health details, used in hp bar
+
 @export var attack_interval: float  # Seconds between attacks
 @export var charge_time: float  # Wind-up before the bash fires
 @export var bash_duration: float  # How long the bash travels for

@@ -17,6 +17,8 @@ const HIT_RECOVER := 0.18  # Seconds for the sprite to spring back after the squ
 @export var sprite: Sprite2D
 @export var hurtbox: Area2D
 
+@export var health_component : HealthComponent #health details, used in hp bar
+
 @onready var base_scale_y: float = sprite.scale.y
 @onready var attack_cd := Cooldown.new(attack_interval)
 @onready var hitstop := Cooldown.new(HITSTOP_TIME)

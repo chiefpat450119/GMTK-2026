@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://y3u6w8i67cnw"]
+
+[ext_resource type="Script" uid="uid://culquym2py6sp" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar_meter.gd" id="1_tjucg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqww6"]
+bg_color = Color(1, 0.14509805, 0.105882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_soll8"]
+bg_color = Color(0, 0.92704445, 0.27637824, 1)
+
+[node name="HealthBar" type="ProgressBar" unique_id=220369966]
+offset_left = -98.0
+offset_right = 97.5
+offset_bottom = 27.0
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.25, 0.25)
+offset_transform_visual_only = false
+theme_override_styles/background = SubResource("StyleBoxFlat_nqww6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_soll8")
+value = 100.0
+show_percentage = false
+script = ExtResource("1_tjucg")
