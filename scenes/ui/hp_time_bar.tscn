@@ -15,8 +15,10 @@ time_listener = NodePath("TimeChangeListener")
 health_listener = NodePath("")
 
 [node name="TimeBar" type="TextureProgressBar" parent="." unique_id=1928956054]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 6.0
+offset_top = 471.0
+offset_right = 94.0
+offset_bottom = 639.0
 value = 60.0
 fill_mode = 3
 texture_under = ExtResource("2_b41rr")
