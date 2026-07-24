@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_7643e")
 stat_name = "Dash Speed"
-base_val = 750.0
+base_val = 1500.0
 metadata/_custom_type_script = "uid://bnaam37pn33wi"
