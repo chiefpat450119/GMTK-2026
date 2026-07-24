@@ -32,5 +32,3 @@ func _physics_process(_delta: float) -> void:
 	elif Input.get_vector("Left", "Right", "Up", "Down") == Vector2.RIGHT:
 		sprite.flip_h = false
 	
-	if Input.is_action_pressed("M1"):
-		gun.shoot()
