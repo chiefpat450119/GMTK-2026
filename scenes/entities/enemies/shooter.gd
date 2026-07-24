@@ -1,5 +1,3 @@
-# Kites the player at range and fires the player's projectile on an interval.
-
 class_name ShooterEnemy
 extends Enemy
 
@@ -11,8 +9,8 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @export var projectile_scene: PackedScene
 @export var min_range: float  # Backs away from the player inside this
 @export var max_range: float  # Closes on the player outside this
-
 @export var sprite: Sprite2D
+@export var range_stat: Stat
 
 @onready var shoot_cooldown := Cooldown.new(shoot_interval)
 @onready var base_scale_y: float = sprite.scale.y
@@ -29,9 +27,9 @@ func _physics_process(delta: float) -> void:
 	global_rotation = dir.angle()
 
 	var dist := dir.length()
-	if dist < min_range:
+	if dist < range_stat.current_val(min_range):
 		movement.move(-dir.normalized())
-	elif dist > max_range:
+	elif dist > range_stat.current_val(max_range):
 		move_towards_player(1)
 
 	if shoot_cooldown.is_done():
@@ -55,7 +53,6 @@ func _shoot(dir: Vector2) -> void:
 		.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 
-# Squashes the sprite through the back half of the interval to telegraph the shot
 func _update_tell() -> void:
 	var elapsed := shoot_interval - shoot_cooldown.time_left
 	var progress := remap(maxf(elapsed - shoot_interval / 2.0, 0.0), 0.0, shoot_interval, 0.0, 1.0)

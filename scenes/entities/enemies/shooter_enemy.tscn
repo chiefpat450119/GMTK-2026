@@ -1,15 +1,18 @@
 [gd_scene format=3 uid="uid://dsh7ter2enmy0"]
 
-[ext_resource type="Script" path="res://scenes/entities/enemies/shooter.gd" id="1_shoot"]
+[ext_resource type="Script" uid="uid://bxuivfn5rjpl5" path="res://scenes/entities/enemies/shooter.gd" id="1_shoot"]
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="2_proj"]
-[ext_resource type="Texture2D" path="res://assets/circle.png" id="3_circ"]
+[ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="3_4vgcu"]
+[ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="3_circ"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="4_move"]
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="5_spd"]
+[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="7_wkf7c"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="8_mp4f3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57j2f"]
 radius = 212.116
 
-[node name="ShooterEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "movement")]
+[node name="ShooterEnemy" type="CharacterBody2D" unique_id=1808921831 node_paths=PackedStringArray("sprite", "movement", "atk")]
 modulate = Color(0.788235, 0.054902, 0.054902, 1)
 script = ExtResource("1_shoot")
 shoot_interval = 0.9
@@ -17,19 +20,26 @@ projectile_scene = ExtResource("2_proj")
 min_range = 300.0
 max_range = 331.66
 sprite = NodePath("Sprite")
+range_stat = ExtResource("3_4vgcu")
 movement = NodePath("MovementComponent")
+atk = NodePath("AtkComponent")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1537934886]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_circ")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=659060551]
 scale = Vector2(0.25, 0.25)
 shape = SubResource("CircleShape2D_57j2f")
 
-[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
+[node name="MovementComponent" type="Node" parent="." unique_id=1173517490 node_paths=PackedStringArray("body")]
 script = ExtResource("4_move")
 body = NodePath("..")
 speed_stat = ExtResource("5_spd")
 base_speed = 500.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
+[node name="AtkComponent" type="Node" parent="." unique_id=930794024]
+script = ExtResource("7_wkf7c")
+atk_stat = ExtResource("8_mp4f3")
+metadata/_custom_type_script = "uid://c1mak22ii3tpp"

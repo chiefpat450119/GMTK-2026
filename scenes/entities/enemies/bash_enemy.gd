@@ -1,6 +1,3 @@
-# Closes on the player, winds up, then bashes in a locked direction.
-# Only deals damage while the bash is travelling.
-
 class_name MeleeEnemy
 extends Enemy
 
