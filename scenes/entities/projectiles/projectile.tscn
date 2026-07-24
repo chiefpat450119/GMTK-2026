@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cq8c1vnhfjykf"]
+[gd_scene format=3 uid="uid://b311f33eueqkp"]
 
 [ext_resource type="Texture2D" uid="uid://dc6l22uy3gfvf" path="res://assets/placeholder_bullet.png" id="1_c8fcr"]
-[ext_resource type="Script" uid="uid://cv2es8eidtixv" path="res://scenes/entities/projectiles/projectile.gd" id="1_q3m7n"]
+[ext_resource type="Script" path="res://scenes/entities/projectiles/projectile.gd" id="1_q3m7n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_auv7j"]
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://sqhjwk7e6goh"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_mwddq"]
+
+[resource]
+script = ExtResource("1_mwddq")
+stat_name = "Damage Modifier"
+metadata/_custom_type_script = "uid://bnaam37pn33wi"

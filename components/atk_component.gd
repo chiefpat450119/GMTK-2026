@@ -3,5 +3,5 @@ extends Node
 
 @export var atk_stat: Stat
 
-func attack(damage: float, target: HealthComponent):
-	target.remove_hp(atk_stat.current_val(damage))
+func attack(damage: float, target: TimeComponent):
+	target.remove_time(atk_stat.current_val(damage))
