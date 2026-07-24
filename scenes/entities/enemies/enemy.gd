@@ -26,6 +26,8 @@ func accelerate_towards_player(speed_mul: float, accel_time: float, decel_time: 
 	accelerate(get_to_player_vec(), speed_mul, accel_time, decel_time, delta)
 
 func get_to_player_vec() -> Vector2:
+	if player == null:
+		return Vector2.ZERO
 	return player.global_position - global_position
 
 func get_player_pos() -> Vector2:

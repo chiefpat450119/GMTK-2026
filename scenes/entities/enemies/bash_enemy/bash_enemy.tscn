@@ -10,11 +10,11 @@
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="8_u55qa"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="9_f05rv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
-size = Vector2(140, 112)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
+size = Vector2(140, 112)
 
 [node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
 collision_layer = 2
@@ -65,7 +65,6 @@ metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=955698249]
 collision_layer = 0
-collision_mask = 1
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
