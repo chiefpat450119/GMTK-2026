@@ -33,4 +33,3 @@ func get_player_pos() -> Vector2:
 
 func hit(damage: float):
 	atk.attack(damage, player.time_component)
-	# print(player.time_component.time_left)
