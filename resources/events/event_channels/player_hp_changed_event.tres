@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="GameEvent" format=3 uid="uid://udrqunq3d2gv"]
-
-[ext_resource type="Script" uid="uid://c7ebnviskdre8" path="res://resources/events/game_event.gd" id="1_is5rs"]
-
-[resource]
-script = ExtResource("1_is5rs")
-metadata/_custom_type_script = "uid://c7ebnviskdre8"
