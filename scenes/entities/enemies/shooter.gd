@@ -6,15 +6,19 @@ const RECOIL_STRETCH := 1.6  # Sprite scale.y multiplier the moment the shot lea
 const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 
 @export var shoot_interval: float  # Seconds between shots
+@export var wait_interval: float # Seconds after shooting where it doesnt move
 @export var projectile_scene: PackedScene
 @export var min_range: float  # Backs away from the player inside this
 @export var max_range: float  # Closes on the player outside this
 @export var sprite: Sprite2D
 @export var range_stat: Stat
+@export var accel: float
 
 @onready var shoot_cooldown := Cooldown.new(shoot_interval)
+@onready var wait_period := Cooldown.new(wait_interval)
 @onready var base_scale_y: float = sprite.scale.y
 
+var move_dir: Vector2
 
 func _ready() -> void:
 	shoot_cooldown.start()
@@ -22,20 +26,23 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	shoot_cooldown.tick(delta)
+	wait_period.tick(delta)
 
 	var dir := get_to_player_vec()
 	global_rotation = dir.angle()
 
-	var dist := dir.length()
-	if dist < range_stat.current_val(min_range):
-		movement.move(-dir.normalized())
-	elif dist > range_stat.current_val(max_range):
-		move_towards_player(1)
-
 	if shoot_cooldown.is_done():
 		_shoot(dir)
-	else:
+		wait_period.start()
+	elif (not wait_period.is_started()) or wait_period.is_done():
 		_update_tell()
+		wait_period.stop()
+
+		var dist := dir.length()
+		if dist < range_stat.current_val(min_range):
+			movement.move(-dir.normalized())
+		elif dist > range_stat.current_val(max_range):
+			move_towards_player(1)
 
 
 func _shoot(dir: Vector2) -> void:

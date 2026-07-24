@@ -9,13 +9,11 @@
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="7_wkf7c"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="8_mp4f3"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_57j2f"]
-radius = 212.116
-
 [node name="ShooterEnemy" type="CharacterBody2D" unique_id=1808921831 node_paths=PackedStringArray("sprite", "movement", "atk")]
 modulate = Color(0.788235, 0.054902, 0.054902, 1)
 script = ExtResource("1_shoot")
-shoot_interval = 0.9
+shoot_interval = 4.0
+wait_interval = 0.5
 projectile_scene = ExtResource("2_proj")
 min_range = 300.0
 max_range = 331.66
@@ -27,10 +25,6 @@ atk = NodePath("AtkComponent")
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1537934886]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_circ")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=659060551]
-scale = Vector2(0.25, 0.25)
-shape = SubResource("CircleShape2D_57j2f")
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1173517490 node_paths=PackedStringArray("body")]
 script = ExtResource("4_move")
