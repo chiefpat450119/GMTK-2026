@@ -9,7 +9,6 @@ extends CharacterBody2D
 
 static var instance: Player
 
-@export var health_component : HealthComponent
 @export var time_component : TimeComponent
 @export var movement_component : MovementComponent
 @export var gun : Gun
@@ -58,3 +57,4 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_pressed("M1"):
 		gun.shoot()
+	print(time_component.time_left)
