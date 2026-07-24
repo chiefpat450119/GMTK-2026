@@ -38,10 +38,11 @@ func _physics_process(_delta: float) -> void:
 	else:
 		sprite.z_index = 3
 
-	if Input.is_action_pressed("M1"):
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("M1"):
 		shoot()
 
-func shoot():
+func shoot() -> void:
 	if not can_fire:
 		return
 
@@ -53,7 +54,7 @@ func shoot():
 	await get_tree().create_timer(firerate_stat.current_val(base_fire_cooldown)).timeout
 	can_fire = true
 
-func _spawn_projectile():
+func _spawn_projectile() -> void:
 	var projectile : Projectile = projectile_scene.instantiate()
 
 	# Parented to the scene, not the gun, so shots keep flying independently of

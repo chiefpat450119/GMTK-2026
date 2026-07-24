@@ -1,52 +1,35 @@
 class_name Railgun
 extends Gun
 
-@export var charge_time : float
 @export var max_charge_amount : float
 @export var charge_rate : float
 
-var cur_charge_amt : float = 0
+var cur_charge_amt : float = 0.0
 var is_charging : bool = false
 
-
 func _physics_process(delta: float) -> void:
-	look_at(get_global_mouse_position())
+	super._physics_process(delta)
 
-	if abs(rad_to_deg(transform.get_rotation())) > 90:
-		sprite.flip_v = true
-	else:
-		sprite.flip_v = false
-	
-	# Makes the gun look like it's rotating around the player in 3D space
-	var left_threshold := -45
-	var right_threshold := -135
-	if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
-		sprite.z_index = 1
-	else:
-		sprite.z_index = 3
-	
-	# Holding left click charges up railgun
-	if Input.is_action_pressed("M1") and can_fire:
-		sprite.modulate = Color.RED
+	if is_charging and can_fire:
+		cur_charge_amt = minf(cur_charge_amt + charge_rate * delta, max_charge_amount)
+		Player.instance.time_component.remove_time(base_cost * delta)
+		sprite.modulate = Color.RED.lerp(Color.WHITE, 1.0 - (cur_charge_amt / max_charge_amount))
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("M1") and can_fire:
 		is_charging = true
-		print("Railgun charge amt: " + str(cur_charge_amt))
-		cur_charge_amt += charge_rate * delta
-		Player.instance.time_component.remove_time(base_cost)
-		if cur_charge_amt >= max_charge_amount:
-			cur_charge_amt = max_charge_amount
-	
-	# Releasing left click while charging fires the railgun
-	if is_charging == true and Input.is_action_just_released("M1"):
+
+	if event.is_action_released("M1") and is_charging:
 		is_charging = false
 		var charge := cur_charge_amt
-		cur_charge_amt = 0
+		cur_charge_amt = 0.0
 		shoot(charge)
 
-func shoot(charge: float = 0.0):
+func shoot(charge: float = 0.0) -> void:
 	if not can_fire:
 		return
+
 	can_fire = false
-	# Spawn projectile
 	var projectile : Projectile = projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
 	var accuracy := accuracy_stat.current_val(base_accuracy)
@@ -57,7 +40,7 @@ func shoot(charge: float = 0.0):
 		damage_stat.current_val(base_damage + pow(charge, 2)),
 		base_penetration,
 	)
-	
+
 	# Fire cooldown
 	sprite.modulate = Color(0.198, 0.198, 0.198, 1.0)
 	await get_tree().create_timer(firerate_stat.current_val(base_fire_cooldown)).timeout

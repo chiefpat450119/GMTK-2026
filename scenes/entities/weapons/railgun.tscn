@@ -9,7 +9,6 @@
 
 [node name="Railgun" type="CharacterBody2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_2j11h")
-charge_time = 2.0
 max_charge_amount = 5.0
 charge_rate = 1.0
 sprite = NodePath("Sprite2D")
