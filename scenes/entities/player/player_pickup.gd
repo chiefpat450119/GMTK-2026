@@ -1,0 +1,23 @@
+class_name PlayerPickup
+extends Node
+
+@onready var player := Player.instance
+@export var pickup_range: Stat
+
+func _physics_process(delta: float) -> void:
+	if player == null or Collectable.all.is_empty():
+		return
+
+	var range_val := pickup_range.current_val()
+	var range_sq := range_val * range_val
+	var grab_sq := Collectable.GRAB_RADIUS * Collectable.GRAB_RADIUS
+	var pos := player.global_position
+
+	# iterate backwards: collect() erases from the array in place
+	for i in range(Collectable.all.size() - 1, -1, -1):
+		var c := Collectable.all[i]
+		var dist_sq := pos.distance_squared_to(c.global_position)
+		if dist_sq <= grab_sq:
+			c.collect(player)
+		elif dist_sq <= range_sq:
+			c.attract_toward(pos, delta)
