@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bi6nqki2ayhyj"]
 
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_ia5xm"]
-[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy.tscn" id="4_xvwyp"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="4_xvwyp"]
 
 [node name="WinterTestScene" type="Node2D" unique_id=512743553]
 
