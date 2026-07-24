@@ -8,28 +8,50 @@
 [ext_resource type="Script" uid="uid://7e4yn3vgx3tj" path="res://scenes/entities/enemies/boss/boss_attack_state.gd" id="5_brypa"]
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="5_jm5c0"]
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="6_au3wl"]
+[ext_resource type="Script" uid="uid://dxixpb5jluxll" path="res://scenes/entities/enemies/boss/boss_charge_state.gd" id="6_jm5c0"]
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_oxis1"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="10_t78gy"]
+[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="11_au3wl"]
+[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="11_lq6h1"]
 
-[node name="Boss" type="CharacterBody2D" unique_id=1948960875]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbiil"]
+radius = 62.39391
+
+[node name="Boss" type="CharacterBody2D" unique_id=1948960875 node_paths=PackedStringArray("movement", "atk", "hp")]
 script = ExtResource("1_nnnbu")
+movement = NodePath("MovementComponent")
+atk = NodePath("AtkComponent")
+hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://t6dhj0sncyou"
 
-[node name="StateMachine" type="Node" parent="." unique_id=1717258978]
+[node name="StateMachine" type="Node" parent="." unique_id=1717258978 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_oxis1")
+initial_state = NodePath("Selector state")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
-[node name="Move state" type="Node" parent="StateMachine" unique_id=1826993586]
+[node name="Move state" type="Node" parent="StateMachine" unique_id=1826993586 node_paths=PackedStringArray("enemy", "selector_state")]
 script = ExtResource("3_d1okg")
+enemy = NodePath("../..")
+selector_state = NodePath("../Selector state")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
 [node name="Selector state" type="Node" parent="StateMachine" unique_id=1794602852 node_paths=PackedStringArray("state_pool")]
 script = ExtResource("4_d1okg")
-state_pool = [NodePath("../Move state"), NodePath("../BossAttackState")]
+state_pool = [NodePath("../Move state"), NodePath("../BossAttackState"), NodePath("../BossChargeState")]
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="BossAttackState" type="Node" parent="StateMachine" unique_id=1127751991]
+[node name="BossAttackState" type="Node" parent="StateMachine" unique_id=1127751991 node_paths=PackedStringArray("selector_state")]
 script = ExtResource("5_brypa")
+selector_state = NodePath("../Selector state")
 metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
+
+[node name="BossChargeState" type="Node" parent="StateMachine" unique_id=1959573494 node_paths=PackedStringArray("enemy", "selector_state", "charge_movement", "sprite")]
+script = ExtResource("6_jm5c0")
+enemy = NodePath("../..")
+selector_state = NodePath("../Selector state")
+charge_movement = NodePath("../../ChareMovementComponent")
+sprite = NodePath("../../Sprite2D")
+metadata/_custom_type_script = "uid://dxixpb5jluxll"
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1155189143 node_paths=PackedStringArray("body")]
 script = ExtResource("4_brypa")
@@ -38,10 +60,30 @@ speed_stat = ExtResource("5_jm5c0")
 base_speed = 300.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
+[node name="ChareMovementComponent" type="Node" parent="." unique_id=364841896 node_paths=PackedStringArray("body")]
+script = ExtResource("4_brypa")
+body = NodePath("..")
+speed_stat = ExtResource("5_jm5c0")
+base_speed = 1000.0
+metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
 [node name="AtkComponent" type="Node" parent="." unique_id=1346485908]
 script = ExtResource("6_au3wl")
+atk_stat = ExtResource("10_t78gy")
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="Area2D" type="Area2D" parent="AtkComponent" unique_id=1272771921]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AtkComponent/Area2D" unique_id=1538656822]
+shape = SubResource("CircleShape2D_lbiil")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1870361976]
 script = ExtResource("7_oxis1")
+max_hp = ExtResource("11_lq6h1")
+base_hp = 100.0
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=201307250]
+scale = Vector2(0.29814816, 0.1388889)
+texture = ExtResource("11_au3wl")

@@ -3,17 +3,17 @@ extends Node
 
 var sm : StateMachine
 
-signal on_enter()
-signal on_exit()
+signal state_entered()
+signal state_exited()
 
 func initialize(machine: StateMachine):
 	sm = machine
 
 func enter():
-	on_enter.emit()
+	state_entered.emit()
 
 func exit():
-	on_exit.emit()
+	state_exited.emit()
 
 func tick(_delta: float):
 	pass
