@@ -34,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	attack_cooldown.tick(delta)
 	charge_timer.tick(delta)
 	bash_timer.tick(delta)
+	
 
 	look_at(get_player_pos())
 
@@ -44,6 +45,9 @@ func _physics_process(delta: float) -> void:
 	var dir := get_to_player_vec()
 	if charge_timer.is_started():
 		_update_charge(dir)
+		return
+
+	if attack_cooldown.is_started() and not attack_cooldown.is_done():
 		return
 
 	if attack_cooldown.is_done() and dir.length() < attack_range:
