@@ -11,7 +11,7 @@ const spawn_radius : float = 400.0
 # test spawn -- replace with custom spawning behavior
 func _ready() -> void:
 	for i in range(7):
-		print(spawn(enemy_scene_ref).name)
+		spawn(enemy_scene_ref)
 
 func spawn(enemy_scene : PackedScene) -> Enemy:
 	# instantiate enemy 
