@@ -14,6 +14,7 @@ size = Vector2(140, 112)
 
 [node name="MeleeEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
 script = ExtResource("1_pi613")
+attack_interval = 1.0
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")

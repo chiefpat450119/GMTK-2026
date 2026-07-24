@@ -9,3 +9,4 @@
 position = Vector2(532, 33)
 
 [node name="MeleeEnemy" parent="." unique_id=2072227410 instance=ExtResource("4_xvwyp")]
+accel_time = 0.2

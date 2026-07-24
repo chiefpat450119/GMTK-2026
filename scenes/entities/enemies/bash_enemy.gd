@@ -1,6 +1,7 @@
 class_name BashEnemy
 extends Enemy
 
+const HIT_DAMAGE := 9.28125  # Damage dealt when the bash connects (before global atk mods)
 const ROTATION_SPEED := 12.0  # Radians per second the body turns to face the player
 const CHARGE_SQUASH := 0.6  # Sprite scale.y multiplier at the end of the wind-up
 const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fires
@@ -106,4 +107,4 @@ func _update_bash() -> void:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body is Player:
-		hit(9.28125)
+		hit(HIT_DAMAGE)
