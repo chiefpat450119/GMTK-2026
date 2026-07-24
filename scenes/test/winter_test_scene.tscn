@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bi6nqki2ayhyj"]
 
+[ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="1_uwv7y"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_ia5xm"]
 [ext_resource type="Script" uid="uid://b8pv5xkvrpcss" path="res://utils/camera_follow.gd" id="2_xvwyp"]
 [ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="3_uwv7y"]
@@ -8,6 +9,8 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_n1ogh"]
 
 [node name="WinterTestScene" type="Node2D" unique_id=512743553]
+
+[node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("1_uwv7y")]
 
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("2_ia5xm")]
 position = Vector2(532, 33)
