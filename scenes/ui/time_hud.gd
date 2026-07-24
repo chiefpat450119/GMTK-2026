@@ -10,21 +10,6 @@ const REMAINDER_EPSILON := 0.01
 @export var units_per_segment: int = 10
 ## Seconds the readout takes to roll up to a newly gained value.
 @export var count_duration: float = 0.4
-## A rise of at least this much reads as time gained rather than a wobble, and
-## triggers the roll-up plus the gear and hourglass reaction.
-@export var gain_threshold: float = 0.5
-## Seconds the gear and hourglass reaction takes.
-@export var flourish_duration: float = 0.5
-## Degrees the gear ratchets forward per unit of time gained.
-@export var gear_degrees_per_unit: float = 8.0
-## Ceiling on a single ratchet, so a huge pickup doesn't whip the gear around.
-@export var gear_max_degrees: float = 120.0
-## How far the gear kicks back before settling, as a fraction of its swing.
-@export var gear_recoil: float = 0.35
-## Hourglass rock, as a fraction of the gear's swing.
-@export var hourglass_swing: float = 0.3
-## Seconds the hourglass lags behind the gear.
-@export var hourglass_stagger: float = 0.07
 
 @export var gear: Control
 @export var hourglass: Control
@@ -42,19 +27,10 @@ var _shown_whole: int = -1
 var _roll_from: float = 0.0
 var _rolling: bool = false
 var _synced: bool = false
-
-var _gear_rest: float = 0.0
-var _hourglass_rest: float = 0.0
-
 var _roll_tween: Tween
-var _gear_tween: Tween
-var _hourglass_tween: Tween
 
 
 func _ready() -> void:
-	_gear_rest = gear.rotation
-	_hourglass_rest = hourglass.rotation
-
 	time_listener.response.connect(_on_time_changed)
 	# The player enters the tree alongside this, so take the opening reading late.
 	call_deferred("_on_time_changed")
@@ -79,7 +55,7 @@ func _on_time_changed() -> void:
 		# First reading: snap, so the HUD doesn't roll up from zero on spawn.
 		_synced = true
 		_apply(_target)
-	elif _target - previous >= gain_threshold:
+	elif _target - previous >= 1:
 		_add_time(_target - previous)
 	elif not _rolling:
 		# Decay arrives as a stream of small decreases, which just track. While
@@ -148,8 +124,7 @@ func _add_time(amount: float) -> void:
 		return
 
 	_roll_readout()
-	_kick_gear(amount)
-	_rock_hourglass(amount)
+	_play_mechanism()
 
 
 # Interpolates a 0..1 weight rather than a fixed end value, so decay landing
@@ -184,42 +159,26 @@ func _apply(value: float) -> void:
 		hourglassLabel.text = str(whole)
 
 
-# Ratchet forward, hold, kick back, then settle forward again. The gear keeps
-# whatever angle it lands on, so it visibly winds on across a run.
-func _kick_gear(amount: float) -> void:
-	var swing := _swing(amount)
-	_gear_rest += swing
+func _play_mechanism() -> void:
+	var gear_tween := create_tween()
+	var hourglass_tween := create_tween()
 
-	_gear_tween = _restart(_gear_tween)
-	_gear_tween.tween_property(gear, "rotation", _gear_rest, flourish_duration * 0.45) \
-		.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	_gear_tween.tween_interval(flourish_duration * 0.1)
-	_gear_tween.tween_property(gear, "rotation", _gear_rest - swing * gear_recoil, flourish_duration * 0.25) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_gear_tween.tween_property(gear, "rotation", _gear_rest, flourish_duration * 0.4) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	hourglass_tween.tween_property(hourglass, "offset_transform_rotation", deg_to_rad(16), 0.1) \
+			.set_ease(Tween.EASE_OUT)
 
+	hourglass_tween.tween_property(hourglass, "offset_transform_rotation", deg_to_rad(145), 0.15) \
+			.set_delay(0.1) \
+			.set_ease(Tween.EASE_IN_OUT)
 
-# Lags the gear, counter-rotates on the first beat, then swings with it and
-# settles upright — an hourglass left tilted would read as broken.
-func _rock_hourglass(amount: float) -> void:
-	var swing := _swing(amount) * hourglass_swing
+	hourglass_tween.tween_property(hourglass, "offset_transform_rotation", deg_to_rad(-16), 0.3) \
+			.set_delay(0.15) \
+			.set_ease(Tween.EASE_OUT) \
+			.set_trans(Tween.TRANS_BACK)
 
-	_hourglass_tween = _restart(_hourglass_tween)
-	_hourglass_tween.tween_interval(hourglass_stagger)
-	_hourglass_tween.tween_property(hourglass, "rotation", _hourglass_rest - swing, flourish_duration * 0.35) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	_hourglass_tween.tween_property(hourglass, "rotation", _hourglass_rest + swing * 0.6, flourish_duration * 0.3) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_hourglass_tween.tween_property(hourglass, "rotation", _hourglass_rest, flourish_duration * 0.5) \
-		.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
-
-
-# Radians to swing for a given time delta. Signed, so spending time runs the
-# whole flourish backwards.
-func _swing(amount: float) -> float:
-	var degrees := minf(absf(amount) * gear_degrees_per_unit, gear_max_degrees)
-	return deg_to_rad(degrees) * signf(amount)
+	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(20), 0.1)
+	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(0), 0.15)
+	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(-40), 0.2).set_delay(0.1)
+	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(0), 0.2).set_delay(0.15).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
 
 # Tweens are per-channel; a second pickup mid-animation restarts its own without
