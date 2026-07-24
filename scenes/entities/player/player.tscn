@@ -15,6 +15,7 @@ script = ExtResource("1_3vyb7")
 speed = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
+z_index = 2
 texture = ExtResource("2_g2els")
 
 [node name="Gun Body" type="CharacterBody2D" parent="." unique_id=1415299828 node_paths=PackedStringArray("sprite", "bullet_spawn_point")]
@@ -24,6 +25,7 @@ bullet_scene = ExtResource("4_tuyoq")
 bullet_spawn_point = NodePath("Bullet Spawn Point")
 
 [node name="Sprite2D" type="Sprite2D" parent="Gun Body" unique_id=31572719]
+z_index = 3
 position = Vector2(62, -2.861023e-06)
 scale = Vector2(0.52229303, 0.522293)
 texture = ExtResource("4_qlg0r")

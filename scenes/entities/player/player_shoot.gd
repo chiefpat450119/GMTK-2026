@@ -15,9 +15,9 @@ func _physics_process(delta: float) -> void:
 	
 	# Makes the gun look like it's rotating around the player in 3D space
 	if rad_to_deg(transform.get_rotation()) < -45 and rad_to_deg(transform.get_rotation()) > -135:
-		sprite.z_index = -1
+		sprite.z_index = 1
 	else:
-		sprite.z_index = 0
+		sprite.z_index = 3
 
 	if Input.is_action_just_pressed("M1"):
 		var bullet : Node2D = bullet_scene.instantiate()
