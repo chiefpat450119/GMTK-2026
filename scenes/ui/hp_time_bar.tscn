@@ -5,18 +5,14 @@
 [ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="2_ydeu3"]
 [ext_resource type="Texture2D" uid="uid://dbo47638ikf53" path="res://assets/placeholder_time_shine.png" id="3_ym3fq"]
 [ext_resource type="Texture2D" uid="uid://btodfhhd8mfm3" path="res://assets/placeholder_time_filled.png" id="4_gebwg"]
-[ext_resource type="Resource" uid="uid://udrqunq3d2gv" path="res://resources/events/event_channels/player_hp_changed_event.tres" id="6_gebwg"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="7_w464l"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w464l"]
-bg_color = Color(0.6960329, 0.06915245, 0, 1)
 
 [node name="HpTimeBar" type="Node2D" unique_id=733327054 node_paths=PackedStringArray("time_bar", "health_bar", "time_listener", "health_listener")]
 script = ExtResource("1_mnu3t")
 time_bar = NodePath("TimeBar")
-health_bar = NodePath("HealthBar")
+health_bar = NodePath("")
 time_listener = NodePath("TimeChangeListener")
-health_listener = NodePath("HealthChangeListener")
+health_listener = NodePath("")
 
 [node name="TimeBar" type="TextureProgressBar" parent="." unique_id=1928956054]
 offset_right = 40.0
@@ -26,19 +22,6 @@ fill_mode = 3
 texture_under = ExtResource("2_b41rr")
 texture_over = ExtResource("3_ym3fq")
 texture_progress = ExtResource("4_gebwg")
-
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=1076253973]
-offset_left = 93.0
-offset_top = 136.0
-offset_right = 449.0
-offset_bottom = 163.0
-theme_override_styles/fill = SubResource("StyleBoxFlat_w464l")
-step = 1.0
-value = 21.0
-
-[node name="HealthChangeListener" type="Node" parent="." unique_id=498614360]
-script = ExtResource("2_ydeu3")
-event = ExtResource("6_gebwg")
 
 [node name="TimeChangeListener" type="Node" parent="." unique_id=1977486007]
 script = ExtResource("2_ydeu3")
