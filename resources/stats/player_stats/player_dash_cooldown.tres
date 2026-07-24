@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://druhlk17ja37p"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_uxmib"]
+
+[resource]
+script = ExtResource("1_uxmib")
+stat_name = "Dash Cooldown"
+base_val = 1.5
+metadata/_custom_type_script = "uid://bnaam37pn33wi"

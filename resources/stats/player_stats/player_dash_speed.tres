@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://cpmdbjrugn0ku"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_7643e"]
+
+[resource]
+script = ExtResource("1_7643e")
+stat_name = "Dash Speed"
+base_val = 750.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"
