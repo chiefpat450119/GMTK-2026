@@ -1,24 +1,17 @@
 class_name MeleeEnemy
 extends Enemy
 
-const HIT_DAMAGE := 2.8125  # Damage dealt per landed hit (before global atk mods)
 const HIT_KNOCKBACK := 950.0  # Recoil speed away from the player the instant a hit lands
 const KNOCKBACK_TIME := 0.28  # Seconds for the recoil to decay to a stop
 const HITSTOP_TIME := 0.06  # Brief freeze the instant a hit lands, so the strike has a beat
 const HIT_SQUASH := 0.65  # sprite scale.y multiplier at the peak of the impact
 const HIT_RECOVER := 0.18  # Seconds for the sprite to spring back after the squash
 
-# Minimum seconds between damaging hits. This is the balance knob: the enemy can
-# deal at most one hit per attack_interval, so its damage ceiling is a fixed
-# HIT_DAMAGE / attack_interval DPS, regardless of how the recoil/chase plays out.
-@export var attack_interval: float
 @export var accel_time: float  # Seconds to reach full speed
 @export var decel_time: float  # Seconds to coast to a stop
 @export var sprite: Sprite2D
-@export var hurtbox: Area2D
 
 @onready var base_scale_y: float = sprite.scale.y
-@onready var attack_cd := Cooldown.new(attack_interval)
 @onready var hitstop := Cooldown.new(HITSTOP_TIME)
 @onready var knockback := Cooldown.new(KNOCKBACK_TIME)
 
@@ -26,12 +19,12 @@ var knockback_dir: Vector2
 
 
 func _ready() -> void:
-	hurtbox.monitoring = true
-	hurtbox.body_entered.connect(_on_hurtbox_body_entered)
+	# Hit detection lives on the atk component; this enemy only reacts to it.
+	atk.contacted.connect(_on_contacted)
+	atk.hit_landed.connect(_on_hit_landed)
 
 
 func _physics_process(delta: float) -> void:
-	attack_cd.tick(delta)
 	hitstop.tick(delta)
 	knockback.tick(delta)
 
@@ -52,21 +45,14 @@ func _physics_process(delta: float) -> void:
 	accelerate_towards_player(1, accel_time, decel_time, delta)
 
 
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if not body is Player:
-		return
-
-	# Always bounce off, even on a bump that deals no damage, so the enemy never
-	# sits inside the player wobbling.
+# Bounce off every contact, even one the rate limiter ate, so the enemy never
+# sits inside the player wobbling.
+func _on_contacted(_body: Node2D) -> void:
 	_recoil()
 
-	# Gate the actual damage behind attack_interval so the hit rate has a hard,
-	# deterministic ceiling for balancing. is_started() is false until the first
-	# hit, so the opening contact always lands.
-	if not attack_cd.is_started() or attack_cd.is_done():
-		hit(HIT_DAMAGE)
-		_play_hit_reaction()
-		attack_cd.start()
+
+func _on_hit_landed(_body: Node2D, _damage: float) -> void:
+	_play_hit_reaction()
 
 
 func _recoil() -> void:
