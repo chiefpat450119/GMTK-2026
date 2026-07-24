@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bf7dmrn86nwtg"]
+
+[ext_resource type="Script" uid="uid://bpy0krfc3lfl3" path="res://scenes/entities/enemies/bash_enemy.gd" id="1_txa1i"]
+[ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="2_d5vmj"]
+[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="3_1d37s"]
+[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="4_5ajpc"]
+[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="5_o334c"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
+size = Vector2(140, 112)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk")]
+script = ExtResource("1_txa1i")
+attack_interval = 1.0
+charge_time = 0.75
+bash_duration = 0.5
+bash_speed = 2.6667
+charging_speed = 0.0833
+attack_range = 547.7
+sprite = NodePath("Sprite2D")
+hurtbox = NodePath("Area2D")
+movement = NodePath("MovementComponent")
+atk = NodePath("AtkComponent")
+metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=853140976]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_d5vmj")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=604904058 node_paths=PackedStringArray("body")]
+script = ExtResource("3_1d37s")
+body = NodePath("..")
+speed_stat = ExtResource("4_5ajpc")
+base_speed = 600.0
+metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
+[node name="AtkComponent" type="Node" parent="." unique_id=692120435]
+script = ExtResource("5_o334c")
+atk_stat = ExtResource("6_4gxjr")
+metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=955698249]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_hitbx")
