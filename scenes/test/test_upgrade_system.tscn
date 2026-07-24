@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b5a5mcfansl52"]
+
+[ext_resource type="Script" uid="uid://btstupgsys01a" path="res://scenes/test/test_upgrade_system.gd" id="1_root"]
+[ext_resource type="Script" uid="uid://cupgmgr7x8a2b" path="res://scenes/upgrades/upgrade_manager.gd" id="2_mgr"]
+[ext_resource type="Resource" uid="uid://cupgofferevt7" path="res://resources/events/event_channels/upgrade_offer_event.tres" id="3_evt"]
+[ext_resource type="PackedScene" uid="uid://dt2rievpqwg1n" path="res://scenes/ui/hp_time_bar.tscn" id="3_wtggm"]
+[ext_resource type="Resource" uid="uid://djt61kvxc6j0h" path="res://resources/upgrades/upgrade_pool.tres" id="4_xq7xy"]
+[ext_resource type="PackedScene" uid="uid://m3vhsbglajvm" path="res://scenes/ui/upgrade_ui.tscn" id="5_ui"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="6_pikm8"]
+
+[node name="TestUpgradeSystem" type="Node2D" unique_id=1037445340]
+script = ExtResource("1_root")
+offer_event = ExtResource("3_evt")
+
+[node name="HpTimeBar" parent="." unique_id=733327054 node_paths=PackedStringArray("health_component", "time_component") instance=ExtResource("3_wtggm")]
+health_component = NodePath("../Player/HealthComponent")
+time_component = NodePath("../Player/TimeComponent")
+
+[node name="UpgradeManager" type="Node" parent="." unique_id=1037445341]
+script = ExtResource("2_mgr")
+pool = ExtResource("4_xq7xy")
+metadata/_custom_type_script = "uid://cupgmgr7x8a2b"
+
+[node name="UpgradeUI" parent="UpgradeManager" unique_id=1037445343 node_paths=PackedStringArray("manager") instance=ExtResource("5_ui")]
+manager = NodePath("..")
+
+[node name="Player" parent="." unique_id=1339333072 instance=ExtResource("6_pikm8")]
+
+[editable path="Player"]

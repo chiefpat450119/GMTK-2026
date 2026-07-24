@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://blv0qksivu08y"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_kiewf"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="2_kiewf"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="3_62v5t"]
+[ext_resource type="Texture2D" uid="uid://dk8flq6mu8suk" path="res://assets/warwick.webp" id="3_ejmfa"]
+
+[sub_resource type="Resource" id="Resource_5lwm2"]
+script = ExtResource("1_kiewf")
+target_stat = ExtResource("2_kiewf")
+value = -0.9
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("3_62v5t")
+title = "Warwick"
+icon = ExtResource("3_ejmfa")
+effects = Array[ExtResource("1_kiewf")]([SubResource("Resource_5lwm2")])
+metadata/_custom_type_script = "uid://031polniagv2"

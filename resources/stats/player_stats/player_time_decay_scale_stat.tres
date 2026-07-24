@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ydr5s")
-stat_name = "Max Time"
+stat_name = "Time Decay"
 base_val = 1.0
 min_val = 0.0
 metadata/_custom_type_script = "uid://bnaam37pn33wi"

@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://w4n0uswly8he"]
+
+[ext_resource type="Script" path="res://scenes/ui/card_ui.gd" id="0_cardui"]
+[ext_resource type="Texture2D" uid="uid://5tf61ktnx73i" path="res://assets/CARDPARTS/BACKLAYER(1).png" id="1_amabp"]
+[ext_resource type="Texture2D" uid="uid://c4e1t0xaniefw" path="res://assets/CARDPARTS/FRAME_GEMLESS(4A).png" id="2_wt1kl"]
+[ext_resource type="Texture2D" uid="uid://bdkje1x7ylw03" path="res://assets/CARDPARTS/FRAME_GEM(4B).png" id="3_4r7me"]
+[ext_resource type="Texture2D" uid="uid://3njo6b0or36e" path="res://assets/CARDPARTS/BACKLAYER_TEXT(3).png" id="4_42yac"]
+[ext_resource type="Texture2D" uid="uid://b31tlfv2tywks" path="res://assets/CARDPARTS/BACKLAYER_SKL(2).png" id="5_nt74o"]
+[ext_resource type="Texture2D" uid="uid://dk8flq6mu8suk" path="res://assets/warwick.webp" id="6_8kev4"]
+[ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="7_j7udi"]
+[ext_resource type="FontFile" uid="uid://4h8jintlmxgn" path="res://assets/fonts/Acme-Regular.ttf" id="8_sr4dn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q575"]
+atlas = ExtResource("1_amabp")
+region = Rect2(600, 0, 780, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esjj6"]
+atlas = ExtResource("2_wt1kl")
+region = Rect2(600, 0, 780, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84od3"]
+atlas = ExtResource("3_4r7me")
+region = Rect2(600, 0, 780, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5aebp"]
+atlas = ExtResource("4_42yac")
+region = Rect2(600, 0, 780, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms3wn"]
+atlas = ExtResource("5_nt74o")
+region = Rect2(600, 0, 780, 0)
+
+[node name="CardUI" type="Control" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label")]
+custom_minimum_size = Vector2(780, 1080)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("0_cardui")
+icon_rect = NodePath("TextureRect")
+title_label = NodePath("Upgrade Name")
+description_label = NodePath("Description")
+
+[node name="Back" type="TextureRect" parent="." unique_id=1695400008]
+layout_mode = 0
+offset_right = 780.0
+offset_bottom = 1080.0
+texture = SubResource("AtlasTexture_5q575")
+
+[node name="Frame" type="TextureRect" parent="." unique_id=385167899]
+layout_mode = 0
+offset_right = 780.0
+offset_bottom = 1080.0
+texture = SubResource("AtlasTexture_esjj6")
+
+[node name="Gem" type="TextureRect" parent="." unique_id=1083599703]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_84od3")
+
+[node name="DescriptionFrame" type="TextureRect" parent="." unique_id=1052187145]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_5aebp")
+
+[node name="IconFrame" type="TextureRect" parent="." unique_id=1465494417]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_ms3wn")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=586893263]
+custom_maximum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 341.0
+offset_top = 299.0
+offset_right = 441.0
+offset_bottom = 399.0
+texture = ExtResource("6_8kev4")
+
+[node name="Upgrade Name" type="Label" parent="." unique_id=1336386440]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 445.0
+offset_right = 563.0
+offset_bottom = 509.0
+theme_override_fonts/font = ExtResource("7_j7udi")
+theme_override_font_sizes/font_size = 48
+text = "Upgrade Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rarity Text" type="Label" parent="." unique_id=1176989805]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 497.0
+offset_right = 563.0
+offset_bottom = 529.0
+theme_override_fonts/font = ExtResource("8_sr4dn")
+theme_override_font_sizes/font_size = 24
+text = "- Rarity -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="." unique_id=253532271]
+custom_maximum_size = Vector2(260, 330)
+layout_mode = 0
+offset_left = 262.0
+offset_top = 544.0
+offset_right = 522.0
+offset_bottom = 874.0
+theme_override_fonts/font = ExtResource("8_sr4dn")
+theme_override_font_sizes/font_size = 24
+text = "Warwick woof woof bark woof 600 movement speed I KNOW ZAUNS STREETS LIKE THE BACK OF MY PAWS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
