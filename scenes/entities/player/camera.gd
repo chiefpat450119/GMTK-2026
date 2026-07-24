@@ -6,7 +6,8 @@ extends Camera2D
 @export var map: TileMapLayer
 
 func _ready() -> void:
-	call_deferred("_apply_limits", map)
+	if map:
+		call_deferred("_apply_limits", map)
 
 
 func _apply_limits(map: TileMapLayer) -> void:
