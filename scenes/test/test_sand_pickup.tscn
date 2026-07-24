@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://iw44i8jeqmht"]
 
+[ext_resource type="Script" uid="uid://bg8ighkmw8vcl" path="res://scenes/test/test_sand_pickup.gd" id="1_dxeao"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_mosup"]
 [ext_resource type="PackedScene" uid="uid://cyhxu71qeit1g" path="res://scenes/autoload/drop_spawn.tscn" id="2_005pi"]
+[ext_resource type="PackedScene" uid="uid://b4i6b2rqqh4tj" path="res://scenes/entities/collectables/sand_pickup_attractive.tscn" id="4_pdh0c"]
 
 [node name="TestSandPickup" type="Node2D" unique_id=1262810612]
+script = ExtResource("1_dxeao")
 
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("1_mosup")]
 
@@ -12,3 +15,4 @@ position = Vector2(574, 251)
 
 [node name="DropSpawn" parent="." unique_id=287607415 instance=ExtResource("2_005pi")]
 position = Vector2(474, 245)
+sand_scene = ExtResource("4_pdh0c")

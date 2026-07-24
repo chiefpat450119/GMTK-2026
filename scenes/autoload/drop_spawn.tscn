@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyhxu71qeit1g"]
 
 [ext_resource type="Script" uid="uid://bsoeqel7o8bcy" path="res://scenes/autoload/drop_spawn.gd" id="1_wr7dc"]
-[ext_resource type="PackedScene" uid="uid://bx52vm2hvi6ow" path="res://scenes/collectable_sand.tscn" id="2_lgwab"]
+[ext_resource type="PackedScene" uid="uid://bx52vm2hvi6ow" path="res://scenes/entities/collectables/collectable_sand.tscn" id="2_lgwab"]
 
 [node name="DropSpawn" type="Node2D" unique_id=287607415]
 script = ExtResource("1_wr7dc")

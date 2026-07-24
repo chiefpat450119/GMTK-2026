@@ -4,8 +4,7 @@ extends Node2D
 
 @export var sand_scene: PackedScene
 
-func _ready():
-	spawn_sand($"../spawn")
+
 	
 #spawns collectable sand on spawn_node
 func spawn_sand(spawn_node: Node2D):

@@ -25,7 +25,6 @@ func _enter_tree() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var dir = Input.get_vector("Left", "Right", "Up", "Down")
-	#print(dir)
 	movement_component.move(dir)
 	
 	if Input.is_action_pressed("M1"):

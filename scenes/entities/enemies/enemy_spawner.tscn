@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://df53qtwd8bi4i"]
+
+[ext_resource type="Script" uid="uid://c680wy8q4de83" path="res://scenes/entities/enemies/enemy_spawner.gd" id="1_6iiwg"]
+[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/enemy_test.tscn" id="2_6mcpi"]
+
+[node name="EnemySpawner" type="Node" unique_id=1487899817]
+script = ExtResource("1_6iiwg")
+enemy_scene_ref = ExtResource("2_6mcpi")
+metadata/_custom_type_script = "uid://c680wy8q4de83"
