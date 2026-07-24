@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://du1e8ddp0oyhi"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_st84x"]
+
+[resource]
+script = ExtResource("1_st84x")
+stat_name = "Firerate Modifier"
+metadata/_custom_type_script = "uid://bnaam37pn33wi"
