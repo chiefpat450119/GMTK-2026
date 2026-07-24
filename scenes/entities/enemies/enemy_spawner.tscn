@@ -40,8 +40,12 @@ enemy_scene = ExtResource("2_6mcpi")
 difficulty_rating = 15
 metadata/_custom_type_script = "uid://b87kvmux6rpvl"
 
-[node name="EnemySpawner" type="Node" unique_id=1487899817]
+[node name="EnemySpawner" type="Node" unique_id=1487899817 node_paths=PackedStringArray("wave_timer")]
 script = ExtResource("1_6iiwg")
 enemy_scene_ref = ExtResource("2_6mcpi")
 enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubResource("Resource_p0kws"), SubResource("Resource_dunn1"), SubResource("Resource_48ffp"), SubResource("Resource_frecl"), SubResource("Resource_fvu5v")])
+wave_timer = NodePath("Timer")
 metadata/_custom_type_script = "uid://c680wy8q4de83"
+
+[node name="Timer" type="Timer" parent="." unique_id=681572550]
+wait_time = 4.724

@@ -3,27 +3,45 @@ extends Node
 
 # Distance away from player to spawn enemy. 
 # Should be off screen
-const spawn_radius : float = 400.0
+const spawn_radius: float = 400.0
 
-@export var enemy_scene_ref : PackedScene
+@export var enemy_scene_ref: PackedScene
 
-@export var enemy_pool : Array[EnemySpawnData]
+@export var enemy_pool: Array[EnemySpawnData]
 
+@export var wave_timer: Timer
+
+@onready var budget: int = 10
 
 # test spawn -- replace with custom spawning behavior
-#func _ready() -> void:
-	#
-	#spawn_wave(40)
+func _ready() -> void:
+	
+	begin_waves()
+
+func begin_waves():
+	spawn_wave()
+	wave_timer.start()
+	wave_timer.timeout.connect(spawn_wave)
 
 
-func spawn_wave(budget: int):
+func spawn_wave():
+	
 	var enemies : Array[EnemySpawnData] = enemy_budget_breakdown(budget)
 	
+	var msg := "BUDGET: " + str(budget) + ", RATINGS: ["
 	for enemy in enemies:
-		spawn(enemy.enemy_scene)
-		print("SPAWNING ENEMY WITH RATING: ", enemy.difficulty_rating)
+		spawn_enemy(enemy.enemy_scene)
+		msg += str(enemy.difficulty_rating) + ","
+	msg += "]"
+	print(msg)
+	increase_budget()
 
-func spawn(enemy_scene: PackedScene) -> Enemy:
+#TODO: not this
+func increase_budget():
+	budget += 5
+
+
+func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	# instantiate enemy 
 	var enemy := enemy_scene.instantiate() as Enemy
 	if enemy == null:
