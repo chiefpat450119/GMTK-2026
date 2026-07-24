@@ -1,7 +1,6 @@
 class_name BashEnemy
 extends Enemy
 
-const HIT_DAMAGE := 9.28125  # Damage dealt when the bash connects (before global atk mods)
 const ROTATION_SPEED := 12.0  # Radians per second the body turns to face the player
 const CHARGE_SQUASH := 0.6  # Sprite scale.y multiplier at the end of the wind-up
 const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fires
@@ -17,7 +16,6 @@ const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fir
 @export var decel_time: float  # Seconds to coast to a stop (approach only)
 
 @export var sprite: Sprite2D
-@export var hurtbox: Area2D
 
 @onready var attack_cooldown := Cooldown.new(attack_interval)
 @onready var charge_timer := Cooldown.new(charge_time)
@@ -28,8 +26,8 @@ var bash_dir: Vector2
 
 
 func _ready() -> void:
-	hurtbox.monitoring = false
-	hurtbox.body_entered.connect(_on_hurtbox_body_entered)
+	# Hit detection lives on the atk component; the bash only decides when its
+	# hurtbox is live, so contact only hurts while the enemy is actually bashing.
 	attack_cooldown.start()
 
 
@@ -87,7 +85,7 @@ func _update_charge(dir: Vector2) -> void:
 func _start_bash(dir: Vector2) -> void:
 	bash_dir = dir.normalized()  # Locked here, so the bash can be dodged
 	bash_timer.start()
-	hurtbox.monitoring = true
+	atk.set_active(true)
 
 	var tween := create_tween().set_parallel()
 	tween.tween_property(sprite, "scale:y", base_scale_y, RECOVER_TIME) \
@@ -101,10 +99,5 @@ func _update_bash() -> void:
 
 	if bash_timer.is_done():
 		bash_timer.stop()
-		hurtbox.monitoring = false
+		atk.set_active(false)
 		attack_cooldown.start()
-
-
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body is Player:
-		hit(HIT_DAMAGE)

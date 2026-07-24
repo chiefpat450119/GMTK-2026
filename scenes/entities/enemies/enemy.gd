@@ -30,6 +30,3 @@ func get_to_player_vec() -> Vector2:
 
 func get_player_pos() -> Vector2:
 	return player.global_position
-
-func hit(damage: float):
-	atk.attack(damage, player.time_component)
