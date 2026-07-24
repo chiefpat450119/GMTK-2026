@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://be4yc6h34d76y"]
+
+[ext_resource type="Script" uid="uid://w1qcbgvm8qq7" path="res://scenes/entities/weapons/railgun.gd" id="1_2j11h"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="2_0er5g"]
+[ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_firerate_stat.tres" id="3_yy7j6"]
+[ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_accuracy_stat.tres" id="4_xnbhe"]
+[ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/bullet.tscn" id="5_iqphh"]
+[ext_resource type="Texture2D" uid="uid://bicurbr4tejj0" path="res://assets/placeholder_shotgun_sprite.png" id="6_mldex"]
+
+[node name="Railgun" type="CharacterBody2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "bullet_spawn_point")]
+script = ExtResource("1_2j11h")
+charge_time = 2.0
+max_charge_amount = 5.0
+charge_rate = 1.0
+sprite = NodePath("Sprite2D")
+base_damage = 1.0
+base_fire_cooldown = 0.5
+base_cost = 0.5
+damage_stat = ExtResource("2_0er5g")
+firerate_stat = ExtResource("3_yy7j6")
+accuracy_stat = ExtResource("4_xnbhe")
+bullet_scene = ExtResource("5_iqphh")
+bullet_spawn_point = NodePath("Bullet Spawn Point")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1441832555]
+z_index = 3
+position = Vector2(60.408268, 0.065790415)
+scale = Vector2(0.32966837, 0.32966834)
+texture = ExtResource("6_mldex")
+flip_h = true
+
+[node name="Bullet Spawn Point" type="Node2D" parent="." unique_id=1642815895]
+position = Vector2(121, 0)
