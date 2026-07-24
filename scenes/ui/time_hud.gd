@@ -1,6 +1,13 @@
 class_name TimeHud
 extends CanvasLayer
 
+# Remainders below this don't earn a stub segment. Segment art dimensions live
+# on BarSegment, which is the only thing that needs them.
+const REMAINDER_EPSILON := 0.01
+
+## Time each bar segment represents. Segment count times this should equal
+## max_time, or the fill won't reach the last pin.
+@export var units_per_segment: int = 10
 ## Seconds the readout takes to roll up to a newly gained value.
 @export var count_duration: float = 0.4
 ## A rise of at least this much reads as time gained rather than a wobble, and
@@ -24,6 +31,8 @@ extends CanvasLayer
 @export var hourglassLabel: Label
 @export var fill: ProgressBar
 @export var time_listener: GameEventListener
+@export var row: HBoxContainer
+@export var segment_scene: PackedScene
 
 # The real time value, straight off the component.
 var _target: float = 0.0
@@ -57,7 +66,11 @@ func _on_time_changed() -> void:
 	var time_component := Player.instance.time_component
 
 	# max_time is a Stat, so the cap moves when an upgrade adds a modifier.
-	fill.max_value = time_component.max_time.current_val()
+	# Guarded because this fires every frame that decay runs, and rebuilding the
+	# row is only worth doing when the cap actually moved.
+	var cap := time_component.max_time.current_val()
+	if not is_equal_approx(cap, fill.max_value):
+		set_time_cap(cap)
 
 	var previous := _target
 	_target = time_component.time_left
@@ -72,6 +85,59 @@ func _on_time_changed() -> void:
 		# Decay arrives as a stream of small decreases, which just track. While
 		# a roll-up is running it owns the readout instead.
 		_apply(_target)
+
+
+## Rebuilds the bar to represent `seconds` of time: one segment per
+## `units_per_segment`, plus a short final segment for any remainder. A cap of 34
+## with 10s segments gives three full segments and a 4s stub. Pins are renumbered
+## to match, with the last one showing the cap itself.
+func set_time_cap(seconds: float) -> void:
+	fill.max_value = seconds
+
+	var full := floori(seconds / units_per_segment)
+	var remainder := seconds - full * units_per_segment
+	var partial := remainder > REMAINDER_EPSILON
+	_fit_segments(full + (1 if partial else 0))
+
+	var segments := _segments()
+	for i in segments.size():
+		var is_stub := partial and i == full
+		var covers: float = remainder if is_stub else float(units_per_segment)
+		var mark: float = seconds if is_stub else float((i + 1) * units_per_segment)
+		segments[i].set_span(covers / units_per_segment, mark)
+
+
+func get_segment_count() -> int:
+	return _segments().size()
+
+
+# Grows or shrinks the row to `count` segments. New ones come from
+# segment_scene, so art edits live in bar_segment.tscn and reach every segment.
+func _fit_segments(count: int) -> void:
+	var segments := _segments()
+	count = maxi(count, 0)
+
+	while segments.size() > count:
+		var last: BarSegment = segments.pop_back()
+		# Detached before freeing, so the row re-sorts now rather than whenever
+		# the queued free lands.
+		row.remove_child(last)
+		last.queue_free()
+
+	while segments.size() < count:
+		var segment := segment_scene.instantiate() as BarSegment
+		row.add_child(segment)
+		# add_child appends past EndSlot, so put it back in front of the cap.
+		row.move_child(segment, row.get_child_count() - 2)
+		segments.append(segment)
+
+
+func _segments() -> Array[BarSegment]:
+	var found: Array[BarSegment] = []
+	for child in row.get_children():
+		if child is BarSegment:
+			found.append(child)
+	return found
 
 
 ## Plays the time-gained reaction: rolls the readout up and kicks the mechanism.

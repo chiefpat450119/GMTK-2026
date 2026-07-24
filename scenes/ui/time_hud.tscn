@@ -3,10 +3,9 @@
 [ext_resource type="Script" uid="uid://3pir5e86ahgu" path="res://scenes/ui/time_hud.gd" id="1_6ody3"]
 [ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="1_listener"]
 [ext_resource type="Texture2D" uid="uid://cc65kdivuyd7m" path="res://assets/hud/MACHINE.png" id="1_machine"]
+[ext_resource type="PackedScene" path="res://scenes/ui/bar_segment.tscn" id="1_segment"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="1_time_event"]
 [ext_resource type="Texture2D" uid="uid://cmelh0rlk6wwa" path="res://assets/hud/GEARcopy.png" id="2_gear"]
-[ext_resource type="Texture2D" uid="uid://bffhux2p0aidr" path="res://assets/hud/BAR_MID_BACKcopy.png" id="3_bar_mid_back"]
-[ext_resource type="Texture2D" uid="uid://i3jjsgj535y6" path="res://assets/hud/BAR_MID_FRONTcopy.png" id="4_bar_mid_front"]
 [ext_resource type="Texture2D" uid="uid://ugo8ya3h06r6" path="res://assets/hud/BAR_STARTcopy.png" id="5_bar_start"]
 [ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="6_bar_end"]
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
@@ -19,14 +18,6 @@ font_size = 80
 font_color = Color(0, 0, 0, 1)
 outline_size = 15
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rails"]
-atlas = ExtResource("4_bar_mid_front")
-region = Rect2(55, 98, 249, 207)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pin"]
-atlas = ExtResource("4_bar_mid_front")
-region = Rect2(260, 12, 115, 293)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bar_bg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
@@ -38,13 +29,15 @@ font_size = 500
 font_color = Color(0.0142752165, 0.014275218, 0.014275218, 1)
 outline_size = 73
 
-[node name="TimeHud" type="CanvasLayer" unique_id=1439624027 node_paths=PackedStringArray("gear", "hourglass", "hourglassLabel", "fill", "time_listener")]
+[node name="TimeHud" type="CanvasLayer" unique_id=1439624027 node_paths=PackedStringArray("gear", "hourglass", "hourglassLabel", "fill", "time_listener", "row")]
 script = ExtResource("1_6ody3")
 gear = NodePath("Hud/Art/Gear")
 hourglass = NodePath("Hud/Art/Hourglass")
 hourglassLabel = NodePath("Hud/Art/Timer")
 fill = NodePath("Hud/Art/Bar/Overlay/Fill")
 time_listener = NodePath("TimeChangeListener")
+row = NodePath("Hud/Art/Bar/Row")
+segment_scene = ExtResource("1_segment")
 
 [node name="TimeChangeListener" type="Node" parent="." unique_id=1104883240]
 script = ExtResource("1_listener")
@@ -97,8 +90,8 @@ texture = ExtResource("2_gear")
 layout_mode = 0
 offset_left = 791.0
 offset_top = 594.0
-offset_right = 2160.0
-offset_bottom = 1006.0
+offset_right = 791.0
+offset_bottom = 594.0
 mouse_filter = 2
 
 [node name="Row" type="HBoxContainer" parent="Hud/Art/Bar" unique_id=1104883220]
@@ -107,7 +100,7 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="StartSlot" type="Control" parent="Hud/Art/Bar/Row" unique_id=1104883221]
-custom_minimum_size = Vector2(207, 412)
+custom_minimum_size = Vector2(267, 412)
 layout_mode = 2
 mouse_filter = 2
 
@@ -129,143 +122,20 @@ label_settings = SubResource("LabelSettings_n1ogh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Segment" type="Control" parent="Hud/Art/Bar/Row" unique_id=1104883222]
-custom_minimum_size = Vector2(271, 412)
+[node name="Segment" parent="Hud/Art/Bar/Row" unique_id=695955698 instance=ExtResource("1_segment")]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="MidBack" type="TextureRect" parent="Hud/Art/Bar/Row/Segment" unique_id=1104883205]
-layout_mode = 0
-offset_left = 17.275
-offset_top = 104.65
-offset_right = 326.275
-offset_bottom = 351.6507
-texture = ExtResource("3_bar_mid_back")
-
-[node name="Rails" type="TextureRect" parent="Hud/Art/Bar/Row/Segment" unique_id=1104883223]
-z_index = 2
-layout_mode = 0
-offset_left = 55.0
-offset_top = 125.0
-offset_right = 304.0
-offset_bottom = 332.0
-texture = SubResource("AtlasTexture_rails")
-
-[node name="Pin" type="TextureRect" parent="Hud/Art/Bar/Row/Segment" unique_id=1104883224]
-z_index = 3
-layout_mode = 0
-offset_left = 260.0
-offset_top = 39.0
-offset_right = 375.0
-offset_bottom = 332.0
-texture = SubResource("AtlasTexture_pin")
-
-[node name="Label" type="Label" parent="Hud/Art/Bar/Row/Segment/Pin" unique_id=1664366708]
-layout_mode = 0
-offset_left = 3.5385637
-offset_top = -22.01102
-offset_right = 103.78051
-offset_bottom = 83.98898
-text = "10"
-label_settings = SubResource("LabelSettings_n1ogh")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Segment2" type="Control" parent="Hud/Art/Bar/Row" unique_id=1002272394]
-custom_minimum_size = Vector2(271, 412)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="MidBack" type="TextureRect" parent="Hud/Art/Bar/Row/Segment2" unique_id=1875556802]
-layout_mode = 0
-offset_left = 17.275
-offset_top = 104.65
-offset_right = 326.275
-offset_bottom = 351.6507
-texture = ExtResource("3_bar_mid_back")
-
-[node name="Rails" type="TextureRect" parent="Hud/Art/Bar/Row/Segment2" unique_id=1035427794]
-z_index = 2
-layout_mode = 0
-offset_left = 55.0
-offset_top = 125.0
-offset_right = 304.0
-offset_bottom = 332.0
-texture = SubResource("AtlasTexture_rails")
-
-[node name="Pin" type="TextureRect" parent="Hud/Art/Bar/Row/Segment2" unique_id=1915498477]
-z_index = 3
-layout_mode = 0
-offset_left = 260.0
-offset_top = 39.0
-offset_right = 375.0
-offset_bottom = 332.0
-texture = SubResource("AtlasTexture_pin")
-
-[node name="Label" type="Label" parent="Hud/Art/Bar/Row/Segment2/Pin" unique_id=738107342]
-layout_mode = 0
-offset_left = 3.5385637
-offset_top = -22.01102
-offset_right = 103.78051
-offset_bottom = 83.98898
-text = "20"
-label_settings = SubResource("LabelSettings_n1ogh")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Segment3" type="Control" parent="Hud/Art/Bar/Row" unique_id=1116359773]
-custom_minimum_size = Vector2(271, 412)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="MidBack" type="TextureRect" parent="Hud/Art/Bar/Row/Segment3" unique_id=1780713266]
-layout_mode = 0
-offset_left = 17.275
-offset_top = 104.65
-offset_right = 326.275
-offset_bottom = 351.6507
-texture = ExtResource("3_bar_mid_back")
-
-[node name="Rails" type="TextureRect" parent="Hud/Art/Bar/Row/Segment3" unique_id=1250184870]
-z_index = 2
-layout_mode = 0
-offset_left = 55.0
-offset_top = 125.0
-offset_right = 304.0
-offset_bottom = 332.0
-texture = SubResource("AtlasTexture_rails")
-
-[node name="Pin" type="TextureRect" parent="Hud/Art/Bar/Row/Segment3" unique_id=348136908]
-z_index = 3
-layout_mode = 0
-offset_left = 260.0
-offset_top = 39.0
-offset_right = 375.0
-offset_bottom = 332.0
-texture = SubResource("AtlasTexture_pin")
-
-[node name="Label" type="Label" parent="Hud/Art/Bar/Row/Segment3/Pin" unique_id=989257711]
-layout_mode = 0
-offset_left = 3.5385637
-offset_top = -22.01102
-offset_right = 103.78051
-offset_bottom = 83.98898
-text = "30"
-label_settings = SubResource("LabelSettings_n1ogh")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="EndSlot" type="Control" parent="Hud/Art/Bar/Row" unique_id=1104883233]
-custom_minimum_size = Vector2(349, 412)
+custom_minimum_size = Vector2(289, 412)
 layout_mode = 2
 mouse_filter = 2
 
 [node name="End" type="TextureRect" parent="Hud/Art/Bar/Row/EndSlot" unique_id=1104883209]
 z_index = 4
 layout_mode = 0
-offset_left = -140.0
+offset_left = -200.0
 offset_top = 21.0
-offset_right = 349.0
+offset_right = 289.0
 offset_bottom = 412.0
 texture = ExtResource("6_bar_end")
 
