@@ -12,8 +12,7 @@
 script = ExtResource("1_root")
 offer_event = ExtResource("3_evt")
 
-[node name="HpTimeBar" parent="." unique_id=733327054 node_paths=PackedStringArray("health_component", "time_component") instance=ExtResource("3_wtggm")]
-health_component = NodePath("../Player/HealthComponent")
+[node name="HpTimeBar" parent="." unique_id=733327054 node_paths=PackedStringArray("time_component") instance=ExtResource("3_wtggm")]
 time_component = NodePath("../Player/TimeComponent")
 
 [node name="UpgradeManager" type="Node" parent="." unique_id=1037445341]

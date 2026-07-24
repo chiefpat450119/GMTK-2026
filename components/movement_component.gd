@@ -16,3 +16,6 @@ func move(dir: Vector2):
 		
 	body.velocity = speed * dir
 	body.move_and_slide()
+
+func hard_set_vel(vel: Vector2):
+	body.velocity = vel

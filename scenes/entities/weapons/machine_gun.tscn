@@ -7,9 +7,7 @@
 [ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_accuracy_stat.tres" id="4_s8eaq"]
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="5_8o0ng"]
 
-[node name="Machine Gun" type="CharacterBody2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
-collision_layer = 0
-collision_mask = 0
+[node name="Machine Gun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_qfmm5")
 sprite = NodePath("Sprite2D")
 base_damage = 1.0
