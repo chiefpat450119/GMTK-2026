@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c2so4ao22k58f"]
+[gd_scene format=3 uid="uid://cfcpevtu3ea0l"]
 
 [ext_resource type="Script" uid="uid://bpy0krfc3lfl3" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.gd" id="1_txa1i"]
 [ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="2_c55qm"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="8_u55qa"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="9_f05rv"]
+[ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="10_7uksk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
@@ -16,7 +17,7 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
+[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_txa1i")
@@ -70,3 +71,18 @@ script = ExtResource("8_u55qa")
 max_hp = ExtResource("9_f05rv")
 base_hp = 27.0
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=955698249]
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_hitbx")
+
+[node name="HealthBar" parent="." unique_id=220369966 node_paths=PackedStringArray("health_component") instance=ExtResource("10_7uksk")]
+offset_left = -24.0
+offset_top = 71.0
+offset_right = 26.0
+offset_bottom = 79.0
+health_component = NodePath("../HealthComponent")
