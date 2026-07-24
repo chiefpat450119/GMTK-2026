@@ -7,10 +7,20 @@ extends CharacterBody2D
 #@onready var time_component : TimeComponent = find_child("TimeComponent")
 #@onready var movement_component : MovementComponent = find_child("MovementComponent")
 
+
+static var instance: Player
+
 @export var health_component : HealthComponent
 @export var time_component : TimeComponent
 @export var movement_component : MovementComponent
 @export var gun : Gun
+
+
+func _enter_tree() -> void:
+	if instance == null:
+		instance = self
+	else:
+		queue_free() # Prevents duplicate instances from existing
 
 
 func _physics_process(_delta: float) -> void:
