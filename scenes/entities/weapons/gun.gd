@@ -1,5 +1,5 @@
 class_name Gun
-extends CharacterBody2D
+extends Node2D
 
 @export var sprite : Sprite2D
 @export var base_damage : float

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="5_iqphh"]
 [ext_resource type="Texture2D" uid="uid://bicurbr4tejj0" path="res://assets/placeholder_shotgun_sprite.png" id="6_mldex"]
 
-[node name="Railgun" type="CharacterBody2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
+[node name="Railgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_2j11h")
 max_charge_amount = 5.0
 charge_rate = 1.0
