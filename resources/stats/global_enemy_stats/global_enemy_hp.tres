@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://rbm0mbdiob6l"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_5c3sw"]
+
+[resource]
+script = ExtResource("1_5c3sw")
+stat_name = "enemy_hp"
+min_val = 0.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"

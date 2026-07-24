@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://bi6nqki2ayhyj"]
 
-[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy.tscn" id="1_pppcc"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_ia5xm"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy.tscn" id="4_xvwyp"]
 
 [node name="WinterTestScene" type="Node2D" unique_id=512743553]
 
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("2_ia5xm")]
 position = Vector2(532, 33)
 
-[node name="Enemy" parent="." unique_id=2072227410 instance=ExtResource("1_pppcc")]
+[node name="MeleeEnemy" parent="." unique_id=2072227410 instance=ExtResource("4_xvwyp")]
+accel_time = 0.2
