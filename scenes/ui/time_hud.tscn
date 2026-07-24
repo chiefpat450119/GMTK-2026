@@ -3,17 +3,17 @@
 [ext_resource type="Script" uid="uid://3pir5e86ahgu" path="res://scenes/ui/time_hud.gd" id="1_6ody3"]
 [ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="1_listener"]
 [ext_resource type="Texture2D" uid="uid://cc65kdivuyd7m" path="res://assets/hud/MACHINE.png" id="1_machine"]
-[ext_resource type="PackedScene" path="res://scenes/ui/bar_segment.tscn" id="1_segment"]
+[ext_resource type="PackedScene" uid="uid://cjluakn0wmxyo" path="res://scenes/ui/bar_segment.tscn" id="1_segment"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="1_time_event"]
 [ext_resource type="Texture2D" uid="uid://cmelh0rlk6wwa" path="res://assets/hud/GEARcopy.png" id="2_gear"]
 [ext_resource type="Texture2D" uid="uid://ugo8ya3h06r6" path="res://assets/hud/BAR_STARTcopy.png" id="5_bar_start"]
 [ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="6_bar_end"]
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
-[ext_resource type="FontFile" uid="uid://c62111kviqhp7" path="res://assets/hud/JainiPurva-Regular.ttf" id="8_jaini_purva"]
+[ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="8_qgna5"]
 [ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="9_new_rocker"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_n1ogh"]
-font = ExtResource("8_jaini_purva")
+[sub_resource type="LabelSettings" id="LabelSettings_dji2m"]
+font = ExtResource("8_qgna5")
 font_size = 80
 font_color = Color(0, 0, 0, 1)
 outline_size = 15
@@ -119,7 +119,7 @@ offset_top = 16.988972
 offset_right = 302.64856
 offset_bottom = 122.98897
 text = "0"
-label_settings = SubResource("LabelSettings_n1ogh")
+label_settings = SubResource("LabelSettings_dji2m")
 horizontal_alignment = 1
 vertical_alignment = 1
 
