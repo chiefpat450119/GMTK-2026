@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bnhbn3cs1fog7"]
 
 [ext_resource type="Script" uid="uid://t6dhj0sncyou" path="res://scenes/entities/enemies/enemy.gd" id="1_nnnbu"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_obr17"]
 [ext_resource type="Script" uid="uid://1lk5qevh2w7y" path="res://components/state_machine/state_machine.gd" id="2_oxis1"]
 [ext_resource type="Script" uid="uid://ptajhna0r1rr" path="res://scenes/entities/enemies/boss/boss_move_state.gd" id="3_d1okg"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="4_brypa"]
@@ -13,15 +14,22 @@
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="10_t78gy"]
 [ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="11_au3wl"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="11_lq6h1"]
+[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="14_nvjhm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lbiil"]
 radius = 62.39391
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbiil"]
+size = Vector2(56, 134)
+
 [node name="Boss" type="CharacterBody2D" unique_id=1948960875 node_paths=PackedStringArray("movement", "atk", "hp")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_nnnbu")
 movement = NodePath("MovementComponent")
 atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
+sand_drop_amt_stat = ExtResource("2_obr17")
 metadata/_custom_type_script = "uid://t6dhj0sncyou"
 
 [node name="StateMachine" type="Node" parent="." unique_id=1717258978 node_paths=PackedStringArray("initial_state")]
@@ -82,8 +90,12 @@ shape = SubResource("CircleShape2D_lbiil")
 script = ExtResource("7_oxis1")
 max_hp = ExtResource("11_lq6h1")
 base_hp = 100.0
+death_event = ExtResource("14_nvjhm")
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=201307250]
 scale = Vector2(0.29814816, 0.1388889)
 texture = ExtResource("11_au3wl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=809988865]
+shape = SubResource("RectangleShape2D_lbiil")
