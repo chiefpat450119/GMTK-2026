@@ -1,0 +1,46 @@
+name: Deploy to Itch.io
+
+on:
+  push:
+    branches: [main]
+
+env:
+  GODOT_VERSION: 4.7-stable
+  EXPORT_NAME: gmtk-2026
+  PROJECT_PATH: .
+
+jobs:
+  export-web:
+    name: Web Export & Deploy to Itch.io
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.7-stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Export Templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} \
+             ~/.local/share/godot/export_templates/${GODOT_VERSION}
+
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Web" build/web/index.html
+
+      - name: Deploy to Itch.io
+        uses: manleydev/butler-publish-itchio-action@v1.0.2
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCHIO_API_KEY }}
+          CHANNEL: html5
+          ITCH_GAME: gmtk-2026
+          ITCH_USER: patrickzhou45
+          PACKAGE: ${{ env.PROJECT_PATH }}/build/web
+          VERSION: ${{ github.sha }}
