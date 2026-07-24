@@ -5,7 +5,8 @@ extends Node
 @export var pickup_range: Stat
 
 func _physics_process(_delta: float) -> void:
-	if player == null or Collectable.all.is_empty():
+	var all := CollectableManagerInstance.all
+	if player == null or all.is_empty():
 		return
 
 	var range_val := pickup_range.current_val()
@@ -14,8 +15,8 @@ func _physics_process(_delta: float) -> void:
 	var pos := player.global_position
 
 	# iterate backwards: collect() erases from the array in place
-	for i in range(Collectable.all.size() - 1, -1, -1):
-		var c := Collectable.all[i]
+	for i in range(all.size() - 1, -1, -1):
+		var c := all[i]
 		var dist_sq := pos.distance_squared_to(c.global_position)
 		if dist_sq <= grab_sq:
 			c.collect(player)

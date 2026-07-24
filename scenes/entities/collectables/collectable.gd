@@ -1,13 +1,6 @@
 class_name Collectable
 extends Node2D
 ## Base for anything the player picks up (sand, etc).
-##
-## Instead of every item running its own monitoring Area2D, all active
-## collectables register into a shared list. A single query source (the Player)
-## iterates the list each physics frame, attracting in-range items and
-## collecting ones it touches
-
-static var all: Array[Collectable] = []
 
 # will be "pickedup" once in this radius
 const GRAB_RADIUS: float = 24.0
@@ -20,11 +13,11 @@ const GRAB_RADIUS: float = 24.0
 var _attracting: bool = false
 var _collected: bool = false
 
-func _enter_tree() -> void:
-	all.append(self)
 
 func _exit_tree() -> void:
-	all.erase(self)
+	# safety net for removals that bypass collect() (timed despawn, scene change)
+	CollectableManagerInstance.erase(self)
+
 
 # starts homing toward the player. idempotent so the player can call it every
 # frame the item is in range. the endpoint is sampled live inside the tween, so
@@ -49,7 +42,6 @@ func collect(player: Player) -> void:
 	if _collected:
 		return
 	_collected = true
-	all.erase(self)
 	_on_collected(player)
 	queue_free()
 
