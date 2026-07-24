@@ -38,10 +38,13 @@ func _physics_process(delta: float) -> void:
 	# Releasing left click while charging fires the railgun
 	if is_charging == true and Input.is_action_just_released("M1"):
 		is_charging = false
-		shoot()
+		var charge := cur_charge_amt
 		cur_charge_amt = 0
+		shoot(charge)
 
-func shoot():
+func shoot(charge: float = 0.0):
+	if not can_fire:
+		return
 	can_fire = false
 	# Spawn projectile
 	var projectile : Projectile = projectile_scene.instantiate()
@@ -51,7 +54,7 @@ func shoot():
 		projectile_spawn_point.global_position,
 		global_rotation + deg_to_rad(randf_range(-accuracy, accuracy)),
 		Projectile.Team.PLAYER,
-		damage_stat.current_val(base_damage + pow(cur_charge_amt, 2)),
+		damage_stat.current_val(base_damage + pow(charge, 2)),
 		base_penetration,
 	)
 	
