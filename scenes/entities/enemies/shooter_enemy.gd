@@ -1,6 +1,7 @@
 class_name ShooterEnemy
 extends Enemy
 
+const SHOT_DAMAGE := 2.0  # Damage per landed shot (before global atk mods)
 const CHARGE_SQUASH := 0.6  # Sprite scale.y multiplier just before firing
 const RECOIL_STRETCH := 1.6  # Sprite scale.y multiplier the moment the shot leaves
 const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
@@ -54,10 +55,10 @@ func _physics_process(delta: float) -> void:
 func _shoot(dir: Vector2) -> void:
 	shoot_cooldown.start()
 
-	var projectile: Node2D = projectile_scene.instantiate()
-	projectile.global_position = global_position
-	projectile.rotation = dir.angle()  # Read by the projectile on _enter_tree
-	add_child(projectile)
+	# Parented to the scene, not the enemy, so shots outlive the shooter.
+	var projectile: Projectile = projectile_scene.instantiate()
+	get_tree().current_scene.add_child(projectile)
+	projectile.launch(global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(SHOT_DAMAGE))
 
 	var tween := create_tween()
 	tween.tween_property(sprite, "scale:y", base_scale_y * RECOIL_STRETCH, RECOIL_TIME) \

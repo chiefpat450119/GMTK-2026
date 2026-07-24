@@ -10,6 +10,16 @@ extends Node
 
 @export var time_changed_event : GameEvent # Raise this for any changes to current, max time, and/or time decay
 
+## Returns the TimeComponent hanging off an entity, or null if it has none.
+## Mirrors HealthComponent.find_in so damage sources can hurt the player — whose
+## pool is time — without knowing its concrete type.
+static func find_in(entity: Node) -> TimeComponent:
+	for child in entity.get_children():
+		if child is TimeComponent:
+			return child
+	return null
+
+
 func _process(delta: float) -> void:
 	remove_time(time_decay_scale.current_val() * delta)
 	
