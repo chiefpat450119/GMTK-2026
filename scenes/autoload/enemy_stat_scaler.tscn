@@ -1,15 +1,22 @@
 [gd_scene format=3 uid="uid://dxrbm8nooaen4"]
 
-[ext_resource type="Script" uid="uid://1mcmvwrhoa7v" path="res://systems/enemy_stat_scaler.gd" id="1_scaler"]
+[ext_resource type="Script" uid="uid://1mcmvwrhoa7v" path="res://scenes/autoload/enemy_stat_scaler.gd" id="1_scaler"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="2_hp"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="3_atk"]
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="4_speed"]
 [ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="5_range"]
+[ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="6_lg6js"]
+[ext_resource type="Resource" uid="uid://bl4ravbh4p8y8" path="res://resources/events/event_channels/wave_changed_event.tres" id="7_so2nx"]
 
-[node name="EnemyStatScaler" type="Node"]
+[node name="EnemyStatScaler" type="Node" unique_id=775239491 node_paths=PackedStringArray("on_wave_change")]
 script = ExtResource("1_scaler")
 hp_stat = ExtResource("2_hp")
 atk_stat = ExtResource("3_atk")
 speed_stat = ExtResource("4_speed")
 range_stat = ExtResource("5_range")
+on_wave_change = NodePath("GameEventListener")
 metadata/_custom_type_script = "uid://1mcmvwrhoa7v"
+
+[node name="GameEventListener" type="Node" parent="." unique_id=2072199053]
+script = ExtResource("6_lg6js")
+event = ExtResource("7_so2nx")
