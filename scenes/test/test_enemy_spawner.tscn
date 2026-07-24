@@ -1,16 +1,11 @@
 [gd_scene format=3 uid="uid://l4l0od2hauaq"]
 
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_b2a4i"]
-[ext_resource type="Script" uid="uid://c680wy8q4de83" path="res://scenes/entities/enemies/enemy_spawner.gd" id="2_jip5i"]
-[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy.tscn" id="3_r5kcs"]
+[ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="2_ck801"]
 
 [node name="TestEnemySpawner" type="Node2D" unique_id=992754489]
 
 [node name="Player" parent="." unique_id=1653452240 instance=ExtResource("1_b2a4i")]
 position = Vector2(430, 223)
 
-[node name="EnemySpawner" type="Node" parent="." unique_id=1214610155 node_paths=PackedStringArray("player")]
-script = ExtResource("2_jip5i")
-enemy_scene_ref = ExtResource("3_r5kcs")
-player = NodePath("../Player")
-metadata/_custom_type_script = "uid://c680wy8q4de83"
+[node name="EnemySpawner" parent="." unique_id=1487899817 instance=ExtResource("2_ck801")]
