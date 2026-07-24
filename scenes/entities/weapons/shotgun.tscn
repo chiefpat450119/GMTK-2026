@@ -7,9 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="5_1hj3y"]
 [ext_resource type="Texture2D" uid="uid://bicurbr4tejj0" path="res://assets/placeholder_shotgun_sprite.png" id="6_2b38s"]
 
-[node name="Shotgun" type="CharacterBody2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
-collision_layer = 0
-collision_mask = 0
+[node name="Shotgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_2b38s")
 sprite = NodePath("Sprite2D")
 base_damage = 3.0
