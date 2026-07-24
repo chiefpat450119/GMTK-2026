@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b4i6b2rqqh4tj"]
+
+[ext_resource type="Script" uid="uid://bykiew444eoa" path="res://scenes/entities/collectables/attractor.gd" id="1_usx5v"]
+[ext_resource type="PackedScene" uid="uid://bx52vm2hvi6ow" path="res://scenes/entities/collectables/collectable_sand.tscn" id="2_5c36p"]
+[ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="2_xkr5a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbiil"]
+radius = 150.0
+
+[node name="sand_pickup_attractive" type="Area2D" unique_id=778617406 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("1_usx5v")
+collision_shape = NodePath("CollisionShape2D")
+pickup_range = ExtResource("2_xkr5a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1494830362]
+shape = SubResource("CircleShape2D_lbiil")
+
+[node name="CollectableSand" parent="." unique_id=607656599 instance=ExtResource("2_5c36p")]

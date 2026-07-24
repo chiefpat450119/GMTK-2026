@@ -9,5 +9,4 @@ extends CharacterBody2D
 
 func _physics_process(_delta: float) -> void:
 	var dir = Input.get_vector("Left", "Right", "Up", "Down")
-	print(dir)
 	movement_component.move(dir)
