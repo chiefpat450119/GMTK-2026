@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://ctae7kpgvna66"]
 
-[node name="Main" type="Node2D" unique_id=961278468]
+[ext_resource type="Script" uid="uid://ddg16nycojp2p" path="res://scenes/main.gd" id="1_o5qli"]
+
+[node name="Main" type="Node2D" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
+script = ExtResource("1_o5qli")
+world_mount = NodePath(".")
