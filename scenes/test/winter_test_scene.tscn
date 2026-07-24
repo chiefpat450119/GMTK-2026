@@ -15,8 +15,9 @@ position = Vector2(532, 33)
 [node name="ShooterEnemy" parent="." unique_id=1311473883 instance=ExtResource("3_ia5xm")]
 position = Vector2(192, 436)
 shoot_interval = 1.0
-wait_interval = 0.0
-accel = 10.0
+wait_interval = 1.2
+accel_time = 0.3
+decel_time = 0.2
 
 [node name="Enemy2" parent="." unique_id=1164396065 instance=ExtResource("4_xvwyp")]
 position = Vector2(464, -272)

@@ -19,6 +19,8 @@ min_range = 300.0
 max_range = 331.66
 sprite = NodePath("Sprite")
 range_stat = ExtResource("3_4vgcu")
+accel_time = 0.2
+decel_time = 0.3
 movement = NodePath("MovementComponent")
 atk = NodePath("AtkComponent")
 

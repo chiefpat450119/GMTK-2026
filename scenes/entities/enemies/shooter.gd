@@ -12,13 +12,12 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @export var max_range: float  # Closes on the player outside this
 @export var sprite: Sprite2D
 @export var range_stat: Stat
-@export var accel: float
+@export var accel_time: float  # Seconds to reach full speed
+@export var decel_time: float  # Seconds to coast to a stop
 
 @onready var shoot_cooldown := Cooldown.new(shoot_interval)
 @onready var wait_period := Cooldown.new(wait_interval)
 @onready var base_scale_y: float = sprite.scale.y
-
-var move_dir: Vector2
 
 func _ready() -> void:
 	shoot_cooldown.start()
@@ -31,6 +30,10 @@ func _physics_process(delta: float) -> void:
 	var dir := get_to_player_vec()
 	global_rotation = dir.angle()
 
+	# Desired move direction; stays zero when the enemy wants to hold position,
+	# so accelerate() eases the velocity down to a stop instead of cutting it.
+	var move_dir := Vector2.ZERO
+
 	if shoot_cooldown.is_done():
 		_shoot(dir)
 		wait_period.start()
@@ -40,9 +43,12 @@ func _physics_process(delta: float) -> void:
 
 		var dist := dir.length()
 		if dist < range_stat.current_val(min_range):
-			movement.move(-dir.normalized())
+			move_dir = -dir
 		elif dist > range_stat.current_val(max_range):
-			move_towards_player(1)
+			move_dir = dir
+
+	# Called every frame so deceleration is applied even when move_dir is zero.
+	accelerate(move_dir, 1, accel_time, decel_time, delta)
 
 
 func _shoot(dir: Vector2) -> void:
