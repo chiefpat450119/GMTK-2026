@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bhn518m4rokgf"]
+
+[ext_resource type="Script" uid="uid://ip253dbbisyw" path="res://scenes/autoload/collectable_manager.gd" id="1_5iw1m"]
+[ext_resource type="PackedScene" uid="uid://bx52vm2hvi6ow" path="res://scenes/entities/collectables/collectable_sand.tscn" id="2_oyx6j"]
+
+[node name="CollectableManager" type="Node2D" unique_id=1739850891]
+script = ExtResource("1_5iw1m")
+sand_scene = ExtResource("2_oyx6j")

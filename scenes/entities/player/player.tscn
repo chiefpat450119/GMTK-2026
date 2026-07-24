@@ -13,6 +13,8 @@
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="11_w3p2j"]
 [ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
+[ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
+[ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
@@ -72,3 +74,7 @@ max_time = ExtResource("11_w3p2j")
 time_decay_scale = ExtResource("12_knby6")
 time_changed_event = ExtResource("13_18p7g")
 metadata/_custom_type_script = "uid://ulsgba0wksf4"
+
+[node name="PlayerPickup" type="Node" parent="." unique_id=919957778]
+script = ExtResource("player_pickup")
+pickup_range = ExtResource("pickup_range")
