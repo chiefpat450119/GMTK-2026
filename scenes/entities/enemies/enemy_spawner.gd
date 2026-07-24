@@ -3,7 +3,7 @@ extends Node
 
 # Distance away from player to spawn enemy. 
 # Should be off screen
-const spawn_radius: float = 400.0
+const spawn_radius: float = 1000.0
 
 @export var wave_timer: Timer
 @export var wave_changed_event : GameEvent

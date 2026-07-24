@@ -11,8 +11,13 @@
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="9_6sgm3"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="10_1ggsh"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 64.0
+
 [node name="ShooterEnemy" type="CharacterBody2D" unique_id=1808921831 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
 modulate = Color(0.788235, 0.054902, 0.054902, 1)
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_shoot")
 shoot_interval = 0.5
 wait_interval = 1.0
@@ -30,6 +35,9 @@ hp = NodePath("HealthComponent")
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1537934886]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_circ")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1537934887]
+shape = SubResource("CircleShape2D_body")
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1173517490 node_paths=PackedStringArray("body")]
 script = ExtResource("4_move")

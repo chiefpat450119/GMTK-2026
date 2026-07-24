@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bi6nqki2ayhyj"]
 
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_ia5xm"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="4_xvwyp"]
 [ext_resource type="Script" uid="uid://b8pv5xkvrpcss" path="res://utils/camera_follow.gd" id="2_xvwyp"]
 [ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="3_uwv7y"]
-[ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="4_xvwyp"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy.tscn" id="5_uwv7y"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_n1ogh"]
 
@@ -32,4 +33,4 @@ position = Vector2(726, 399)
 scale = Vector2(154.5, 152.5)
 texture = SubResource("PlaceholderTexture2D_n1ogh")
 
-[node name="EnemySpawner" parent="." unique_id=1487899817 instance=ExtResource("4_xvwyp")]
+[node name="MeleeEnemy" parent="." unique_id=394132278 instance=ExtResource("5_uwv7y")]
