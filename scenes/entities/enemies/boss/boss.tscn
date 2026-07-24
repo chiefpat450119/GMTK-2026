@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bnhbn3cs1fog7"]
+
+[ext_resource type="Script" uid="uid://t6dhj0sncyou" path="res://scenes/entities/enemies/enemy.gd" id="1_nnnbu"]
+[ext_resource type="Script" uid="uid://1lk5qevh2w7y" path="res://components/state_machine/state_machine.gd" id="2_oxis1"]
+[ext_resource type="Script" uid="uid://ptajhna0r1rr" path="res://scenes/entities/enemies/boss/boss_move_state.gd" id="3_d1okg"]
+[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="4_brypa"]
+[ext_resource type="Script" uid="uid://dnn0w0npw3nh3" path="res://scenes/entities/enemies/boss/boss_selector_state.gd" id="4_d1okg"]
+[ext_resource type="Script" uid="uid://7e4yn3vgx3tj" path="res://scenes/entities/enemies/boss/boss_attack_state.gd" id="5_brypa"]
+[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="5_jm5c0"]
+[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="6_au3wl"]
+[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_oxis1"]
+
+[node name="Boss" type="CharacterBody2D" unique_id=1948960875]
+script = ExtResource("1_nnnbu")
+metadata/_custom_type_script = "uid://t6dhj0sncyou"
+
+[node name="StateMachine" type="Node" parent="." unique_id=1717258978]
+script = ExtResource("2_oxis1")
+metadata/_custom_type_script = "uid://1lk5qevh2w7y"
+
+[node name="Move state" type="Node" parent="StateMachine" unique_id=1826993586]
+script = ExtResource("3_d1okg")
+metadata/_custom_type_script = "uid://cljx0jp8vul5h"
+
+[node name="Selector state" type="Node" parent="StateMachine" unique_id=1794602852 node_paths=PackedStringArray("state_pool")]
+script = ExtResource("4_d1okg")
+state_pool = [NodePath("../Move state"), NodePath("../BossAttackState")]
+metadata/_custom_type_script = "uid://cljx0jp8vul5h"
+
+[node name="BossAttackState" type="Node" parent="StateMachine" unique_id=1127751991]
+script = ExtResource("5_brypa")
+metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1155189143 node_paths=PackedStringArray("body")]
+script = ExtResource("4_brypa")
+body = NodePath("..")
+speed_stat = ExtResource("5_jm5c0")
+base_speed = 300.0
+metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
+[node name="AtkComponent" type="Node" parent="." unique_id=1346485908]
+script = ExtResource("6_au3wl")
+metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1870361976]
+script = ExtResource("7_oxis1")
+metadata/_custom_type_script = "uid://c38ipi1h7w7jy"

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bf7dmrn86nwtg"]
 
-[ext_resource type="Script" uid="uid://bpy0krfc3lfl3" path="res://scenes/entities/enemies/bash_enemy.gd" id="1_txa1i"]
+[ext_resource type="Script" uid="uid://bpy0krfc3lfl3" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.gd" id="1_txa1i"]
 [ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="2_c55qm"]
 [ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="2_d5vmj"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="3_1d37s"]
