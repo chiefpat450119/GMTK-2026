@@ -33,10 +33,9 @@ animations = [{
 radius = 30.61873
 height = 118.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "gun", "sprite")]
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "gun", "sprite")]
 collision_layer = 1
 collision_mask = 0
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "gun", "sprite")]
 script = ExtResource("1_xy2vv")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
