@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://be4yc6h34d76y" path="res://scenes/entities/weapons/railgun.tscn" id="3_j0oqr"]
+[ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
 [ext_resource type="Texture2D" uid="uid://dwehqdbtkwn1v" path="res://assets/player_sprites/Idle_1.png" id="4_70kwc"]
 [ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="5_yywfu"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
@@ -34,12 +34,13 @@ radius = 30.61873
 height = 118.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "gun", "sprite")]
+collision_layer = 1
 collision_mask = 0
 script = ExtResource("1_xy2vv")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
 dash_component = NodePath("DashComponent")
-gun = NodePath("Railgun")
+gun = NodePath("Shotgun")
 sprite = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
@@ -58,7 +59,8 @@ texture = ExtResource("2_g2els")
 scale = Vector2(0.94713265, 1.0591915)
 shape = SubResource("CapsuleShape2D_g4v7s")
 
-[node name="Railgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
+[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
+position = Vector2(0, -35)
 
 [node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
@@ -67,6 +69,7 @@ speed_stat = ExtResource("7_70kwc")
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
 [node name="DashComponent" parent="." unique_id=802832056 node_paths=PackedStringArray("body") instance=ExtResource("14_8dash")]
+dash_length = 0.3
 body = NodePath("..")
 
 [node name="TimeComponent" type="Node" parent="." unique_id=1574209017]
