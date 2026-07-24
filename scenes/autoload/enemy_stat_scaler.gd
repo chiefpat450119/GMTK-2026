@@ -23,7 +23,6 @@ func tick(elapsed: float) -> void:
 	_scale(speed_stat, 0.006 * elapsed)  # +0.6% move speed per second
 	_scale(range_stat, 0.004 * elapsed)  # +0.4% range per second
 
-# Clears all scaling and restarts the ramp from zero (e.g. on a new run).
 func reset() -> void:
 	_elapsed = 0.0
 	_clear(hp_stat)
@@ -31,11 +30,6 @@ func reset() -> void:
 	_clear(speed_stat)
 	_clear(range_stat)
 
-# Seconds of play time accumulated so far.
-func elapsed() -> float:
-	return _elapsed
-
-# Rewrites the scaling modifier on a stat to the given multiplicative amount.
 func _scale(stat: Stat, mult_amount: float) -> void:
 	if stat == null:
 		return
