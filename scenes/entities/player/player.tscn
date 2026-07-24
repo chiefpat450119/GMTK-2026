@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://dwehqdbtkwn1v" path="res://assets/player_sprites/Idle_1.png" id="2_r4dfn"]
+[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="3_70kwc"]
 [ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
 [ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
@@ -13,27 +15,50 @@
 [ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
-radius = 41.0
-height = 162.0
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r4dfn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_70kwc")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
 
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("health_component", "time_component", "movement_component", "gun")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 30.61873
+height = 118.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("health_component", "time_component", "movement_component", "gun", "sprite")]
 script = ExtResource("1_xy2vv")
 health_component = NodePath("HealthComponent")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
 gun = NodePath("Shotgun")
+sprite = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
+scale = Vector2(0.13148148, 0.13148148)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Placeholder Sprite" type="Sprite2D" parent="." unique_id=1306389928]
+visible = false
 z_index = 2
 texture = ExtResource("2_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170624263]
-position = Vector2(0, 8)
+scale = Vector2(0.94713265, 1.0591915)
 shape = SubResource("CapsuleShape2D_g4v7s")
 
 [node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
+position = Vector2(0, -35)
 
 [node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
