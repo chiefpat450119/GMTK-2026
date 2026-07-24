@@ -16,7 +16,7 @@ size = Vector2(140, 112)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
 
-[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
+[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_txa1i")
@@ -30,7 +30,6 @@ range_stat = ExtResource("2_c55qm")
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
-hurtbox = NodePath("Area2D")
 movement = NodePath("MovementComponent")
 atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
@@ -50,9 +49,12 @@ speed_stat = ExtResource("4_5ajpc")
 base_speed = 550.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="AtkComponent" type="Node" parent="." unique_id=692120435]
+[node name="AtkComponent" type="Node" parent="." unique_id=692120435 node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("5_o334c")
 atk_stat = ExtResource("6_4gxjr")
+hurtbox = NodePath("../Area2D")
+contact_damage = 9.28125
+active_on_ready = false
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1932891258]
