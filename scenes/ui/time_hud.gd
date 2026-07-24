@@ -19,16 +19,16 @@ const REMAINDER_EPSILON := 0.01
 @export var row: HBoxContainer
 @export var segment_scene: PackedScene
 
-# The real time value, straight off the component.
 var _target: float = 0.0
-# What the readout is showing. Equal to _target except while rolling up.
 var _shown: float = 0.0
 var _shown_whole: int = -1
 var _roll_from: float = 0.0
 var _rolling: bool = false
 var _synced: bool = false
 var _roll_tween: Tween
-
+var _color_tween: Tween
+@onready var _fill_style: StyleBoxFlat = _own_fill_style()
+@onready var _original_color: Color = _fill_style.bg_color
 
 func _ready() -> void:
 	time_listener.response.connect(_on_time_changed)
@@ -125,6 +125,7 @@ func _add_time(amount: float) -> void:
 
 	_roll_readout()
 	_play_mechanism()
+	_flash_fill()
 
 
 # Interpolates a 0..1 weight rather than a fixed end value, so decay landing
@@ -179,6 +180,27 @@ func _play_mechanism() -> void:
 	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(0), 0.15)
 	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(-40), 0.2).set_delay(0.1)
 	gear_tween.tween_property(gear, "offset_transform_rotation", deg_to_rad(0), 0.2).set_delay(0.15).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
+
+# The fill stylebox is a scene sub-resource, so every instance of this scene
+# shares one copy. Tweening it as-is would flash all of them together and, worse,
+# leave the saved sub-resource holding whatever color the tween stopped on.
+func _own_fill_style() -> StyleBoxFlat:
+	var style := fill.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
+	fill.add_theme_stylebox_override("fill", style)
+	return style
+
+
+# Snaps the bar to white and fades it back, so a gain reads as a hit even when
+# the fill barely moves. Snapping rather than tweening in means back-to-back
+# pickups each get a visible peak instead of averaging into a dim glow. modulate
+# is no good here: it tints the whole ProgressBar, and the fill's alpha would
+# take the empty background down with it.
+func _flash_fill() -> void:
+	_color_tween = _restart(_color_tween)
+	_fill_style.bg_color = Color.WHITE
+	_color_tween.tween_property(_fill_style, "bg_color", _original_color, 0.25) \
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 # Tweens are per-channel; a second pickup mid-animation restarts its own without
