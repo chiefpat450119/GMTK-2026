@@ -1,4 +1,4 @@
-class_name MeleeEnemy
+class_name BashEnemy
 extends Enemy
 
 const ROTATION_SPEED := 12.0  # Radians per second the body turns to face the player
