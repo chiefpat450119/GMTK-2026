@@ -18,7 +18,7 @@ extends CharacterBody2D
 
 var can_fire : bool = true
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
 	if abs(rad_to_deg(transform.get_rotation())) > 90:
@@ -40,10 +40,9 @@ func shoot():
 		var bullet : Bullet = bullet_scene.instantiate()
 		bullet.global_transform = bullet_spawn_point.global_transform
 		bullet.damage = damage_stat.current_val(base_damage)
-		# Add inaccuracy
-		var rng := RandomNumberGenerator.new()
+
 		var accuracy := accuracy_stat.current_val(base_accuracy)
-		bullet.rotation = rotation + deg_to_rad(rng.randf_range(-accuracy, accuracy))
+		bullet.rotation = rotation + deg_to_rad(randf_range(-accuracy, accuracy))
 		add_child(bullet)
 		
 		# Fire cooldown

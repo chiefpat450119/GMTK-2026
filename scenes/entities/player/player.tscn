@@ -5,39 +5,62 @@
 [ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2_r4dfn"]
 [ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3_70kwc"]
 [ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
+[ext_resource type="Texture2D" uid="uid://dwehqdbtkwn1v" path="res://assets/player_sprites/Idle_1.png" id="4_70kwc"]
+[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="5_yywfu"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
 [ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
-[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_r4dfn"]
-[ext_resource type="Resource" uid="uid://dfkd78us4w3tb" path="res://resources/stats/player_stats/player_max_hp_stat.tres" id="8_70kwc"]
-[ext_resource type="Resource" uid="uid://udrqunq3d2gv" path="res://resources/events/event_channels/player_hp_changed_event.tres" id="9_yywfu"]
 [ext_resource type="Script" uid="uid://ulsgba0wksf4" path="res://components/time_component.gd" id="10_pcd0u"]
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="11_w3p2j"]
 [ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
+[ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
+[ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_70kwc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yywfu")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
-radius = 41.0
-height = 162.0
+radius = 30.61873
+height = 118.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("health_component", "time_component", "movement_component", "gun")]
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "gun", "sprite")]
 script = ExtResource("1_xy2vv")
-health_component = NodePath("HealthComponent")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
 gun = NodePath("Shotgun")
+sprite = NodePath("AnimatedSprite2D")
 dash_speed = ExtResource("2_r4dfn")
 dash_cooldown = ExtResource("3_70kwc")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
+scale = Vector2(0.13148148, 0.13148148)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Placeholder Sprite" type="Sprite2D" parent="." unique_id=1306389928]
+visible = false
 z_index = 2
 texture = ExtResource("2_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170624263]
-position = Vector2(0, 8)
+scale = Vector2(0.94713265, 1.0591915)
 shape = SubResource("CapsuleShape2D_g4v7s")
 
 [node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
+position = Vector2(0, -35)
 
 [node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
@@ -45,15 +68,13 @@ body = NodePath("..")
 speed_stat = ExtResource("7_70kwc")
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=346041983]
-script = ExtResource("7_r4dfn")
-max_hp = ExtResource("8_70kwc")
-hp_changed_event = ExtResource("9_yywfu")
-metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
-
 [node name="TimeComponent" type="Node" parent="." unique_id=1574209017]
 script = ExtResource("10_pcd0u")
 max_time = ExtResource("11_w3p2j")
 time_decay_scale = ExtResource("12_knby6")
 time_changed_event = ExtResource("13_18p7g")
 metadata/_custom_type_script = "uid://ulsgba0wksf4"
+
+[node name="PlayerPickup" type="Node" parent="." unique_id=919957778]
+script = ExtResource("player_pickup")
+pickup_range = ExtResource("pickup_range")

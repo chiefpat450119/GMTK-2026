@@ -3,15 +3,10 @@
 [ext_resource type="Script" uid="uid://cskqiyhxakt2i" path="res://scenes/entities/collectables/collectable_sand.gd" id="1_xyk2u"]
 [ext_resource type="Texture2D" uid="uid://dli1aeqf48nl0" path="res://assets/placeholder_sand_drop.png" id="2_j2qwj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpsc1"]
-size = Vector2(54, 25.5)
-
-[node name="CollectableSand" type="Area2D" unique_id=607656599]
+[node name="CollectableSand" type="Node2D" unique_id=607656599]
 script = ExtResource("1_xyk2u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1516833752]
-position = Vector2(1, -15)
-shape = SubResource("RectangleShape2D_qpsc1")
+attract_duration = 0.25
+attract_trans = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1924927446]
 texture_filter = 1
