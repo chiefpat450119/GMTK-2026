@@ -11,6 +11,15 @@ extends Node
 
 signal hp_changed_signal # Use this for enemies
 
+## Returns the HealthComponent hanging off an entity, or null if it has none.
+## Lets damage sources hurt anything with health without knowing its concrete type.
+static func find_in(entity: Node) -> HealthComponent:
+	for child in entity.get_children():
+		if child is HealthComponent:
+			return child
+	return null
+
+
 func add_hp(amount: float) -> void:
 	_set_hp(hp + amount)
 

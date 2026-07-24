@@ -9,7 +9,6 @@ extends Node
 # Moves body. Direction calculated by caller, speed override is optional
 func move(dir: Vector2, speed_override: float = -1.0):
 	if body == null:
-		print("no body found")
 		return 
 	var speed: float
 	if speed_override >= 0.0:

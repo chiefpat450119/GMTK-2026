@@ -13,7 +13,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(128, 128)
+
 [node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_txa1i")
 attack_interval = 1.0
 charge_time = 0.75
@@ -35,6 +40,9 @@ metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_d5vmj")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=853140977]
+shape = SubResource("RectangleShape2D_body")
+
 [node name="MovementComponent" type="Node" parent="." unique_id=604904058 node_paths=PackedStringArray("body")]
 script = ExtResource("3_1d37s")
 body = NodePath("..")
@@ -54,6 +62,8 @@ base_hp = 27.0
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=955698249]
+collision_layer = 0
+collision_mask = 1
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
