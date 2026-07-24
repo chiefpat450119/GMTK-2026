@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_nbv1x")
+stat_name = "enemy_speed"
+min_val = 0.0
 metadata/_custom_type_script = "uid://bnaam37pn33wi"
