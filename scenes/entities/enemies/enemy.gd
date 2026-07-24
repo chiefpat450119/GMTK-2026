@@ -1,10 +1,20 @@
 class_name Enemy
 extends CharacterBody2D
 
-@onready var player = Player.instance
+@export_category("COMPONENTS")
 @export var movement: MovementComponent
 @export var atk: AtkComponent
 @export var hp: HealthComponent
+
+@export_category("STATS")
+@export var sand_drop_amt_stat: Stat
+@export var sand_drop_amt_base: float = 1.0
+
+@onready var player = Player.instance
+
+func _ready() -> void:
+	if hp:
+		hp.died.connect(drop_sand)
 
 func move_towards_player(speed_mul: float):
 	movement.move(get_to_player_vec().normalized() * speed_mul)
@@ -32,3 +42,8 @@ func get_to_player_vec() -> Vector2:
 
 func get_player_pos() -> Vector2:
 	return player.global_position
+
+
+func drop_sand():
+	var sand_amt := sand_drop_amt_stat.current_val(sand_drop_amt_base)
+	CollectableManagerInstance.spawn_sand(global_position, sand_amt)
