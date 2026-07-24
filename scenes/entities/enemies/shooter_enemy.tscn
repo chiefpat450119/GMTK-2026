@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dsh7ter2enmy0"]
 
-[ext_resource type="Script" uid="uid://bxuivfn5rjpl5" path="res://scenes/entities/enemies/shooter.gd" id="1_shoot"]
+[ext_resource type="Script" uid="uid://bxuivfn5rjpl5" path="res://scenes/entities/enemies/shooter_enemy.gd" id="1_shoot"]
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="2_proj"]
 [ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="3_4vgcu"]
 [ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="3_circ"]

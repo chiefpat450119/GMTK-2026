@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="Enemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk")]
+[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk")]
 script = ExtResource("1_txa1i")
 attack_interval = 1.0
 charge_time = 0.75
@@ -20,6 +20,8 @@ bash_speed = 2.6667
 charging_speed = 0.0833
 attack_range = 304.278
 range_stat = ExtResource("2_c55qm")
+accel_time = 0.5
+decel_time = 0.15
 sprite = NodePath("Sprite2D")
 hurtbox = NodePath("Area2D")
 movement = NodePath("MovementComponent")

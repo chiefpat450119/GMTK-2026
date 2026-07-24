@@ -12,6 +12,8 @@ const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fir
 @export var charging_speed: float  # Speed multiplier while winding up
 @export var attack_range: float  # Distance at which the enemy commits to an attack
 @export var range_stat: Stat
+@export var accel_time: float  # Seconds to reach full speed (approach only)
+@export var decel_time: float  # Seconds to coast to a stop (approach only)
 
 @export var sprite: Sprite2D
 @export var hurtbox: Area2D
@@ -47,13 +49,19 @@ func _physics_process(delta: float) -> void:
 		_update_charge(dir)
 		return
 
-	if attack_cooldown.is_started() and not attack_cooldown.is_done():
-		return
+	# Approach/idle movement eases in and out; charging and bashing stay instant.
+	# move_dir stays zero to coast to a stop while waiting or holding range.
+	var move_dir := Vector2.ZERO
 
-	if attack_cooldown.is_done() and dir.length() < attack_range:
+	if attack_cooldown.is_started() and not attack_cooldown.is_done():
+		pass  # Waiting between attacks — coast to a stop.
+	elif attack_cooldown.is_done() and dir.length() < attack_range:
 		_start_charge()
+		return
 	elif dir.length() > range_stat.current_val(attack_range):
-		move_towards_player(1)
+		move_dir = dir
+
+	accelerate(move_dir, 1, accel_time, decel_time, delta)
 
 
 func _start_charge() -> void:
