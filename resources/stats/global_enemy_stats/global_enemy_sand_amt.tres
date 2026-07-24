@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://bdp8bm8s3w1uh"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_hoveb"]
+
+[resource]
+script = ExtResource("1_hoveb")
+stat_name = "sand_drop_amt"
+min_val = 0.0
+max_val = 30.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"

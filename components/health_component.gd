@@ -3,13 +3,18 @@
 class_name HealthComponent
 extends Node
 
+signal hp_changed_signal
+signal died()
+
 @export var max_hp: Stat
 @export var base_hp: float
-@export var hp_changed_event : GameEvent # Optional, for listeners that can't connect to the signal directly
+@export var hp_changed_event: GameEvent # Optional, for listeners that can't connect to the signal directly
 
-@onready var hp := max_hp.current_val(base_hp)
+@export var death_event: GameEvent # shared event for when *any* enemy dies
 
-signal hp_changed_signal
+@onready var effective_max_hp := max_hp.current_val(base_hp)
+@onready var hp := effective_max_hp
+
 
 ## Returns the HealthComponent hanging off an entity, or null if it has none.
 ## Lets damage sources hurt anything with health without knowing its concrete type.
@@ -33,3 +38,13 @@ func _set_hp(value: float) -> void:
 	hp_changed_signal.emit()
 	if hp_changed_event:
 		hp_changed_event.raise()
+	
+	if hp <= 0:
+		die()
+
+func die():
+	died.emit()
+	if death_event:
+		death_event.raise()
+	
+	owner.queue_free()
