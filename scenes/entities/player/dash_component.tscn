@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bs7u4xg0su6w3"]
+
+[ext_resource type="Script" uid="uid://cmxhpmdbfnacg" path="res://scenes/entities/player/dash_component.gd" id="1"]
+[ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2"]
+[ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3"]
+
+[node name="DashComponent" type="Node" unique_id=505839928]
+script = ExtResource("1")
+dash_cooldown = ExtResource("3")
+speed_stat = ExtResource("2")
