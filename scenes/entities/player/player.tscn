@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
+[ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2_r4dfn"]
+[ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3_70kwc"]
 [ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
 [ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
@@ -23,6 +25,8 @@ health_component = NodePath("HealthComponent")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
 gun = NodePath("Shotgun")
+dash_speed = ExtResource("2_r4dfn")
+dash_cooldown = ExtResource("3_70kwc")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
