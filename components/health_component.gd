@@ -1,15 +1,15 @@
-# Health component used for both enemies and player
+# Health component used for enemies only — the player has no hp, their time bar is their health
 
 class_name HealthComponent
 extends Node
 
 @export var max_hp: Stat
 @export var base_hp: float
-@export var hp_changed_event : GameEvent # Use this for players for changes to current and/or max hp
+@export var hp_changed_event : GameEvent # Optional, for listeners that can't connect to the signal directly
 
 @onready var hp := max_hp.current_val(base_hp)
 
-signal hp_changed_signal # Use this for enemies
+signal hp_changed_signal
 
 func add_hp(amount: float) -> void:
 	_set_hp(hp + amount)

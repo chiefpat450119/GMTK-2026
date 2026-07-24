@@ -3,7 +3,6 @@ extends CharacterBody2D
 ## Singleton containing data of relevant componentns for ease of access
 
 # cant expose these in editor becuase Player_manager is an autoload
-#@onready var health_component : HealthComponent = find_child("HealthComponent")
 #@onready var time_component : TimeComponent = find_child("TimeComponent")
 #@onready var movement_component : MovementComponent = find_child("MovementComponent")
 
