@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
-[ext_resource type="Texture2D" uid="uid://dwehqdbtkwn1v" path="res://assets/player_sprites/Idle_1.png" id="2_r4dfn"]
-[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="3_70kwc"]
 [ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2_r4dfn"]
 [ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3_70kwc"]
 [ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
+[ext_resource type="Texture2D" uid="uid://dwehqdbtkwn1v" path="res://assets/player_sprites/Idle_1.png" id="4_70kwc"]
+[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="5_yywfu"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
 [ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
 [ext_resource type="Script" uid="uid://ulsgba0wksf4" path="res://components/time_component.gd" id="10_pcd0u"]
@@ -20,10 +20,10 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_r4dfn")
+"texture": ExtResource("4_70kwc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_70kwc")
+"texture": ExtResource("5_yywfu")
 }],
 "loop": 1,
 "name": &"Idle",
