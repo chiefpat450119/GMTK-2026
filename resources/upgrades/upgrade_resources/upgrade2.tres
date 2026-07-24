@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://e5v5iiv2ff3j"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_tuar7"]
+[ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="2_1oqbg"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_lqd2e"]
+[ext_resource type="Texture2D" uid="uid://rm3atufxtnw1" path="res://assets/yi.webp" id="3_1oqbg"]
+
+[sub_resource type="Resource" id="Resource_5lwm2"]
+script = ExtResource("1_tuar7")
+target_stat = ExtResource("2_1oqbg")
+value = 9.0
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_lqd2e")
+title = "Master Yi"
+icon = ExtResource("3_1oqbg")
+effects = Array[ExtResource("1_tuar7")]([SubResource("Resource_5lwm2")])
+metadata/_custom_type_script = "uid://031polniagv2"
