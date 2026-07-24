@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
-[ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2_r4dfn"]
-[ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3_70kwc"]
 [ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
 [ext_resource type="Texture2D" uid="uid://dwehqdbtkwn1v" path="res://assets/player_sprites/Idle_1.png" id="4_70kwc"]
 [ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="5_yywfu"]
@@ -13,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="11_w3p2j"]
 [ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
+[ext_resource type="PackedScene" uid="uid://bs7u4xg0su6w3" path="res://scenes/entities/player/dash_component.tscn" id="14_8dash"]
 [ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
 [ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
 
@@ -37,13 +36,13 @@ height = 118.0
 [node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "gun", "sprite")]
 collision_layer = 1
 collision_mask = 0
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "gun", "sprite")]
 script = ExtResource("1_xy2vv")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
+dash_component = NodePath("DashComponent")
 gun = NodePath("Shotgun")
 sprite = NodePath("AnimatedSprite2D")
-dash_speed = ExtResource("2_r4dfn")
-dash_cooldown = ExtResource("3_70kwc")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
@@ -69,6 +68,10 @@ script = ExtResource("6_8akj5")
 body = NodePath("..")
 speed_stat = ExtResource("7_70kwc")
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
+[node name="DashComponent" parent="." unique_id=802832056 node_paths=PackedStringArray("body") instance=ExtResource("14_8dash")]
+dash_length = 0.3
+body = NodePath("..")
 
 [node name="TimeComponent" type="Node" parent="." unique_id=1574209017]
 script = ExtResource("10_pcd0u")
