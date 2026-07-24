@@ -14,9 +14,10 @@ const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fir
 @export var bash_speed: float  # Speed multiplier while bashing
 @export var charging_speed: float  # Speed multiplier while winding up
 @export var attack_range: float  # Distance at which the enemy commits to an attack
+@export var range_stat: Stat
 
 @export var sprite: Sprite2D
-@export var hurtbox: Area2D  # Only monitors while the bash is travelling
+@export var hurtbox: Area2D
 
 @onready var attack_cooldown := Cooldown.new(attack_interval)
 @onready var charge_timer := Cooldown.new(charge_time)
@@ -50,7 +51,7 @@ func _physics_process(delta: float) -> void:
 
 	if attack_cooldown.is_done() and dir.length() < attack_range:
 		_start_charge()
-	elif dir.length() > attack_range / 1.8:
+	elif dir.length() > range_stat.current_val(attack_range):
 		move_towards_player(1)
 
 

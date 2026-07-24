@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bf7dmrn86nwtg"]
 
 [ext_resource type="Script" uid="uid://bpy0krfc3lfl3" path="res://scenes/entities/enemies/bash_enemy.gd" id="1_txa1i"]
+[ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="2_c55qm"]
 [ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="2_d5vmj"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="3_1d37s"]
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="4_5ajpc"]
@@ -17,7 +18,8 @@ charge_time = 0.75
 bash_duration = 0.5
 bash_speed = 2.6667
 charging_speed = 0.0833
-attack_range = 547.7
+attack_range = 304.278
+range_stat = ExtResource("2_c55qm")
 sprite = NodePath("Sprite2D")
 hurtbox = NodePath("Area2D")
 movement = NodePath("MovementComponent")
