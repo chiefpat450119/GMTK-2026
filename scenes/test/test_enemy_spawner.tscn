@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_b2a4i"]
 [ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="2_ck801"]
 [ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy.tscn" id="3_b2a4i"]
+[ext_resource type="Resource" uid="uid://bl4ravbh4p8y8" path="res://resources/events/event_channels/wave_changed_event.tres" id="4_jip5i"]
 
 [node name="TestEnemySpawner" type="Node2D" unique_id=992754489]
 
@@ -11,3 +12,4 @@ position = Vector2(430, 223)
 
 [node name="EnemySpawner" parent="." unique_id=1487899817 instance=ExtResource("2_ck801")]
 enemy_scene_ref = ExtResource("3_b2a4i")
+wave_changed_event = ExtResource("4_jip5i")
