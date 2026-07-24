@@ -32,5 +32,4 @@ func get_player_pos() -> Vector2:
 	return player.global_position
 
 func hit(damage: float):
-	atk.attack(damage, player.health_component)
-	#print(player.health_component.hp)
+	atk.attack(damage, player.time_component)
