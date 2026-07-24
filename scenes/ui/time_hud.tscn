@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="6_bar_end"]
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
 [ext_resource type="FontFile" uid="uid://c62111kviqhp7" path="res://assets/hud/JainiPurva-Regular.ttf" id="8_jaini_purva"]
-[ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/hud/NewRocker-Regular.ttf" id="9_new_rocker"]
+[ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="9_new_rocker"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_n1ogh"]
 font = ExtResource("8_jaini_purva")
