@@ -6,11 +6,16 @@ extends Node
 @export var speed_stat : Stat
 @export var base_speed : float = 0.0
 
-# Moves body. Velocity calculated by caller
-func move(dir: Vector2):
+# Moves body. Direction calculated by caller, speed override is optional
+func move(dir: Vector2, speed_override: float = -1.0):
 	if body == null:
 		print("no body found")
 		return 
-	
-	body.velocity = speed_stat.current_val(base_speed) * dir
+	var speed: float
+	if speed_override >= 0.0:
+		speed = speed_override #this is pretty much for dashing
+	else:
+		speed = speed_stat.current_val(base_speed)
+		
+	body.velocity = speed * dir
 	body.move_and_slide()

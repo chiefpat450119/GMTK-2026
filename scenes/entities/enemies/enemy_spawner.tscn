@@ -1,9 +1,51 @@
 [gd_scene format=3 uid="uid://df53qtwd8bi4i"]
 
 [ext_resource type="Script" uid="uid://c680wy8q4de83" path="res://scenes/entities/enemies/enemy_spawner.gd" id="1_6iiwg"]
-[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/enemy_test.tscn" id="2_6mcpi"]
+[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy.tscn" id="2_6mcpi"]
+[ext_resource type="Script" uid="uid://b87kvmux6rpvl" path="res://scenes/entities/enemies/enemy_spawn_data.gd" id="3_6mcpi"]
 
-[node name="EnemySpawner" type="Node" unique_id=1487899817]
+[sub_resource type="Resource" id="Resource_wqkcr"]
+script = ExtResource("3_6mcpi")
+enemy_scene = ExtResource("2_6mcpi")
+difficulty_rating = 1
+metadata/_custom_type_script = "uid://b87kvmux6rpvl"
+
+[sub_resource type="Resource" id="Resource_p0kws"]
+script = ExtResource("3_6mcpi")
+enemy_scene = ExtResource("2_6mcpi")
+difficulty_rating = 2
+metadata/_custom_type_script = "uid://b87kvmux6rpvl"
+
+[sub_resource type="Resource" id="Resource_dunn1"]
+script = ExtResource("3_6mcpi")
+enemy_scene = ExtResource("2_6mcpi")
+difficulty_rating = 3
+metadata/_custom_type_script = "uid://b87kvmux6rpvl"
+
+[sub_resource type="Resource" id="Resource_48ffp"]
+script = ExtResource("3_6mcpi")
+enemy_scene = ExtResource("2_6mcpi")
+difficulty_rating = 5
+metadata/_custom_type_script = "uid://b87kvmux6rpvl"
+
+[sub_resource type="Resource" id="Resource_frecl"]
+script = ExtResource("3_6mcpi")
+enemy_scene = ExtResource("2_6mcpi")
+difficulty_rating = 7
+metadata/_custom_type_script = "uid://b87kvmux6rpvl"
+
+[sub_resource type="Resource" id="Resource_fvu5v"]
+script = ExtResource("3_6mcpi")
+enemy_scene = ExtResource("2_6mcpi")
+difficulty_rating = 15
+metadata/_custom_type_script = "uid://b87kvmux6rpvl"
+
+[node name="EnemySpawner" type="Node" unique_id=1487899817 node_paths=PackedStringArray("wave_timer")]
 script = ExtResource("1_6iiwg")
 enemy_scene_ref = ExtResource("2_6mcpi")
+enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubResource("Resource_p0kws"), SubResource("Resource_dunn1"), SubResource("Resource_48ffp"), SubResource("Resource_frecl"), SubResource("Resource_fvu5v")])
+wave_timer = NodePath("Timer")
 metadata/_custom_type_script = "uid://c680wy8q4de83"
+
+[node name="Timer" type="Timer" parent="." unique_id=681572550]
+wait_time = 4.724
