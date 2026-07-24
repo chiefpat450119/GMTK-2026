@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dbv47qrqkwe2e"]
+
+[ext_resource type="PackedScene" uid="uid://daw0350ihy34g" path="res://scenes/map/map.tscn" id="1_6vtm2"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_6vtm2"]
+
+[node name="TestMap" type="Node2D" unique_id=1156804359]
+
+[node name="Map" parent="." unique_id=1713291190 instance=ExtResource("1_6vtm2")]
+
+[node name="Player" parent="." unique_id=1339333072 instance=ExtResource("2_6vtm2")]
+
+[editable path="Player"]

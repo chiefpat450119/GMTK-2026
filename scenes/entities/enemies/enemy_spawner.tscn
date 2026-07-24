@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://df53qtwd8bi4i"]
 
 [ext_resource type="Script" uid="uid://c680wy8q4de83" path="res://scenes/entities/enemies/enemy_spawner.gd" id="1_6iiwg"]
-[ext_resource type="Resource" uid="uid://bl4ravbh4p8y8" path="res://resources/events/event_channels/wave_changed_event.tres" id="2_0okg5"]
-[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy.tscn" id="2_6mcpi"]
+[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.tscn" id="2_6mcpi"]
+[ext_resource type="Resource" uid="uid://udrqunq3d2gv" path="res://resources/events/event_channels/player_hp_changed_event.tres" id="3_0okg5"]
 [ext_resource type="Script" uid="uid://b87kvmux6rpvl" path="res://scenes/entities/enemies/enemy_spawn_data.gd" id="3_6mcpi"]
 
 [sub_resource type="Resource" id="Resource_wqkcr"]
@@ -43,8 +43,9 @@ metadata/_custom_type_script = "uid://b87kvmux6rpvl"
 
 [node name="EnemySpawner" type="Node" unique_id=1487899817 node_paths=PackedStringArray("wave_timer")]
 script = ExtResource("1_6iiwg")
+enemy_scene_ref = ExtResource("2_6mcpi")
 wave_timer = NodePath("Timer")
-wave_changed_event = ExtResource("2_0okg5")
+wave_changed_event = ExtResource("3_0okg5")
 enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubResource("Resource_p0kws"), SubResource("Resource_dunn1"), SubResource("Resource_48ffp"), SubResource("Resource_frecl"), SubResource("Resource_fvu5v")])
 metadata/_custom_type_script = "uid://c680wy8q4de83"
 
