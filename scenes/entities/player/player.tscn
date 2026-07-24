@@ -1,23 +1,38 @@
 [gd_scene format=3 uid="uid://cnt7cah78t0v5"]
 
-[ext_resource type="Script" uid="uid://bcj1uy352fofb" path="res://scenes/entities/player/player_movement.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://bytadyaeehtje" path="res://scenes/entities/player/player_shoot.gd" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://bjte2vr1ia54r" path="res://assets/placeholder_gun_sprite.png" id="4_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="4_tuyoq"]
-[ext_resource type="Script" uid="uid://ceefjo2r83hdl" path="res://scenes/entities/player/camera.gd" id="6_8akj5"]
+[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
+[ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
+[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_r4dfn"]
+[ext_resource type="Resource" uid="uid://dfkd78us4w3tb" path="res://resources/stats/player_stats/player_max_hp_stat.tres" id="8_70kwc"]
+[ext_resource type="Resource" uid="uid://udrqunq3d2gv" path="res://resources/events/event_channels/player_hp_changed_event.tres" id="9_yywfu"]
+[ext_resource type="Script" uid="uid://ulsgba0wksf4" path="res://components/time_component.gd" id="10_pcd0u"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="11_w3p2j"]
+[ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
+[ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
 radius = 36.0
 height = 72.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1653452240]
-collision_mask = 3
-script = ExtResource("1_3vyb7")
-speed = 500.0
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("health_component", "time_component", "movement_component")]
+script = ExtResource("1_xy2vv")
+health_component = NodePath("HealthComponent")
+time_component = NodePath("TimeComponent")
+movement_component = NodePath("MovementComponent")
+metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
+z_index = 2
 texture = ExtResource("2_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170624263]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_g4v7s")
 
 [node name="Gun Body" type="CharacterBody2D" parent="." unique_id=1415299828 node_paths=PackedStringArray("sprite", "bullet_spawn_point")]
 script = ExtResource("3_dqkch")
@@ -26,6 +41,7 @@ bullet_scene = ExtResource("4_tuyoq")
 bullet_spawn_point = NodePath("Bullet Spawn Point")
 
 [node name="Sprite2D" type="Sprite2D" parent="Gun Body" unique_id=31572719]
+z_index = 3
 position = Vector2(62, -2.861023e-06)
 scale = Vector2(0.52229303, 0.522293)
 texture = ExtResource("4_qlg0r")
@@ -33,9 +49,21 @@ texture = ExtResource("4_qlg0r")
 [node name="Bullet Spawn Point" type="Node2D" parent="Gun Body" unique_id=723765235]
 position = Vector2(100, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170624263]
-position = Vector2(0, 52)
-shape = SubResource("CapsuleShape2D_g4v7s")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=803023975]
+[node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
+body = NodePath("..")
+speed_stat = ExtResource("7_70kwc")
+metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=346041983]
+script = ExtResource("7_r4dfn")
+max_hp = ExtResource("8_70kwc")
+hp_changed_event = ExtResource("9_yywfu")
+metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
+
+[node name="TimeComponent" type="Node" parent="." unique_id=1574209017]
+script = ExtResource("10_pcd0u")
+max_time = ExtResource("11_w3p2j")
+time_decay_scale = ExtResource("12_knby6")
+time_changed_event = ExtResource("13_18p7g")
+metadata/_custom_type_script = "uid://ulsgba0wksf4"
