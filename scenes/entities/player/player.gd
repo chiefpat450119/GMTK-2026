@@ -13,7 +13,6 @@ static var instance: Player
 @export var health_component : HealthComponent
 @export var time_component : TimeComponent
 @export var movement_component : MovementComponent
-@export var gun : Gun
 
 
 func _enter_tree() -> void:
@@ -27,6 +26,3 @@ func _physics_process(_delta: float) -> void:
 	var dir = Input.get_vector("Left", "Right", "Up", "Down")
 	#print(dir)
 	movement_component.move(dir)
-	
-	if Input.is_action_pressed("M1"):
-		gun.shoot()

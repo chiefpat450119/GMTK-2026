@@ -20,7 +20,7 @@ var can_fire : bool = true
 
 func _physics_process(delta: float) -> void:
 	look_at(get_global_mouse_position())
-	
+
 	if abs(rad_to_deg(transform.get_rotation())) > 90:
 		sprite.flip_v = true
 	else:
@@ -34,8 +34,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		sprite.z_index = 3
 
+	if Input.is_action_pressed("M1"):
+		shoot()
+
 func shoot():
 	if (can_fire):
+		can_fire = false
+		
 		# Spawn bullet
 		var bullet : Bullet = bullet_scene.instantiate()
 		bullet.global_transform = bullet_spawn_point.global_transform
@@ -47,6 +52,5 @@ func shoot():
 		add_child(bullet)
 		
 		# Fire cooldown
-		can_fire = false
 		await get_tree().create_timer(firerate_stat.current_val(base_fire_cooldown)).timeout
 		can_fire = true

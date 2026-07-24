@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cec0glmuud386" path="res://scenes/entities/player/player.gd" id="1_xy2vv"]
 [ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="3_j0oqr"]
+[ext_resource type="PackedScene" uid="uid://be4yc6h34d76y" path="res://scenes/entities/weapons/railgun.tscn" id="3_j0oqr"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
 [ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_r4dfn"]
@@ -17,12 +17,11 @@
 radius = 41.0
 height = 162.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("health_component", "time_component", "movement_component", "gun")]
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("health_component", "time_component", "movement_component")]
 script = ExtResource("1_xy2vv")
 health_component = NodePath("HealthComponent")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
-gun = NodePath("Shotgun")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1306389928]
@@ -33,7 +32,7 @@ texture = ExtResource("2_g2els")
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_g4v7s")
 
-[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
+[node name="Railgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
 
 [node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
