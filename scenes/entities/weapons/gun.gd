@@ -38,6 +38,9 @@ func _physics_process(_delta: float) -> void:
 	else:
 		sprite.z_index = 3
 
+	if Input.is_action_pressed("M1"):
+		shoot()
+
 func shoot():
 	if not can_fire:
 		return
