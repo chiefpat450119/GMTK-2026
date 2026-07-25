@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="8_qgna5"]
 [ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="9_new_rocker"]
+[ext_resource type="Texture2D" uid="uid://d2lxftbgwcu02" path="res://assets/hud/DASH_ICON_NOBCK.png" id="12_blvwf"]
+[ext_resource type="Script" uid="uid://bxhwj7mjvjhqi" path="res://scenes/ui/dash_cooldown.gd" id="12_pj4x4"]
+[ext_resource type="Texture2D" uid="uid://b325nj3vbhpqg" path="res://assets/hud/DASH_ICON.png" id="13_l3ls0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dji2m"]
 font = ExtResource("8_qgna5")
@@ -53,7 +56,7 @@ offset_top = -356.0
 offset_right = 721.0
 offset_bottom = -25.0
 grow_vertical = 0
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.6, 0.6)
 pivot_offset_ratio = Vector2(0, 1)
 mouse_filter = 2
 
@@ -185,3 +188,29 @@ text = "100"
 label_settings = SubResource("LabelSettings_ib72g")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Dash Cooldown" type="Control" parent="Hud" unique_id=1967944348 node_paths=PackedStringArray("fill")]
+anchors_preset = 0
+offset_left = 286.25
+offset_top = 14.750021
+offset_right = 326.25
+offset_bottom = 54.750015
+scale = Vector2(0.3, 0.3)
+script = ExtResource("12_pj4x4")
+fill = NodePath("TextureProgressBar")
+
+[node name="Faded" type="TextureRect" parent="Hud/Dash Cooldown" unique_id=358946750]
+modulate = Color(1, 1, 1, 0.37254903)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 200.0
+texture = ExtResource("13_l3ls0")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Hud/Dash Cooldown" unique_id=808979173]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+value = 100.0
+fill_mode = 3
+texture_progress = ExtResource("12_blvwf")
+texture_progress_offset = Vector2(22, 18)
