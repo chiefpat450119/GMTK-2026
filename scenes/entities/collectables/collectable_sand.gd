@@ -5,8 +5,11 @@ extends Collectable
 ## seconds until the drop despawns on its own; <= 0 means never
 @export var despawn_time: float = -1.0
 
+@export var sprite : Sprite2D
+
 func set_pickup_amt(amt: float):
 	pickup_amt = amt
+	sprite.scale = Vector2(amt, amt)
 
 func _ready() -> void:
 	if despawn_time > 0:
