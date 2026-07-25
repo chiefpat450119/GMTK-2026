@@ -15,7 +15,7 @@ const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fir
 @export var accel_time: float  # Seconds to reach full speed (approach only)
 @export var decel_time: float  # Seconds to coast to a stop (approach only)
 
-@export var sprite: Node2D
+@export var sprite: AnimatedSprite2D
 
 @onready var attack_cooldown := Cooldown.new(attack_interval)
 @onready var charge_timer := Cooldown.new(charge_time)
