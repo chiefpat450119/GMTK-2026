@@ -21,6 +21,9 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @onready var base_scale_y: float = sprite.scale.y
 
 func _ready() -> void:
+	# Enemy._ready() is what hooks death up to the sand drop. GDScript does not
+	# chain _ready(), so overriding it without this silently costs the drop.
+	super()
 	shoot_cooldown.start()
 
 

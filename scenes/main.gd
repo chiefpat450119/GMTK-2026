@@ -14,5 +14,3 @@ extends Node
 
 func _ready() -> void:
 	GameStateManager.bind_shell(world_mount)
-	GameStateManager.state_changed.connect(func(f, t): print("STATE %d -> %d" % [f, t]))
-	GameStateManager.start_run()

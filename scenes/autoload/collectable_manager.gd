@@ -4,12 +4,40 @@ extends Node
 
 var all: Array[Collectable] = []
 
+# Where drops are parented, handed over by GameWorld for the length of a run.
+# Null between runs — nothing should be spawning then, and if something does it
+# falls back to this autoload rather than erroring.
+var _container: Node2D = null
+
+func _ready() -> void:
+	_register_resettable.call_deferred()
+
+func _register_resettable() -> void:
+	var manager := get_node_or_null("/root/GameStateManager")
+	if manager:
+		manager.register_resettable(self)
+
+func bind_container(container: Node2D) -> void:
+	_container = container
+
+func reset() -> void:
+	# Iterating a copy: Collectable._exit_tree() erases itself from `all` as it goes.
+	for collectable in all.duplicate():
+		if is_instance_valid(collectable):
+			collectable.free()
+	all.clear()
+
 func spawn_sand(pos: Vector2, sand_amt: float) -> void:
 	var sand: CollectableSand = sand_scene.instantiate()
-	sand.set_pickup_amt(sand_amt)
+	_drop_parent().add_child(sand)
 	sand.global_position = pos
-	add_child(sand)
+	sand.set_pickup_amt(sand_amt)
 	all.append(sand)
 
 func erase(collectable: Collectable) -> void:
 	all.erase(collectable)
+
+func _drop_parent() -> Node:
+	if is_instance_valid(_container):
+		return _container
+	return self

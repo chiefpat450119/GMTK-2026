@@ -5,12 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="3_plyr"]
 [ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="4_spwn"]
 [ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="5_shake"]
+[ext_resource type="Script" path="res://components/level_component.gd" id="6_level"]
+[ext_resource type="Resource" path="res://resources/events/event_channels/player_xp_changed_event.tres" id="7_xpevt"]
 
-[node name="GameWorld" type="Node2D" unique_id=1900000001 node_paths=PackedStringArray("spawner")]
+[node name="GameWorld" type="Node2D" unique_id=1900000001 node_paths=PackedStringArray("spawner", "collectables")]
 script = ExtResource("1_gwrld")
 spawner = NodePath("EnemySpawner")
+collectables = NodePath("Collectables")
 
 [node name="Map" parent="." unique_id=1900000002 instance=ExtResource("2_map")]
+
+[node name="Collectables" type="Node2D" parent="." unique_id=1900000008]
 
 [node name="Player" parent="." unique_id=1900000003 instance=ExtResource("3_plyr")]
 
@@ -22,6 +27,10 @@ map = NodePath("../../Map")
 [node name="CameraShake" type="Node" parent="Player/Camera2D" unique_id=1900000006 node_paths=PackedStringArray("camera")]
 script = ExtResource("5_shake")
 camera = NodePath("..")
+
+[node name="LevelComponent" type="Node" parent="Player" unique_id=1900000007]
+script = ExtResource("6_level")
+xp_changed_event = ExtResource("7_xpevt")
 
 [node name="EnemySpawner" parent="." unique_id=1900000005 instance=ExtResource("4_spwn")]
 

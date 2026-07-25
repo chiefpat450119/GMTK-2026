@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="8_u55qa"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="9_f05rv"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="10_sand"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
@@ -17,8 +18,8 @@ size = Vector2(128, 128)
 size = Vector2(140, 112)
 
 [node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 8
+collision_mask = 7
 script = ExtResource("1_txa1i")
 attack_interval = 1.0
 charge_time = 0.75
@@ -33,6 +34,7 @@ sprite = NodePath("Sprite2D")
 movement = NodePath("MovementComponent")
 atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
+sand_drop_amt_stat = ExtResource("10_sand")
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=853140976]

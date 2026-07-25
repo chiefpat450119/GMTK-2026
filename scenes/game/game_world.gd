@@ -8,26 +8,26 @@ extends Node2D
 ## main.tscn instead.
 
 @export var spawner: EnemySpawner
+## Sand and other drops are parented here for the length of the run, which is
+## what puts them in the right draw order and frees them with the world.
+@export var collectables: Node2D
 
 
 ## Called by GameStateManager once the world is in the tree and the game is
 ## unpaused. Waves start here rather than in _ready(), or they'd tick away
 ## behind the main menu.
 func begin() -> void:
-	_watch_run_clock()
+	CollectableManagerInstance.bind_container(collectables)
+	_wire_run_signals()
 	if spawner:
 		spawner.begin_waves()
 
 
-# The clock is what ends a run, so the wiring lives here rather than on the
-# player: this node is the thing whose lifetime matches the run, and freeing it
-# takes the connection with it.
-func _watch_run_clock() -> void:
-	if Player.instance == null:
-		push_warning("GameWorld has no player — the run has no clock and can't end")
-		return
+func _wire_run_signals() -> void:
 	var clock := TimeComponent.find_in(Player.instance)
-	if clock == null:
-		push_warning("GameWorld: player has no TimeComponent — the run can't end")
-		return
 	clock.depleted.connect(GameStateManager.game_over)
+	var level := LevelComponent.find_in(Player.instance)
+	level.leveled_up.connect(_on_leveled_up)
+
+func _on_leveled_up(_new_level: int) -> void:
+	GameStateManager.request_upgrade()
