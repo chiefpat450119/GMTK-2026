@@ -27,6 +27,9 @@ outline_size = 15
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
 bg_color = Color(0.972549, 0.631373, 0.32549, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6ic3"]
+bg_color = Color(1, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_ib72g"]
 font = ExtResource("9_new_rocker")
 font_size = 500
@@ -170,6 +173,20 @@ offset_bottom = 294.29663
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_bar_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
+value = 100.0
+show_percentage = false
+
+[node name="DamageFill" type="ProgressBar" parent="Hud/Art/Bar/Overlay" unique_id=1210942074]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 251.5
+offset_top = 162.42845
+offset_right = -304.0
+offset_bottom = 294.29663
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_i6ic3")
 value = 100.0
 show_percentage = false
 

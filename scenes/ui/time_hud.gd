@@ -15,6 +15,7 @@ const REMAINDER_EPSILON := 0.01
 @export var hourglass: Control
 @export var hourglassLabel: Label
 @export var fill: ProgressBar
+@export var damage_fill : ProgressBar
 @export var time_listener: GameEventListener
 @export var row: HBoxContainer
 @export var segment_scene: PackedScene
@@ -59,6 +60,8 @@ func _on_time_changed() -> void:
 		_apply(_target)
 	elif _target - previous >= 0:
 		_add_time(_target - previous)
+	#elif _target - previous < 0:
+		#_remove_time(_target - previous)
 	elif not _rolling:
 		# Decay arrives as a stream of small decreases, which just track. While
 		# a roll-up is running it owns the readout instead.
@@ -118,7 +121,8 @@ func _segments() -> Array[BarSegment]:
 	return found
 
 
-## Plays the time-gained reaction: rolls the readout up and kicks the mechanism.
+## Plays the time-gained reaction: rolls the readout up, kicks the mechanism,
+## and displays a number popup.
 ## Called automatically when the component reports a gain, and safe to call
 ## directly.
 func _add_time(amount: float) -> void:
@@ -130,9 +134,20 @@ func _add_time(amount: float) -> void:
 	_play_mechanism()
 	_flash_fill()
 
+## Plays the time-removed reaction: displays time removed segment and rolls it down.
+## Called automatically when the component reports a loss.
+func _remove_time(amount : float) -> void:
+	damage_fill.anchor_right = fill.anchor_right
+	damage_fill.value = fill.value
+	var tween = create_tween()
+	tween.tween_property(damage_fill, "value", fill.value, 1)\
+	.set_delay(0.5)\
+	.set_ease(Tween.EASE_IN_OUT)\
+	.set_trans(Tween.TRANS_SINE)
+
 # Shows picked up sand being dropped into the intake pipe part of the
 # time machine sprite and a number popup to show amount of sand gained
-func _play_sand_intake_animation():
+func _play_sand_intake_animation() -> void:
 	var sand_instance : MachineSand = machine_sand_scene.instantiate()
 	var sand_gained_amt =  snapped(_target - _shown, 0.1)
 	sand_instance.number_popup.text = "+" + str(sand_gained_amt)
