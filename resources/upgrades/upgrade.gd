@@ -31,28 +31,5 @@ func get_description() -> String:
 	return "\n".join(lines)
 
 
-## Called by the upgrade manager when upgradecard selected
-## calls apply by default right away
-## can be overidded for other behavior
-#func setup() -> void: 
-	#apply()
-#
-#
-## Applies every effect. stack_index makes each application's Modifier ids
-## unique so a later remove_mod() can target a specific stack if ever needed.
-#func apply(stack_index: int = 0) -> void:
-	#for effect in effects:
-		#if effect.target_stat == null:
-			#push_warning("Upgrade '%s' has an effect with no target_stat" % id)
-			#continue
-		#var mod_id := StringName("upgrade:%s#%d" % [id, stack_index])
-		#effect.target_stat.add_mod(mod_id, effect.value, effect.operation)
-#
-### removes every effect defined by this upgrade 
-##func remove_all():
-	##for effect in effects:
-		##if effect.target_stat == null:
-			##push_warning("Upgrade '%s' has an effect with no target_stat" % id)
-			##continue
-		##var mod_id := StringName("upgrade:%s#%d" % [id, 1])
-		##effect.target_stat.remove_mod(mod_id)
+## Override `create_instance()` in subclasses to provide custom runtime behavior.
+## Default instances apply all `effects` immediately when `UpgradeInstance.start()` is called.
