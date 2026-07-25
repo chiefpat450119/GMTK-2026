@@ -32,7 +32,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
 movement = NodePath("MovementComponent")
-atk = NodePath("")
+atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 

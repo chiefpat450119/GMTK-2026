@@ -29,7 +29,7 @@ range_stat = ExtResource("3_4vgcu")
 accel_time = 0.2
 decel_time = 0.3
 movement = NodePath("MovementComponent")
-atk = NodePath("")
+atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1537934886]
