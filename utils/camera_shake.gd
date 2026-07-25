@@ -31,7 +31,6 @@ var _base_rotation: float
 
 
 func _ready() -> void:
-	instance = self
 	_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	_noise.frequency = 1.0
 
@@ -39,6 +38,7 @@ func _ready() -> void:
 		push_warning("CameraShake has no camera assigned")
 		return
 
+	instance = self
 	_base_offset = camera.offset
 	_base_rotation = camera.rotation
 
