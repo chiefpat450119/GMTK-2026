@@ -5,47 +5,66 @@
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="3_sht"]
 [ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="4_sht"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="5_jtqir"]
-[ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="5_sht"]
+[ext_resource type="Texture2D" uid="uid://dihod7u5gory0" path="res://assets/enemies/range/Ranged enemy idle1.png" id="6_7g5fx"]
+[ext_resource type="Texture2D" uid="uid://deacj6dv6aeoi" path="res://assets/enemies/range/Ranged enemy idle2.png" id="7_do2mk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
-radius = 64.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4fwd"]
+size = Vector2(59, 126.5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hitbx"]
-radius = 60.0
+[sub_resource type="SpriteFrames" id="SpriteFrames_n1ogh"]
+animations = [{
+"frames": [{
+"duration": 0.4,
+"texture": ExtResource("6_7g5fx")
+}, {
+"duration": 0.4,
+"texture": ExtResource("7_do2mk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
 script = ExtResource("2_sht")
 shoot_interval = 0.5
-wait_interval = 1.0
+wait_interval = 0.2
 projectile_scene = ExtResource("3_sht")
 min_range = 300.0
 max_range = 331.66
-sprite = NodePath("Sprite2D")
+sprite = NodePath("AnimatedSprite2D")
 range_stat = ExtResource("4_sht")
 accel_time = 0.2
 decel_time = 0.3
+movement = NodePath("MovementComponent")
+atk = NodePath("AtkComponent")
+hp = NodePath("HealthComponent")
 sand_drop_amt_stat = ExtResource("5_jtqir")
 metadata/_custom_type_script = "uid://bxuivfn5rjpl5"
 
-[node name="Sprite2D" parent="." index="0"]
-self_modulate = Color(0.7882353, 0.05490196, 0.05490196, 1)
-texture = ExtResource("5_sht")
+[node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]
+position = Vector2(-4, -3)
+shape = SubResource("RectangleShape2D_i4fwd")
 
-[node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource("CircleShape2D_body")
-
-[node name="MovementComponent" parent="." index="2"]
+[node name="MovementComponent" parent="." index="1" unique_id=938060982]
 base_speed = 425.0
 
-[node name="AtkComponent" parent="." index="3"]
+[node name="AtkComponent" parent="." index="2" unique_id=1937951491]
 contact_damage = 2.0
 
-[node name="CollisionShape2D" parent="AtkComponent/Area2D" index="0"]
-shape = SubResource("CircleShape2D_hitbx")
+[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
+shape = null
 
-[node name="HealthComponent" parent="." index="4"]
+[node name="HealthComponent" parent="." index="3" unique_id=1764093225]
 base_hp = 24.0
 
-[node name="HealthBar" parent="." index="5"]
+[node name="HealthBar" parent="." index="4" unique_id=1371187517]
 offset_top = 67.0
 offset_bottom = 75.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5" unique_id=370399703]
+position = Vector2(2.000001, 6.000003)
+scale = Vector2(0.08093263, 0.08093263)
+sprite_frames = SubResource("SpriteFrames_n1ogh")
+autoplay = "default"
+frame_progress = 0.7331551
