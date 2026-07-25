@@ -3,20 +3,22 @@
 [ext_resource type="Script" uid="uid://b7j76hudy1mdl" path="res://scenes/entities/weapons/machine_gun.gd" id="1_qfmm5"]
 [ext_resource type="Texture2D" uid="uid://n5jnt4xi57is" path="res://assets/placeholder_machine_gun_sprite.png" id="2_qfmm5"]
 [ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="2_xctuw"]
-[ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_firerate_stat.tres" id="3_wp88b"]
-[ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_accuracy_stat.tres" id="4_s8eaq"]
+[ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_fire_cooldown_stat.tres" id="3_wp88b"]
+[ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_shot_spread_stat.tres" id="4_s8eaq"]
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="5_8o0ng"]
+[ext_resource type="Resource" uid="uid://btmnp0s0wl3jj" path="res://resources/stats/player_stats/player_shot_cost_stat.tres" id="5_wp88b"]
 
 [node name="Machine Gun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_qfmm5")
 sprite = NodePath("Sprite2D")
 base_damage = 1.0
 base_fire_cooldown = 0.2
-base_accuracy = 5.0
-base_cost = 1.0
+base_spread = 5.0
+base_cost = 0.2
 damage_stat = ExtResource("2_xctuw")
-firerate_stat = ExtResource("3_wp88b")
-accuracy_stat = ExtResource("4_s8eaq")
+fire_cooldown_stat = ExtResource("3_wp88b")
+shot_spread_stat = ExtResource("4_s8eaq")
+shot_cost_stat = ExtResource("5_wp88b")
 projectile_scene = ExtResource("5_8o0ng")
 projectile_spawn_point = NodePath("Projectile Spawn Point")
 

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://b1we6jyxqsl3e"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_tiequ"]
+[ext_resource type="Resource" uid="uid://btmnp0s0wl3jj" path="res://resources/stats/player_stats/player_shot_cost_stat.tres" id="2_2e6v3"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="3_a6k55"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_ncbdw"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="5_m50au"]
+
+[sub_resource type="Resource" id="Resource_mxfrf"]
+script = ExtResource("1_tiequ")
+target_stat = ExtResource("2_2e6v3")
+value = -0.2
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[sub_resource type="Resource" id="Resource_5bjf7"]
+script = ExtResource("1_tiequ")
+target_stat = ExtResource("3_a6k55")
+value = -0.1
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("5_m50au")
+title = "Frugal"
+description_override = "Spend 20% less sand per shot, but deal 10% less damage"
+icon = ExtResource("4_ncbdw")
+max_stacks = 3
+effects = Array[ExtResource("1_tiequ")]([SubResource("Resource_mxfrf"), SubResource("Resource_5bjf7")])
+metadata/_custom_type_script = "uid://031polniagv2"

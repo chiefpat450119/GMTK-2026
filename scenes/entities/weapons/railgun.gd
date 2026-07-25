@@ -32,10 +32,10 @@ func shoot(charge: float = 0.0) -> void:
 	can_fire = false
 	var projectile : Projectile = projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
-	var accuracy := accuracy_stat.current_val(base_accuracy)
+	var shot_spread := shot_spread_stat.current_val(base_spread)
 	projectile.launch(
 		projectile_spawn_point.global_position,
-		global_rotation + deg_to_rad(randf_range(-accuracy, accuracy)),
+		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage + pow(charge, 2)),
 		base_penetration,
@@ -43,6 +43,6 @@ func shoot(charge: float = 0.0) -> void:
 
 	# Fire cooldown
 	sprite.modulate = Color(0.198, 0.198, 0.198, 1.0)
-	await get_tree().create_timer(firerate_stat.current_val(base_fire_cooldown)).timeout
+	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
 	sprite.modulate = Color.WHITE
 	can_fire = true

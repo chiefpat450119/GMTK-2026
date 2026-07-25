@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://cdw2h4u2v5lwo"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_wgish"]
+[ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_fire_cooldown_stat.tres" id="2_smq2q"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_uee1j"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_fsnvj"]
+
+[sub_resource type="Resource" id="Resource_smq2q"]
+script = ExtResource("1_wgish")
+target_stat = ExtResource("2_smq2q")
+value = -0.2
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_uee1j")
+title = "Firerate"
+description_override = "+20% firerate"
+icon = ExtResource("3_fsnvj")
+max_stacks = 3
+effects = Array[ExtResource("1_wgish")]([SubResource("Resource_smq2q")])
+metadata/_custom_type_script = "uid://031polniagv2"

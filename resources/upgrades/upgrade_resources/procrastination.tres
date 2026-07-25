@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://c0anwq44xhujk"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_2k37o"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_ut7ko"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_uw22r"]
+
+[resource]
+script = ExtResource("2_uw22r")
+title = "Procrastination"
+description_override = "Deal 35% more damage when below 50% sand remaining"
+icon = ExtResource("2_ut7ko")
+max_stacks = 5
+metadata/_custom_type_script = "uid://031polniagv2"

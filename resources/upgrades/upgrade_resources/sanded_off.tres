@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://b4lvci2gi0176"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_6fnqa"]
+[ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_shot_spread_stat.tres" id="2_dgo6c"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_ut3go"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="3_dgo6c"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_dgo6c"]
+
+[sub_resource type="Resource" id="Resource_3qwmv"]
+script = ExtResource("1_6fnqa")
+target_stat = ExtResource("2_dgo6c")
+value = 0.05
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[sub_resource type="Resource" id="Resource_r3n4k"]
+script = ExtResource("1_6fnqa")
+target_stat = ExtResource("3_dgo6c")
+value = 0.15
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_ut3go")
+title = "Sanded Off"
+description_override = "-5% acurracy, but deal 15% more damage"
+icon = ExtResource("4_dgo6c")
+max_stacks = 5
+effects = Array[ExtResource("1_6fnqa")]([SubResource("Resource_3qwmv"), SubResource("Resource_r3n4k")])
+metadata/_custom_type_script = "uid://031polniagv2"
