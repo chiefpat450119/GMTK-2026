@@ -1,5 +1,7 @@
+class_name GameStateManager
 extends Node
-## Master game state machine. Autoloaded as `GameStateManager`.
+## Master game state machine. A node in main.tscn, reached from anywhere as
+## `GameStateManager.instance`.
 ##
 ## Owns three things nothing else may touch:
 ##   1. `get_tree().paused`. Everything else reacts to state_changed instead of
@@ -13,6 +15,8 @@ extends Node
 ##
 ## main.tscn hands over its world mount with bind_shell() on ready. Until that
 ## lands this sits in MAIN_MENU and start_run() is a no-op.
+
+static var instance: GameStateManager
 
 enum GameState {
 	MAIN_MENU,
@@ -36,14 +40,29 @@ const PAUSE_ACTION := &"Pause"
 
 var state: GameState = GameState.MAIN_MENU
 
+# Static so the autoloads can register before this node exists.
+static var _resettables: Array[Node] = []
+
 var _world_mount: Node = null
 var _world: GameWorld = null
-var _resettables: Array[Node] = []
 var _pending_upgrades: int = 0
 
 
+func _enter_tree() -> void:
+	if instance != null and instance != self:
+		push_error("Duplicate GameStateManager")
+		queue_free()
+		return
+	instance = self
+
+
+func _exit_tree() -> void:
+	if instance == self:
+		instance = null
+
+
 func _ready() -> void:
-	# In code rather than the .tscn: if this is ever ALWAYS by accident, pausing
+	# In code rather than the .tscn: if this is ever not ALWAYS by accident, pausing
 	# stops the manager that owns unpausing and the game locks up for good.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_apply_pause()
@@ -66,12 +85,12 @@ func bind_shell(world_mount: Node) -> void:
 ## Registers a node whose reset() drops run-scoped state — EnemyStatScaler's
 ## wave scaling, UpgradeManager's stack counts. Keeps this manager from needing
 ## to know either type, or the order they happen to load in.
-func register_resettable(node: Node) -> void:
+static func register_resettable(node: Node) -> void:
 	if not _resettables.has(node):
 		_resettables.append(node)
 
 
-func unregister_resettable(node: Node) -> void:
+static func unregister_resettable(node: Node) -> void:
 	_resettables.erase(node)
 
 
