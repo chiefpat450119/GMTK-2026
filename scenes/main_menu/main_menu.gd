@@ -2,6 +2,7 @@ extends Control
 
 @export var hourglass_white: Control
 @export var real_icon: Control
+@export var gear: Control
 @export var sand: Control
 @export var of: Control
 @export var time: Control
@@ -52,10 +53,9 @@ func climb_time_at(travel: float) -> float:
 # that isn't centred on that child, so the gap between them shifts with the scale --
 # hence solving for the silhouette's position rather than assuming a fixed offset.
 func silhouette_pos_at(icon_pos: Vector2, node_scale: Vector2) -> Vector2:
-	var glass: Control = real_icon.get_child(0)
 	var icon_pivot = real_icon.size * real_icon.pivot_offset_ratio
-	var glass_centre = glass.position + glass.size * 0.5
-	var target = icon_pos + icon_pivot + (glass_centre - icon_pivot) * node_scale
+	var gear_centre = gear.position + gear.size * 0.5
+	var target = icon_pos + icon_pivot + (gear_centre - icon_pivot) * node_scale
 
 	var white_pivot = hourglass_white.size * hourglass_white.pivot_offset_ratio
 	return target - white_pivot - (hourglass_white.size * 0.5 - white_pivot) * node_scale

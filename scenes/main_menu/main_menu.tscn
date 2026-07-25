@@ -14,7 +14,7 @@ font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_size = 24
 
-[node name="MainMenu" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "sand", "of", "time")]
+[node name="MainMenu" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +24,7 @@ grow_vertical = 2
 script = ExtResource("1_wem23")
 hourglass_white = NodePath("ColorRect/Hourglass White")
 real_icon = NodePath("ColorRect/Real Icon")
+gear = NodePath("ColorRect/Real Icon/Gear")
 sand = NodePath("ColorRect/Sand")
 of = NodePath("ColorRect/Of")
 time = NodePath("ColorRect/Time")
@@ -67,7 +68,7 @@ scale = Vector2(0.47, 0.47)
 pivot_offset_ratio = Vector2(0.35, 0.5)
 texture = ExtResource("4_4xg86")
 
-[node name="TextureRect2" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1214005427]
+[node name="Gear" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1214005427]
 layout_mode = 0
 offset_left = 82.07442
 offset_top = 203.82979
@@ -75,7 +76,7 @@ offset_right = 854.0744
 offset_bottom = 975.8298
 texture = ExtResource("5_5seab")
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1732264963]
+[node name="HourglassReal" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1732264963]
 layout_mode = 0
 offset_left = 119.62616
 offset_top = 95.32709
