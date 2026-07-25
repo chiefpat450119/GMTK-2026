@@ -69,8 +69,7 @@ func attack(base: float, target: Node) -> bool:
 
 	var time := TimeComponent.find_in(target)
 	if time:
-		time.remove_time(damage)
-		print(name, " HIT PLAYER FOR ", damage)
+		time.damage(damage)
 		return true
 
 	return false
