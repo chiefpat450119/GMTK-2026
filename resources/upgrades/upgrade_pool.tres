@@ -2,9 +2,23 @@
 
 [ext_resource type="Script" uid="uid://dc7mnrafluqc" path="res://resources/upgrades/upgrade_pool.gd" id="1_norry"]
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_bcv5u"]
+[ext_resource type="Resource" uid="uid://b1we6jyxqsl3e" path="res://resources/upgrades/upgrade_resources/frugal.tres" id="3_jboiu"]
+[ext_resource type="Resource" uid="uid://bcfrbgh70s3nm" path="res://resources/upgrades/upgrade_resources/capacity.tres" id="3_v83e7"]
+[ext_resource type="Resource" uid="uid://dyheflxlf71fq" path="res://resources/upgrades/upgrade_resources/dustpan.tres" id="4_2t3ge"]
+[ext_resource type="Resource" uid="uid://dgw06djys7fvu" path="res://resources/upgrades/upgrade_resources/maniac.tres" id="4_xyatx"]
+[ext_resource type="Resource" uid="uid://d1ycoqie8polp" path="res://resources/upgrades/upgrade_resources/efficiency.tres" id="5_51q4s"]
+[ext_resource type="Resource" uid="uid://do8t3tpuxjqlf" path="res://resources/upgrades/upgrade_resources/marksman.tres" id="5_pt8kk"]
+[ext_resource type="Resource" uid="uid://cdw2h4u2v5lwo" path="res://resources/upgrades/upgrade_resources/firerate.tres" id="6_fghbw"]
+[ext_resource type="Resource" uid="uid://c0r7af1q0jqrp" path="res://resources/upgrades/upgrade_resources/tightly_packed_bullets.tres" id="6_t1se2"]
+[ext_resource type="Resource" uid="uid://lxydgpkpc163" path="res://resources/upgrades/upgrade_resources/survivor.tres" id="7_ojb35"]
+[ext_resource type="Resource" uid="uid://b4lvci2gi0176" path="res://resources/upgrades/upgrade_resources/sanded_off.tres" id="7_yoi5h"]
+[ext_resource type="Resource" uid="uid://b10n76hc5puas" path="res://resources/upgrades/upgrade_resources/safety_net.tres" id="8_lu444"]
+[ext_resource type="Resource" uid="uid://bnxrdn3n36y7g" path="res://resources/upgrades/upgrade_resources/improved_ballistics.tres" id="8_uj431"]
 [ext_resource type="Resource" uid="uid://c0anwq44xhujk" path="res://resources/upgrades/upgrade_resources/procrastination.tres" id="9_jboiu"]
+[ext_resource type="Resource" uid="uid://bbyllggcxgylu" path="res://resources/upgrades/upgrade_resources/scavenger.tres" id="9_jhxsh"]
+[ext_resource type="Resource" uid="uid://bg0h0iviy6co3" path="res://resources/upgrades/upgrade_resources/scope.tres" id="15_8pq2o"]
 
 [resource]
 script = ExtResource("1_norry")
-upgrades = Array[ExtResource("2_bcv5u")]([ExtResource("9_jboiu")])
+upgrades = Array[ExtResource("2_bcv5u")]([ExtResource("3_v83e7"), ExtResource("4_2t3ge"), ExtResource("5_51q4s"), ExtResource("6_fghbw"), ExtResource("3_jboiu"), ExtResource("8_uj431"), ExtResource("4_xyatx"), ExtResource("5_pt8kk"), ExtResource("9_jboiu"), ExtResource("8_lu444"), ExtResource("7_yoi5h"), ExtResource("9_jhxsh"), ExtResource("15_8pq2o"), ExtResource("7_ojb35"), ExtResource("6_t1se2")])
 metadata/_custom_type_script = "uid://dc7mnrafluqc"

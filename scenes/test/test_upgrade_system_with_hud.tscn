@@ -32,6 +32,6 @@ manager = NodePath("..")
 [node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("9_rlr3w")]
 
 [node name="BashEnemy" parent="." unique_id=1427456001 instance=ExtResource("10_8xieo")]
-sand_drop_amt_base = 15.0
+sand_drop_amt_base = 1.0
 
 [editable path="Player"]
