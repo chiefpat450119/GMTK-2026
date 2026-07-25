@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://dp3qwlpjcoxug"]
+
+[ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_omnr4"]
+[ext_resource type="Script" uid="uid://nvjvpqlhmrcl" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.gd" id="2_4yk45"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="3_lqypu"]
+[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="4_lr41p"]
+[ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_6bc1s"]
+[ext_resource type="Texture2D" uid="uid://bhotpk56w2vps" path="res://assets/enemies/tank/tank 1.png" id="5_gdray"]
+[ext_resource type="Texture2D" uid="uid://dl3r5gbdxd3bq" path="res://assets/enemies/tank/tank 2.png" id="6_lr41p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(107.75, 167.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
+size = Vector2(90.5, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n1ogh"]
+animations = [{
+"frames": [{
+"duration": 4.0,
+"texture": ExtResource("5_gdray")
+}, {
+"duration": 4.0,
+"texture": ExtResource("6_lr41p")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TankEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_omnr4")]
+script = ExtResource("2_4yk45")
+accel_time = 0.5
+decel_time = 0.15
+sprite = NodePath("AnimatedSprite2D")
+walk_squash = 0.97
+walk_cycle_time = 1.5
+walk_settle_time = 0.35
+walk_min_speed = 5.0
+lunge_dist = 30.0
+lunge_stretch = 1.1
+lunge_narrow = 0.93
+lunge_time = 0.12
+lunge_return = 0.45
+lunge_pitch_deg = 9.0
+rear_pitch_deg = -7.0
+pitch_smooth = 8.0
+hitstop_time = 0.13
+hit_knockback = 280.0
+knockback_time = 0.4
+sand_drop_amt_stat = ExtResource("3_lqypu")
+metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]
+position = Vector2(1, -27)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="MovementComponent" parent="." index="1" unique_id=938060982]
+base_speed = 120.0
+
+[node name="AtkComponent" parent="." index="2" unique_id=1937951491]
+contact_damage = 9.0
+attack_interval = 3.0
+
+[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
+position = Vector2(0, -26)
+shape = SubResource("RectangleShape2D_hitbx")
+
+[node name="HealthComponent" parent="." index="3" unique_id=1764093225]
+base_hp = 136.5
+death_event = ExtResource("4_lr41p")
+
+[node name="HitFeedback" type="Node" parent="." index="5" unique_id=910637902 node_paths=PackedStringArray("health")]
+script = ExtResource("5_6bc1s")
+health = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://sqe3naukul5d"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="6" unique_id=1346539287]
+position = Vector2(0, -25)
+scale = Vector2(0.19830509, 0.19830512)
+sprite_frames = SubResource("SpriteFrames_n1ogh")
+frame_progress = 0.59022707
