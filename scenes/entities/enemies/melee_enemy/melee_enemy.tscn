@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://nvjvpqlhmrcl" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.gd" id="2_mel"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="3_yy0l1"]
 [ext_resource type="Texture2D" uid="uid://bvrxrup6avivh" path="res://assets/enemies/melee/fastenemy1.png" id="4_yy0l1"]
+[ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_xb2f6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(117.5, 108.5)
@@ -16,11 +17,10 @@ script = ExtResource("2_mel")
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
-movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
-hp = NodePath("HealthComponent")
-metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
+walk_trans = 1
+walk_bob_ease = 2
 sand_drop_amt_stat = ExtResource("3_yy0l1")
+sand_drop_amt_base = 3.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=1984462011]
@@ -33,7 +33,6 @@ shape = SubResource("RectangleShape2D_body")
 
 [node name="AtkComponent" parent="." index="3" unique_id=1937951491]
 contact_damage = 2.8125
-metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
 [node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
 position = Vector2(1, -1)
@@ -41,3 +40,9 @@ shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4" unique_id=1764093225]
 base_hp = 30.0
+
+[node name="HitFeedback" type="Node" parent="." index="6" unique_id=910637902 node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("5_xb2f6")
+health = NodePath("../HealthComponent")
+sprite = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://sqe3naukul5d"

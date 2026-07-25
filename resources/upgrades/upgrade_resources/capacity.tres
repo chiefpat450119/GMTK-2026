@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_q3wrb")
+id = &"capacity"
 title = "Capacity"
 description_override = "+5s of max time capacity"
 icon = ExtResource("3_fcy4g")

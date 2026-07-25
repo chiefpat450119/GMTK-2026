@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_0dkq0")
+id = &"improved_ballistics"
 title = "Improved Ballistics"
 description_override = "Deal 10% more damage"
 icon = ExtResource("3_wlnbt")

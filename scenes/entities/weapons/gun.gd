@@ -17,6 +17,8 @@ extends Node2D
 @export_category("Projectile Info")
 @export var projectile_scene : PackedScene
 @export var projectile_spawn_point : Node2D
+
+
 ## Projectiles per shot. Above 1 they all leave on the same trigger pull, each
 ## rolling its own spread — that alone makes a shotgun.
 @export var projectile_count : int = 1
@@ -40,7 +42,7 @@ func _physics_process(_delta: float) -> void:
 		sprite.z_index = 3
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("M1"):
+	if event.is_action_pressed("Fire"):
 		shoot()
 
 func shoot() -> void:

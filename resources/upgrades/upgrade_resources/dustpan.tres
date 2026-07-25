@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_76jjx")
+id = &"dustpan"
 title = "Dustpan"
 description_override = "Enemies drop 20% more sand"
 icon = ExtResource("3_7kolj")

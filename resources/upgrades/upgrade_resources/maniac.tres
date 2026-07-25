@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_no1in")
+id = &"maniac"
 title = "Maniac"
 description_override = "Deal 50% more damage, but -15s of max time capacity"
 icon = ExtResource("4_rnv1y")

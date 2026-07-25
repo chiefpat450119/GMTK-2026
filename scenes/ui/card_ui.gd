@@ -2,8 +2,8 @@ class_name CardUI
 extends Control
 ## One selectable upgrade card.
 ##
-## Stateless until setup() fills it in. Emits selected() with the Upgrade it is
-## showing so the owning UpgradeUI can apply it.
+## Stateless until setup() fills it in. Emits selected() with the GunData it is
+## showing so the owning GunUI can apply it.
 
 signal selected(upgrade: Upgrade)
 
@@ -27,7 +27,6 @@ func setup(upgrade: Upgrade) -> void:
 	description_label.text = upgrade.get_description()
 	if upgrade.icon:
 		icon_rect.texture = upgrade.icon
-
 
 func _gui_input(event: InputEvent) -> void:
 	if _upgrade == null:

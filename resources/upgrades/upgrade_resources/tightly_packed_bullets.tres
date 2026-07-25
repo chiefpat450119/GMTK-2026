@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_4qjo8")
+id = &"tightly_packed_bullets"
 title = "Tightly Packed Bullets"
 description_override = "Spend 15% more sand per shot, but deal 25% more damage"
 icon = ExtResource("4_yy3qj")

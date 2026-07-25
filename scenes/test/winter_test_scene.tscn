@@ -1,10 +1,6 @@
 [gd_scene format=3 uid="uid://bi6nqki2ayhyj"]
 
-[ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="1_uwv7y"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_ia5xm"]
-[ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.tscn" id="3_ia5xm"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_n1ogh"]
 
 [node name="WinterTestScene" type="Node2D" unique_id=512743553]
 

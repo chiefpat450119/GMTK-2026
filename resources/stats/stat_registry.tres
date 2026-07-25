@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="StatRegistry" format=3 uid="uid://cmr7b654hrm01"]
+
+[ext_resource type="Script" uid="uid://ckjdoagtnn6ar" path="res://resources/stats/stat_registry.gd" id="1_6tbpg"]
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="2_saxxb"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="3_0glaj"]
+[ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="4_5kelx"]
+[ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="5_2tn5q"]
+[ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="6_wgkaw"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="7_g5ira"]
+[ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_accuracy_stat.tres" id="8_sg6vt"]
+[ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="9_4skcj"]
+[ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_firerate_stat.tres" id="10_5x860"]
+[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="11_l72wd"]
+[ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="12_uk1ho"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="13_47hm6"]
+[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="14_rp1pi"]
+[ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="15_d8red"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="16_5ftsb"]
+
+[resource]
+script = ExtResource("1_6tbpg")
+stats = Array[ExtResource("2_saxxb")]([ExtResource("3_0glaj"), ExtResource("4_5kelx"), ExtResource("5_2tn5q"), ExtResource("6_wgkaw"), ExtResource("7_g5ira"), ExtResource("8_sg6vt"), ExtResource("9_4skcj"), ExtResource("10_5x860"), ExtResource("11_l72wd"), ExtResource("12_uk1ho"), ExtResource("13_47hm6"), ExtResource("14_rp1pi"), ExtResource("15_d8red"), ExtResource("16_5ftsb")])
+metadata/_custom_type_script = "uid://ckjdoagtnn6ar"

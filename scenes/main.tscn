@@ -1,3 +1,40 @@
 [gd_scene format=3 uid="uid://ctae7kpgvna66"]
 
-[node name="Main" type="Node2D" unique_id=961278468]
+[ext_resource type="Script" uid="uid://ddg16nycojp2p" path="res://scenes/main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://cupgmgr7x8a2b" path="res://scenes/upgrades/upgrade_manager.gd" id="2_upgmgr"]
+[ext_resource type="Resource" uid="uid://djt61kvxc6j0h" path="res://resources/upgrades/upgrade_pool.tres" id="3_pool"]
+[ext_resource type="PackedScene" uid="uid://cw8qy3r0uko47" path="res://scenes/main_menu/main_menu.tscn" id="4_mainmenu"]
+[ext_resource type="PackedScene" uid="uid://bpausemenu001" path="res://scenes/ui/pause_menu.tscn" id="5_pausemenu"]
+[ext_resource type="PackedScene" uid="uid://bgameover0001" path="res://scenes/ui/game_over_screen.tscn" id="6_gameover"]
+[ext_resource type="PackedScene" uid="uid://m3vhsbglajvm" path="res://scenes/ui/upgrade_ui.tscn" id="7_upgui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="8_hud"]
+
+[node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
+script = ExtResource("1_o5qli")
+world_mount = NodePath("World")
+
+[node name="World" type="Node2D" parent="." unique_id=961278469]
+
+[node name="UpgradeManager" type="Node" parent="." unique_id=961278471]
+script = ExtResource("2_upgmgr")
+pool = ExtResource("3_pool")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=961278470]
+process_mode = 3
+
+[node name="Hud" parent="UI" unique_id=961278476 instance=ExtResource("8_hud")]
+
+[node name="XpMeter" parent="UI/Hud" index="2" unique_id=1940000004]
+offset_top = -635.0
+offset_bottom = -601.0
+
+[node name="MainMenu" parent="UI" unique_id=961278472 instance=ExtResource("4_mainmenu")]
+
+[node name="PauseMenu" parent="UI" unique_id=961278473 instance=ExtResource("5_pausemenu")]
+
+[node name="GameOverScreen" parent="UI" unique_id=961278474 instance=ExtResource("6_gameover")]
+
+[node name="UpgradeUI" parent="." unique_id=961278475 node_paths=PackedStringArray("manager") instance=ExtResource("7_upgui")]
+manager = NodePath("../UpgradeManager")
+
+[editable path="UI/Hud"]

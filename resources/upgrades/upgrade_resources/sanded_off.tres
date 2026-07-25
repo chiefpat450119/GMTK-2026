@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_ut3go")
+id = &"sanded_off"
 title = "Sanded Off"
 description_override = "-5% acurracy, but deal 15% more damage"
 icon = ExtResource("4_dgo6c")

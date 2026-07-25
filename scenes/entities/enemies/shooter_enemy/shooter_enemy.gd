@@ -50,6 +50,8 @@ var pos_tween: Tween  # Kept apart from the scale tween so neither can strand th
 
 
 func _ready() -> void:
+	# Enemy._ready() is what hooks death up to the sand drop. GDScript does not
+	# chain _ready(), so overriding it without this silently costs the drop.
 	super()
 	shoot_cooldown.start()
 	# The idle loop (the spinning rotor) is left alone — it runs off the scene's autoplay

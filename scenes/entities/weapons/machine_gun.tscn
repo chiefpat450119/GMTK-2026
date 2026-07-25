@@ -11,7 +11,7 @@
 [node name="Machine Gun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_qfmm5")
 sprite = NodePath("Sprite2D")
-base_damage = 1.0
+base_damage = 8.0
 base_fire_cooldown = 0.2
 base_spread = 5.0
 base_cost = 0.2

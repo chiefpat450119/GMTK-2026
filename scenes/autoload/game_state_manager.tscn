@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b0sjtdsf0e68j"]
+
+[ext_resource type="Script" uid="uid://dvwnj2tycbq7w" path="res://scenes/autoload/game_state_manager.gd" id="1_tk0hm"]
+[ext_resource type="PackedScene" uid="uid://cgw0rld1shell" path="res://scenes/game/game_world.tscn" id="2_gwrld"]
+[ext_resource type="Resource" uid="uid://cmr7b654hrm01" path="res://resources/stats/stat_registry.tres" id="3_3e47t"]
+[ext_resource type="Resource" uid="uid://cupgofferevt7" path="res://resources/events/event_channels/upgrade_offer_event.tres" id="3_offevt"]
+
+[node name="GameStateManager" type="Node" unique_id=1112220779]
+script = ExtResource("1_tk0hm")
+world_scene = ExtResource("2_gwrld")
+stat_registry = ExtResource("3_3e47t")
+upgrade_offer_event = ExtResource("3_offevt")
