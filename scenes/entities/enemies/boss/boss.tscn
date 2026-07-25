@@ -26,8 +26,8 @@ radius = 62.39391
 [sub_resource type="SphereMesh" id="SphereMesh_lbiil"]
 
 [node name="Boss" type="CharacterBody2D" unique_id=1948960875 node_paths=PackedStringArray("movement", "atk", "hp")]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 8
+collision_mask = 2
 script = ExtResource("1_nnnbu")
 movement = NodePath("MovementComponent")
 atk = NodePath("ContactDmgCompocnent")
