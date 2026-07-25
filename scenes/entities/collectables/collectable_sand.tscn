@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://bx52vm2hvi6ow"]
 
 [ext_resource type="Script" uid="uid://cskqiyhxakt2i" path="res://scenes/entities/collectables/collectable_sand.gd" id="1_xyk2u"]
-[ext_resource type="Texture2D" uid="uid://dli1aeqf48nl0" path="res://assets/placeholder_sand_drop.png" id="2_j2qwj"]
+[ext_resource type="Texture2D" uid="uid://dvitp8b68rv41" path="res://assets/sand_drop.png" id="2_ydeas"]
 
-[node name="CollectableSand" type="Node2D" unique_id=607656599]
+[node name="CollectableSand" type="Node2D" unique_id=607656599 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_xyk2u")
+sprite = NodePath("Sprite2D")
 attract_duration = 0.25
 attract_trans = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1924927446]
 texture_filter = 1
-position = Vector2(1, -24.999996)
-scale = Vector2(3.375, 2.9375)
-texture = ExtResource("2_j2qwj")
+texture = ExtResource("2_ydeas")

@@ -21,6 +21,7 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @onready var base_scale_y: float = sprite.scale.y
 
 func _ready() -> void:
+	super()
 	shoot_cooldown.start()
 
 
