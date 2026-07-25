@@ -16,6 +16,10 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @export var accel_time: float  # Seconds to reach full speed
 @export var decel_time: float  # Seconds to coast to a stop
 
+var kb: bool = false
+@export var kb_comp: KbComponent
+@export var stun_kb: bool = true
+
 @onready var shoot_cooldown := Cooldown.new(shoot_interval)
 @onready var wait_period := Cooldown.new(wait_interval)
 @onready var base_scale_y: float = sprite.scale.y
@@ -28,7 +32,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	shoot_cooldown.tick(delta)
 	wait_period.tick(delta)
-
+	
+	if kb:
+		kb_comp.calc_kb(delta) #handles kb
+		if stun_kb:
+			return
 	var dir := get_to_player_vec()
 	global_rotation = dir.angle()
 
@@ -48,7 +56,7 @@ func _physics_process(delta: float) -> void:
 			move_dir = -dir
 		elif dist > range_stat.current_val(max_range):
 			move_dir = dir
-
+	
 	# Called every frame so deceleration is applied even when move_dir is zero.
 	accelerate(move_dir, 1, accel_time, decel_time, delta)
 

@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="4_sht"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="5_jtqir"]
 [ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="5_sht"]
+[ext_resource type="Script" uid="uid://xmrf46beu2id" path="res://components/kb_component.gd" id="7_7g5fx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 64.0
@@ -13,7 +14,7 @@ radius = 64.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hitbx"]
 radius = 60.0
 
-[node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+[node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite", "kb_comp") instance=ExtResource("1_base")]
 script = ExtResource("2_sht")
 shoot_interval = 0.5
 wait_interval = 1.0
@@ -24,6 +25,8 @@ sprite = NodePath("Sprite2D")
 range_stat = ExtResource("4_sht")
 accel_time = 0.2
 decel_time = 0.3
+kb_comp = NodePath("KbComponent")
+stun_kb = true
 sand_drop_amt_stat = ExtResource("5_jtqir")
 metadata/_custom_type_script = "uid://bxuivfn5rjpl5"
 
@@ -49,3 +52,8 @@ base_hp = 24.0
 [node name="HealthBar" parent="." index="5"]
 offset_top = 67.0
 offset_bottom = 75.0
+
+[node name="KbComponent" type="Node" parent="." index="6" unique_id=757440607 node_paths=PackedStringArray("body")]
+script = ExtResource("7_7g5fx")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://xmrf46beu2id"

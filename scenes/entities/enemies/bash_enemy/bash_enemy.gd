@@ -15,6 +15,10 @@ const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fir
 @export var accel_time: float  # Seconds to reach full speed (approach only)
 @export var decel_time: float  # Seconds to coast to a stop (approach only)
 
+@export var kb: bool = false #if knockback is being done
+@export var kb_comp: KbComponent
+@export var stun_kb: bool = true
+
 @export var sprite: Sprite2D
 
 @onready var attack_cooldown := Cooldown.new(attack_interval)
@@ -39,6 +43,14 @@ func _physics_process(delta: float) -> void:
 	
 
 	look_at(get_player_pos())
+	
+	if kb:
+		kb_comp.calc_kb(delta) #handles kb
+		if stun_kb:
+			bash_timer.stop()
+			atk.set_active(false)
+			attack_cooldown.start()
+			return
 
 	if bash_timer.is_started():
 		_update_bash()

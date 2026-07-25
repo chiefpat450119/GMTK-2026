@@ -65,6 +65,12 @@ func _on_body_entered(body: Node2D) -> void:
 		var time := TimeComponent.find_in(body)
 		if time:
 			time.remove_time(damage)
+	
+	#adds knockback to the colliding body if they have a kbcomponent
+	var kb := KbComponent.find_in(body)
+	if kb: #only activates if the body has a kb component
+		kb.calc_vect(Vector2.from_angle(global_rotation))
+		body.kb = true
 
 	# A body with no damageable pool still soaks a pierce — it blocked the shot
 	# either way.

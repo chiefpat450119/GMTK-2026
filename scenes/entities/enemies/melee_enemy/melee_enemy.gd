@@ -11,6 +11,11 @@ const HIT_RECOVER := 0.18  # Seconds for the sprite to spring back after the squ
 @export var decel_time: float  # Seconds to coast to a stop
 @export var sprite: Sprite2D
 
+#note this kb is different from the melee recoil kb, though it might be possible to resue for that in future
+@export var kb: bool = false
+@export var kb_comp: KbComponent
+@export var stun_kb: bool = true
+
 @onready var base_scale_y: float = sprite.scale.y
 @onready var hitstop := Cooldown.new(HITSTOP_TIME)
 @onready var knockback := Cooldown.new(KNOCKBACK_TIME)
@@ -28,7 +33,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	hitstop.tick(delta)
 	knockback.tick(delta)
-
+	
+	if kb:
+		kb_comp.calc_kb(delta) #handles kb
+		if stun_kb:
+			return
+	
 	# Freeze in place for a beat the instant a hit lands, then launch into the recoil.
 	if hitstop.is_started() and not hitstop.is_done():
 		velocity = Vector2.ZERO
