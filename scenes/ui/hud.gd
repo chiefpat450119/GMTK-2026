@@ -32,6 +32,14 @@ func _apply_visibility(current: int) -> void:
 		or current == GameStateManager.GameState.UPGRADING
 	visible = showing
 	time_hud.visible = showing
+	if showing:
+		# The meter is still drawing the last run's level at this point — this HUD
+		# outlives the world that owns the LevelComponent, and nothing raises the
+		# XP event until the first pickup. GameStateManager enters PLAYING after
+		# the new player is in the tree, so there is a fresh component to read.
+		# Also fires on unpause and on closing a card, which just redraws the same
+		# numbers.
+		_on_xp_changed()
 
 
 func _on_xp_changed() -> void:
