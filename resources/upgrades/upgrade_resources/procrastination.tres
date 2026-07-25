@@ -1,13 +1,23 @@
-[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://c0anwq44xhujk"]
+[gd_resource type="Resource" script_class="ProcrastinationUpgrade" format=3 uid="uid://c0anwq44xhujk"]
 
 [ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_2k37o"]
+[ext_resource type="Script" uid="uid://c5ast3vhs2dbc" path="res://resources/upgrades/special_upgrades/procrastination/procrastination_upgrade.gd" id="2_2k37o"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_ut7ko"]
-[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_uw22r"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="4_sn1ye"]
+[ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="5_jokok"]
+
+[sub_resource type="Resource" id="Resource_xcmn2"]
+script = ExtResource("1_2k37o")
+target_stat = ExtResource("4_sn1ye")
+value = 0.35
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
-script = ExtResource("2_uw22r")
+script = ExtResource("2_2k37o")
+time_change_event = ExtResource("5_jokok")
 title = "Procrastination"
-description_override = "Deal 35% more damage when below 50% sand remaining"
 icon = ExtResource("2_ut7ko")
-max_stacks = 5
-metadata/_custom_type_script = "uid://031polniagv2"
+max_stacks = 1
+effects = Array[ExtResource("1_2k37o")]([SubResource("Resource_xcmn2")])
+metadata/_custom_type_script = "uid://c5ast3vhs2dbc"

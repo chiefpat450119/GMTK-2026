@@ -7,10 +7,14 @@ extends Node2D
 
 @export var offer_event: GameEvent
 
+@export var stattest : Stat
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_U:
 			_offer()
+		if event.keycode == KEY_I:
+			print(stattest.mods)
 
 
 func _offer() -> void:

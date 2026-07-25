@@ -6,7 +6,7 @@ var all: Array[Collectable] = []
 
 func spawn_sand(pos: Vector2, sand_amt: float) -> void:
 	var sand: CollectableSand = sand_scene.instantiate()
-	sand.set_pickup_amt(sand_amt)
+	sand.setup(sand_amt)
 	sand.global_position = pos
 	add_child(sand)
 	all.append(sand)
