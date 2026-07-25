@@ -5,12 +5,13 @@ extends UpgradeInstance
 
 var _below_half := false
 
-func start():
+func start() -> void:
 	var upgrade_def := definition as ProcrastinationUpgrade
 	
 	time_change_event_listener.event = upgrade_def.time_change_event
 	add_child(time_change_event_listener)
 	time_change_event_listener.response.connect(_check_half_time)
+	_check_half_time()
 
 
 
