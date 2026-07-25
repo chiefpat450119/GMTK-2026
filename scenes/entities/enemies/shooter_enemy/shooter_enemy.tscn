@@ -16,7 +16,7 @@
 radius = 64.0
 
 [node name="ShooterEnemy" type="CharacterBody2D" unique_id=1808921831 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
-collision_layer = 2
+collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_shoot")
 shoot_interval = 0.5
