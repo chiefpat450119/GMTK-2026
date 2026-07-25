@@ -19,6 +19,7 @@ var knockback_dir: Vector2
 
 
 func _ready() -> void:
+	super()
 	# Hit detection lives on the atk component; this enemy only reacts to it.
 	atk.contacted.connect(_on_contacted)
 	atk.hit_landed.connect(_on_hit_landed)
