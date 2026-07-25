@@ -78,10 +78,28 @@ static func shake(amount: float) -> void:
 	instance.add_trauma(amount)
 
 
+## Like shake(), but never pushes trauma past `ceiling`. For anything that
+## repeats fast — firing, footsteps — so holding it down settles into a steady
+## rattle instead of stacking all the way to a full-screen shake.
+static func shake_capped(amount: float, ceiling: float) -> void:
+	if instance == null:
+		return
+	instance.add_trauma_capped(amount, ceiling)
+
+
 ## Adds trauma to this shaker specifically, clamped to 1. Stacks with whatever
 ## shake is already running.
 func add_trauma(amount: float) -> void:
 	trauma = clampf(trauma + amount, 0.0, 1.0)
+
+
+## Raises trauma toward `ceiling` and stops there. Trauma already above the
+## ceiling was put there by something bigger than us, so it's left alone rather
+## than pulled down.
+func add_trauma_capped(amount: float, ceiling: float) -> void:
+	if trauma >= ceiling:
+		return
+	trauma = clampf(minf(trauma + amount, ceiling), 0.0, 1.0)
 
 
 ## Cuts the shake immediately and snaps the camera back to its resting offset.
