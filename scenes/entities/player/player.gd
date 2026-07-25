@@ -7,7 +7,6 @@ static var instance: Player
 @export var time_component : TimeComponent
 @export var movement_component : MovementComponent
 @export var dash_component : DashComponent
-@export var gun : Gun
 @export var sprite : AnimatedSprite2D
 
 
