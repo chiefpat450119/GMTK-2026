@@ -30,8 +30,8 @@ func reset() -> void:
 func spawn_sand(pos: Vector2, sand_amt: float) -> void:
 	var sand: CollectableSand = sand_scene.instantiate()
 	_drop_parent().add_child(sand)
+	sand.setup(sand_amt)
 	sand.global_position = pos
-	sand.set_pickup_amt(sand_amt)
 	all.append(sand)
 
 func erase(collectable: Collectable) -> void:

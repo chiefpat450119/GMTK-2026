@@ -53,6 +53,7 @@ func _on_offer() -> void:
 		# Pool is dry, or misconfigured. Hand the state back rather than leaving
 		# the game paused behind a screen that will never show anything.
 		GameStateManager.close_upgrades()
+		push_warning("Uprade picks empty")
 		return
 	# Fewer picks than card slots once the pool runs low.
 	for i in _cards.size():

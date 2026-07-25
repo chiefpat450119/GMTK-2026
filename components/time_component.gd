@@ -49,3 +49,12 @@ func _set_time(value: float) -> void:
 			depleted.emit()
 	else:
 		_depleted = false
+
+
+func time_percentage() -> float:
+	if max_time == null:
+		return 0.0
+	var max_val := max_time.current_val()
+	if max_val <= 0.0:
+		return 0.0
+	return time_left / max_val

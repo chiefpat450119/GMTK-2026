@@ -1,23 +1,25 @@
 class_name CollectableSand
 extends Collectable
 
-# Plain, not @onready: the manager sets this at spawn, and an @onready initializer
-# would run afterwards and stomp it back to 1.0 the moment the drop entered the tree.
-var pickup_amt : float = 1.0
+var pickup_amt : float 
 ## seconds until the drop despawns on its own; <= 0 means never
 @export var despawn_time: float = -1.0
 
 @export var sprite : Sprite2D
 
-func set_pickup_amt(amt: float):
+func setup(amt: float):
 	pickup_amt = amt
-	sprite.scale = Vector2(amt, amt)
-
-func _ready() -> void:
+	#sprite.scale = Vector2(amt, amt)
 	if despawn_time > 0:
 		await get_tree().create_timer(despawn_time).timeout
 		if not _collected:
 			queue_free()
+
+#func _ready() -> void:
+	#if despawn_time > 0:
+		#await get_tree().create_timer(despawn_time).timeout
+		#if not _collected:
+			#queue_free()
 
 
 func _on_collected(player: Player) -> void:

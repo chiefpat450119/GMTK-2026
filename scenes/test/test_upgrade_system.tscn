@@ -10,6 +10,7 @@
 [node name="TestUpgradeSystem" type="Node2D" unique_id=1037445340]
 script = ExtResource("1_root")
 offer_event = ExtResource("3_evt")
+stattest = ExtResource("3_u1nll")
 
 [node name="UpgradeManager" type="Node" parent="." unique_id=1037445341]
 script = ExtResource("2_mgr")

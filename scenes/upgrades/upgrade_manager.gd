@@ -11,6 +11,8 @@ extends Node
 
 # id -> times taken. Used to enforce max_stacks and to id Modifier stacks.
 var _stacks: Dictionary = {}
+var _active_instances: Array[UpgradeInstance] = []
+#@onready var _current_instance_id: int = 0
 
 
 func _ready() -> void:
@@ -41,9 +43,27 @@ func roll(count: int = choices_count) -> Array[Upgrade]:
 
 # Applies an upgrade and bumps its stack count.
 func apply(upgrade: Upgrade) -> void:
-	var taken: int = _stacks.get(upgrade.id, 0)
-	upgrade.apply(taken)
-	_stacks[upgrade.id] = taken + 1
+	#var taken: int = _stacks.get(upgrade.id, 0)
+	##var upgrade_copy := upgrade.duplicate()
+	#upgrade.apply(taken)
+	var instance := upgrade.create_instance()
+	_active_instances.append(instance)
+	_stacks[upgrade.id] = times_taken(upgrade) + 1
+	
+	add_child(instance)
+	instance.start()
+
+func remove(instance: UpgradeInstance) -> void:
+	if not _active_instances.has(instance):
+		return
+
+	instance.remove()
+	_active_instances.erase(instance)
+	
+	var upgrade := instance.definition
+	_stacks[upgrade.id] = maxi(times_taken(upgrade) - 1, 0)
+
+	instance.queue_free()
 
 
 func times_taken(upgrade: Upgrade) -> int:
