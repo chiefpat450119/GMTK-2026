@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://dgw06djys7fvu"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_1ixxj"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="2_j3o4l"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_no1in"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="3_qi3cu"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_rnv1y"]
+
+[sub_resource type="Resource" id="Resource_j3o4l"]
+script = ExtResource("1_1ixxj")
+target_stat = ExtResource("2_j3o4l")
+value = 0.5
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[sub_resource type="Resource" id="Resource_wl8u3"]
+script = ExtResource("1_1ixxj")
+target_stat = ExtResource("3_qi3cu")
+value = -15.0
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_no1in")
+title = "Maniac"
+description_override = "Deal 50% more damage, but -15s of max time capacity"
+icon = ExtResource("4_rnv1y")
+max_stacks = 3
+effects = Array[ExtResource("1_1ixxj")]([SubResource("Resource_j3o4l"), SubResource("Resource_wl8u3")])
+metadata/_custom_type_script = "uid://031polniagv2"
