@@ -16,10 +16,10 @@ func _physics_process(delta: float) -> void:
 		sprite.modulate = Color.RED.lerp(Color.WHITE, 1.0 - (cur_charge_amt / max_charge_amount))
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("M1") and can_fire:
+	if event.is_action_pressed("Fire") and can_fire:
 		is_charging = true
 
-	if event.is_action_released("M1") and is_charging:
+	if event.is_action_released("Fire") and is_charging:
 		is_charging = false
 		var charge := cur_charge_amt
 		cur_charge_amt = 0.0

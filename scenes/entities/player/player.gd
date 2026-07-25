@@ -18,7 +18,7 @@ func _enter_tree() -> void:
 
 func _physics_process(_delta: float) -> void:
 	dash_component.tick(_delta)
-	dash_component.request_dash(Input.is_action_just_pressed("Shift"))
+	dash_component.request_dash(Input.is_action_just_pressed("Dash"))
 	
 	var dir: Vector2 = Input.get_vector("Left", "Right", "Up", "Down")
 	if dash_component.is_dashing():
@@ -26,8 +26,8 @@ func _physics_process(_delta: float) -> void:
 	else:
 		movement_component.move(dir)
 	
-	if Input.get_vector("Left", "Right", "Up", "Down") == Vector2.LEFT:
+	if dir == Vector2.LEFT:
 		sprite.flip_h = true
-	elif Input.get_vector("Left", "Right", "Up", "Down") == Vector2.RIGHT:
+	elif dir == Vector2.RIGHT:
 		sprite.flip_h = false
 	
