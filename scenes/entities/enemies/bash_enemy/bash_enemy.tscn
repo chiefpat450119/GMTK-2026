@@ -31,7 +31,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
 movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
+atk = NodePath("")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
@@ -49,7 +49,7 @@ speed_stat = ExtResource("4_5ajpc")
 base_speed = 550.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="AtkComponent" type="Node" parent="." unique_id=692120435 node_paths=PackedStringArray("hurtbox")]
+[node name="AtkComponent" type="Node2D" parent="." unique_id=318737898 node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("5_o334c")
 atk_stat = ExtResource("6_4gxjr")
 hurtbox = NodePath("Area2D")

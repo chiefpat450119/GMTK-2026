@@ -9,3 +9,4 @@
 position = Vector2(752.6714, 477.48785)
 
 [node name="Boss" parent="." unique_id=1948960875 instance=ExtResource("2_8r653")]
+position = Vector2(380, 305)
