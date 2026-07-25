@@ -1,0 +1,62 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="2_timehud"]
+[ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="3_evtlsn"]
+[ext_resource type="Resource" path="res://resources/events/event_channels/player_xp_changed_event.tres" id="4_xpevt"]
+
+[node name="Hud" type="Control" unique_id=1940000001 node_paths=PackedStringArray("time_hud", "xp_bar", "level_label", "xp_listener")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+time_hud = NodePath("TimeHud")
+xp_bar = NodePath("XpMeter/XpBar")
+level_label = NodePath("XpMeter/LevelLabel")
+xp_listener = NodePath("XpListener")
+
+[node name="XpListener" type="Node" parent="." unique_id=1940000002]
+script = ExtResource("3_evtlsn")
+event = ExtResource("4_xpevt")
+
+[node name="TimeHud" parent="." unique_id=1940000003 instance=ExtResource("2_timehud")]
+
+[node name="XpMeter" type="HBoxContainer" parent="." unique_id=1940000004]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -56.0
+offset_right = 320.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="LevelLabel" type="Label" parent="XpMeter" unique_id=1940000005]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Lv 1"
+vertical_alignment = 1
+
+[node name="XpBar" type="ProgressBar" parent="XpMeter" unique_id=1940000006]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+max_value = 8.0
+value = 0.0
+show_percentage = false

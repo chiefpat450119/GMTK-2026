@@ -26,6 +26,8 @@ var walking: bool  # True while the walk bob owns the scale tween
 
 
 func _ready() -> void:
+	# Enemy._ready() is what hooks death up to the sand drop. GDScript does not
+	# chain _ready(), so overriding it without this silently costs the drop.
 	super()
 	# Hit detection lives on the atk component; this enemy only reacts to it.
 	atk.contacted.connect(_on_contacted)

@@ -10,6 +10,13 @@ extends Node
 
 @export var time_changed_event : GameEvent # Raise this for any changes to current, max time, and/or time decay
 
+## Emitted the moment the clock hits zero. This is what ends a run — GameWorld
+## connects it to GameStateManager.game_over(). Only fires on the crossing, so
+## the run doesn't end again every frame the clock sits at zero.
+signal depleted
+
+var _depleted: bool = false
+
 ## Returns the TimeComponent hanging off an entity, or null if it has none.
 ## Mirrors HealthComponent.find_in so damage sources can hurt the player — whose
 ## pool is time — without knowing its concrete type.
@@ -36,6 +43,12 @@ func _set_time(value: float) -> void:
 	time_left = clamp(value, 0, max_time.current_val())
 	if time_changed_event:
 		time_changed_event.raise()
+	if time_left <= 0.0:
+		if not _depleted:
+			_depleted = true
+			depleted.emit()
+	else:
+		_depleted = false
 
 
 func time_percentage() -> float:

@@ -47,6 +47,13 @@ func _ready() -> void:
 		camera.ignore_rotation = false
 
 
+func _exit_tree() -> void:
+	# The world this lives in is freed and rebuilt between runs. Without this the
+	# static would point at a freed node, and shake() would call into it.
+	if instance == self:
+		instance = null
+
+
 func _process(delta: float) -> void:
 	if trauma <= 0.0 or camera == null:
 		return

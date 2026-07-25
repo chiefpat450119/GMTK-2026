@@ -27,6 +27,7 @@ animations = [{
 
 [node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
 script = ExtResource("2_sht")
+shot_damage = 2.0
 shoot_interval = 0.5
 wait_interval = 0.2
 projectile_scene = ExtResource("3_sht")
@@ -40,6 +41,7 @@ movement = NodePath("MovementComponent")
 atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
 sand_drop_amt_stat = ExtResource("5_jtqir")
+sand_drop_amt_base = 3.0
 metadata/_custom_type_script = "uid://bxuivfn5rjpl5"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]

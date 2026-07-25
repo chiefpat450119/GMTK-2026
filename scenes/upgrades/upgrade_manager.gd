@@ -15,6 +15,17 @@ var _active_instances: Array[UpgradeInstance] = []
 #@onready var _current_instance_id: int = 0
 
 
+func _ready() -> void:
+	# This node outlives a run, so its stack counts would otherwise carry into the
+	# next one and keep maxed-out upgrades out of the pool forever.
+	GameStateManager.register_resettable(self)
+
+
+## Called by GameStateManager at the top of every run.
+func reset() -> void:
+	_stacks.clear()
+
+
 # Returns up to `count` distinct upgrades, weighted by Upgrade.weight,
 # excluding any that have hit max_stacks.
 func roll(count: int = choices_count) -> Array[Upgrade]:
@@ -32,9 +43,6 @@ func roll(count: int = choices_count) -> Array[Upgrade]:
 
 # Applies an upgrade and bumps its stack count.
 func apply(upgrade: Upgrade) -> void:
-	#var taken: int = _stacks.get(upgrade.id, 0)
-	##var upgrade_copy := upgrade.duplicate()
-	#upgrade.apply(taken)
 	var instance := upgrade.create_instance()
 	_active_instances.append(instance)
 	_stacks[upgrade.id] = times_taken(upgrade) + 1

@@ -21,6 +21,7 @@ atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 sand_drop_amt_stat = ExtResource("3_yy0l1")
+sand_drop_amt_base = 3.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=1984462011]

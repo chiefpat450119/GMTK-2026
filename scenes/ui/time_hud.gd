@@ -39,6 +39,11 @@ func _ready() -> void:
 # TimeComponent raises its event on every change, including the decay it applies
 # each frame, so this is the only thing driving the readout.
 func _on_time_changed() -> void:
+	# This HUD lives in the shell and outlives the run, so between runs — on the
+	# menus, and for the deferred opening read at boot — there is no player to
+	# read from yet.
+	if Player.instance == null:
+		return
 	var time_component := Player.instance.time_component
 
 	# max_time is a Stat, so the cap moves when an upgrade adds a modifier.
