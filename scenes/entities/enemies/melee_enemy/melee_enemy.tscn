@@ -12,37 +12,51 @@ size = Vector2(117.5, 108.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(90.5, 88)
 
-[node name="MeleeEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+[node name="MeleeEnemy" unique_id=2001656991 instance=ExtResource("1_base")]
 script = ExtResource("2_mel")
 accel_time = 0.5
 decel_time = 0.15
-sprite = NodePath("Sprite2D")
+walk_squash = 0.95
+walk_cycle_time = 0.36
+walk_settle_time = 0.12
+walk_min_speed = 5.0
 walk_trans = 1
 walk_bob_ease = 2
+lunge_dist = 26.0
+lunge_stretch = 1.18
+lunge_narrow = 0.87
+lunge_time = 0.05
+lunge_return = 0.3
+lunge_pitch_deg = 15.0
+rear_pitch_deg = -12.0
+pitch_smooth = 14.0
+hitstop_time = 0.06
+hit_knockback = 950.0
+knockback_time = 0.28
 sand_drop_amt_stat = ExtResource("3_yy0l1")
 sand_drop_amt_base = 3.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="0" unique_id=1984462011]
-position = Vector2(2, 4)
-scale = Vector2(0.10827294, 0.108272955)
-texture = ExtResource("4_yy0l1")
-
-[node name="CollisionShape2D" parent="." index="1" unique_id=1028412287]
+[node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
+position = Vector2(-2, 3)
 shape = SubResource("RectangleShape2D_body")
 
-[node name="AtkComponent" parent="." index="3" unique_id=1937951491]
+[node name="AtkComponent" parent="." index="2" unique_id=2072642346]
 contact_damage = 2.8125
 
-[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
+[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(818548376) index="0" unique_id=232668919]
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_hitbx")
 
-[node name="HealthComponent" parent="." index="4" unique_id=1764093225]
+[node name="HealthComponent" parent="." index="3" unique_id=2054313803]
 base_hp = 30.0
 
-[node name="HitFeedback" type="Node" parent="." index="6" unique_id=910637902 node_paths=PackedStringArray("health", "sprite")]
+[node name="HitFeedback" type="Node" parent="." index="5" unique_id=869397989 node_paths=PackedStringArray("health")]
 script = ExtResource("5_xb2f6")
 health = NodePath("../HealthComponent")
-sprite = NodePath("../Sprite2D")
 metadata/_custom_type_script = "uid://sqe3naukul5d"
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="6" unique_id=1746956516]
+position = Vector2(2, 5)
+scale = Vector2(0.105555534, 0.10555556)
+texture = ExtResource("4_yy0l1")
