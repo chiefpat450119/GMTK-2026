@@ -28,7 +28,7 @@ animations = [{
 [node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
 script = ExtResource("2_sht")
 shoot_interval = 0.5
-wait_interval = 1.0
+wait_interval = 0.2
 projectile_scene = ExtResource("3_sht")
 min_range = 300.0
 max_range = 331.66

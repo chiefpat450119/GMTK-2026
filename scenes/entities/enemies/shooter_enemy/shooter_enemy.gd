@@ -21,6 +21,13 @@ const RECOIL_KICK := 7.0  # Pixels the sprite slams backwards along the barrel
 const RECOIL_TIME := 0.06  # Seconds for the kick to land
 const SETTLE_TIME := 0.14  # Seconds for the spring back out of the kick
 
+# Most of a shot cycle the post-shot hitch is allowed to eat. The hitch has to end
+# before the next shot or the kiting branch never runs at all: the shot fires and
+# re-arms the hitch on its own cooldown, so a hitch that outlasts the cycle leaves
+# the shooter frozen where it stands forever. Clamping here keeps a balance pass
+# from disabling the kite by nudging two numbers past each other.
+const MAX_HITCH_FRACTION := 0.6
+
 @export var shoot_interval: float  # Seconds between shots
 @export var wait_interval: float # Seconds after shooting where it doesnt move
 @export var projectile_scene: PackedScene
@@ -32,7 +39,7 @@ const SETTLE_TIME := 0.14  # Seconds for the spring back out of the kick
 @export var decel_time: float  # Seconds to coast to a stop
 
 @onready var shoot_cooldown := Cooldown.new(shoot_interval)
-@onready var wait_period := Cooldown.new(wait_interval)
+@onready var wait_period := Cooldown.new(_hitch_time())
 @onready var base_scale: Vector2 = sprite.scale
 @onready var base_pos: Vector2 = sprite.position
 
@@ -78,6 +85,13 @@ func _physics_process(delta: float) -> void:
 
 	# Called every frame so deceleration is applied even when move_dir is zero.
 	accelerate(move_dir, 1, accel_time, decel_time, delta)
+
+
+# How long the shooter actually holds still after a shot. See MAX_HITCH_FRACTION:
+# a hitch that outlasts the shot cycle costs the shooter its kiting entirely, so an
+# over-long wait_interval is trimmed to leave a movement window rather than obeyed.
+func _hitch_time() -> float:
+	return minf(wait_interval, shoot_interval * MAX_HITCH_FRACTION)
 
 
 func _shoot(dir: Vector2) -> void:
