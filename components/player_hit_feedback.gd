@@ -8,8 +8,8 @@ const HIT_STRETCH := 1.14  # sprite scale.x multiplier on that frame, so the vol
 const SHAKE_DIST := 6.0  # Pixels of the first sprite shake swing
 const SHAKE_SWINGS := 4  # Swings the sprite shake decays over before settling
 
-const TRAUMA_MIN := 0.35  # What the lightest hit is worth
-const TRAUMA_MAX := 0.65  # What a hit of FULL_TRAUMA_DAMAGE or more is worth
+const TRAUMA_MIN := 0.5  # What the lightest hit is worth
+const TRAUMA_MAX := 0.8  # What a hit of FULL_TRAUMA_DAMAGE or more is worth
 const FULL_TRAUMA_DAMAGE := 10.0  # Seconds off the clock in one hit that earns TRAUMA_MAX
 
 @export var time: TimeComponent  # Defaults to the time component on our parent
