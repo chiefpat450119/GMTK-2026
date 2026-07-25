@@ -33,26 +33,28 @@ func _ready() -> void:
 	# up to whatever the scene says rather than to a number duplicated in here.
 	_rest_scale = card_row.scale
 	offer_listener.response.connect(_on_offer)
-	GameStateManager.state_changed.connect(_on_state_changed)
+	GameStateManager.instance.state_changed.connect(_on_state_changed)
 	hide()
 
 
 func _on_state_changed(_from: int, _to: int) -> void:
 	# Anything that leaves UPGRADING takes the cards down — including a Retry or a
 	# quit-to-menu triggered from somewhere this screen knows nothing about.
-	if GameStateManager.state != GameStateManager.GameState.UPGRADING:
+	if GameStateManager.instance.state != GameStateManager.GameState.UPGRADING:
 		_close()
 
 
 func _on_offer() -> void:
-	# Ignore a second offer raised while the screen is already up.
+	# Queued offers arrive from close_upgrades(), i.e. only after _close() has
+	# already hidden the previous set. A raise while the cards are still up is
+	# something else entirely — the debug harness — and gets ignored.
 	if visible:
 		return
 	var picks := _roll()
 	if picks.is_empty():
 		# Pool is dry, or misconfigured. Hand the state back rather than leaving
 		# the game paused behind a screen that will never show anything.
-		GameStateManager.close_upgrades()
+		GameStateManager.instance.cancel_upgrades()
 		push_warning("Uprade picks empty")
 		return
 	# Fewer picks than card slots once the pool runs low.
@@ -110,4 +112,4 @@ func _roll() -> Array[Upgrade]:
 func _on_card_selected(upgrade: Upgrade) -> void:
 	manager.apply(upgrade)
 	_close()
-	GameStateManager.close_upgrades()
+	GameStateManager.instance.close_upgrades()

@@ -15,6 +15,7 @@ extends Resource
 ## How many times this upgrade may be taken. 0 == unlimited.
 @export var max_stacks: int = 0
 @export var effects: Array[UpgradeEffect] = []
+@export var is_tradeoff: bool = false
 
 
 # used by upgrade manager to generate runtime instance

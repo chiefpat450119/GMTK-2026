@@ -10,6 +10,8 @@ signal selected(upgrade: Upgrade)
 @export var icon_rect: TextureRect
 @export var title_label: Label
 @export var description_label: Label
+@export var normal_icon_frame: TextureRect
+@export var tradeoff_icon_frame: TextureRect
 
 var _upgrade: Upgrade
 
@@ -25,6 +27,12 @@ func setup(upgrade: Upgrade) -> void:
 	_upgrade = upgrade
 	title_label.text = upgrade.title
 	description_label.text = upgrade.get_description()
+	if upgrade.is_tradeoff:
+		tradeoff_icon_frame.visible = true
+		normal_icon_frame.visible = false
+	else:
+		tradeoff_icon_frame.visible = false
+		normal_icon_frame.visible = true
 	if upgrade.icon:
 		icon_rect.texture = upgrade.icon
 

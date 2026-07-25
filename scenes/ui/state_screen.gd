@@ -10,16 +10,12 @@ extends Control
 ## Screens live under main.tscn's UI layer, which is PROCESS_MODE_ALWAYS, so
 ## their buttons still respond while the tree is paused.
 
-# Values match GameStateManager.GameState, which can't be named as a type here:
-# it lives on an autoload script, and giving that script a class_name would
-# collide with the autoload's own name. Keep this list in the same order.
-@export_enum("MAIN_MENU", "PLAYING", "PAUSED", "UPGRADING", "GAME_OVER")
-var state: int = 0
+@export var state: GameStateManager.GameState = GameStateManager.GameState.MAIN_MENU
 
 
 func _ready() -> void:
-	GameStateManager.state_changed.connect(_on_state_changed)
-	_apply(GameStateManager.state)
+	GameStateManager.instance.state_changed.connect(_on_state_changed)
+	_apply(GameStateManager.instance.state)
 
 
 func _on_state_changed(_from: int, to: int) -> void:

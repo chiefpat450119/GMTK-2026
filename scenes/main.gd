@@ -1,8 +1,9 @@
 extends Node
 ## The shell. Loaded once at boot and never freed.
 ##
-## It owns two things and no gameplay: `World`, the mount GameStateManager
-## instances each run under, and `UI`, the CanvasLayer every menu lives on.
+## It owns three things and no gameplay: `GameStateManager`, `World`, the mount
+## that manager instances each run under, and `UI`, the CanvasLayer every menu
+## lives on.
 ## UI is PROCESS_MODE_ALWAYS so its children keep running while the tree is
 ## paused — otherwise the pause menu would freeze along with the game behind it.
 ##
@@ -13,4 +14,4 @@ extends Node
 
 
 func _ready() -> void:
-	GameStateManager.bind_shell(world_mount)
+	GameStateManager.instance.bind_shell(world_mount)

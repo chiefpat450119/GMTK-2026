@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_shot_spread_stat.tres" id="2_dgo6c"]
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_ut3go"]
 [ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="3_dgo6c"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_dgo6c"]
+[ext_resource type="Texture2D" uid="uid://co0b7todjsxq8" path="res://assets/CARDPARTS/ICON_CLR/SAND_OFF__ICON.png" id="4_dgo6c"]
 
 [sub_resource type="Resource" id="Resource_3qwmv"]
 script = ExtResource("1_6fnqa")
@@ -28,4 +28,5 @@ description_override = "-5% acurracy, but deal 15% more damage"
 icon = ExtResource("4_dgo6c")
 max_stacks = 5
 effects = Array[ExtResource("1_6fnqa")]([SubResource("Resource_3qwmv"), SubResource("Resource_r3n4k")])
+is_tradeoff = true
 metadata/_custom_type_script = "uid://031polniagv2"

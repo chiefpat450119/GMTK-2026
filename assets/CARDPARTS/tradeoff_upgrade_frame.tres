@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://d1b5yelfu11ci"]
+
+[ext_resource type="Texture2D" uid="uid://bsvgurwkygoid" path="res://assets/CARDPARTS/BACKLAYER_EVIL_SKL(2).png" id="1_ndlxv"]
+
+[resource]
+atlas = ExtResource("1_ndlxv")
+region = Rect2(600, 0, 780, 0)

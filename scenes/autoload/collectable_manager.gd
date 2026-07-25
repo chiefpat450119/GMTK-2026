@@ -10,12 +10,7 @@ var all: Array[Collectable] = []
 var _container: Node2D = null
 
 func _ready() -> void:
-	_register_resettable.call_deferred()
-
-func _register_resettable() -> void:
-	var manager := get_node_or_null("/root/GameStateManager")
-	if manager:
-		manager.register_resettable(self)
+	GameStateManager.register_resettable(self)
 
 func bind_container(container: Node2D) -> void:
 	_container = container

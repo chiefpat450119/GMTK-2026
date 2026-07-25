@@ -1,5 +1,7 @@
+class_name GameStateManager
 extends Node
-## Master game state machine. Autoloaded as `GameStateManager`.
+## Master game state machine. A node in main.tscn, reached from anywhere as
+## `GameStateManager.instance`.
 ##
 ## Owns three things nothing else may touch:
 ##   1. `get_tree().paused`. Everything else reacts to state_changed instead of
@@ -13,6 +15,8 @@ extends Node
 ##
 ## main.tscn hands over its world mount with bind_shell() on ready. Until that
 ## lands this sits in MAIN_MENU and start_run() is a no-op.
+
+static var instance: GameStateManager
 
 enum GameState {
 	MAIN_MENU,
@@ -36,13 +40,29 @@ const PAUSE_ACTION := &"Pause"
 
 var state: GameState = GameState.MAIN_MENU
 
+# Static so the autoloads can register before this node exists.
+static var _resettables: Array[Node] = []
+
 var _world_mount: Node = null
 var _world: GameWorld = null
-var _resettables: Array[Node] = []
+var _pending_upgrades: int = 0
+
+
+func _enter_tree() -> void:
+	if instance != null and instance != self:
+		push_error("Duplicate GameStateManager")
+		queue_free()
+		return
+	instance = self
+
+
+func _exit_tree() -> void:
+	if instance == self:
+		instance = null
 
 
 func _ready() -> void:
-	# In code rather than the .tscn: if this is ever ALWAYS by accident, pausing
+	# In code rather than the .tscn: if this is ever not ALWAYS by accident, pausing
 	# stops the manager that owns unpausing and the game locks up for good.
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_apply_pause()
@@ -65,12 +85,12 @@ func bind_shell(world_mount: Node) -> void:
 ## Registers a node whose reset() drops run-scoped state — EnemyStatScaler's
 ## wave scaling, UpgradeManager's stack counts. Keeps this manager from needing
 ## to know either type, or the order they happen to load in.
-func register_resettable(node: Node) -> void:
+static func register_resettable(node: Node) -> void:
 	if not _resettables.has(node):
 		_resettables.append(node)
 
 
-func unregister_resettable(node: Node) -> void:
+static func unregister_resettable(node: Node) -> void:
 	_resettables.erase(node)
 
 
@@ -111,9 +131,15 @@ func toggle_pause() -> void:
 		resume()
 
 
-## Puts the upgrade screen up.
+## Puts the upgrade screen up, or queues another one behind the one already up.
+## Safe to call several times in the same frame — a big XP pickup does exactly
+## that, once per level it granted.
 func request_upgrade() -> void:
-	if state != GameState.PLAYING:
+	if state != GameState.PLAYING and state != GameState.UPGRADING:
+		return
+	_pending_upgrades += 1
+	# Already showing cards: the offer waits until that one is picked.
+	if state == GameState.UPGRADING:
 		return
 	# UPGRADING pauses the tree through _apply_pause(), so the world is frozen
 	# behind the cards without UpgradeUI touching get_tree().paused itself.
@@ -121,10 +147,25 @@ func request_upgrade() -> void:
 	upgrade_offer_event.raise()
 
 
-## Called by UpgradeUI once a card has been applied.
+## Called by UpgradeUI once a card has been applied. Stays in UPGRADING and
+## offers again if more level-ups are still owed.
 func close_upgrades() -> void:
 	if state != GameState.UPGRADING:
 		return
+	_pending_upgrades = maxi(_pending_upgrades - 1, 0)
+	if _pending_upgrades > 0:
+		upgrade_offer_event.raise()
+		return
+	_set_state(GameState.PLAYING)
+
+
+## Drops every queued offer and hands the game back. For when the screen has
+## nothing to show — an empty pool would otherwise leave the player staring at
+## a queue that can never be worked through.
+func cancel_upgrades() -> void:
+	if state != GameState.UPGRADING:
+		return
+	_pending_upgrades = 0
 	_set_state(GameState.PLAYING)
 
 
@@ -138,6 +179,7 @@ func game_over() -> void:
 func to_main_menu() -> void:
 	if state == GameState.MAIN_MENU:
 		return
+	_pending_upgrades = 0
 	_teardown_world()
 	_set_state(GameState.MAIN_MENU)
 
@@ -145,6 +187,9 @@ func to_main_menu() -> void:
 # --- internals ---
 
 func _reset_run() -> void:
+	# Offers owed to the previous run die with it — a retry out of a queued
+	# upgrade screen would otherwise open cards over the fresh world.
+	_pending_upgrades = 0
 	# Stats are shared Resources, cached by the engine for the whole process, so
 	# a run's Modifiers outlive the scene they were picked in. Reloading the
 	# scene does not undo them — this does.

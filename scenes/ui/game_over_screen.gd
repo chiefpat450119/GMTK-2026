@@ -11,5 +11,5 @@ extends StateScreen
 
 func _ready() -> void:
 	super()
-	retry_button.pressed.connect(GameStateManager.start_run)
-	menu_button.pressed.connect(GameStateManager.to_main_menu)
+	retry_button.pressed.connect(GameStateManager.instance.start_run)
+	menu_button.pressed.connect(GameStateManager.instance.to_main_menu)
