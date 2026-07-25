@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cjluakn0wmxyo"]
+
+[ext_resource type="Script" uid="uid://dplxp05j5e4c8" path="res://scenes/ui/bar_segment.gd" id="1_segment"]
+[ext_resource type="Texture2D" uid="uid://bffhux2p0aidr" path="res://assets/hud/BAR_MID_BACKcopy.png" id="2_bar_mid_back"]
+[ext_resource type="Texture2D" uid="uid://i3jjsgj535y6" path="res://assets/hud/BAR_MID_FRONTcopy.png" id="3_bar_mid_front"]
+[ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="4_gus1q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pin"]
+atlas = ExtResource("3_bar_mid_front")
+region = Rect2(260, 12, 115, 293)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pin"]
+font = ExtResource("4_gus1q")
+font_size = 80
+font_color = Color(0, 0, 0, 1)
+outline_size = 15
+
+[node name="Segment" type="HBoxContainer" unique_id=892025648 node_paths=PackedStringArray("background", "label")]
+custom_minimum_size = Vector2(0, 412)
+offset_right = 271.0
+offset_bottom = 412.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_segment")
+background = NodePath("Background")
+label = NodePath("Pin/Label")
+
+[node name="Background" type="Control" parent="." unique_id=1145714181]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MidBack" type="NinePatchRect" parent="Background" unique_id=879132068]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = -4.725
+offset_top = 129.65
+offset_right = 1.275
+offset_bottom = 322.65
+texture = ExtResource("2_bar_mid_back")
+region_rect = Rect2(38, 25, 246, 193)
+patch_margin_left = 12
+patch_margin_right = 12
+
+[node name="Rails" type="NinePatchRect" parent="Background" unique_id=337238686]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = -4.0
+offset_top = 126.0
+offset_bottom = 331.0
+texture = ExtResource("3_bar_mid_front")
+region_rect = Rect2(56, 99, 244, 205)
+patch_margin_left = 16
+patch_margin_right = 16
+
+[node name="Pin" type="Control" parent="." unique_id=523972254]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Post" type="TextureRect" parent="Pin" unique_id=33817654]
+z_index = 3
+layout_mode = 0
+offset_left = -40.0
+offset_top = 39.0
+offset_right = 75.0
+offset_bottom = 332.0
+texture = SubResource("AtlasTexture_pin")
+
+[node name="Label" type="Label" parent="Pin" unique_id=1982345082]
+z_index = 5
+layout_mode = 0
+offset_left = -32.999996
+offset_top = 18.0
+offset_right = 67.24194
+offset_bottom = 124.0
+text = "10"
+label_settings = SubResource("LabelSettings_pin")
+horizontal_alignment = 1
+vertical_alignment = 1
