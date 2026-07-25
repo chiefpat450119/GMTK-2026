@@ -1,71 +1,92 @@
 [gd_scene format=3 uid="uid://bnhbn3cs1fog7"]
 
-[ext_resource type="Script" uid="uid://t6dhj0sncyou" path="res://scenes/entities/enemies/enemy.gd" id="1_nnnbu"]
-[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_obr17"]
-[ext_resource type="Script" uid="uid://1lk5qevh2w7y" path="res://components/state_machine/state_machine.gd" id="2_oxis1"]
-[ext_resource type="Script" uid="uid://ptajhna0r1rr" path="res://scenes/entities/enemies/boss/boss_move_state.gd" id="3_d1okg"]
-[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="4_brypa"]
-[ext_resource type="Script" uid="uid://dnn0w0npw3nh3" path="res://scenes/entities/enemies/boss/boss_selector_state.gd" id="4_d1okg"]
-[ext_resource type="Script" uid="uid://7e4yn3vgx3tj" path="res://scenes/entities/enemies/boss/boss_attack_state.gd" id="5_brypa"]
-[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="5_jm5c0"]
-[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="6_au3wl"]
-[ext_resource type="Script" uid="uid://dxixpb5jluxll" path="res://scenes/entities/enemies/boss/boss_charge_state.gd" id="6_jm5c0"]
-[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_oxis1"]
-[ext_resource type="Script" uid="uid://cfa7wfp8t2gmq" path="res://scenes/entities/enemies/boss/boss_jump_state.gd" id="8_nvjhm"]
-[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="10_t78gy"]
-[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="11_au3wl"]
-[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="11_lq6h1"]
-[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="14_nvjhm"]
+[ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_base"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_boss"]
+[ext_resource type="Script" uid="uid://1lk5qevh2w7y" path="res://components/state_machine/state_machine.gd" id="3_boss"]
+[ext_resource type="Script" uid="uid://ptajhna0r1rr" path="res://scenes/entities/enemies/boss/boss_move_state.gd" id="4_boss"]
+[ext_resource type="Script" uid="uid://dnn0w0npw3nh3" path="res://scenes/entities/enemies/boss/boss_selector_state.gd" id="5_boss"]
+[ext_resource type="Script" uid="uid://7e4yn3vgx3tj" path="res://scenes/entities/enemies/boss/boss_attack_state.gd" id="6_boss"]
+[ext_resource type="Script" uid="uid://dxixpb5jluxll" path="res://scenes/entities/enemies/boss/boss_charge_state.gd" id="7_boss"]
+[ext_resource type="Script" uid="uid://cfa7wfp8t2gmq" path="res://scenes/entities/enemies/boss/boss_jump_state.gd" id="8_boss"]
+[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="9_boss"]
+[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="10_boss"]
+[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="11_boss"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="12_boss"]
+[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="13_boss"]
+[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="14_boss"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbiil"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(56, 134)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lbiil"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_contact"]
 radius = 62.39391
 
-[sub_resource type="SphereMesh" id="SphereMesh_lbiil"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
+radius = 62.39391
 
-[node name="Boss" type="CharacterBody2D" unique_id=1948960875 node_paths=PackedStringArray("movement", "atk", "hp")]
-collision_layer = 8
+[sub_resource type="SphereMesh" id="SphereMesh_shadow"]
+
+[node name="Boss" unique_id=1807354954 instance=ExtResource("1_base")]
 collision_mask = 2
-script = ExtResource("1_nnnbu")
-movement = NodePath("MovementComponent")
-atk = NodePath("ContactDmgCompocnent")
-hp = NodePath("HealthComponent")
-sand_drop_amt_stat = ExtResource("2_obr17")
-metadata/_custom_type_script = "uid://t6dhj0sncyou"
+sand_drop_amt_stat = ExtResource("2_boss")
 
-[node name="StateMachine" type="Node" parent="." unique_id=1717258978 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_oxis1")
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.29814816, 0.1388889)
+texture = ExtResource("13_boss")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="MovementComponent" parent="." index="2"]
+base_speed = 300.0
+
+[node name="AtkComponent" parent="." index="3"]
+hurtbox = NodePath("../hurtbox")
+
+[node name="CollisionShape2D" parent="AtkComponent/Area2D" index="0"]
+shape = SubResource("CircleShape2D_contact")
+
+[node name="HealthComponent" parent="." index="4"]
+base_hp = 100.0
+death_event = ExtResource("14_boss")
+
+[node name="HealthBar" parent="." index="5"]
+offset_left = -35.0
+offset_top = 80.0
+offset_right = 35.0
+offset_bottom = 88.0
+
+[node name="StateMachine" type="Node" parent="." index="6" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_boss")
 initial_state = NodePath("BossJumpState")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
-[node name="Move state" type="Node" parent="StateMachine" unique_id=1826993586 node_paths=PackedStringArray("enemy", "selector_state")]
-script = ExtResource("3_d1okg")
+[node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state")]
+script = ExtResource("4_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="Selector state" type="Node" parent="StateMachine" unique_id=1794602852 node_paths=PackedStringArray("state_pool")]
-script = ExtResource("4_d1okg")
+[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("state_pool")]
+script = ExtResource("5_boss")
 state_pool = [NodePath("../Move state"), NodePath("../BossAttackState"), NodePath("../BossChargeState"), NodePath("../BossJumpState")]
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="BossAttackState" type="Node" parent="StateMachine" unique_id=1127751991 node_paths=PackedStringArray("selector_state")]
-script = ExtResource("5_brypa")
+[node name="BossAttackState" type="Node" parent="StateMachine" index="2" unique_id=1069010376 node_paths=PackedStringArray("selector_state")]
+script = ExtResource("6_boss")
 selector_state = NodePath("../Selector state")
 metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
 
-[node name="BossChargeState" type="Node" parent="StateMachine" unique_id=1959573494 node_paths=PackedStringArray("enemy", "selector_state", "charge_movement", "sprite")]
-script = ExtResource("6_jm5c0")
+[node name="BossChargeState" type="Node" parent="StateMachine" index="3" unique_id=1504210145 node_paths=PackedStringArray("enemy", "selector_state", "charge_movement", "sprite")]
+script = ExtResource("7_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 charge_movement = NodePath("../../ChareMovementComponent")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://dxixpb5jluxll"
 
-[node name="BossJumpState" type="Node" parent="StateMachine" unique_id=308703517 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider")]
-script = ExtResource("8_nvjhm")
+[node name="BossJumpState" type="Node" parent="StateMachine" index="4" unique_id=1914301936 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider")]
+script = ExtResource("8_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 jump_land_atk = NodePath("../../JumpAtkComponent")
@@ -74,57 +95,30 @@ collider = NodePath("../../CollisionShape2D")
 jump_height = 1200.0
 metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
 
-[node name="MovementComponent" type="Node" parent="." unique_id=1155189143 node_paths=PackedStringArray("body")]
-script = ExtResource("4_brypa")
+[node name="ChareMovementComponent" type="Node" parent="." index="7" unique_id=1169370034 node_paths=PackedStringArray("body")]
+script = ExtResource("9_boss")
 body = NodePath("..")
-speed_stat = ExtResource("5_jm5c0")
-base_speed = 300.0
-metadata/_custom_type_script = "uid://lajktjxbrn2c"
-
-[node name="ChareMovementComponent" type="Node" parent="." unique_id=364841896 node_paths=PackedStringArray("body")]
-script = ExtResource("4_brypa")
-body = NodePath("..")
-speed_stat = ExtResource("5_jm5c0")
+speed_stat = ExtResource("10_boss")
 base_speed = 1000.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="ContactDmgCompocnent" type="Node2D" parent="." unique_id=1824593577 node_paths=PackedStringArray("hurtbox")]
-script = ExtResource("6_au3wl")
-atk_stat = ExtResource("10_t78gy")
-hurtbox = NodePath("../hurtbox")
-metadata/_custom_type_script = "uid://c1mak22ii3tpp"
-
-[node name="JumpAtkComponent" type="Node2D" parent="." unique_id=643970181 node_paths=PackedStringArray("hurtbox")]
-script = ExtResource("6_au3wl")
-atk_stat = ExtResource("10_t78gy")
+[node name="JumpAtkComponent" type="Node2D" parent="." index="8" unique_id=857663781 node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("11_boss")
+atk_stat = ExtResource("12_boss")
 hurtbox = NodePath("../hurtbox")
 attack_interval = 4.0
 active_on_ready = false
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1870361976]
-script = ExtResource("7_oxis1")
-max_hp = ExtResource("11_lq6h1")
-base_hp = 100.0
-death_event = ExtResource("14_nvjhm")
-metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=201307250]
-scale = Vector2(0.29814816, 0.1388889)
-texture = ExtResource("11_au3wl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=809988865]
-shape = SubResource("RectangleShape2D_lbiil")
-
-[node name="hurtbox" type="Area2D" parent="." unique_id=1272771921]
+[node name="hurtbox" type="Area2D" parent="." index="9" unique_id=966464268]
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" unique_id=1538656822]
-shape = SubResource("CircleShape2D_lbiil")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" index="0" unique_id=1456833084]
+shape = SubResource("CircleShape2D_hurtbox")
 
-[node name="Shadow" type="MeshInstance2D" parent="." unique_id=1865537790]
+[node name="Shadow" type="MeshInstance2D" parent="." index="10" unique_id=344692980]
 modulate = Color(0, 0, 0, 0.38431373)
 z_index = -2
 position = Vector2(3, 62)
 scale = Vector2(122.88891, 28.750011)
-mesh = SubResource("SphereMesh_lbiil")
+mesh = SubResource("SphereMesh_shadow")
