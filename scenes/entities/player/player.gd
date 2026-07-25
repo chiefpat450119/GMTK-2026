@@ -9,6 +9,8 @@ static var instance: Player
 @export var dash_component : DashComponent
 @export var sprite : AnimatedSprite2D
 
+@export var gun_holder: GunHolder
+
 
 func _enter_tree() -> void:
 	if instance == null:

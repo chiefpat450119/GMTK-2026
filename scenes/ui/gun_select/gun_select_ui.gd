@@ -25,8 +25,7 @@ func _ready() -> void:
 
 
 func _on_card_selected(gun: GunData):
-	var gun_scene := gun.gun_scene.instantiate()
-	Player.instance.add_child(gun_scene)
+	Player.instance.gun_holder.equip_gun(gun)
 	get_tree().paused = false
 	hide()
 
