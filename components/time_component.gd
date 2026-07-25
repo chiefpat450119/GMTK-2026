@@ -36,3 +36,7 @@ func _set_time(value: float) -> void:
 	time_left = clamp(value, 0, max_time.current_val())
 	if time_changed_event:
 		time_changed_event.raise()
+
+
+func time_percentage():
+	return time_left / max_time.current_val()

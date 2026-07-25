@@ -25,6 +25,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
 sand_drop_amt_stat = ExtResource("4_btkvs")
+sand_drop_amt_base = 10.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="Sprite2D" parent="." index="0"]

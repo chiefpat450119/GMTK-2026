@@ -32,6 +32,7 @@ func _on_offer() -> void:
 		return
 	var picks := manager.roll(_cards.size())
 	if picks.is_empty():
+		push_warning("Uprade picks empty")
 		return
 	# Fewer picks than card slots once the pool runs dry.
 	for i in _cards.size():
