@@ -79,8 +79,6 @@ script = ExtResource("10_pcd0u")
 max_time = ExtResource("11_w3p2j")
 time_decay_scale = ExtResource("12_knby6")
 time_changed_event = ExtResource("13_18p7g")
-time_below_half_event = ExtResource("14_pcd0u")
-time_above_half_event = ExtResource("15_w3p2j")
 metadata/_custom_type_script = "uid://ulsgba0wksf4"
 
 [node name="PlayerPickup" type="Node" parent="." unique_id=919957778]
