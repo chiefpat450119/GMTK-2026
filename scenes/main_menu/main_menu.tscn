@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cw8qy3r0uko47"]
+
+[ext_resource type="Script" uid="uid://llrm5fw2tbeh" path="res://scenes/main_menu/main_menu.gd" id="1_wem23"]
+[ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="2_3ovsr"]
+[ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="3_5seab"]
+[ext_resource type="Texture2D" uid="uid://cc65kdivuyd7m" path="res://assets/hud/MACHINE.png" id="4_4xg86"]
+[ext_resource type="Texture2D" uid="uid://cmelh0rlk6wwa" path="res://assets/hud/GEARcopy.png" id="5_5seab"]
+[ext_resource type="LabelSettings" uid="uid://ckd02qkdvmyfw" path="res://scenes/main_menu/title_big.tres" id="5_thkx5"]
+[ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="6_3ovsr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5seab"]
+font = ExtResource("6_3ovsr")
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+outline_size = 24
+
+[node name="MainMenu" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wem23")
+hourglass_white = NodePath("ColorRect/Hourglass White")
+real_icon = NodePath("ColorRect/Real Icon")
+gear = NodePath("ColorRect/Real Icon/Gear")
+sand = NodePath("ColorRect/Sand")
+of = NodePath("ColorRect/Of")
+time = NodePath("ColorRect/Time")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1525688302]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.026721504, 0.026721502, 0.026721498, 1)
+
+[node name="Hourglass White" type="TextureRect" parent="ColorRect" unique_id=765704388]
+clip_children = 1
+layout_mode = 0
+offset_left = 212.00003
+offset_top = -143.99997
+offset_right = 910.0
+offset_bottom = 787.0
+scale = Vector2(0.45, 0.45)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_3ovsr")
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/Hourglass White" unique_id=883581242]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5seab")
+
+[node name="Real Icon" type="TextureRect" parent="ColorRect" unique_id=1950799730]
+layout_mode = 0
+offset_left = 93.00001
+offset_top = -226.00002
+offset_right = 1443.0
+offset_bottom = 854.0
+scale = Vector2(0.47, 0.47)
+pivot_offset_ratio = Vector2(0.35, 0.5)
+texture = ExtResource("4_4xg86")
+
+[node name="Gear" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1214005427]
+layout_mode = 0
+offset_left = 82.07442
+offset_top = 203.82979
+offset_right = 854.0744
+offset_bottom = 975.8298
+texture = ExtResource("5_5seab")
+
+[node name="HourglassReal" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1732264963]
+layout_mode = 0
+offset_left = 119.62616
+offset_top = 95.32709
+offset_right = 817.62616
+offset_bottom = 1026.3271
+texture = ExtResource("2_3ovsr")
+
+[node name="Sand" type="Label" parent="ColorRect" unique_id=1862822461]
+layout_mode = 0
+offset_left = 277.415
+offset_top = 125.935
+offset_right = 489.4152
+offset_bottom = 249.93515
+text = "Sand"
+label_settings = ExtResource("5_thkx5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="ColorRect" unique_id=729176808]
+layout_mode = 0
+offset_left = 632.47
+offset_top = 125.935
+offset_right = 845.47
+offset_bottom = 249.93515
+text = "Time"
+label_settings = ExtResource("5_thkx5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Of" type="Label" parent="ColorRect" unique_id=1340628090]
+layout_mode = 0
+offset_left = 455.0
+offset_top = 132.51
+offset_right = 668.0
+offset_bottom = 256.51013
+text = "Of"
+label_settings = SubResource("LabelSettings_5seab")
+horizontal_alignment = 1
+vertical_alignment = 1
