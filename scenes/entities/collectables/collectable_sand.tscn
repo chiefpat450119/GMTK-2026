@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bx52vm2hvi6ow"]
 
 [ext_resource type="Script" uid="uid://cskqiyhxakt2i" path="res://scenes/entities/collectables/collectable_sand.gd" id="1_xyk2u"]
-[ext_resource type="Texture2D" uid="uid://dvitp8b68rv41" path="res://assets/sand drop.png" id="2_ydeas"]
+[ext_resource type="Texture2D" uid="uid://dvitp8b68rv41" path="res://assets/sand_drop.png" id="2_ydeas"]
 
 [node name="CollectableSand" type="Node2D" unique_id=607656599 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_xyk2u")
