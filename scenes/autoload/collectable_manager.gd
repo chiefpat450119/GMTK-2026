@@ -27,6 +27,9 @@ func spawn_sand(pos: Vector2, sand_amt: float) -> void:
 	_drop_parent().add_child(sand)
 	sand.setup(sand_amt)
 	sand.global_position = pos
+	# Same teleport-on-spawn as everything else placed after add_child; without this
+	# the drop streaks in from world origin.
+	sand.reset_physics_interpolation()
 	all.append(sand)
 
 func erase(collectable: Collectable) -> void:

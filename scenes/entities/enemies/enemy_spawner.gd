@@ -45,7 +45,10 @@ func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	var pos := find_spawn_pos(Player.instance.get_global_position())
 	add_child(enemy)
 	enemy.position = pos
-	
+	# Spawned at the origin and moved here, which physics interpolation would render
+	# as the enemy flying in from world origin at spawn_radius per tick.
+	enemy.reset_physics_interpolation()
+
 	return enemy
 
 
