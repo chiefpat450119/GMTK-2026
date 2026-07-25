@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ddg16nycojp2p" path="res://scenes/main.gd" id="1_o5qli"]
 
-[node name="Main" type="Node2D" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
+[node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
 script = ExtResource("1_o5qli")
-world_mount = NodePath(".")
+world_mount = NodePath("World")
+
+[node name="World" type="Node2D" parent="." unique_id=961278469]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=961278470]
+process_mode = 3

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://daw0350ihy34g" path="res://scenes/map/map.tscn" id="2_map"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="3_plyr"]
 [ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="4_spwn"]
+[ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="5_shake"]
 
 [node name="GameWorld" type="Node2D" unique_id=1900000001 node_paths=PackedStringArray("spawner")]
 script = ExtResource("1_gwrld")
@@ -14,7 +15,13 @@ spawner = NodePath("EnemySpawner")
 [node name="Player" parent="." unique_id=1900000003 instance=ExtResource("3_plyr")]
 
 [node name="Camera2D" parent="Player" index="8" unique_id=1900000004 node_paths=PackedStringArray("map")]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 map = NodePath("../../Map")
+
+[node name="CameraShake" type="Node" parent="Player/Camera2D" unique_id=1900000006 node_paths=PackedStringArray("camera")]
+script = ExtResource("5_shake")
+camera = NodePath("..")
 
 [node name="EnemySpawner" parent="." unique_id=1900000005 instance=ExtResource("4_spwn")]
 

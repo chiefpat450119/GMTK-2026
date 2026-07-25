@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b0sjtdsf0e68j"]
 
 [ext_resource type="Script" uid="uid://dvwnj2tycbq7w" path="res://scenes/autoload/game_state_manager.gd" id="1_tk0hm"]
+[ext_resource type="PackedScene" uid="uid://cgw0rld1shell" path="res://scenes/game/game_world.tscn" id="2_gwrld"]
 
 [node name="GameStateManager" type="Node" unique_id=1112220779]
 script = ExtResource("1_tk0hm")
+world_scene = ExtResource("2_gwrld")
