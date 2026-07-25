@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d2xpe4adm4xs0" path="res://assets/enemies/bash/Melee charge enemy Run 2.png" id="7_7uksk"]
 [ext_resource type="Texture2D" uid="uid://ww31rjdgldar" path="res://assets/enemies/bash/Melee charge enemy Run 3.png" id="8_s80sc"]
 [ext_resource type="Texture2D" uid="uid://vduxvuwbrjn7" path="res://assets/enemies/bash/Melee charge enemy Run 4.png" id="9_180ps"]
+[ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="9_lfiob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(185, 86)
@@ -47,9 +48,6 @@ range_stat = ExtResource("3_bsh")
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("AnimatedSprite2D")
-movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
-hp = NodePath("HealthComponent")
 sand_drop_amt_stat = ExtResource("4_btkvs")
 sand_drop_amt_base = 10.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
@@ -84,3 +82,8 @@ offset_left = -24.0
 offset_top = 71.0
 offset_right = 26.0
 offset_bottom = 79.0
+
+[node name="HitFeedback" type="Node" parent="." index="6" unique_id=175156074 node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("9_lfiob")
+health = NodePath("../HealthComponent")
+sprite = NodePath("../AnimatedSprite2D")

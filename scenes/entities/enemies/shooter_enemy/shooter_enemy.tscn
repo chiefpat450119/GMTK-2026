@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="5_jtqir"]
 [ext_resource type="Texture2D" uid="uid://dihod7u5gory0" path="res://assets/enemies/range/Ranged enemy idle1.png" id="6_7g5fx"]
 [ext_resource type="Texture2D" uid="uid://deacj6dv6aeoi" path="res://assets/enemies/range/Ranged enemy idle2.png" id="7_do2mk"]
+[ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="8_do2mk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4fwd"]
 size = Vector2(59, 126.5)
@@ -37,9 +38,6 @@ sprite = NodePath("AnimatedSprite2D")
 range_stat = ExtResource("4_sht")
 accel_time = 0.2
 decel_time = 0.3
-movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
-hp = NodePath("HealthComponent")
 sand_drop_amt_stat = ExtResource("5_jtqir")
 sand_drop_amt_base = 3.0
 metadata/_custom_type_script = "uid://bxuivfn5rjpl5"
@@ -70,3 +68,8 @@ scale = Vector2(0.08093263, 0.08093263)
 sprite_frames = SubResource("SpriteFrames_n1ogh")
 autoplay = "default"
 frame_progress = 0.7331551
+
+[node name="HitFeedback" type="Node" parent="." index="6" unique_id=757928581 node_paths=PackedStringArray("health", "sprite")]
+script = ExtResource("8_do2mk")
+health = NodePath("../HealthComponent")
+sprite = NodePath("../AnimatedSprite2D")

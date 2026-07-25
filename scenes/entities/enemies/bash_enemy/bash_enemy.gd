@@ -15,7 +15,6 @@ const CHARGE_SQUASH := 0.85  # Sprite scale.y multiplier at the end of the wind-
 const CHARGE_STRETCH := 1.07  # Sprite scale.x multiplier at the end of the wind-up
 const BASH_SQUASH := 0.92  # Sprite scale.y multiplier the instant the bash fires
 const BASH_STRETCH := 1.16  # Sprite scale.x multiplier the instant the bash fires
-const CHARGE_TINT := Color(1.4, 0.45, 0.4)  # Hot red tell; stays bright enough to read the art through
 const RECOVER_TIME := 0.1  # Seconds for the sprite to snap out of the coil as the bash fires
 const SETTLE_TIME := 0.18  # Seconds for the launch stretch to ease back to rest
 
@@ -44,7 +43,6 @@ const ANIM_SMOOTH := 10.0  # Higher ramps the run cycle to its target rate faste
 var bash_dir: Vector2
 var facing := 1.0  # 1 when the sprite faces +x, -1 when it faces -x
 var scale_tween: Tween  # Whoever is animating sprite.scale right now
-var tint_tween: Tween  # Kept apart from the scale tween so neither can strand the other
 
 
 func _ready() -> void:
@@ -108,8 +106,6 @@ func _start_charge() -> void:
 	var coiled := Vector2(base_scale.x * CHARGE_STRETCH, base_scale.y * CHARGE_SQUASH)
 	_take_scale_tween().tween_property(sprite, "scale", coiled, charge_time) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	_take_tint_tween().tween_property(sprite, "modulate", CHARGE_TINT, charge_time) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 
 func _update_charge(dir: Vector2, delta: float) -> void:
@@ -135,9 +131,6 @@ func _start_bash(dir: Vector2) -> void:
 	tween.tween_property(sprite, "scale", launched, RECOVER_TIME) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(sprite, "scale", base_scale, SETTLE_TIME) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
-	_take_tint_tween().tween_property(sprite, "modulate", Color.WHITE, RECOVER_TIME) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 
@@ -185,10 +178,3 @@ func _take_scale_tween() -> Tween:
 		scale_tween.kill()
 	scale_tween = create_tween()
 	return scale_tween
-
-
-func _take_tint_tween() -> Tween:
-	if tint_tween != null and tint_tween.is_valid():
-		tint_tween.kill()
-	tint_tween = create_tween()
-	return tint_tween
