@@ -1,66 +1,51 @@
 [gd_scene format=3 uid="uid://dsh7ter2enmy0"]
 
-[ext_resource type="Script" uid="uid://bxuivfn5rjpl5" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.gd" id="1_shoot"]
-[ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="2_proj"]
-[ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="3_4vgcu"]
-[ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="3_circ"]
-[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="4_move"]
-[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="5_spd"]
-[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="7_wkf7c"]
-[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="8_mp4f3"]
-[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="9_6sgm3"]
-[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="10_1ggsh"]
-[ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="11_k1wfi"]
+[ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://bxuivfn5rjpl5" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.gd" id="2_sht"]
+[ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="3_sht"]
+[ext_resource type="Resource" uid="uid://dpd5mpggel4ic" path="res://resources/stats/global_enemy_stats/global_enemy_range.tres" id="4_sht"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="5_jtqir"]
+[ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="5_sht"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 64.0
 
-[node name="ShooterEnemy" type="CharacterBody2D" unique_id=1808921831 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
-collision_layer = 8
-collision_mask = 0
-script = ExtResource("1_shoot")
+[sub_resource type="CircleShape2D" id="CircleShape2D_hitbx"]
+radius = 60.0
+
+[node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+script = ExtResource("2_sht")
 shoot_interval = 0.5
 wait_interval = 1.0
-projectile_scene = ExtResource("2_proj")
+projectile_scene = ExtResource("3_sht")
 min_range = 300.0
 max_range = 331.66
 sprite = NodePath("Sprite2D")
-range_stat = ExtResource("3_4vgcu")
+range_stat = ExtResource("4_sht")
 accel_time = 0.2
 decel_time = 0.3
-movement = NodePath("MovementComponent")
-atk = NodePath("")
-hp = NodePath("HealthComponent")
+sand_drop_amt_stat = ExtResource("5_jtqir")
+metadata/_custom_type_script = "uid://bxuivfn5rjpl5"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1537934886]
+[node name="Sprite2D" parent="." index="0"]
 self_modulate = Color(0.7882353, 0.05490196, 0.05490196, 1)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("3_circ")
+texture = ExtResource("5_sht")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1537934887]
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_body")
 
-[node name="MovementComponent" type="Node" parent="." unique_id=1173517490 node_paths=PackedStringArray("body")]
-script = ExtResource("4_move")
-body = NodePath("..")
-speed_stat = ExtResource("5_spd")
+[node name="MovementComponent" parent="." index="2"]
 base_speed = 425.0
-metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="AtkComponent" type="Node2D" parent="." unique_id=740249106]
-script = ExtResource("7_wkf7c")
-atk_stat = ExtResource("8_mp4f3")
-metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+[node name="AtkComponent" parent="." index="3"]
+contact_damage = 2.0
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1281503708]
-script = ExtResource("9_6sgm3")
-max_hp = ExtResource("10_1ggsh")
+[node name="CollisionShape2D" parent="AtkComponent/Area2D" index="0"]
+shape = SubResource("CircleShape2D_hitbx")
+
+[node name="HealthComponent" parent="." index="4"]
 base_hp = 24.0
-metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
-[node name="HealthBar" parent="." unique_id=220369966 node_paths=PackedStringArray("health_component") instance=ExtResource("11_k1wfi")]
-offset_left = -25.0
+[node name="HealthBar" parent="." index="5"]
 offset_top = 67.0
-offset_right = 25.0
 offset_bottom = 75.0
-health_component = NodePath("../HealthComponent")

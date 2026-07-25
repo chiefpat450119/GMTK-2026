@@ -26,6 +26,7 @@ var bash_dir: Vector2
 
 
 func _ready() -> void:
+	super()
 	# Hit detection lives on the atk component; the bash only decides when its
 	# hurtbox is live, so contact only hurts while the enemy is actually bashing.
 	attack_cooldown.start()
