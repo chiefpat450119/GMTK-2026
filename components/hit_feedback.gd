@@ -20,6 +20,8 @@ const HIT_STRETCH := 1.14  # sprite scale.x multiplier on that frame, so the vol
 const SHAKE_DIST := 6.0  # Pixels of the first shake swing
 const SHAKE_SWINGS := 4  # Swings the shake decays over before settling
 const KNOCKBACK_TIME := 0.05  # Seconds for the shove to decay to a stop
+const KNOCKBACK_MAX_DAMAGE := 250.0  # Damage in one hit that earns the full shove
+const KNOCKBACK_MAX_SCALE := 2.0  # knockback_speed multiplier at that damage
 
 @export var health: HealthComponent  # Defaults to the health component on our parent
 @export var sprite: Node2D  # Defaults to the first sprite on our parent
@@ -27,6 +29,11 @@ const KNOCKBACK_TIME := 0.05  # Seconds for the shove to decay to a stop
 # the player through the shove, so anything near their own speed cancels out and
 # reads as a stumble rather than a hit. 0 opts a body out of being moved at all.
 @export var knockback_speed := 700.0
+
+# Multiplier the last hit earned, 1.0 up to KNOCKBACK_MAX_SCALE. A chip hit shoving as
+# hard as a crit reads as the enemy having no weight, so damage picks the speed and the
+# exported value stays what the weakest hit is worth.
+var knockback_scale := 1.0
 
 var base_scale: Vector2
 var base_pos: Vector2
@@ -78,10 +85,15 @@ func _on_hp_changed() -> void:
 	if health.hp <= 0:
 		return  # Dying; the owner is freed on this same call, so there's nothing to react with.
 
-	_play()
+	# The very first change has no real previous to subtract from — hp only ever starts
+	# at full, so that's what the hit came off.
+	if is_inf(previous):
+		previous = health.effective_max_hp
+
+	_play(previous - health.hp)
 
 
-func _play() -> void:
+func _play(damage: float) -> void:
 	# Every part starts *at* its extreme rather than easing into it: easing in costs
 	# the hit its immediacy, and a frame spent travelling to the squash is a frame
 	# where nothing has visibly happened yet. from() sets the value outright on the
@@ -110,7 +122,7 @@ func _play() -> void:
 	flash_tween.tween_property(sprite, "modulate", base_modulate, RECOVER_TIME) \
 		.from(FLASH_COLOR)
 
-	_knock_back(dir)
+	_knock_back(dir, damage)
 
 
 # A short shove of the body itself, away from the player. The sprite shake sells the
@@ -120,9 +132,16 @@ func _play() -> void:
 # Away-from-the-player rather than along the projectile: the player is the only thing
 # that deals damage, and taking the direction from them keeps this a self-contained
 # reaction that no damage source has to know about or call.
-func _knock_back(fallback_dir: Vector2) -> void:
+#
+# How hard is straight off the damage of the hit, so a build that trades fire rate for
+# a heavy shot gets to see the weight of it. Ramps linearly and flattens at
+# KNOCKBACK_MAX_DAMAGE rather than running away with a late-game damage number.
+func _knock_back(fallback_dir: Vector2, damage: float) -> void:
 	if body == null or knockback_speed <= 0.0:
 		return
+
+	var t := clampf(damage / KNOCKBACK_MAX_DAMAGE, 0.0, 1.0)
+	knockback_scale = lerpf(1.0, KNOCKBACK_MAX_SCALE, t)
 
 	knockback_dir = fallback_dir  # Whatever the shake picked, if there's no player to shove away from
 	var player := Player.instance
@@ -147,7 +166,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var t := knockback.time_left / KNOCKBACK_TIME  # 1 -> 0 over the shove
-	body.move_and_collide(knockback_dir * knockback_speed * t * delta)
+	body.move_and_collide(knockback_dir * knockback_speed * knockback_scale * t * delta)
 
 
 # Sprites are Sprite2D on some enemies and AnimatedSprite2D on others, and both
