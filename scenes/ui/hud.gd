@@ -15,8 +15,8 @@ extends Control
 
 func _ready() -> void:
 	xp_listener.response.connect(_on_xp_changed)
-	GameStateManager.state_changed.connect(_on_state_changed)
-	_apply_visibility(GameStateManager.state)
+	GameStateManager.instance.state_changed.connect(_on_state_changed)
+	_apply_visibility(GameStateManager.instance.state)
 
 
 func _on_state_changed(_from: int, to: int) -> void:

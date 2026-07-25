@@ -25,9 +25,9 @@ func begin() -> void:
 
 func _wire_run_signals() -> void:
 	var clock := TimeComponent.find_in(Player.instance)
-	clock.depleted.connect(GameStateManager.game_over)
+	clock.depleted.connect(GameStateManager.instance.game_over)
 	var level := LevelComponent.find_in(Player.instance)
 	level.leveled_up.connect(_on_leveled_up)
 
 func _on_leveled_up(_new_level: int) -> void:
-	GameStateManager.request_upgrade()
+	GameStateManager.instance.request_upgrade()
