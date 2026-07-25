@@ -12,4 +12,5 @@ func _process(delta: float) -> void:
 		cd.start()
 		CollectableManagerInstance.spawn_sand(
 			Player.instance.global_position 
-			+ randf_range(200, 300) * Vector2.from_angle(randf_range(-180, 180)), 1)
+			+ randf_range(200, 300) * Vector2.from_angle(randf_range(-180, 180)),
+			2)
