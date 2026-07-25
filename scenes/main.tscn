@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ddg16nycojp2p" path="res://scenes/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://cupgmgr7x8a2b" path="res://scenes/upgrades/upgrade_manager.gd" id="2_upgmgr"]
 [ext_resource type="Resource" uid="uid://djt61kvxc6j0h" path="res://resources/upgrades/upgrade_pool.tres" id="3_pool"]
-[ext_resource type="PackedScene" uid="uid://bmainmenu0001" path="res://scenes/ui/main_menu.tscn" id="4_mainmenu"]
+[ext_resource type="PackedScene" uid="uid://cw8qy3r0uko47" path="res://scenes/main_menu/main_menu.tscn" id="4_mainmenu"]
 [ext_resource type="PackedScene" uid="uid://bpausemenu001" path="res://scenes/ui/pause_menu.tscn" id="5_pausemenu"]
 [ext_resource type="PackedScene" uid="uid://bgameover0001" path="res://scenes/ui/game_over_screen.tscn" id="6_gameover"]
 [ext_resource type="PackedScene" uid="uid://m3vhsbglajvm" path="res://scenes/ui/upgrade_ui.tscn" id="7_upgui"]
