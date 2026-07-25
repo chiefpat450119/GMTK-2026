@@ -1,5 +1,10 @@
 class_name GunSelectUI
 extends CanvasLayer
+## Modal gun pick screen.
+##
+## Hidden until the offer event fires. Then it fills the cards, pauses the tree,
+## and gives the player whichever gun is clicked.
+## The root's process_mode must stay ALWAYS or the cards go dead while paused.
 
 @export var gun_pool : Array[GunData]
 @export var offer_listener: GameEventListener

@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bv7af1ysf63gs" path="res://scenes/ui/gun_select/gun_card_ui.tscn" id="8_hcs37"]
 
 [node name="GunSelectUI" type="CanvasLayer" unique_id=1589139226 node_paths=PackedStringArray("offer_listener", "card_row")]
+process_mode = 3
 script = ExtResource("1_h18ig")
 gun_pool = Array[ExtResource("2_mkkl6")]([ExtResource("3_vovo8"), ExtResource("4_i0h2r"), ExtResource("5_ocijn")])
 offer_listener = NodePath("OfferListener")

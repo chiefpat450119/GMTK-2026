@@ -29,14 +29,4 @@ func setup(gun: GunData) -> void:
 func _on_pressed():
 	if _gun == null:
 		return
-	accept_event()
 	selected.emit(_gun)
-
-func _gui_input(event: InputEvent) -> void:
-	if _gun == null:
-		return
-	if event is InputEventMouseButton:
-		var button := event as InputEventMouseButton
-		if button.pressed and button.button_index == MOUSE_BUTTON_LEFT:
-			accept_event()
-			selected.emit(_gun)
