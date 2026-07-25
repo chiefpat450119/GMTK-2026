@@ -4,9 +4,20 @@ extends Enemy
 const HIT_KNOCKBACK := 950.0  # Recoil speed away from the player the instant a hit lands
 const KNOCKBACK_TIME := 0.28  # Seconds for the recoil to decay to a stop
 const HITSTOP_TIME := 0.06  # Brief freeze the instant a hit lands, so the strike has a beat
-const HIT_SQUASH := 0.65  # sprite scale.y multiplier at the peak of the impact
-const HIT_STRETCH := 1.2  # sprite scale.x multiplier at the peak of the impact
-const HIT_RECOVER := 0.18  # Seconds for the sprite to spring back after the squash
+
+# The art is a round body carried on four thin legs with nothing to swing, so the
+# strike is a pounce: it throws its whole weight at the player and pitches over its
+# front legs. Rearing up *tall and narrow* is also the exact inverse of the flattening
+# squash HitFeedback plays on damage, so a strike can never be misread as a flinch.
+const LUNGE_DIST := 26.0  # Pixels the body throws itself at the player at full extension
+const LUNGE_STRETCH := 1.18  # scale.y multiplier there — rears up over the target
+const LUNGE_NARROW := 0.87  # scale.x multiplier there, so the volume roughly holds
+const LUNGE_TIME := 0.05  # Seconds to throw out to full extension; fits inside the hitstop
+const LUNGE_RETURN := 0.3  # Seconds for the sprite to trail back to rest behind the recoil
+const LUNGE_PITCH := deg_to_rad(15.0)  # Tips this far into the player as it connects
+const REAR_PITCH := deg_to_rad(-12.0)  # Then whips back the other way as the recoil throws it off
+const PITCH_SMOOTH := 14.0  # Higher snaps the pitch to its target faster
+
 const WALK_SQUASH := 0.95  # scale multiplier on the squashed axis of the walk bob
 const WALK_CYCLE_TIME := 0.36  # Seconds for one full squash -> stretch -> squash bounce
 const WALK_SETTLE_TIME := 0.12  # Seconds to ease back to the resting scale when stopping
@@ -17,11 +28,14 @@ const WALK_MIN_SPEED := 5.0  # Below this speed the enemy counts as standing sti
 @export var sprite: Sprite2D
 
 @onready var base_scale: Vector2 = sprite.scale
+@onready var base_pos: Vector2 = sprite.position
 @onready var hitstop := Cooldown.new(HITSTOP_TIME)
 @onready var knockback := Cooldown.new(KNOCKBACK_TIME)
 
 var knockback_dir: Vector2
+var pitch_facing := 1.0  # Which way the pounce tips over; locked when the strike lands
 var scale_tween: Tween  # Whoever is animating sprite.scale right now
+var pos_tween: Tween  # Whoever is animating sprite.position right now
 var walking: bool  # True while the walk bob owns the scale tween
 
 
@@ -35,7 +49,12 @@ func _physics_process(delta: float) -> void:
 	hitstop.tick(delta)
 	knockback.tick(delta)
 
-	# Freeze in place for a beat the instant a hit lands, then launch into the recoil.
+	# Pitch is eased every frame rather than tweened, so it can never fight the scale
+	# and position tweens for ownership of the sprite's transform.
+	_pitch_towards(_strike_pitch(), delta)
+
+	# Freeze in place for a beat the instant a hit lands. The pounce runs out to full
+	# extension across this window, so the strike lands on a body that is holding still.
 	if hitstop.is_started() and not hitstop.is_done():
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -58,42 +77,62 @@ func _physics_process(delta: float) -> void:
 		_stop_walk_anim()
 
 
-# Bounce off damaging hits only. A contact the rate limiter ate isn't a strike, so
-# the enemy stays on the player and keeps pressuring instead of flinching for free.
+# Pounce off damaging hits only. A contact the rate limiter ate isn't a strike, so the
+# enemy stays on the player and keeps pressuring instead of flinching for free.
 func _on_hit_landed(_body: Node2D, _damage: float) -> void:
-	_recoil()
-	_play_hit_reaction()
+	# Straight at the player; fall back to our heading if we're sitting dead-centre on
+	# them and the vector is degenerate.
+	var towards := get_to_player_vec()
+	if towards.length() < 0.01:
+		towards = velocity
+	var dir := towards.normalized() if towards.length() > 0.01 else Vector2.RIGHT
+
+	_play_attack_anim(dir)
+	_recoil(dir)
 
 
-func _recoil() -> void:
-	# Push straight away from the player; fall back to reversing our approach if we're
-	# sitting dead-centre on them and the vector is degenerate.
-	var away := -get_to_player_vec()
-	if away.length() < 0.01:
-		away = -velocity
-	knockback_dir = away.normalized() if away.length() > 0.01 else Vector2.RIGHT
+# The pounce. Deliberately carries no colour flash: a red flash is damage taken, and
+# this enemy is the one dealing it.
+func _play_attack_anim(dir: Vector2) -> void:
+	walking = false  # The pounce takes the scale over from the walk bob.
+	# Tip over whichever side the player is on. A player straight above or below gets
+	# the lunge without a pitch, rather than an arbitrary lean.
+	pitch_facing = signf(dir.x)
 
-	knockback.start()
-	hitstop.start()
-	# The walk bob is left to _play_hit_reaction, which runs right after this and takes
-	# the scale over anyway.
-
-
-func _play_hit_reaction() -> void:
-	walking = false  # The impact squash takes the scale over from the walk bob.
-
-	var squashed := Vector2(base_scale.x * HIT_STRETCH, base_scale.y * HIT_SQUASH)
-	var tween := _take_scale_tween()
-	tween.tween_property(sprite, "scale", squashed, HITSTOP_TIME) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(sprite, "scale", base_scale, HIT_RECOVER) \
+	var extended := Vector2(base_scale.x * LUNGE_NARROW, base_scale.y * LUNGE_STRETCH)
+	var scale_t := _take_scale_tween()
+	scale_t.tween_property(sprite, "scale", extended, LUNGE_TIME) \
+		.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	scale_t.tween_property(sprite, "scale", base_scale, LUNGE_RETURN) \
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-	# Colour rides its own tween so a scale tween replacing this one mid-flash can't
-	# strand the sprite red.
-	var flash := create_tween()
-	flash.tween_property(sprite, "modulate", Color(1, 0.5, 0.5), HITSTOP_TIME)
-	flash.tween_property(sprite, "modulate", Color.WHITE, HIT_RECOVER)
+	# Thrown out over the player while the body is frozen, then eased home. TRANS_BACK
+	# undershoots past rest on the way, so the sprite drags behind its own recoil.
+	var pos_t := _take_pos_tween()
+	pos_t.tween_property(sprite, "position", base_pos + dir * LUNGE_DIST, LUNGE_TIME) \
+		.set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	pos_t.tween_property(sprite, "position", base_pos, LUNGE_RETURN) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _recoil(dir: Vector2) -> void:
+	knockback_dir = -dir
+	knockback.start()
+	hitstop.start()
+
+
+# Tips into the player over the frames the strike connects, whips back the other way as
+# the recoil throws it off its feet, then levels out once it is back on them.
+func _strike_pitch() -> float:
+	if hitstop.is_started() and not hitstop.is_done():
+		return LUNGE_PITCH * pitch_facing
+	if knockback.is_started() and not knockback.is_done():
+		return REAR_PITCH * pitch_facing
+	return 0.0
+
+
+func _pitch_towards(target: float, delta: float) -> void:
+	sprite.rotation = lerp_angle(sprite.rotation, target, 1.0 - exp(-PITCH_SMOOTH * delta))
 
 
 # One looping bounce: squat wide-and-short, then stretch tall-and-thin. The two axes
@@ -122,10 +161,19 @@ func _stop_walk_anim() -> void:
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 
-# Only one tween may own sprite.scale at a time, otherwise the walk loop and the hit
-# squash fight over it frame to frame.
+# Only one tween may own a given sprite property at a time, otherwise the walk bob and
+# the pounce fight over it frame to frame.
 func _take_scale_tween() -> Tween:
-	if scale_tween != null and scale_tween.is_valid():
-		scale_tween.kill()
-	scale_tween = create_tween()
+	scale_tween = _restart(scale_tween)
 	return scale_tween
+
+
+func _take_pos_tween() -> Tween:
+	pos_tween = _restart(pos_tween)
+	return pos_tween
+
+
+func _restart(tween: Tween) -> Tween:
+	if tween != null and tween.is_valid():
+		tween.kill()
+	return create_tween()
