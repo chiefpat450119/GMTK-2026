@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GunData" format=3 uid="uid://wo555kto5xx0"]
+
+[ext_resource type="PackedScene" uid="uid://be4yc6h34d76y" path="res://scenes/entities/weapons/railgun.tscn" id="1_odr21"]
+[ext_resource type="Script" uid="uid://cbngjjj8jpc1y" path="res://resources/gun_data/gun_data.gd" id="1_xvorg"]
+
+[resource]
+script = ExtResource("1_xvorg")
+title = "Rail Gun"
+description = "charge up"
+gun_scene = ExtResource("1_odr21")
+metadata/_custom_type_script = "uid://cbngjjj8jpc1y"
