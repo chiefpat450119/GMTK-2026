@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_uee1j")
+id = &"firerate"
 title = "Firerate"
 description_override = "+20% firerate"
 icon = ExtResource("3_fsnvj")

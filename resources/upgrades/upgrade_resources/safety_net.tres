@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_kxq5m")
+id = &"safety_net"
 title = "Safety Net"
 description_override = "Gain 10s max time, but deal 7.5% less damage
 "

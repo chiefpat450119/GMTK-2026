@@ -103,7 +103,7 @@ func _shoot(dir: Vector2) -> void:
 	# angle comes from dir, not the body, so aiming never depended on the body spinning.
 	var projectile: Projectile = projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
-	projectile.launch(global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(shot_damage))
+	projectile.launch(global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(SHOT_DAMAGE))
 
 	recoil_lean = RECOIL_LEAN
 

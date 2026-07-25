@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("5_m50au")
+id = &"frugal"
 title = "Frugal"
 description_override = "Spend 20% less sand per shot, but deal 10% less damage"
 icon = ExtResource("4_ncbdw")

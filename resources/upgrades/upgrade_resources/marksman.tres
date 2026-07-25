@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_0kf75")
+id = &"marksman"
 title = "Marksman"
 description_override = "Enemies drop 20% more sand, but spend 10% more sand per shot"
 icon = ExtResource("4_6dbgv")

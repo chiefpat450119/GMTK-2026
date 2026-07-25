@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_bskhf")
+id = &"scope"
 title = "Scope"
 description_override = "+10% accuracy"
 icon = ExtResource("3_ejpwx")

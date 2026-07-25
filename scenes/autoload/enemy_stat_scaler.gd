@@ -17,8 +17,8 @@ const RANGE_MUL = 0.004
 var _total: int = 0
 
 func _ready() -> void:
-    on_wave_change.response.connect(tick)
-    GameStateManager.register_resettable(self)
+	on_wave_change.response.connect(tick)
+	GameStateManager.register_resettable(self)
 
 func tick() -> void:
 	_total += 1

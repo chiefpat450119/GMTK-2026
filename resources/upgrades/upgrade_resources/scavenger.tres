@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_kbsmk")
+id = &"scavenger"
 title = "Scavenger"
 description_override = "Gain 30% more sand from enemies, but -5s of max time capacity"
 icon = ExtResource("4_4y72a")

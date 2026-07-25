@@ -16,6 +16,7 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 [resource]
 script = ExtResource("2_2k37o")
 time_change_event = ExtResource("5_jokok")
+id = &"procrastination"
 title = "Procrastination"
 icon = ExtResource("2_ut7ko")
 max_stacks = 1

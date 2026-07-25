@@ -7,7 +7,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
 
-[node name="Projectile" type="Area2D" unique_id=1243975335]
+[node name="Projectile" type="Area2D" unique_id=1243975335 node_paths=PackedStringArray("damage_popup")]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_t3lan")
