@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cgw0rld1shell"]
+
+[ext_resource type="Script" uid="uid://0hvpwbynmmg" path="res://scenes/game/game_world.gd" id="1_gwrld"]
+[ext_resource type="PackedScene" uid="uid://daw0350ihy34g" path="res://scenes/map/map.tscn" id="2_map"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="3_plyr"]
+[ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="4_spwn"]
+
+[node name="GameWorld" type="Node2D" unique_id=1900000001 node_paths=PackedStringArray("spawner")]
+script = ExtResource("1_gwrld")
+spawner = NodePath("EnemySpawner")
+
+[node name="Map" parent="." unique_id=1900000002 instance=ExtResource("2_map")]
+
+[node name="Player" parent="." unique_id=1900000003 instance=ExtResource("3_plyr")]
+
+[node name="Camera2D" parent="Player" index="8" unique_id=1900000004 node_paths=PackedStringArray("map")]
+map = NodePath("../../Map")
+
+[node name="EnemySpawner" parent="." unique_id=1900000005 instance=ExtResource("4_spwn")]
+
+[editable path="Player"]

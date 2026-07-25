@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 CollectableManagerInstance="*uid://bhn518m4rokgf"
 GameStateManager="*uid://b0sjtdsf0e68j"
-GameStateManager="*uid://b0sjtdsf0e68j"
+EnemyStatScalerInstance="*uid://dxrbm8nooaen4"
 
 [display]
 

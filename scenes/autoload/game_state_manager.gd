@@ -14,7 +14,7 @@ extends Node
 ## main.tscn hands over its world mount with bind_shell() on ready. Until that
 ## lands this sits in MAIN_MENU and start_run() is a no-op.
 
-enum State {
+enum GameState {
 	MAIN_MENU,
 	PLAYING,
 	PAUSED,
@@ -23,7 +23,7 @@ enum State {
 }
 
 ## Emitted after `state` is already updated, so handlers can read it directly.
-signal state_changed(from: State, to: State)
+signal state_changed(from: GameState, to: GameState)
 
 const PAUSE_ACTION := &"Pause"
 
@@ -34,7 +34,7 @@ const PAUSE_ACTION := &"Pause"
 ## Raised to put the upgrade screen up.
 @export var upgrade_offer_event: GameEvent
 
-var state: State = State.MAIN_MENU
+var state: GameState = GameState.MAIN_MENU
 
 var _world_mount: Node = null
 var _world: GameWorld = null
@@ -52,7 +52,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed(PAUSE_ACTION):
 		return
 	# Ignored during UPGRADING and GAME_OVER — those are modal by design.
-	if state == State.PLAYING or state == State.PAUSED:
+	if state == GameState.PLAYING or state == GameState.PAUSED:
 		get_viewport().set_input_as_handled()
 		toggle_pause()
 
@@ -88,58 +88,58 @@ func start_run() -> void:
 	_reset_run()
 	if not _build_world():
 		return
-	_set_state(State.PLAYING)
+	_set_state(GameState.PLAYING)
 	_world.begin()
 
 
 func pause() -> void:
-	if state != State.PLAYING:
+	if state != GameState.PLAYING:
 		return
-	_set_state(State.PAUSED)
+	_set_state(GameState.PAUSED)
 
 
 func resume() -> void:
-	if state != State.PAUSED:
+	if state != GameState.PAUSED:
 		return
-	_set_state(State.PLAYING)
+	_set_state(GameState.PLAYING)
 
 
 func toggle_pause() -> void:
-	if state == State.PLAYING:
+	if state == GameState.PLAYING:
 		pause()
-	elif state == State.PAUSED:
+	elif state == GameState.PAUSED:
 		resume()
 
 
 ## Puts the upgrade screen up.
 func request_upgrade() -> void:
-	if state != State.PLAYING:
+	if state != GameState.PLAYING:
 		return
 	# UPGRADING pauses the tree through _apply_pause(), so the world is frozen
 	# behind the cards without UpgradeUI touching get_tree().paused itself.
-	_set_state(State.UPGRADING)
+	_set_state(GameState.UPGRADING)
 	upgrade_offer_event.raise()
 
 
 ## Called by UpgradeUI once a card has been applied.
 func close_upgrades() -> void:
-	if state != State.UPGRADING:
+	if state != GameState.UPGRADING:
 		return
-	_set_state(State.PLAYING)
+	_set_state(GameState.PLAYING)
 
 
 ## Time ran out. Only reachable from PLAYING — the clock doesn't tick anywhere else.
 func game_over() -> void:
-	if state != State.PLAYING:
+	if state != GameState.PLAYING:
 		return
-	_set_state(State.GAME_OVER)
+	_set_state(GameState.GAME_OVER)
 
 
 func to_main_menu() -> void:
-	if state == State.MAIN_MENU:
+	if state == GameState.MAIN_MENU:
 		return
 	_teardown_world()
-	_set_state(State.MAIN_MENU)
+	_set_state(GameState.MAIN_MENU)
 
 
 # --- internals ---
@@ -178,7 +178,7 @@ func _teardown_world() -> void:
 	_world = null
 
 
-func _set_state(next: State) -> void:
+func _set_state(next: GameState) -> void:
 	if next == state:
 		return
 	var previous := state
@@ -188,4 +188,4 @@ func _set_state(next: State) -> void:
 
 
 func _apply_pause() -> void:
-	get_tree().paused = state != State.PLAYING
+	get_tree().paused = state != GameState.PLAYING

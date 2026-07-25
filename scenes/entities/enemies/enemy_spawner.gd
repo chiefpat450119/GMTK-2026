@@ -11,11 +11,6 @@ const spawn_radius: float = 1000.0
 
 @onready var budget: int = 10
 
-# test spawn -- replace with custom spawning behavior
-func _ready() -> void:
-	begin_waves()
-
-
 func begin_waves():
 	spawn_wave()
 	wave_timer.start()
