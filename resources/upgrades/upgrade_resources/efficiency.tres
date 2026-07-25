@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://d1ycoqie8polp"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_qjlee"]
+[ext_resource type="Resource" uid="uid://btmnp0s0wl3jj" path="res://resources/stats/player_stats/player_shot_cost_stat.tres" id="2_lavbd"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_qm05r"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_chgqy"]
+
+[sub_resource type="Resource" id="Resource_lavbd"]
+script = ExtResource("1_qjlee")
+target_stat = ExtResource("2_lavbd")
+value = -0.15
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_qm05r")
+title = "Efficiency"
+description_override = "Spend 15% less sand per shot"
+icon = ExtResource("3_chgqy")
+max_stacks = 5
+effects = Array[ExtResource("1_qjlee")]([SubResource("Resource_lavbd")])
+metadata/_custom_type_script = "uid://031polniagv2"

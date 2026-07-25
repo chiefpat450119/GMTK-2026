@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://b10n76hc5puas"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_gptf0"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_kxq5m"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="2_yb508"]
+[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="3_0eyjx"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_yb508"]
+
+[sub_resource type="Resource" id="Resource_gptf0"]
+script = ExtResource("1_gptf0")
+target_stat = ExtResource("2_yb508")
+value = 10.0
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[sub_resource type="Resource" id="Resource_7cyci"]
+script = ExtResource("1_gptf0")
+target_stat = ExtResource("3_0eyjx")
+value = -0.075
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_kxq5m")
+title = "Safety Net"
+description_override = "Gain 10s max time, but deal 7.5% less damage
+"
+icon = ExtResource("4_yb508")
+max_stacks = 5
+effects = Array[ExtResource("1_gptf0")]([SubResource("Resource_gptf0"), SubResource("Resource_7cyci")])
+metadata/_custom_type_script = "uid://031polniagv2"

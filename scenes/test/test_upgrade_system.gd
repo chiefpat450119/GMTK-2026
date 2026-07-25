@@ -7,7 +7,6 @@ extends Node2D
 
 @export var offer_event: GameEvent
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_U:

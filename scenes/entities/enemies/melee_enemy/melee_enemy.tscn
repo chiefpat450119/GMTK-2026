@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://cw8l1thf35u38"]
 
-[ext_resource type="Script" uid="uid://nvjvpqlhmrcl" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.gd" id="1_pi613"]
-[ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="2_d5vmj"]
-[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="3_1d37s"]
-[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="4_5ajpc"]
-[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="5_o334c"]
-[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
-[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="6_yqfox"]
-[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_pi613"]
-[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="8_sand"]
+[ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://nvjvpqlhmrcl" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.gd" id="2_mel"]
+[ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="3_mel"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="3_yy0l1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
@@ -16,51 +11,25 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="MeleeEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
-collision_layer = 2
-collision_mask = 7
-script = ExtResource("1_pi613")
+[node name="MeleeEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+script = ExtResource("2_mel")
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
-movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
-hp = NodePath("HealthComponent")
-sand_drop_amt_stat = ExtResource("8_sand")
-metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
+sand_drop_amt_stat = ExtResource("3_yy0l1")
+metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=853140976]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_d5vmj")
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_mel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=853140977]
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="MovementComponent" type="Node" parent="." unique_id=604904058 node_paths=PackedStringArray("body")]
-script = ExtResource("3_1d37s")
-body = NodePath("..")
-speed_stat = ExtResource("4_5ajpc")
-base_speed = 500.0
-metadata/_custom_type_script = "uid://lajktjxbrn2c"
-
-[node name="HealthComponent" type="Node" parent="." unique_id=835861455]
-script = ExtResource("7_pi613")
-max_hp = ExtResource("6_yqfox")
-base_hp = 30.0
-metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
-
-[node name="AtkComponent" type="Node" parent="." unique_id=692120435 node_paths=PackedStringArray("hurtbox")]
-script = ExtResource("5_o334c")
-atk_stat = ExtResource("6_4gxjr")
-hurtbox = NodePath("../Area2D")
+[node name="AtkComponent" parent="." index="3"]
 contact_damage = 2.8125
-attack_interval = 1.0
-metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
-[node name="Area2D" type="Area2D" parent="." unique_id=955698249]
-collision_layer = 0
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
-position = Vector2(-1, 0)
+[node name="CollisionShape2D" parent="AtkComponent/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_hitbx")
+
+[node name="HealthComponent" parent="." index="4"]
+base_hp = 30.0

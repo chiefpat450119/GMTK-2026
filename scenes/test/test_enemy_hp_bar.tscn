@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://44pcypd1or3w"]
+
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_e4nxo"]
+[ext_resource type="PackedScene" uid="uid://cfcpevtu3ea0l" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.tscn" id="2_4ht4g"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="3_2qh7e"]
+[ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.tscn" id="4_h03kp"]
+
+[node name="TestBashEnemy" type="Node2D" unique_id=1073286059]
+
+[node name="Player" parent="." unique_id=1339333072 instance=ExtResource("1_e4nxo")]
+position = Vector2(-550, -119)
+
+[node name="MeleeEnemy" parent="." unique_id=2072227410 instance=ExtResource("3_2qh7e")]
+position = Vector2(52, 70)
+
+[node name="ShooterEnemy" parent="." unique_id=1808921831 instance=ExtResource("4_h03kp")]
+position = Vector2(-364, 197)
+
+[node name="BashEnemy" parent="." unique_id=496924415 instance=ExtResource("2_4ht4g")]
+position = Vector2(366, -80)

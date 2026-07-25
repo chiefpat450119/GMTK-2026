@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://dyheflxlf71fq"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_4a0le"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_4fr1t"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_76jjx"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_7kolj"]
+
+[sub_resource type="Resource" id="Resource_4fr1t"]
+script = ExtResource("1_4a0le")
+target_stat = ExtResource("2_4fr1t")
+value = 0.2
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_76jjx")
+title = "Dustpan"
+description_override = "Enemies drop 20% more sand"
+icon = ExtResource("3_7kolj")
+max_stacks = 5
+effects = Array[ExtResource("1_4a0le")]([SubResource("Resource_4fr1t")])
+metadata/_custom_type_script = "uid://031polniagv2"

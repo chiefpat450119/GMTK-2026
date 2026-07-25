@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://48ic203hssk5"]
+
+[ext_resource type="Script" uid="uid://t6dhj0sncyou" path="res://scenes/entities/enemies/enemy.gd" id="1_base"]
+[ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="2_base"]
+[ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="3_base"]
+[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="4_base"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="5_base"]
+[ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="6_base"]
+[ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="7_base"]
+[ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="8_base"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
+size = Vector2(140, 112)
+
+[node name="BaseEnemy" type="CharacterBody2D" node_paths=PackedStringArray("movement", "atk", "hp")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_base")
+movement = NodePath("MovementComponent")
+atk = NodePath("AtkComponent")
+hp = NodePath("HealthComponent")
+metadata/_custom_type_script = "uid://t6dhj0sncyou"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("2_base")
+body = NodePath("..")
+speed_stat = ExtResource("3_base")
+base_speed = 500.0
+metadata/_custom_type_script = "uid://lajktjxbrn2c"
+
+[node name="AtkComponent" type="Node2D" parent="." node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("4_base")
+atk_stat = ExtResource("5_base")
+hurtbox = NodePath("Area2D")
+contact_damage = 5.0
+metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="Area2D" type="Area2D" parent="AtkComponent"]
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AtkComponent/Area2D"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_hitbx")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_base")
+max_hp = ExtResource("7_base")
+base_hp = 25.0
+metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("8_base")]
+offset_left = -25.0
+offset_top = 72.0
+offset_right = 25.0
+offset_bottom = 80.0
+health_component = NodePath("../HealthComponent")

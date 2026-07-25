@@ -4,14 +4,15 @@ extends Node2D
 @export var sprite : Sprite2D
 @export var base_damage : float
 @export var base_fire_cooldown : float
-@export var base_accuracy : float
+@export var base_spread : float
 @export var base_cost : float
 @export var base_penetration : int = 0
 
 @export_category("Player Weapon Stats")
 @export var damage_stat : Stat
-@export var firerate_stat : Stat
-@export var accuracy_stat : Stat
+@export var fire_cooldown_stat : Stat
+@export var shot_spread_stat : Stat
+@export var shot_cost_stat : Stat
 
 @export_category("Projectile Info")
 @export var projectile_scene : PackedScene
@@ -47,11 +48,12 @@ func shoot() -> void:
 		return
 
 	can_fire = false
+	Player.instance.time_component.remove_time(shot_cost_stat.current_val(base_cost))
 	for i in projectile_count:
 		_spawn_projectile()
 
 	# Fire cooldown
-	await get_tree().create_timer(firerate_stat.current_val(base_fire_cooldown)).timeout
+	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
 	can_fire = true
 
 func _spawn_projectile() -> void:
@@ -61,10 +63,10 @@ func _spawn_projectile() -> void:
 	# what the gun does after firing.
 	get_tree().current_scene.add_child(projectile)
 
-	var accuracy := accuracy_stat.current_val(base_accuracy)
+	var shot_spread := shot_spread_stat.current_val(base_spread)
 	projectile.launch(
 		projectile_spawn_point.global_position,
-		global_rotation + deg_to_rad(randf_range(-accuracy, accuracy)),
+		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage),
 		base_penetration,

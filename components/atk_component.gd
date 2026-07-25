@@ -1,5 +1,5 @@
 class_name AtkComponent
-extends Node
+extends Node2D
 ## Deals an entity's damage, and — when given a hurtbox — owns the hit detection
 ## that triggers it.
 ##
@@ -20,8 +20,8 @@ signal hit_landed(body: Node2D, damage: float)
 @export var atk_stat: Stat
 
 @export var hurtbox: Area2D
-@export var contact_damage: float
-@export var attack_interval: float
+@export var contact_damage: float = 5.0
+@export var attack_interval: float = 1.0
 @export var active_on_ready: bool = true
 
 @onready var _attack_cd := Cooldown.new(attack_interval)
@@ -46,7 +46,6 @@ func set_active(active: bool) -> void:
 	if hurtbox:
 		hurtbox.monitoring = active
 
-
 ## Applies this entity's damage to whatever damageable pool the target has.
 ## Returns false if the target had none. Enemies spend health; the player spends
 ## time. base is the pre-mod number; global atk mods are applied here.
@@ -61,6 +60,7 @@ func attack(base: float, target: Node) -> bool:
 	var time := TimeComponent.find_in(target)
 	if time:
 		time.remove_time(damage)
+		print(name, " HIT PLAYER FOR ", damage)
 		return true
 
 	return false
