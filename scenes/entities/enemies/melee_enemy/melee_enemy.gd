@@ -17,6 +17,11 @@ extends Enemy
 @export var walk_cycle_time := 0.36  # Seconds for one full squash -> stretch -> squash bounce
 @export var walk_settle_time := 0.12  # Seconds to ease back to the resting scale when stopping
 @export var walk_min_speed := 5.0  # Below this speed the enemy counts as standing still
+# The curve of the bounce, not just its size. A symmetric sine is a light patter that
+# spends equal time either side of rest; easing in on a sharp curve like expo instead
+# hangs at the top and drops hard, which is what heavy weight falling looks like.
+@export var walk_trans: Tween.TransitionType = Tween.TRANS_SINE  # Shared by the bob and the settle
+@export var walk_bob_ease: Tween.EaseType = Tween.EASE_IN_OUT  # Settling always eases out
 
 # The art is a round body carried on four thin legs with nothing to swing, so the
 # strike is a pounce: it throws its whole weight at the player and pitches over its
@@ -159,9 +164,9 @@ func _start_walk_anim() -> void:
 
 	var tween := _take_scale_tween().set_loops()
 	tween.tween_property(sprite, "scale", squashed, walk_cycle_time * 0.5) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		.set_trans(walk_trans).set_ease(walk_bob_ease)
 	tween.tween_property(sprite, "scale", stretched, walk_cycle_time * 0.5) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		.set_trans(walk_trans).set_ease(walk_bob_ease)
 
 
 func _stop_walk_anim() -> void:
@@ -170,7 +175,7 @@ func _stop_walk_anim() -> void:
 	walking = false
 
 	_take_scale_tween().tween_property(sprite, "scale", base_scale, walk_settle_time) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		.set_trans(walk_trans).set_ease(Tween.EASE_OUT)
 
 
 # Only one tween may own a given sprite property at a time, otherwise the walk bob and

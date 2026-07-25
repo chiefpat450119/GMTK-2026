@@ -9,9 +9,7 @@
 [node name="WinterTestScene" type="Node2D" unique_id=512743553]
 
 [node name="TankEnemy" parent="." unique_id=2001656991 instance=ExtResource("1_ia5xm")]
-walk_squash = 0.97
-walk_cycle_time = 1.5
-walk_settle_time = 0.35
+walk_cycle_time = 1.0
 
 [node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("1_uwv7y")]
 

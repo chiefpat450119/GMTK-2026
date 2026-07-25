@@ -17,6 +17,8 @@ script = ExtResource("2_mel")
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
+walk_trans = 1
+walk_bob_ease = 2
 sand_drop_amt_stat = ExtResource("3_yy0l1")
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
