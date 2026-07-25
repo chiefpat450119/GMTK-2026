@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
 [ext_resource type="PackedScene" uid="uid://bs7u4xg0su6w3" path="res://scenes/entities/player/dash_component.tscn" id="14_8dash"]
+[ext_resource type="Script" uid="uid://cxenibyc3dfbv" path="res://scenes/entities/weapons/GunHolder.gd" id="16_yywfu"]
 [ext_resource type="Resource" uid="uid://drwiwngrnb5sc" path="res://resources/events/event_channels/player_below_half_time_event.tres" id="14_pcd0u"]
 [ext_resource type="Resource" uid="uid://cc8ncl4a4sv02" path="res://resources/events/event_channels/player_above_half_time_event.tres" id="15_w3p2j"]
 [ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
@@ -37,13 +38,14 @@ animations = [{
 radius = 30.61873
 height = 118.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "sprite")]
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "sprite", "gun_holder")]
 collision_mask = 2
 script = ExtResource("1_xy2vv")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
 dash_component = NodePath("DashComponent")
 sprite = NodePath("AnimatedSprite2D")
+gun_holder = NodePath("GunHolder")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
@@ -91,3 +93,7 @@ script = ExtResource("16_hitfb")
 time = NodePath("../TimeComponent")
 sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://ctmy8gd1uy5we"
+
+[node name="GunHolder" type="Node2D" parent="." unique_id=1799549199]
+script = ExtResource("16_yywfu")
+metadata/_custom_type_script = "uid://cxenibyc3dfbv"
