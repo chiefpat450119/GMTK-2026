@@ -18,6 +18,8 @@ const REMAINDER_EPSILON := 0.01
 @export var time_listener: GameEventListener
 @export var row: HBoxContainer
 @export var segment_scene: PackedScene
+@export var machine_sand_scene : PackedScene
+@export var sand_spawn_point : Control
 
 var _target: float = 0.0
 var _shown: float = 0.0
@@ -55,7 +57,7 @@ func _on_time_changed() -> void:
 		# First reading: snap, so the HUD doesn't roll up from zero on spawn.
 		_synced = true
 		_apply(_target)
-	elif _target - previous >= 1:
+	elif _target - previous >= 0:
 		_add_time(_target - previous)
 	elif not _rolling:
 		# Decay arrives as a stream of small decreases, which just track. While
@@ -122,11 +124,19 @@ func _segments() -> Array[BarSegment]:
 func _add_time(amount: float) -> void:
 	if is_zero_approx(amount):
 		return
-
+	
+	_play_sand_intake_animation()
 	_roll_readout()
 	_play_mechanism()
 	_flash_fill()
 
+# Shows picked up sand being dropped into the intake pipe part of the
+# time machine sprite and a number popup to show amount of sand gained
+func _play_sand_intake_animation():
+	var sand_instance : MachineSand = machine_sand_scene.instantiate()
+	var sand_gained_amt =  snapped(_target - _shown, 0.1)
+	sand_instance.number_popup.text = "+" + str(sand_gained_amt)
+	sand_spawn_point.add_child(sand_instance)
 
 # Interpolates a 0..1 weight rather than a fixed end value, so decay landing
 # mid-roll is tracked and the readout finishes on the real number.
