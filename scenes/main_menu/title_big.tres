@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://ckd02qkdvmyfw"]
+
+[ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="1_ny4c3"]
+
+[resource]
+font = ExtResource("1_ny4c3")
+font_size = 100
+font_color = Color(0, 0, 0, 1)
+outline_size = 27
