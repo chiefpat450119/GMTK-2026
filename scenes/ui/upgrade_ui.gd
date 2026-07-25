@@ -45,14 +45,16 @@ func _on_state_changed(_from: int, _to: int) -> void:
 
 
 func _on_offer() -> void:
-	# Ignore a second offer raised while the screen is already up.
+	# Queued offers arrive from close_upgrades(), i.e. only after _close() has
+	# already hidden the previous set. A raise while the cards are still up is
+	# something else entirely — the debug harness — and gets ignored.
 	if visible:
 		return
 	var picks := _roll()
 	if picks.is_empty():
 		# Pool is dry, or misconfigured. Hand the state back rather than leaving
 		# the game paused behind a screen that will never show anything.
-		GameStateManager.close_upgrades()
+		GameStateManager.cancel_upgrades()
 		push_warning("Uprade picks empty")
 		return
 	# Fewer picks than card slots once the pool runs low.
