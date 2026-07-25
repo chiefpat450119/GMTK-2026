@@ -66,7 +66,7 @@ func _on_body_entered(body: Node2D) -> void:
 	else:
 		var time := TimeComponent.find_in(body)
 		if time:
-			time.remove_time(damage)
+			time.damage(damage)
 
 	# A body with no damageable pool still soaks a pierce — it blocked the shot
 	# either way.
