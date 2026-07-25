@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_0kf75"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_6dbgv"]
 [ext_resource type="Resource" uid="uid://btmnp0s0wl3jj" path="res://resources/stats/player_stats/player_shot_cost_stat.tres" id="3_gkgat"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_6dbgv"]
+[ext_resource type="Texture2D" uid="uid://dvseg1lplbopy" path="res://assets/CARDPARTS/ICON_CLR/MARKSMAN__ICON.png" id="4_6dbgv"]
 
 [sub_resource type="Resource" id="Resource_v1aee"]
 script = ExtResource("1_3awbl")
@@ -28,4 +28,5 @@ description_override = "Enemies drop 20% more sand, but spend 10% more sand per 
 icon = ExtResource("4_6dbgv")
 max_stacks = 5
 effects = Array[ExtResource("1_3awbl")]([SubResource("Resource_v1aee"), SubResource("Resource_6dbgv")])
+is_tradeoff = true
 metadata/_custom_type_script = "uid://031polniagv2"

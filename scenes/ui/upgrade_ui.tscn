@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0rn4d4a44dtf" path="res://scenes/ui/upgrade_ui.gd" id="0_upgui"]
 [ext_resource type="PackedScene" uid="uid://w4n0uswly8he" path="res://scenes/ui/card_ui.tscn" id="1_a5oe3"]
-[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="2_evtlsn"]
+[ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="2_evtlsn"]
 [ext_resource type="Resource" uid="uid://cupgofferevt7" path="res://resources/events/event_channels/upgrade_offer_event.tres" id="3_offevt"]
 
 [node name="UpgradeUI" type="CanvasLayer" unique_id=1141743839 node_paths=PackedStringArray("offer_listener", "card_row")]

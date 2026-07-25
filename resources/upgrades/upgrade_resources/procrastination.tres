@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_2k37o"]
 [ext_resource type="Script" uid="uid://c5ast3vhs2dbc" path="res://resources/upgrades/special_upgrades/procrastination/procrastination_upgrade.gd" id="2_2k37o"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_ut7ko"]
+[ext_resource type="Texture2D" uid="uid://d2swvn6c1i4cj" path="res://assets/CARDPARTS/ICON_CLR/PROCRASTINATION__ICON.png" id="3_jokok"]
 [ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="4_sn1ye"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="5_jokok"]
 
@@ -18,7 +18,9 @@ script = ExtResource("2_2k37o")
 time_change_event = ExtResource("5_jokok")
 id = &"procrastination"
 title = "Procrastination"
-icon = ExtResource("2_ut7ko")
+description_override = "Gain 35% more damage when you have less than 50% sand remaining"
+icon = ExtResource("3_jokok")
 max_stacks = 1
 effects = Array[ExtResource("1_2k37o")]([SubResource("Resource_xcmn2")])
+is_tradeoff = true
 metadata/_custom_type_script = "uid://c5ast3vhs2dbc"
