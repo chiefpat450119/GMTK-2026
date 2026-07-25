@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://derfiku21nyxp" path="res://assets/enemies/boss/Body1.png" id="1_wa33t"]
 [ext_resource type="Texture2D" uid="uid://bkfu0mlams4up" path="res://assets/enemies/boss/LeftLeg1.png" id="2_enw1s"]
 [ext_resource type="Texture2D" uid="uid://bg1o3x6pmls3f" path="res://assets/enemies/boss/Head.png" id="3_lnnpo"]
+[ext_resource type="Texture2D" uid="uid://dxw7vnyqivm6" path="res://assets/enemies/boss/Body2.png" id="3_qa4jw"]
 [ext_resource type="Texture2D" uid="uid://bwt2a3h2k864m" path="res://assets/enemies/boss/LeftLeg2.png" id="3_y3o55"]
 [ext_resource type="Texture2D" uid="uid://cjrn64rxam7bk" path="res://assets/enemies/boss/LeftArm1.png" id="4_nvim2"]
 [ext_resource type="Texture2D" uid="uid://c8mg3p88ukrrn" path="res://assets/enemies/boss/RightLeg2.png" id="4_qa4jw"]
@@ -11,17 +12,28 @@
 [ext_resource type="Texture2D" uid="uid://bj2sfs5v5m4h4" path="res://assets/enemies/boss/RightArm1.png" id="6_tljjl"]
 [ext_resource type="Texture2D" uid="uid://cf2lake6ti3vw" path="res://assets/enemies/boss/RightArm2.png" id="7_3rfph"]
 
+[sub_resource type="Animation" id="Animation_qa4jw"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i05g6"]
+_data = {
+&"RESET": SubResource("Animation_qa4jw")
+}
+
 [node name="BossVisuals" type="Node2D" unique_id=524099003]
 
 [node name="Visuals" type="Node2D" parent="." unique_id=2080359473]
 scale = Vector2(0.33, 0.33)
+
+[node name="Butt" type="Sprite2D" parent="Visuals" unique_id=1751708151]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("3_qa4jw")
 
 [node name="Left Leg" type="Node2D" parent="Visuals" unique_id=1465532876]
 position = Vector2(-85, 132)
 
 [node name="Lower Leg" type="Node2D" parent="Visuals/Left Leg" unique_id=981808399]
 position = Vector2(-110.060486, 121.04416)
-rotation = -0.03141593
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals/Left Leg/Lower Leg" unique_id=1024497062]
 position = Vector2(172.20134, -251.50685)
@@ -33,11 +45,9 @@ texture = ExtResource("2_enw1s")
 
 [node name="Right Leg" type="Node2D" parent="Visuals" unique_id=1981774955]
 position = Vector2(92, 140)
-rotation = 0.16580628
 
 [node name="Lower Leg" type="Node2D" parent="Visuals/Right Leg" unique_id=725834837]
 position = Vector2(81.92349, 123.71962)
-rotation = -0.3630285
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals/Right Leg/Lower Leg" unique_id=1256820594]
 position = Vector2(-150.76581, -244.34134)
@@ -82,3 +92,6 @@ position = Vector2(134.63632, 197.66669)
 [node name="Sprite2D" type="Sprite2D" parent="Visuals/Right Arm/Front Arm" unique_id=304350928]
 position = Vector2(-398.22485, 37.643265)
 texture = ExtResource("7_3rfph")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=646501567]
+libraries/ = SubResource("AnimationLibrary_i05g6")
