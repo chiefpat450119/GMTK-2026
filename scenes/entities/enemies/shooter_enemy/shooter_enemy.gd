@@ -11,7 +11,7 @@ const RECOIL_TIME := 0.1  # Seconds for each half of the recoil pop
 @export var projectile_scene: PackedScene
 @export var min_range: float  # Backs away from the player inside this
 @export var max_range: float  # Closes on the player outside this
-@export var sprite: Sprite2D
+@export var sprite: Node2D
 @export var range_stat: Stat
 @export var accel_time: float  # Seconds to reach full speed
 @export var decel_time: float  # Seconds to coast to a stop

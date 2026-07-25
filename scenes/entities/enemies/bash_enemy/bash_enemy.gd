@@ -1,7 +1,7 @@
 class_name BashEnemy
 extends Enemy
 
-const ROTATION_SPEED := 12.0  # Radians per second the body turns to face the player
+const ROTATION_SPEED := 0  # Radians per second the body turns to face the player
 const CHARGE_SQUASH := 0.6  # Sprite scale.y multiplier at the end of the wind-up
 const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fires
 
@@ -15,7 +15,7 @@ const RECOVER_TIME := 0.1  # Seconds for the sprite to snap back as the bash fir
 @export var accel_time: float  # Seconds to reach full speed (approach only)
 @export var decel_time: float  # Seconds to coast to a stop (approach only)
 
-@export var sprite: Sprite2D
+@export var sprite: Node2D
 
 @onready var attack_cooldown := Cooldown.new(attack_interval)
 @onready var charge_timer := Cooldown.new(charge_time)
@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	
 
 	look_at(get_player_pos())
-
+	
 	if bash_timer.is_started():
 		_update_bash()
 		return
