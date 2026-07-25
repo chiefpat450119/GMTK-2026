@@ -28,7 +28,6 @@ var walking: bool  # True while the walk bob owns the scale tween
 func _ready() -> void:
 	super()
 	# Hit detection lives on the atk component; this enemy only reacts to it.
-	atk.contacted.connect(_on_contacted)
 	atk.hit_landed.connect(_on_hit_landed)
 
 
@@ -42,8 +41,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# Recoiling: coast backwards, decaying to a stop. The enemy can't hit again until it
-	# has re-approached, so the recoil — not a silent timer — paces the attacks.
+	# Recoiling: coast backwards, decaying to a stop. This reads the hit rather than
+	# pacing it — the atk component's attack_interval is what gates the next strike.
 	if knockback.is_started() and not knockback.is_done():
 		var t := knockback.time_left / KNOCKBACK_TIME  # 1 -> 0 over the recoil
 		velocity = knockback_dir * HIT_KNOCKBACK * t
@@ -59,13 +58,10 @@ func _physics_process(delta: float) -> void:
 		_stop_walk_anim()
 
 
-# Bounce off every contact, even one the rate limiter ate, so the enemy never
-# sits inside the player wobbling.
-func _on_contacted(_body: Node2D) -> void:
-	_recoil()
-
-
+# Bounce off damaging hits only. A contact the rate limiter ate isn't a strike, so
+# the enemy stays on the player and keeps pressuring instead of flinching for free.
 func _on_hit_landed(_body: Node2D, _damage: float) -> void:
+	_recoil()
 	_play_hit_reaction()
 
 
@@ -79,9 +75,8 @@ func _recoil() -> void:
 
 	knockback.start()
 	hitstop.start()
-	# Settle out of the bob for the freeze/recoil. contacted always fires before
-	# hit_landed, so the impact squash still takes the scale over on a damaging hit.
-	_stop_walk_anim()
+	# The walk bob is left to _play_hit_reaction, which runs right after this and takes
+	# the scale over anyway.
 
 
 func _play_hit_reaction() -> void:

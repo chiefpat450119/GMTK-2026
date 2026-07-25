@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="1_uwv7y"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_ia5xm"]
-[ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.tscn" id="3_ia5xm"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="5_uwv7y"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_n1ogh"]
 
@@ -14,8 +14,8 @@
 position = Vector2(532, 33)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=64128626]
-position = Vector2(726, 399)
+position = Vector2(722.00006, 402.99997)
 scale = Vector2(154.5, 152.5)
 texture = SubResource("PlaceholderTexture2D_n1ogh")
 
-[node name="ShooterEnemy" parent="." unique_id=833281361 instance=ExtResource("3_ia5xm")]
+[node name="MeleeEnemy" parent="." unique_id=2001656991 instance=ExtResource("5_uwv7y")]
