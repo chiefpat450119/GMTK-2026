@@ -20,6 +20,6 @@ scale = Vector2(154.5, 152.5)
 texture = SubResource("PlaceholderTexture2D_n1ogh")
 
 [node name="BashEnemy" parent="." unique_id=1427456001 instance=ExtResource("3_ia5xm")]
-position = Vector2(-22.37494, -19.130999)
+position = Vector2(-9, 136)
 
 [node name="MeleeEnemy" parent="." unique_id=2001656991 instance=ExtResource("5_uwv7y")]
