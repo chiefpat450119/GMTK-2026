@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://bbyllggcxgylu"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_ltmnc"]
+[ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_25mu8"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_kbsmk"]
+[ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="3_2mj6x"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_4y72a"]
+
+[sub_resource type="Resource" id="Resource_ltmnc"]
+script = ExtResource("1_ltmnc")
+target_stat = ExtResource("2_25mu8")
+value = 0.3
+operation = 1
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[sub_resource type="Resource" id="Resource_kbsmk"]
+script = ExtResource("1_ltmnc")
+target_stat = ExtResource("3_2mj6x")
+value = -5.0
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_kbsmk")
+title = "Scavenger"
+description_override = "Gain 30% more sand from enemies, but -5s of max time capacity"
+icon = ExtResource("4_4y72a")
+max_stacks = 5
+effects = Array[ExtResource("1_ltmnc")]([SubResource("Resource_ltmnc"), SubResource("Resource_kbsmk")])
+metadata/_custom_type_script = "uid://031polniagv2"

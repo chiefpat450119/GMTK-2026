@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="6_4gxjr"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="6_yqfox"]
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="7_pi613"]
+[ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="9_rpxry"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
@@ -16,7 +17,7 @@ size = Vector2(128, 128)
 size = Vector2(140, 112)
 
 [node name="MeleeEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
-collision_layer = 2
+collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_pi613")
 accel_time = 0.5
@@ -62,3 +63,10 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AtkComponent/Area2D" unique_id=700788753]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_hitbx")
+
+[node name="HealthBar" parent="." unique_id=220369966 node_paths=PackedStringArray("health_component") instance=ExtResource("9_rpxry")]
+offset_left = -25.0
+offset_top = 72.0
+offset_right = 25.0
+offset_bottom = 80.0
+health_component = NodePath("../HealthComponent")

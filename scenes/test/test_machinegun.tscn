@@ -33,16 +33,15 @@ animations = [{
 radius = 30.61873
 height = 118.0
 
-[node name="Main" type="Node2D" unique_id=100000001]
+[node name="Main2" type="Node2D" unique_id=100000001]
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=100000002 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "gun", "sprite")]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=100000002 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "sprite")]
 position = Vector2(496, 336)
 collision_mask = 0
 script = ExtResource("1_chi22")
 time_component = NodePath("TimeComponent")
 movement_component = NodePath("MovementComponent")
 dash_component = NodePath("DashComponent")
-gun = NodePath("Machine Gun")
 sprite = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bb7tj3fwxyl2e"]
+
+[ext_resource type="Script" uid="uid://d4c00gykhrrlc" path="res://scenes/test/test_time_hud.gd" id="1_test"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="3_time_hud"]
+
+[node name="TestTimeHud" type="Node2D" unique_id=2131631677 node_paths=PackedStringArray("button")]
+script = ExtResource("1_test")
+start_time = 30.0
+button = NodePath("Debug/AddTime")
+
+[node name="Player" parent="." unique_id=524691432 instance=ExtResource("2_player")]
+position = Vector2(576, 324)
+
+[node name="TimeHud" parent="." unique_id=1304686515 instance=ExtResource("3_time_hud")]
+
+[node name="Debug" type="CanvasLayer" parent="." unique_id=1006431580]
+
+[node name="AddTime" type="Button" parent="Debug" unique_id=1201675992]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "Add Time"
