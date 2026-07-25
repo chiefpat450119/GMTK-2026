@@ -16,7 +16,7 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="MeleeEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
+[node name="MeleeEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_pi613")
@@ -59,6 +59,7 @@ metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=955698249]
 collision_layer = 0
+collision_mask = 1
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]

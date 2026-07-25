@@ -17,7 +17,7 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "hurtbox", "movement", "atk", "hp")]
+[node name="BashEnemy" type="CharacterBody2D" unique_id=2072227410 node_paths=PackedStringArray("sprite", "movement", "atk", "hp")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_txa1i")
@@ -71,14 +71,6 @@ script = ExtResource("8_u55qa")
 max_hp = ExtResource("9_f05rv")
 base_hp = 27.0
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
-
-[node name="Area2D" type="Area2D" parent="." unique_id=955698249]
-collision_layer = 0
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=700788753]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthBar" parent="." unique_id=220369966 node_paths=PackedStringArray("health_component") instance=ExtResource("10_7uksk")]
 offset_left = -24.0
