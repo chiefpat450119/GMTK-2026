@@ -11,6 +11,7 @@ enum Team { PLAYER, ENEMY }
 
 @export var speed: float
 @export var lifetime: float
+@export var damage_popup : DamageNumberPopup
 
 var team: Team = Team.PLAYER
 var damage: float
@@ -61,6 +62,7 @@ func _on_body_entered(body: Node2D) -> void:
 	var health := HealthComponent.find_in(body)
 	if health:
 		health.remove_hp(damage)
+		damage_popup.create_popup(damage, body.global_position)
 	else:
 		var time := TimeComponent.find_in(body)
 		if time:

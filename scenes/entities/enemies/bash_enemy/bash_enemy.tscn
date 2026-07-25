@@ -47,6 +47,9 @@ range_stat = ExtResource("3_bsh")
 accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("AnimatedSprite2D")
+movement = NodePath("MovementComponent")
+atk = NodePath("AtkComponent")
+hp = NodePath("HealthComponent")
 sand_drop_amt_stat = ExtResource("4_btkvs")
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
