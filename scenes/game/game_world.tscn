@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="3_plyr"]
 [ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="4_spwn"]
 [ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="5_shake"]
-[ext_resource type="Script" path="res://components/level_component.gd" id="6_level"]
+[ext_resource type="Script" uid="uid://ch1ayfc8l3yfb" path="res://components/level_component.gd" id="6_level"]
 [ext_resource type="Resource" path="res://resources/events/event_channels/player_xp_changed_event.tres" id="7_xpevt"]
 
 [node name="GameWorld" type="Node2D" unique_id=1900000001 node_paths=PackedStringArray("spawner", "collectables")]
@@ -19,12 +19,11 @@ collectables = NodePath("Collectables")
 
 [node name="Player" parent="." unique_id=1900000003 instance=ExtResource("3_plyr")]
 
-[node name="Camera2D" parent="Player" index="8" unique_id=1900000004 node_paths=PackedStringArray("map")]
+[node name="Camera2D" parent="Player" index="8" unique_id=1006468635 node_paths=PackedStringArray("map")]
 position_smoothing_enabled = true
-position_smoothing_speed = 8.0
 map = NodePath("../../Map")
 
-[node name="CameraShake" type="Node" parent="Player/Camera2D" unique_id=1900000006 node_paths=PackedStringArray("camera")]
+[node name="CameraShake" type="Node" parent="Player/Camera2D" index="0" unique_id=1900000006 node_paths=PackedStringArray("camera")]
 script = ExtResource("5_shake")
 camera = NodePath("..")
 
