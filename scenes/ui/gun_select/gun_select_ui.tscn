@@ -6,8 +6,8 @@
 [ext_resource type="Resource" uid="uid://cvhv6ywpyycqb" path="res://resources/gun_data/shotgun_data.tres" id="4_i0h2r"]
 [ext_resource type="Resource" uid="uid://dg6iaxb5qyxtn" path="res://resources/gun_data/machinegun_data.tres" id="5_ocijn"]
 [ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="6_7j4gv"]
-[ext_resource type="PackedScene" uid="uid://w4n0uswly8he" path="res://scenes/ui/card_ui.tscn" id="7_gxd6n"]
 [ext_resource type="Resource" uid="uid://bedsny34haj0h" path="res://resources/events/event_channels/gun_offer_event.tres" id="7_hcs37"]
+[ext_resource type="PackedScene" uid="uid://bv7af1ysf63gs" path="res://scenes/ui/gun_select/gun_card_ui.tscn" id="8_hcs37"]
 
 [node name="GunSelectUI" type="CanvasLayer" unique_id=1589139226 node_paths=PackedStringArray("offer_listener", "card_row")]
 script = ExtResource("1_h18ig")
@@ -27,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 0.6)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=921386337]
@@ -45,11 +46,11 @@ scale = Vector2(0.45, 0.45)
 pivot_offset = Vector2(1170, 540)
 size_flags_horizontal = 3
 
-[node name="CardUI" parent="HBoxContainer" unique_id=1354915375 instance=ExtResource("7_gxd6n")]
+[node name="GunCardUI" parent="HBoxContainer" unique_id=1354915375 instance=ExtResource("8_hcs37")]
 layout_mode = 2
 
-[node name="CardUI2" parent="HBoxContainer" unique_id=1716712220 instance=ExtResource("7_gxd6n")]
+[node name="GunCardUI2" parent="HBoxContainer" unique_id=520374598 instance=ExtResource("8_hcs37")]
 layout_mode = 2
 
-[node name="CardUI3" parent="HBoxContainer" unique_id=1819999142 instance=ExtResource("7_gxd6n")]
+[node name="GunCardUI3" parent="HBoxContainer" unique_id=1770567570 instance=ExtResource("8_hcs37")]
 layout_mode = 2

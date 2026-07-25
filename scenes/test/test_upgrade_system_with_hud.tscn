@@ -32,11 +32,7 @@ manager = NodePath("..")
 
 [node name="Shotgun" parent="Player" index="3" unique_id=933200610]
 base_fire_cooldown = 0.5
-base_spread = 0.0
 base_cost = 3.0
-fire_cooldown_stat = null
-shot_spread_stat = null
-shot_cost_stat = null
 
 [node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("9_rlr3w")]
 

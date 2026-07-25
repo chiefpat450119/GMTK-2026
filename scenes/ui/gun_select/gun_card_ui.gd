@@ -1,5 +1,5 @@
 class_name GunCardUI
-extends Control
+extends Button
 
 signal selected(gun: GunData)
 
@@ -10,6 +10,8 @@ signal selected(gun: GunData)
 var _gun : GunData
 
 func _ready() -> void:
+	
+	pressed.connect(_on_pressed)
 	# The root handles the click, so nothing layered on top may swallow it.
 	for child in get_children():
 		if child is Control:
@@ -23,6 +25,12 @@ func setup(gun: GunData) -> void:
 	description_label.text = gun.description
 	icon_rect.texture = gun.icon
 
+
+func _on_pressed():
+	if _gun == null:
+		return
+	accept_event()
+	selected.emit(_gun)
 
 func _gui_input(event: InputEvent) -> void:
 	if _gun == null:
