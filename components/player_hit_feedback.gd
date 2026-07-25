@@ -1,21 +1,3 @@
-# Flash, squash and shake reaction for the player.
-#
-# The player's counterpart to HitFeedback, which reacts to a HealthComponent
-# losing hp. The player has no hp — their pool is time — and unlike hp, time
-# also decays every frame and pays for every shot. Watching time_left the way
-# HitFeedback watches hp would fire this on every frame of the run, so the
-# trigger is TimeComponent.damaged, which only a blow raises.
-#
-# Drop as a child of the player; it finds the time component and the sprite on
-# its own. Nothing has to call it — enemy contact, enemy shots and anything
-# added later all get the reaction for free.
-#
-# Deliberately shaped like HitFeedback, minus its knockback: the two reactions
-# read as the same game speaking, but shoving the body is something you do to an
-# enemy, not to the thing the player is steering. Scale, position and colour each
-# ride their own tween, so a re-hit mid-reaction restarts cleanly and an owner
-# script grabbing one of those properties back can't strand the others mid-flight.
-
 class_name PlayerHitFeedback
 extends Node
 
@@ -23,8 +5,12 @@ const FLASH_COLOR := Color(1, 0.45, 0.45)  # Sprite tint on the frame the hit la
 const RECOVER_TIME := 0.15  # Seconds for the spring back out of the squash
 const HIT_SQUASH := 0.72  # sprite scale.y multiplier on the frame the hit lands
 const HIT_STRETCH := 1.14  # sprite scale.x multiplier on that frame, so the volume roughly holds
-const SHAKE_DIST := 6.0  # Pixels of the first shake swing
-const SHAKE_SWINGS := 4  # Swings the shake decays over before settling
+const SHAKE_DIST := 6.0  # Pixels of the first sprite shake swing
+const SHAKE_SWINGS := 4  # Swings the sprite shake decays over before settling
+
+const TRAUMA_MIN := 0.35  # What the lightest hit is worth
+const TRAUMA_MAX := 0.65  # What a hit of FULL_TRAUMA_DAMAGE or more is worth
+const FULL_TRAUMA_DAMAGE := 10.0  # Seconds off the clock in one hit that earns TRAUMA_MAX
 
 @export var time: TimeComponent  # Defaults to the time component on our parent
 @export var sprite: Node2D  # Defaults to the first sprite on our parent
@@ -57,15 +43,13 @@ func _ready() -> void:
 	time.damaged.connect(_on_damaged)
 
 
-# The reaction is the same size whatever the hit was worth, so the amount goes
-# unread — same as HitFeedback, where only the knockback ever scaled to it.
-func _on_damaged(_amount: float) -> void:
+func _on_damaged(amount: float) -> void:
 	if time.time_left <= 0.0:
 		return  # The run ends on this same call, so there's nothing left to react with.
-	_play()
+	_play(amount)
 
 
-func _play() -> void:
+func _play(damage: float) -> void:
 	# Every part starts *at* its extreme rather than easing into it: easing in costs
 	# the hit its immediacy, and a frame spent travelling to the squash is a frame
 	# where nothing has visibly happened yet. from() sets the value outright on the
@@ -93,6 +77,9 @@ func _play() -> void:
 	flash_tween = _restart(flash_tween)
 	flash_tween.tween_property(sprite, "modulate", base_modulate, RECOVER_TIME) \
 		.from(FLASH_COLOR)
+
+	var t := clampf(damage / FULL_TRAUMA_DAMAGE, 0.0, 1.0)
+	CameraShake.shake(lerpf(TRAUMA_MIN, TRAUMA_MAX, t))
 
 
 # The player's sprite is an AnimatedSprite2D and the placeholder beside it a Sprite2D;
