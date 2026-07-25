@@ -39,3 +39,9 @@ func is_started() -> bool:
 ## True when an armed cooldown has run out. Stays true until stop() or start().
 func is_done() -> bool:
 	return _started and time_left <= 0.0
+
+func time_elapsed() -> float:
+	return _duration - time_left
+
+func percent_complete() -> float:
+	return time_elapsed() / _duration

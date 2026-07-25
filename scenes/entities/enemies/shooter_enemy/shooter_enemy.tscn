@@ -29,7 +29,7 @@ range_stat = ExtResource("3_4vgcu")
 accel_time = 0.2
 decel_time = 0.3
 movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
+atk = NodePath("")
 hp = NodePath("HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1537934886]
@@ -47,7 +47,7 @@ speed_stat = ExtResource("5_spd")
 base_speed = 425.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="AtkComponent" type="Node" parent="." unique_id=930794024]
+[node name="AtkComponent" type="Node2D" parent="." unique_id=740249106]
 script = ExtResource("7_wkf7c")
 atk_stat = ExtResource("8_mp4f3")
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
