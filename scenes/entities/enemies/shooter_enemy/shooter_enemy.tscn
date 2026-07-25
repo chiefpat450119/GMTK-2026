@@ -63,4 +63,5 @@ offset_bottom = 75.0
 position = Vector2(2.000001, 6.000003)
 scale = Vector2(0.08093263, 0.08093263)
 sprite_frames = SubResource("SpriteFrames_n1ogh")
+autoplay = "default"
 frame_progress = 0.7331551
