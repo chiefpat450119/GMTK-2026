@@ -21,7 +21,7 @@ const SHAKE_DIST := 6.0  # Pixels of the first shake swing
 const SHAKE_SWINGS := 4  # Swings the shake decays over before settling
 const KNOCKBACK_TIME := 0.05  # Seconds for the shove to decay to a stop
 const KNOCKBACK_MAX_DAMAGE := 250.0  # Damage in one hit that earns the full shove
-const KNOCKBACK_MAX_SCALE := 2.0  # knockback_speed multiplier at that damage
+const KNOCKBACK_MAX_SCALE := 1.3  # knockback_speed multiplier at that damage
 
 @export var health: HealthComponent  # Defaults to the health component on our parent
 @export var sprite: Node2D  # Defaults to the first sprite on our parent
