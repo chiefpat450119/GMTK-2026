@@ -47,7 +47,7 @@ hurtbox = NodePath("../hurtbox")
 shape = SubResource("CircleShape2D_contact")
 
 [node name="HealthComponent" parent="." index="4"]
-base_hp = 100.0
+base_hp = 2000.0
 death_event = ExtResource("14_boss")
 
 [node name="HealthBar" parent="." index="5"]

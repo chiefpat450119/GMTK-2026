@@ -25,6 +25,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("Sprite2D")
 sand_drop_amt_stat = ExtResource("4_btkvs")
+sand_drop_amt_base = 5.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="Sprite2D" parent="." index="0"]
@@ -37,14 +38,13 @@ shape = SubResource("RectangleShape2D_body")
 base_speed = 550.0
 
 [node name="AtkComponent" parent="." index="3"]
-contact_damage = 9.28125
 active_on_ready = false
 
 [node name="CollisionShape2D" parent="AtkComponent/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4"]
-base_hp = 27.0
+base_hp = 80.0
 
 [node name="HealthBar" parent="." index="5"]
 offset_left = -24.0
