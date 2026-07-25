@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://df53qtwd8bi4i"]
 
 [ext_resource type="Script" uid="uid://c680wy8q4de83" path="res://scenes/entities/enemies/enemy_spawner.gd" id="1_6iiwg"]
-[ext_resource type="PackedScene" uid="uid://bf7dmrn86nwtg" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.tscn" id="2_6mcpi"]
+[ext_resource type="PackedScene" uid="uid://c2so4ao22k58f" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.tscn" id="2_6mcpi"]
 [ext_resource type="Resource" uid="uid://bl4ravbh4p8y8" path="res://resources/events/event_channels/wave_changed_event.tres" id="3_0okg5"]
 [ext_resource type="Script" uid="uid://b87kvmux6rpvl" path="res://scenes/entities/enemies/enemy_spawn_data.gd" id="3_6mcpi"]
 

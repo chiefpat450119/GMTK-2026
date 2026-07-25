@@ -13,6 +13,17 @@ extends Node
 var _stacks: Dictionary = {}
 
 
+func _ready() -> void:
+	# This node outlives a run, so its stack counts would otherwise carry into the
+	# next one and keep maxed-out upgrades out of the pool forever.
+	GameStateManager.register_resettable(self)
+
+
+## Called by GameStateManager at the top of every run.
+func reset() -> void:
+	_stacks.clear()
+
+
 # Returns up to `count` distinct upgrades, weighted by Upgrade.weight,
 # excluding any that have hit max_stacks.
 func roll(count: int = choices_count) -> Array[Upgrade]:
