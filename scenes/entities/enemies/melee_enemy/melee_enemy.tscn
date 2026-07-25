@@ -12,10 +12,11 @@ size = Vector2(117.5, 108.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(90.5, 88)
 
-[node name="MeleeEnemy" unique_id=2001656991 instance=ExtResource("1_base")]
+[node name="MeleeEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
 script = ExtResource("2_mel")
 accel_time = 0.5
 decel_time = 0.15
+sprite = NodePath("Sprite2D")
 walk_squash = 0.95
 walk_cycle_time = 0.36
 walk_settle_time = 0.12
