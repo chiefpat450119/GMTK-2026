@@ -20,7 +20,7 @@ var mods : Array[Modifier]
 # returns the current value with all active modifiers applied
 # pass in base value to use some external default value 
 # external_base is added to base_val
-func current_val(external_base : float = base_val) -> float:
+func current_val(external_base: float = 0.0) -> float:
 	var base := base_val + external_base
 	var add_total := 0.0
 	var mult_total := 1.0

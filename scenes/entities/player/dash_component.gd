@@ -32,3 +32,14 @@ func request_dash(start: bool = false) -> void:
 
 func is_dashing() -> bool:
 	return _dashing
+
+
+## How ready the dash is, from 0 (just spent) to 1 (usable). Reported as a ratio
+## so the HUD never needs to know the cooldown length, which moves with mods.
+func cooldown_progress() -> float:
+	if _dashing:
+		return 0.0
+	var cooldown := dash_cooldown.current_val()
+	if cooldown <= 0.0:
+		return 1.0
+	return clampf(_cooldown_timer / cooldown, 0.0, 1.0)
