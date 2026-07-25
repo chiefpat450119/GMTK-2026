@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c5aux63in05c7"]
+
+[ext_resource type="Script" uid="uid://b8pv5xkvrpcss" path="res://utils/camera_follow.gd" id="1_wumoh"]
+[ext_resource type="Script" uid="uid://ceefjo2r83hdl" path="res://utils/camera_limits.gd" id="2_5t2q1"]
+[ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="3_hbahr"]
+
+[node name="PlayerCamera" type="Camera2D" unique_id=1749758649]
+
+[node name="CameraFollow" type="Node" parent="." unique_id=1429411717 node_paths=PackedStringArray("camera")]
+script = ExtResource("1_wumoh")
+camera = NodePath("..")
+metadata/_custom_type_script = "uid://b8pv5xkvrpcss"
+
+[node name="CameraLimits" type="Node" parent="." unique_id=1464968167 node_paths=PackedStringArray("camera")]
+script = ExtResource("2_5t2q1")
+camera = NodePath("..")
+metadata/_custom_type_script = "uid://ceefjo2r83hdl"
+
+[node name="CameraShake" type="Node" parent="." unique_id=1309063959 node_paths=PackedStringArray("camera")]
+script = ExtResource("3_hbahr")
+camera = NodePath("..")
+metadata/_custom_type_script = "uid://cxe3gxrs3d831"
