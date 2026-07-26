@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bdebugmenu001"]
+
+[ext_resource type="Script" uid="uid://bdebugmenusc1" path="res://scenes/ui/debug_menu.gd" id="1_dbgsc"]
+
+[node name="DebugMenu" type="Control" unique_id=1532926453 node_paths=PackedStringArray("god_mode_button", "spawn_boss_button", "panel")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("1_dbgsc")
+god_mode_button = NodePath("Panel/VBox/GodModeButton")
+spawn_boss_button = NodePath("Panel/VBox/SpawnBossButton")
+panel = NodePath("Panel")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=680361798]
+layout_mode = 1
+offset_left = -264.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 178.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1712988401]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="Label" parent="Panel/VBox" unique_id=964795633]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.612, 0.102, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 14
+text = "DEBUG MENU  [F1]"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBox" unique_id=582988180]
+layout_mode = 2
+
+[node name="GodModeButton" type="Button" parent="Panel/VBox" unique_id=1817786905]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "God Mode: OFF"
+
+[node name="SpawnBossButton" type="Button" parent="Panel/VBox" unique_id=433430303]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 13
+text = "Spawn Boss Now"
