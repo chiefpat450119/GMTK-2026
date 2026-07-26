@@ -7,10 +7,13 @@ extends StateScreen
 @export var of: Control
 @export var time: Control
 @export var play_button: Button
-# The whole button block moves as one. Its children sit in a VBoxContainer, which
-# rewrites their positions on every sort, so a per-button slide would be undone the
-# next time the container laid itself out -- the container is what gets animated.
+# The block the buttons sit in. It is put where it belongs and shown; it is the
+# buttons inside it that move. Its own position is still derived here because the
+# block is bottom-anchored and grows off its contents -- see buttons_rest_pos().
 @export var buttons_root: Control
+# The buttons themselves. Every Control child enters in turn, so another button
+# dropped into the column joins the stagger without anything here being retimed.
+@export var button_column: Container
 # The box everything above is laid out inside: a fixed 1280x720 -- the project's base
 # resolution -- centred in the window. The engine scales that base to the screen for
 # us (Display > Stretch is canvas_items), so this box is not what makes the menu
@@ -71,6 +74,10 @@ const LAST_WORD_DELAY = DELAY_BEFORE_WORDS + 0.4
 const BUTTONS_ENTER_FROM = Vector2(0, 60)
 const BUTTONS_SLIDE_DURATION = 0.45
 const BUTTONS_DELAY = SWAP_TIME + LAST_WORD_DELAY + 0.15
+# Seconds between one button setting off and the next, on the card row's reasoning:
+# buttons arriving together read as one panel sliding in, and the gap is what makes
+# them separate things to choose between. See CardIntro.card_stagger.
+const BUTTON_STAGGER = 0.12
 
 
 func _ready() -> void:
@@ -341,27 +348,77 @@ func buttons_rest_pos() -> Vector2:
 			bottom - height)
 
 
-# The block rises the last stretch into that spot. Writing `position` on an anchored
-# Control is a write to its offsets, so this is the same offset-driven move the words
-# make -- and it lands on the resting position re-derived above rather than on
-# wherever a previous play happened to leave it.
-func slide_buttons_in(tween: Tween) -> void:
-	var rest := buttons_rest_pos()
-	var start := rest + BUTTONS_ENTER_FROM
-	buttons_root.hide()
-	buttons_root.position = start
-	buttons_root.modulate.a = 0
+# Every button that takes part in the entrance, in the order they arrive.
+func entering_buttons() -> Array[Control]:
+	var result: Array[Control] = []
+	if button_column == null:
+		return result
+	for child in button_column.get_children():
+		var button := child as Control
+		if button != null:
+			result.append(button)
+	return result
 
-	# unhidden on the beat it starts moving, so it is never up and invisible
-	tween.parallel().tween_callback(buttons_root.show).set_delay(BUTTONS_DELAY)
-	tween.parallel().tween_property(buttons_root, "position", rest, BUTTONS_SLIDE_DURATION)\
-			.from(start)\
-			.set_delay(BUTTONS_DELAY)\
-			.set_ease(Tween.EASE_OUT)\
-			.set_trans(Tween.TRANS_CUBIC)
-	tween.parallel().tween_property(buttons_root, "modulate:a", 1, BUTTONS_SLIDE_DURATION)\
-			.from(0.0)\
-			.set_delay(BUTTONS_DELAY)
+
+# The buttons rise into the block one after another. Each rides its own offset
+# transform rather than its position, the way the card row's entrance does: position
+# belongs to the VBoxContainer they sit in, and a per-button slide written there
+# would be undone the next time the container sorted itself. The block only has to
+# be put where it belongs and shown -- it no longer travels itself, or the stagger
+# would be riding on top of a move the whole column was already making.
+func slide_buttons_in(tween: Tween) -> void:
+	buttons_root.position = buttons_rest_pos()
+	buttons_root.modulate.a = 1
+	buttons_root.hide()
+
+	# The start *pose* is set in a callback beside the show rather than here, because
+	# showing the block is itself what undoes it: every button carries a ButtonFeedback,
+	# which snaps its button back to the resting pose on any visibility change, and
+	# the block coming up is a visibility change for everything under it. Nothing
+	# snaps mouse_filter, so that half of the start state can be set here and now,
+	# where it doesn't depend on two callbacks landing on one frame in the right order.
+	tween.parallel().tween_callback(_reveal_buttons).set_delay(BUTTONS_DELAY)
+
+	var buttons := entering_buttons()
+	for i in buttons.size():
+		var button := buttons[i]
+		var delay := BUTTONS_DELAY + BUTTON_STAGGER * i
+		set_button_live(button, false)
+		# The rise does nothing until the offset transform is switched on. Every
+		# button here has a ButtonFeedback that has already done it; this is for one
+		# that doesn't.
+		button.offset_transform_enabled = true
+		tween.parallel().tween_property(button, "offset_transform_position",
+				Vector2.ZERO, BUTTONS_SLIDE_DURATION)\
+				.from(BUTTONS_ENTER_FROM)\
+				.set_delay(delay)\
+				.set_ease(Tween.EASE_OUT)\
+				.set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(button, "modulate:a", 1, BUTTONS_SLIDE_DURATION)\
+				.from(0.0)\
+				.set_delay(delay)
+		# Opened on the beat it starts moving -- the same moment the block used to
+		# become clickable, so nothing waits longer to be pressed than it did before.
+		tween.parallel().tween_callback(set_button_live.bind(button, true)).set_delay(delay)
+
+
+# Puts the block up with every button in its start pose -- in that order, since the
+# show is what wakes the ButtonFeedbacks and anything written before it is what they
+# undo. The first button's own rise begins on this same frame and writes the same
+# pose through its .from(), so which of the two lands first doesn't matter.
+func _reveal_buttons() -> void:
+	buttons_root.show()
+	for button in entering_buttons():
+		button.offset_transform_position = BUTTONS_ENTER_FROM
+		button.modulate.a = 0
+
+
+# A Control at zero alpha still takes clicks, so a button waiting its turn is put
+# out of the mouse's way rather than left live and unseen. Being out of the way is
+# also what keeps its ButtonFeedback quiet: a hover it never hears about is a pose
+# tween that never starts on the two properties this entrance is writing.
+func set_button_live(button: Control, live: bool) -> void:
+	button.mouse_filter = Control.MOUSE_FILTER_STOP if live else Control.MOUSE_FILTER_IGNORE
 
 
 # Where the intro leaves everything. Used to re-centre after a resize that lands once
@@ -387,3 +444,9 @@ func apply_rest_state() -> void:
 	buttons_root.position = buttons_rest_pos()
 	buttons_root.modulate.a = 1
 	buttons_root.show()
+
+	for button in entering_buttons():
+		button.offset_transform_enabled = true
+		button.offset_transform_position = Vector2.ZERO
+		button.modulate.a = 1
+		set_button_live(button, true)

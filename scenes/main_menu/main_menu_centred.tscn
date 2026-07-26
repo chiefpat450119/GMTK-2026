@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ctu6nvxq3k8yl" path="res://scenes/ui/utils/nine_patch_button.tscn" id="8_ninep"]
 [ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="9_xy6u8"]
 [ext_resource type="Texture2D" uid="uid://csxal3bjim7ms" path="res://assets/Title_Background.png" id="10_ksiyh"]
+[ext_resource type="Script" path="res://scenes/main_menu/difficulty_button.gd" id="11_diffb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_11ml1"]
 font = ExtResource("7_igx8k")
@@ -17,7 +18,7 @@ font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_size = 24
 
-[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "buttons_root", "content")]
+[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "buttons_root", "button_column", "content")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -34,6 +35,7 @@ of = NodePath("Content/Time")
 time = NodePath("Content/Of")
 play_button = NodePath("Content/MarginContainer/Buttons/PlayButton")
 buttons_root = NodePath("Content/MarginContainer")
+button_column = NodePath("Content/MarginContainer/Buttons")
 content = NodePath("Content")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1525688302]
@@ -150,10 +152,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -36.94507
-offset_top = 121.735
-offset_right = 376.05493
-offset_bottom = 245.73515
+offset_left = -19.0
+offset_top = 122.0
+offset_right = 394.0
+offset_bottom = 246.00015
 grow_horizontal = 2
 text = "Souls"
 label_settings = ExtResource("6_htj3h")
@@ -182,15 +184,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -140.0
+offset_left = -150.0
 offset_top = -162.0
-offset_right = 140.0
+offset_right = 150.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 150
 
 [node name="Buttons" type="VBoxContainer" parent="Content/MarginContainer" unique_id=573013305]
-custom_minimum_size = Vector2(280, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -202,6 +204,17 @@ layout_mode = 2
 label_text = "Play"
 
 [node name="ButtonFeedback" type="Node" parent="Content/MarginContainer/Buttons/PlayButton" unique_id=689710815 node_paths=PackedStringArray("target")]
+script = ExtResource("9_xy6u8")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"
+
+[node name="DifficultyButton" parent="Content/MarginContainer/Buttons" unique_id=1032437130 instance=ExtResource("8_ninep")]
+custom_minimum_size = Vector2(109.2, 52)
+layout_mode = 2
+script = ExtResource("11_diffb")
+label_text = "Difficulty: Easy"
+
+[node name="ButtonFeedback" type="Node" parent="Content/MarginContainer/Buttons/DifficultyButton" unique_id=689710816 node_paths=PackedStringArray("target")]
 script = ExtResource("9_xy6u8")
 target = NodePath("..")
 metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"

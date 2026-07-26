@@ -32,8 +32,14 @@ static func find_in(entity: Node) -> LevelComponent:
 
 
 ## XP required to get from the current level to the next one.
+##
+## Difficulty rides on top of the authored curve rather than being baked into it:
+## a level is an upgrade, so charging more for one is how a hard run ends up with
+## fewer of them. Read live rather than captured at _ready, so the HUD's bar and
+## the level-up check can never be working off different requirements.
 func requirement() -> float:
-	return base_requirement * pow(growth, level - 1)
+	return base_requirement * pow(growth, level - 1) \
+			* EnemyStatScalerInstance.xp_requirement_multiplier()
 
 
 func add_xp(amount: float) -> void:
