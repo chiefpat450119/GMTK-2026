@@ -26,6 +26,7 @@ id = &"tightly_packed_bullets"
 title = "Tightly Packed Bullets"
 description_override = "Spend 15% more sand per shot, but deal 25% more damage"
 icon = ExtResource("4_yy3qj")
+rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_c7hde")]([SubResource("Resource_wey5j"), SubResource("Resource_yy3qj")])
 is_tradeoff = true

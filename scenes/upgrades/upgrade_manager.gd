@@ -26,8 +26,8 @@ func reset() -> void:
 	_stacks.clear()
 
 
-# Returns up to `count` distinct upgrades, weighted by Upgrade.weight,
-# excluding any that have hit max_stacks.
+# Returns up to `count` distinct upgrades, weighted by rarity, excluding any that
+# have hit max_stacks.
 func roll(count: int = choices_count) -> Array[Upgrade]:
 	var available: Array[Upgrade] = []
 	for upgrade in pool.upgrades:
@@ -75,12 +75,12 @@ func _is_available(upgrade: Upgrade) -> bool:
 func _weighted_pick(list: Array[Upgrade]) -> Upgrade:
 	var total := 0.0
 	for upgrade in list:
-		total += maxf(upgrade.weight, 0.0)
+		total += maxf(upgrade.get_weight(), 0.0)
 	if total <= 0.0:
 		return list.pick_random()
 	var roll_val := randf() * total
 	for upgrade in list:
-		roll_val -= maxf(upgrade.weight, 0.0)
+		roll_val -= maxf(upgrade.get_weight(), 0.0)
 		if roll_val <= 0.0:
 			return upgrade
 	return list.back()

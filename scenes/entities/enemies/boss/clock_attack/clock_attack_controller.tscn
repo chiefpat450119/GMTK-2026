@@ -3,12 +3,26 @@
 [ext_resource type="Script" uid="uid://db5ctpj4geufi" path="res://scenes/entities/enemies/boss/clock_attack/clock_attack_controller.gd" id="1_3tmyi"]
 [ext_resource type="PackedScene" uid="uid://om5flrq002hr" path="res://scenes/entities/enemies/boss/clock_attack/hour_hand.tscn" id="2_sd7q5"]
 [ext_resource type="PackedScene" uid="uid://cytsf0bde6cj6" path="res://scenes/entities/enemies/boss/clock_attack/clock_number.tscn" id="3_gn5rh"]
+[ext_resource type="Texture2D" uid="uid://dw41lsp0g14jp" path="res://assets/Clock/OuterClock.png" id="4_n0r7r"]
+[ext_resource type="Texture2D" uid="uid://cwtxtvh3g55mn" path="res://assets/Clock/1.png" id="4_y72nj"]
+[ext_resource type="Texture2D" uid="uid://b271qy15xv3jb" path="res://assets/Clock/2.png" id="5_4fn5s"]
+[ext_resource type="Texture2D" uid="uid://clobhrxfx71i5" path="res://assets/Clock/3.png" id="6_lds7s"]
+[ext_resource type="Texture2D" uid="uid://cdxookpbeahp2" path="res://assets/Clock/4.png" id="7_bs0sa"]
+[ext_resource type="Texture2D" uid="uid://dexfkwywvp8c3" path="res://assets/Clock/5.png" id="8_8mvkn"]
+[ext_resource type="Texture2D" uid="uid://det2nnc0clrps" path="res://assets/Clock/6.png" id="9_gndo4"]
+[ext_resource type="Texture2D" uid="uid://5rgrljyy8sm1" path="res://assets/Clock/7.png" id="10_f7qbs"]
+[ext_resource type="Texture2D" uid="uid://dn21fksktdlod" path="res://assets/Clock/8.png" id="11_mtl1a"]
+[ext_resource type="Texture2D" uid="uid://ccg5h0o46igr8" path="res://assets/Clock/9.png" id="12_ed1r5"]
+[ext_resource type="Texture2D" uid="uid://cu8ixyhdsxre2" path="res://assets/Clock/10.png" id="13_hna1p"]
+[ext_resource type="Texture2D" uid="uid://bv8143qvx6xqd" path="res://assets/Clock/11.png" id="14_nytbi"]
+[ext_resource type="Texture2D" uid="uid://g6q40xwwwtwc" path="res://assets/Clock/12.png" id="15_fp5vj"]
 
-[node name="ClockAttackController" type="Node2D" unique_id=1284821148 node_paths=PackedStringArray("clock_numbers", "clock_hand")]
+[node name="ClockAttackController" type="Node2D" unique_id=1284821148 node_paths=PackedStringArray("clock_numbers", "clock_hand", "clock_edge")]
 script = ExtResource("1_3tmyi")
-clock_radius = 400
+clock_radius = 500.0
 clock_numbers = [NodePath("Numbers/ClockNumber"), NodePath("Numbers/ClockNumber2"), NodePath("Numbers/ClockNumber3"), NodePath("Numbers/ClockNumber4"), NodePath("Numbers/ClockNumber5"), NodePath("Numbers/ClockNumber6"), NodePath("Numbers/ClockNumber7"), NodePath("Numbers/ClockNumber8"), NodePath("Numbers/ClockNumber9"), NodePath("Numbers/ClockNumber10"), NodePath("Numbers/ClockNumber11"), NodePath("Numbers/ClockNumber12")]
 clock_hand = NodePath("HourHand")
+clock_edge = NodePath("Clock Edge")
 metadata/_custom_type_script = "uid://db5ctpj4geufi"
 
 [node name="HourHand" parent="." unique_id=165784733 instance=ExtResource("2_sd7q5")]
@@ -16,25 +30,42 @@ metadata/_custom_type_script = "uid://db5ctpj4geufi"
 [node name="Numbers" type="Node2D" parent="." unique_id=1841652162]
 
 [node name="ClockNumber" parent="Numbers" unique_id=549937001 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("4_y72nj")
 
 [node name="ClockNumber2" parent="Numbers" unique_id=279438304 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("5_4fn5s")
 
 [node name="ClockNumber3" parent="Numbers" unique_id=1993985974 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("6_lds7s")
 
 [node name="ClockNumber4" parent="Numbers" unique_id=992212848 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("7_bs0sa")
 
 [node name="ClockNumber5" parent="Numbers" unique_id=1584828631 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("8_8mvkn")
 
 [node name="ClockNumber6" parent="Numbers" unique_id=940846813 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("9_gndo4")
 
 [node name="ClockNumber7" parent="Numbers" unique_id=2112617770 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("10_f7qbs")
 
 [node name="ClockNumber8" parent="Numbers" unique_id=923978746 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("11_mtl1a")
 
 [node name="ClockNumber9" parent="Numbers" unique_id=1043779041 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("12_ed1r5")
 
 [node name="ClockNumber10" parent="Numbers" unique_id=1298737988 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("13_hna1p")
 
 [node name="ClockNumber11" parent="Numbers" unique_id=1674535176 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("14_nytbi")
 
 [node name="ClockNumber12" parent="Numbers" unique_id=458288188 instance=ExtResource("3_gn5rh")]
+texture = ExtResource("15_fp5vj")
+
+[node name="Clock Edge" type="Sprite2D" parent="." unique_id=5511922]
+z_index = -1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_n0r7r")

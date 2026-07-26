@@ -26,6 +26,7 @@ id = &"sanded_off"
 title = "Sanded Off"
 description_override = "-5% acurracy, but deal 15% more damage"
 icon = ExtResource("4_dgo6c")
+rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_6fnqa")]([SubResource("Resource_3qwmv"), SubResource("Resource_r3n4k")])
 is_tradeoff = true

@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://cytsf0bde6cj6"]
 
 [ext_resource type="Script" uid="uid://l58rqv6o11oq" path="res://scenes/entities/enemies/boss/clock_attack/clock_number.gd" id="1_4x3cr"]
-[ext_resource type="Texture2D" uid="uid://b325nj3vbhpqg" path="res://assets/hud/DASH_ICON.png" id="2_wcmcp"]
 
-[node name="ClockNumber" type="Node2D" unique_id=549937001]
-script = ExtResource("1_4x3cr")
-metadata/_custom_type_script = "uid://l58rqv6o11oq"
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1852980364]
+[node name="clocknumbre" type="Sprite2D" unique_id=1852980364]
+z_index = -1
 scale = Vector2(0.335, 0.335)
-texture = ExtResource("2_wcmcp")
+script = ExtResource("1_4x3cr")
