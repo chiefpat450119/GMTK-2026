@@ -37,6 +37,7 @@ animations = [{
 size = Vector2(140, 39)
 
 [node name="BashEnemy" unique_id=1427456001 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+collision_mask = 2
 script = ExtResource("2_bsh")
 attack_interval = 1.0
 charge_time = 0.75
@@ -52,7 +53,7 @@ sand_drop_amt_stat = ExtResource("4_btkvs")
 sand_drop_amt_base = 10.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
-[node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]
+[node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
 position = Vector2(-17, 5)
 shape = SubResource("RectangleShape2D_body")
 
@@ -63,21 +64,21 @@ sprite_frames = SubResource("SpriteFrames_n1ogh")
 frame_progress = 0.4422774
 flip_h = true
 
-[node name="MovementComponent" parent="." index="2" unique_id=938060982]
+[node name="MovementComponent" parent="." index="2" unique_id=1052880888]
 base_speed = 550.0
 
-[node name="AtkComponent" parent="." index="3" unique_id=1937951491]
+[node name="ContactDmgAtkComponent" parent="." index="3" unique_id=1937951491]
 contact_damage = 9.28125
 active_on_ready = false
 
-[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
+[node name="CollisionShape2D" parent="ContactDmgAtkComponent/Hitbox" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
 position = Vector2(3, -17)
 shape = SubResource("RectangleShape2D_hitbx")
 
-[node name="HealthComponent" parent="." index="4" unique_id=1764093225]
+[node name="HealthComponent" parent="." index="4" unique_id=2054313803]
 base_hp = 27.0
 
-[node name="HealthBar" parent="." index="5" unique_id=1371187517]
+[node name="HealthBar" parent="." index="5" unique_id=1031431274]
 offset_left = -24.0
 offset_top = 71.0
 offset_right = 26.0
