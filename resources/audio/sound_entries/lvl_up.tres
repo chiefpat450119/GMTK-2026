@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cbqs2w12btlo8"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_gc5wd"]
+[ext_resource type="AudioStream" uid="uid://cshxikd0dwtji" path="res://assets/sfx/Lvl up Final.wav" id="2_d7aes"]
+
+[resource]
+script = ExtResource("1_gc5wd")
+id = &"lvl_up"
+stream = ExtResource("2_d7aes")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

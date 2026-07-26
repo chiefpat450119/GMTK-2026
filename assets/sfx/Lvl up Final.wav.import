@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cshxikd0dwtji"
+path="res://.godot/imported/Lvl up Final.wav-8a6f186a21f1f7d9e450721e9d6acde9.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Lvl up Final.wav"
+dest_files=["res://.godot/imported/Lvl up Final.wav-8a6f186a21f1f7d9e450721e9d6acde9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

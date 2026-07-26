@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cprythqg6b4qh"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_qd061"]
+[ext_resource type="AudioStream" uid="uid://d3qbk2po7jyjc" path="res://assets/sfx/Getting Exp Sound.wav" id="2_gipw4"]
+
+[resource]
+script = ExtResource("1_qd061")
+id = &"gain_exp"
+stream = ExtResource("2_gipw4")
+max_polyphony = 5
+metadata/_custom_type_script = "uid://my4saxjc4cnj"
