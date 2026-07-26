@@ -20,11 +20,11 @@ func _ready() -> void:
 	var dest := Vector2(randf_range(-20, 20), -40)
 	const duration := 1
 	tween.parallel().tween_property(label, "position", dest, duration)\
-            .as_relative()\
-            .set_ease(Tween.EASE_OUT)\
-            .set_trans(Tween.TRANS_EXPO)
+			.as_relative()\
+			.set_ease(Tween.EASE_OUT)\
+			.set_trans(Tween.TRANS_EXPO)
 	tween.parallel().tween_property(self, "modulate", Color.TRANSPARENT, duration)\
-            .set_ease(Tween.EASE_IN)\
-            .set_trans(Tween.TRANS_CUBIC)
+			.set_ease(Tween.EASE_IN)\
+			.set_trans(Tween.TRANS_CUBIC)
 
 	tween.tween_callback(queue_free)

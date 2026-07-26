@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://eejo2uww04cy" path="res://scenes/entities/weapons/machine_gun.tscn" id="1_307ol"]
 [ext_resource type="Script" uid="uid://cbngjjj8jpc1y" path="res://resources/gun_data/gun_data.gd" id="1_cwyi0"]
-[ext_resource type="Texture2D" uid="uid://rm3atufxtnw1" path="res://assets/yi.webp" id="2_kj1wo"]
+[ext_resource type="Texture2D" uid="uid://bb442qhkmtcwn" path="res://assets/weapon_card/ICON_BARRAGE.png" id="2_307ol"]
 
 [resource]
 script = ExtResource("1_cwyi0")
 title = "Machine Gun "
-description = "pewpewpewpewpewe"
-icon = ExtResource("2_kj1wo")
+description = "pewpewpew"
+icon = ExtResource("2_307ol")
 gun_scene = ExtResource("1_307ol")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"
