@@ -30,4 +30,4 @@ func orient_children():
 	@warning_ignore("integer_division")
 	var half_len = num_children * GUN_CLEARANCE / 2
 	for i in range(guns.size()):
-		guns[i].position = OFFSET * i - Vector2.UP * half_len
+		guns[i].position = OFFSET * i - Vector2.UP * half_len + guns[i].hold_offset

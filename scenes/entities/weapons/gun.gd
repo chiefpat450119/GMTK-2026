@@ -3,6 +3,10 @@ extends Node2D
 
 @export var spend_sand_event : GameEvent
 @export var sprite : Sprite2D
+## Where this gun sits relative to the slot the GunHolder gives it. Applied on top
+## of the slot position, in holder space, so it does not rotate with the aim — +y
+## lowers the gun on screen no matter which way the player is facing.
+@export var hold_offset : Vector2 = Vector2.ZERO
 @export var base_damage : float
 @export var base_fire_cooldown : float
 @export var base_spread : float
