@@ -16,5 +16,3 @@ func rotate_hand():
 
 func end():
 	atk_component.set_active(false)
-	
-	queue_free()

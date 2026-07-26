@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://br0nj154avgma" path="res://scenes/entities/enemies/boss/clock_attack/clock_attack_controller.tscn" id="11_nvjhm"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="12_boss"]
 [ext_resource type="PackedScene" uid="uid://bjv5cryiwlck2" path="res://scenes/entities/enemies/boss/boss_visuals.tscn" id="16_nvjhm"]
+[ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="17_d50xw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nvjhm"]
 radius = 111.91
@@ -64,7 +65,7 @@ script = ExtResource("5_boss")
 enemy = NodePath("../..")
 mid_state_pool = [NodePath("../Move state"), NodePath("../BossChargeState"), NodePath("../BossJumpState"), NodePath("../BossClockAtkState")]
 close_state_pool = [NodePath("../BossAttackState"), NodePath("../BossJumpAwayState")]
-far_state_pool = [NodePath("../BossChargeState"), NodePath("../BossChargeState")]
+far_state_pool = [NodePath("../BossChargeState"), NodePath("../BossJumpState")]
 anim = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
@@ -80,7 +81,7 @@ script = ExtResource("7_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 movement = NodePath("../../MovementComponent")
-charge_time = 0.2
+charge_time = 0.35
 speed_mul = 7.0
 anim = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://dxixpb5jluxll"
@@ -166,3 +167,8 @@ offset_left = -37.0
 offset_top = 159.0
 offset_right = 33.0
 offset_bottom = 167.0
+
+[node name="HitFeedback" type="Node" parent="." index="12" unique_id=986133604 node_paths=PackedStringArray("health")]
+script = ExtResource("17_d50xw")
+health = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://sqe3naukul5d"
