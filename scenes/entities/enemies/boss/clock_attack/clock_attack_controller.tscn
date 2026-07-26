@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://db5ctpj4geufi" path="res://scenes/entities/enemies/boss/clock_attack/clock_attack_controller.gd" id="1_3tmyi"]
 [ext_resource type="PackedScene" uid="uid://om5flrq002hr" path="res://scenes/entities/enemies/boss/clock_attack/hour_hand.tscn" id="2_sd7q5"]
 [ext_resource type="PackedScene" uid="uid://cytsf0bde6cj6" path="res://scenes/entities/enemies/boss/clock_attack/clock_number.tscn" id="3_gn5rh"]
-[ext_resource type="Texture2D" uid="uid://dw41lsp0g14jp" path="res://assets/Clock/OuterClock.png" id="4_n0r7r"]
+[ext_resource type="Texture2D" uid="uid://dw41lsp0g14jp" path="res://assets/Clock/OuterClock.png" id="16_n0r7r"]
 [ext_resource type="Texture2D" uid="uid://cwtxtvh3g55mn" path="res://assets/Clock/1.png" id="4_y72nj"]
 [ext_resource type="Texture2D" uid="uid://b271qy15xv3jb" path="res://assets/Clock/2.png" id="5_4fn5s"]
 [ext_resource type="Texture2D" uid="uid://clobhrxfx71i5" path="res://assets/Clock/3.png" id="6_lds7s"]
@@ -68,4 +68,4 @@ texture = ExtResource("15_fp5vj")
 [node name="Clock Edge" type="Sprite2D" parent="." unique_id=5511922]
 z_index = -1
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_n0r7r")
+texture = ExtResource("16_n0r7r")
