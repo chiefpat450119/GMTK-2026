@@ -25,6 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://dj0i6tyr4byxx" path="res://assets/Dash_Up.PNG" id="17_dashu"]
 [ext_resource type="Texture2D" uid="uid://75n0ttebb5ym" path="res://assets/Dash_Down.PNG" id="18_dashd"]
 [ext_resource type="Texture2D" uid="uid://banlpwd0nn8fu" path="res://assets/Dash_Left_Right.PNG" id="19_dashlr"]
+[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="24_brjyi"]
+[ext_resource type="Resource" uid="uid://chpxddw3fk4yj" path="res://resources/events/event_channels/max_hp_upgrade_collected_event.tres" id="25_bnv2y"]
 [ext_resource type="Script" uid="uid://codkb86hcnejp" path="res://components/after_image.gd" id="28_6u2ft"]
 [ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
 [ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
@@ -146,13 +148,19 @@ metadata/_custom_type_script = "uid://lajktjxbrn2c"
 [node name="DashComponent" parent="." unique_id=802832056 node_paths=PackedStringArray("body") instance=ExtResource("14_8dash")]
 body = NodePath("..")
 
-[node name="TimeComponent" type="Node" parent="." unique_id=1574209017]
+[node name="TimeComponent" type="Node" parent="." unique_id=1574209017 node_paths=PackedStringArray("max_time_add_event_listener")]
 script = ExtResource("10_pcd0u")
 max_time = ExtResource("11_w3p2j")
 time_decay_scale = ExtResource("12_knby6")
 time_changed_event = ExtResource("13_18p7g")
 time_damaged_event = ExtResource("14_w3p2j")
+max_time_add_event_listener = NodePath("MaxHpUpgradCollectListener")
 metadata/_custom_type_script = "uid://ulsgba0wksf4"
+
+[node name="MaxHpUpgradCollectListener" type="Node" parent="TimeComponent" unique_id=670078495]
+script = ExtResource("24_brjyi")
+event = ExtResource("25_bnv2y")
+metadata/_custom_type_script = "uid://cwms6snwyjyb2"
 
 [node name="PlayerPickup" type="Node" parent="." unique_id=919957778]
 script = ExtResource("player_pickup")

@@ -47,6 +47,7 @@ const RARITY_WEIGHTS := {
 @export var effects: Array[UpgradeEffect] = []
 @export var is_tradeoff: bool = false
 
+@export var collect_event: GameEvent
 
 ## Relative draw weight in the pool, taken from this card's rarity.
 func get_weight() -> float:

@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://b10n76hc5puas"]
 
+[ext_resource type="Resource" uid="uid://chpxddw3fk4yj" path="res://resources/events/event_channels/max_hp_upgrade_collected_event.tres" id="1_0eyjx"]
 [ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_gptf0"]
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_kxq5m"]
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="2_yb508"]
@@ -30,4 +31,5 @@ rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_gptf0")]([SubResource("Resource_gptf0"), SubResource("Resource_7cyci")])
 is_tradeoff = true
+collect_event = ExtResource("1_0eyjx")
 metadata/_custom_type_script = "uid://031polniagv2"

@@ -12,6 +12,9 @@ func start():
 	apply()
 
 func apply() -> void:
+	if definition.collect_event:
+		definition.collect_event.raise()
+	
 	for effect_index in definition.effects.size():
 		var effect := definition.effects[effect_index]
 		

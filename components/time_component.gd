@@ -10,6 +10,7 @@ extends Node
 
 @export var time_changed_event : GameEvent # Raise this for any changes to current, max time, and/or time decay
 @export var time_damaged_event : GameEvent # Raise this when player takes damage
+@export var max_time_add_event_listener : GameEventListener
 
 @export_category("Low Time Warning")
 ## Seconds remaining at which the warning sounds. Absolute.
@@ -19,6 +20,8 @@ extends Node
 
 @export_category("Death Grace Period")
 @export var death_grace_period : float = 3.0
+
+
 
 # dies
 signal depleted
@@ -40,6 +43,13 @@ static func find_in(entity: Node) -> TimeComponent:
 			return child
 	return null
 
+
+func _ready() -> void:
+	max_time_add_event_listener.response.connect(_fill_time)
+
+
+func _fill_time():
+	add_time(9999)
 
 func _process(delta: float) -> void:
 	if _dead:
