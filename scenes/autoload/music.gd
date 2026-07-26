@@ -1,93 +1,148 @@
 extends Node
-## The battle theme. A node in main.tscn, beside GameStateManager.
-##
-## Reacts to state_changed and nothing else, so no screen or menu has to remember
-## to start or stop the track:
-##   PLAYING    — running at full volume.
-##   UPGRADING  — still running, ducked, so the cards read over a quieter mix.
-##   PAUSED     — held at its playhead. Silent, and resumes where it left off.
-##   everything else (MAIN_MENU, GAME_OVER, VICTORY, SELECTING_GUN) — stopped, so the next
-##   run opens from the top of the track rather than halfway through the last one.
-##
-## Ducking moves this player's volume, never the Music bus: the bus is what a
-## volume slider owns, and pulling it down here would either fight that slider or
-## quietly overwrite the player's setting.
-##
-## PROCESS_MODE_ALWAYS for the reason SFX gives — the tree is paused for
-## UPGRADING, and a paused AudioStreamPlayer is a silent one.
 
-## The looping track. Its stream must have looping on (set in the .import), or it
-## plays through once and stops.
-@export var player: AudioStreamPlayer
-## How far the track drops while the upgrade cards are up.
 @export var duck_db: float = -12.0
-## Seconds to cross into and out of the ducked level.
 @export var fade_duration: float = 0.35
 
-## The player's authored volume, so ducking is relative to whatever it is mixed at.
-var _full_db: float = -5
+@export var wave_end_event: GameEventListener
+@export var boss_event: GameEventListener
+
+@export var battle_player: AudioStreamPlayer
+@export var boss_player: AudioStreamPlayer
+
+var _active_player: AudioStreamPlayer
+var _full_db: Dictionary[AudioStreamPlayer, float] = {}
 var _fade: Tween
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_full_db = player.volume_db
+
+	_full_db[battle_player] = battle_player.volume_db
+	_full_db[boss_player] = boss_player.volume_db
+
+	_active_player = battle_player
+
 	GameStateManager.instance.state_changed.connect(_on_state_changed)
+
+	wave_end_event.response.connect(_on_wave_end)
+	boss_event.response.connect(_on_boss_start)
+
 	_apply(GameStateManager.instance.state)
 
 
-func _on_state_changed(_from: int, to: int) -> void:
+func _on_state_changed(from: int, to: int) -> void:
+	# Returning from the upgrade screen after a normal wave starts the battle
+	# music again. A boss event can select boss_player before this happens.
+	if (
+		to == GameStateManager.GameState.PLAYING
+		and from == GameStateManager.GameState.UPGRADING
+		and _active_player == null
+	):
+		_active_player = battle_player
+
 	_apply(to)
 
 
-# --- internals ---
+func _on_wave_end() -> void:
+	_cancel_fade()
+
+	battle_player.stop()
+	battle_player.stream_paused = false
+	battle_player.volume_db = _full_db[battle_player]
+
+	if _active_player == battle_player:
+		_active_player = null
+
+
+func _on_boss_start() -> void:
+	_switch_track(boss_player)
+
+
+func _switch_track(next_player: AudioStreamPlayer) -> void:
+	_cancel_fade()
+
+	if _active_player != null and _active_player != next_player:
+		_active_player.stop()
+		_active_player.stream_paused = false
+		_active_player.volume_db = _full_db[_active_player]
+
+	_active_player = next_player
+	_apply(GameStateManager.instance.state)
+
 
 func _apply(state: int) -> void:
-	var target_db := _full_db
 	match state:
 		GameStateManager.GameState.PLAYING:
-			pass
-		GameStateManager.GameState.UPGRADING:
-			target_db += duck_db
-		GameStateManager.GameState.PAUSED:
-			player.stream_paused = true
-			return
-		_:
-			_stop()
-			return
+			_play_active(false)
 
-	# Read before unpausing, and count a held player as running: `playing` reports
-	# false while stream_paused is set, so testing it after the fact would take a
-	# resume from the pause menu for a fresh start and restart the track.
-	var running := player.playing or player.stream_paused
-	player.stream_paused = false
-	if not running:
-		# Opening a run, not returning to one: start at the target level rather
-		# than fading, so the first bar isn't a swell out of nothing.
-		_cancel_fade()
-		player.volume_db = target_db
-		player.play()
+		GameStateManager.GameState.UPGRADING:
+			_play_active(true)
+
+		GameStateManager.GameState.PAUSED:
+			if _active_player != null:
+				_active_player.stream_paused = true
+
+		_:
+			_stop_all()
+
+			# Every new run begins with the battle track selected.
+			_active_player = battle_player
+
+
+func _play_active(ducked: bool) -> void:
+	if _active_player == null:
 		return
+
+	var target_db: float = _full_db[_active_player]
+
+	if ducked:
+		target_db += duck_db
+
+	var running := (
+		_active_player.playing
+		or _active_player.stream_paused
+	)
+
+	_active_player.stream_paused = false
+
+	if not running:
+		_cancel_fade()
+		_active_player.volume_db = target_db
+		_active_player.play()
+		return
+
 	_fade_to(target_db)
 
 
-func _stop() -> void:
+func _stop_all() -> void:
 	_cancel_fade()
-	player.stop()
-	player.stream_paused = false
-	player.volume_db = _full_db
+
+	for music_player: AudioStreamPlayer in [battle_player, boss_player]:
+		music_player.stop()
+		music_player.stream_paused = false
+		music_player.volume_db = _full_db[music_player]
 
 
 func _fade_to(db: float) -> void:
-	if is_equal_approx(player.volume_db, db):
+	if _active_player == null:
 		return
+
+	if is_equal_approx(_active_player.volume_db, db):
+		return
+
 	_cancel_fade()
-	# Bound to this node, so the fade keeps running while the tree is paused.
+
 	_fade = create_tween()
-	_fade.tween_property(player, "volume_db", db, fade_duration)
+	_fade.tween_property(
+		_active_player,
+		"volume_db",
+		db,
+		fade_duration
+	)
 
 
 func _cancel_fade() -> void:
 	if _fade != null and _fade.is_valid():
 		_fade.kill()
+
 	_fade = null
