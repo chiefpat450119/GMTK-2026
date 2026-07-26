@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="8_do2mk"]
 [ext_resource type="PackedScene" uid="uid://chitburst0001" path="res://scenes/effects/hit_burst.tscn" id="9_burst"]
 [ext_resource type="Resource" uid="uid://ctrailen0001" path="res://resources/trails/enemy_shot_trail.tres" id="10_trlen"]
-[ext_resource type="PackedScene" uid="uid://ld5ydlw5hpva" path="res://scenes/entities/Shadow.tscn" id="11_k1wfi"]
+[ext_resource type="PackedScene" uid="uid://bf58y4bx7rhq5" path="res://scenes/entities/Shadow.tscn" id="11_k1wfi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4fwd"]
 size = Vector2(59, 126.5)
@@ -36,7 +36,7 @@ shot_damage = 2.0
 shoot_interval = 0.5
 wait_interval = 0.2
 projectile_scene = ExtResource("3_sht")
-projectile_trail = null
+projectile_trail = ExtResource("10_trlen")
 projectile_spawn_point = NodePath("ProjectileSpawnPoint")
 min_range = 300.0
 max_range = 331.66
