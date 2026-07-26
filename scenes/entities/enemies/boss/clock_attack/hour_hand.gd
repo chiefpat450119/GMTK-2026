@@ -10,9 +10,7 @@ func rotate_hand():
 	var tween := create_tween()
 	tween.tween_property(self, "rotation", 2 * PI, clock_rotate_time) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		
 	tween.finished.connect(end)
-	
 	await tween.finished
 
 

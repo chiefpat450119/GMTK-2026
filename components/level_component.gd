@@ -44,10 +44,14 @@ func add_xp(amount: float) -> void:
 	# an upgrade. GameStateManager queues the extra offers, so emitting more than
 	# once here just stacks up screens rather than losing the levels.
 	var needed := requirement()
+	var gained_level := false
 	while needed > 0.0 and xp >= needed:
 		xp -= needed
 		level += 1
+		gained_level = true
 		leveled_up.emit(level)
 		needed = requirement()
+	if gained_level:
+		SFX.play(&"lvl_up")
 	if xp_changed_event:
 		xp_changed_event.raise()

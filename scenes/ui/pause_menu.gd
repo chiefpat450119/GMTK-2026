@@ -11,5 +11,10 @@ func _ready() -> void:
 	super()
 	resume_button.pressed.connect(GameStateManager.instance.resume)
 	# Quit means quit the run, not the game: it drops the world and goes back to
-	# the title, where Play starts a clean run.
-	quit_button.pressed.connect(GameStateManager.instance.to_main_menu)
+	# the title, where Play starts a clean run. Through the same fade Play uses, so
+	# the world is torn down out of sight instead of vanishing under the menu.
+	quit_button.pressed.connect(_on_quit_pressed)
+
+
+func _on_quit_pressed() -> void:
+	SceneTransition.instance.play(GameStateManager.instance.to_main_menu)

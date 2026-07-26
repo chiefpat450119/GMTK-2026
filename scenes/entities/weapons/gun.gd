@@ -24,6 +24,13 @@ extends Node2D
 ## rolling its own spread — that alone makes a shotgun.
 @export var projectile_count : int = 1
 
+@export_category("Audio")
+## SoundBank id played on each shot. Empty is silent.
+@export var fire_sfx : StringName
+## SoundBank id played once the fire cooldown ends, for weapons that should sound
+## like they cycle between shots. Empty is silent.
+@export var reload_sfx : StringName
+
 @export_category("Feel")
 ## Camera trauma per trigger pull. Well under what a hit is worth: this fires
 ## constantly, so it wants to read as recoil rather than as an event.
@@ -32,12 +39,20 @@ const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 
 var can_fire : bool = true
 var ani_sprite
+# The node the draw order is actually toggled on. show_behind_parent only orders a
+# node against its own parent, so the flag has to live on the GunHolder — the gun
+# itself is nested under it and would only order against the holder.
+var gun_holder : Node2D
 
 func _ready() -> void:
 	#gets the animated sprite that the gun moves aroundd
-	for child in sprite.get_parent().get_parent().get_children():
+	var player := Player.instance
+	if player == null:
+		return
+	for child in player.get_children():
 		if child is AnimatedSprite2D:
 			ani_sprite = child
+	gun_holder = player.gun_holder
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -50,14 +65,14 @@ func _physics_process(_delta: float) -> void:
 	# Makes the gun look like it's rotating around the player in 3D space
 	var left_threshold := -45
 	var right_threshold := -135
-	if ani_sprite: #no need to do this if there is no sprite to go behind
+	if ani_sprite and gun_holder: #no need to do this if there is no sprite to go behind
 		if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
 			#including both of these is not techincally needed but
 			#if other things change it is probably more likely to work
-			sprite.get_parent().set_draw_behind_parent(true)
+			gun_holder.set_draw_behind_parent(true)
 			ani_sprite.set_draw_behind_parent(false)
 		else:
-			sprite.get_parent().set_draw_behind_parent(false)
+			gun_holder.set_draw_behind_parent(false)
 			ani_sprite.set_draw_behind_parent(true)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -74,11 +89,17 @@ func shoot() -> void:
 	for i in projectile_count:
 		_spawn_projectile()
 
-	# Once per trigger pull, not per pellet — a shotgun blast is one kick.
+	# Once per trigger pull, not per pellet — a shotgun blast is one kick, and one
+	# report. SFX owns the player, so the shot is unaffected by this gun being
+	# swapped out or freed while it rings.
 	_shake_camera(shot_trauma)
+	SFX.play(fire_sfx)
 
 	# Fire cooldown
-	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
+	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout
+	if reload_sfx:
+		SFX.play(reload_sfx)
+	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout
 	can_fire = true
 
 func _shake_camera(trauma : float) -> void:
