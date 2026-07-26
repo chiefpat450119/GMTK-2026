@@ -5,6 +5,9 @@ extends Gun
 @export var charge_rate : float
 @export var max_damage : float
 
+## Light in the channel between the rails, standing in for the coil's charge.
+@export var charge_fill : RailgunChargeFill
+
 # A full charge kicks this much harder than a tapped shot, since it's the one
 # weapon where the player chose to make the shot big.
 const CHARGED_TRAUMA_SCALE : float = 3.0
@@ -27,12 +30,17 @@ func _exit_tree() -> void:
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 
+	# super flips the sprite to face the cursor, and the fill is drawn alongside the
+	# texture rather than by it, so it has to be told to follow.
+	charge_fill.flipped = sprite.flip_v
+
 	if is_charging and can_fire:
 		cur_charge_amt = minf(cur_charge_amt + charge_rate * delta, max_charge_amount)
 		Player.instance.time_component.remove_time(base_cost * delta)
 		spend_sand_event.raise()
-		sprite.modulate = Color.RED.lerp(Color.WHITE, 1.0 - (cur_charge_amt / max_charge_amount))
-		SFX.set_pitch(charge_sfx, 1.0 + _charge_ratio(cur_charge_amt) * CHARGE_PITCH_RISE)
+		var charge_ratio := _charge_ratio(cur_charge_amt)
+		charge_fill.charge_ratio = charge_ratio
+		SFX.set_pitch(charge_sfx, 1.0 + charge_ratio * CHARGE_PITCH_RISE)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Fire") and can_fire:
@@ -44,6 +52,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_end_charge_sfx()
 		var charge := cur_charge_amt
 		cur_charge_amt = 0.0
+		charge_fill.charge_ratio = 0.0
 		shoot(charge)
 
 func _charge_ratio(charge: float) -> float:
@@ -79,8 +88,6 @@ func shoot(charge: float = 0.0) -> void:
 	SFX.play(fire_sfx)
 
 	# Fire cooldown
-	sprite.modulate = Color(0.198, 0.198, 0.198, 1.0)
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
-	sprite.modulate = Color.WHITE
 	can_fire = true
 	SFX.play(reload_sfx)
