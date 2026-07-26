@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://40wj6wn5dk78"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_65axh"]
+[ext_resource type="AudioStream" uid="uid://bam6wod4i0cjy" path="res://assets/sfx/UI Hover.wav" id="2_ha5vu"]
+
+[resource]
+script = ExtResource("1_65axh")
+stream = ExtResource("2_ha5vu")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

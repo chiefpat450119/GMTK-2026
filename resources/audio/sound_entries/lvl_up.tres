@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cbqs2w12btlo8"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_gc5wd"]
+
+[resource]
+script = ExtResource("1_gc5wd")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"
