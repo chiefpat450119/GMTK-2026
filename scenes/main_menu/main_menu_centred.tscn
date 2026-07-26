@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="7_igx8k"]
 [ext_resource type="PackedScene" uid="uid://ctu6nvxq3k8yl" path="res://scenes/ui/utils/nine_patch_button.tscn" id="8_ninep"]
 [ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="9_xy6u8"]
+[ext_resource type="Texture2D" uid="uid://csxal3bjim7ms" path="res://assets/Title_Background.png" id="10_ksiyh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_11ml1"]
 font = ExtResource("7_igx8k")
@@ -43,6 +44,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.026721504, 0.026721502, 0.026721498, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect" unique_id=15739997]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 3.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_ksiyh")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Content" type="Control" parent="." unique_id=1198322044]
 layout_mode = 1

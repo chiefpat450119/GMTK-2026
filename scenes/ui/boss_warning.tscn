@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://4jppb7ih4602"]
+
+[ext_resource type="Script" uid="uid://cknl4f46l8wns" path="res://scenes/ui/boss_warning.gd" id="1_bosswarn"]
+[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="2_evtlsn"]
+[ext_resource type="Resource" uid="uid://dd2tntkcmb3b" path="res://resources/events/event_channels/boss_incoming_event.tres" id="3_bossevt"]
+[ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="4_newrocker"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_warning"]
+font = ExtResource("4_newrocker")
+font_size = 54
+font_color = Color(0.5019608, 0.05882353, 0.05882353, 1)
+outline_size = 16
+outline_color = Color(0.9647059, 0.92156863, 0.827451, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_offset = Vector2(4, 5)
+
+[node name="BossWarning" type="Control" unique_id=1861273500 node_paths=PackedStringArray("label", "listener")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_bosswarn")
+label = NodePath("Label")
+listener = NodePath("BossIncomingListener")
+
+[node name="BossIncomingListener" type="Node" parent="." unique_id=46901645]
+script = ExtResource("2_evtlsn")
+event = ExtResource("3_bossevt")
+
+[node name="Label" type="Label" parent="." unique_id=860043623]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 150.0
+offset_bottom = 260.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "An ominous being approaches..."
+label_settings = SubResource("LabelSettings_warning")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
