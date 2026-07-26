@@ -3,20 +3,16 @@
 [ext_resource type="Script" uid="uid://c3rld6qwhbagg" path="res://scenes/autoload/music.gd" id="1_music"]
 [ext_resource type="AudioStream" uid="uid://cbibum7vt064b" path="res://assets/music/Sand of Time - Battle Track_24Bit48kHz.WAV MASTER (Back-Up).wav" id="2_battle"]
 [ext_resource type="AudioStream" uid="uid://do28357sxc4nd" path="res://assets/music/Sand of Souls - Boss Music_24Bit48kHz.WAV (MASTER).wav" id="3_lk1la"]
-[ext_resource type="AudioStream" uid="uid://bq5floposnudr" path="res://assets/music/Sand of Souls - Title Music_24Bit48kHz.WAV (MASTER).wav" id="4_0ee3t"]
-[ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="4_8487r"]
+[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="4_8487r"]
 [ext_resource type="Resource" uid="uid://c77jcnl1d6ufe" path="res://resources/events/event_channels/boss_spawn_event.tres" id="5_0ee3t"]
 [ext_resource type="Resource" uid="uid://bflkttrkfcadw" path="res://resources/events/event_channels/waves_end_event.tres" id="6_8487r"]
-[ext_resource type="Resource" uid="uid://bcii55pbaemih" path="res://resources/events/event_channels/start_game_event.tres" id="8_novcm"]
 
-[node name="Music" type="Node" unique_id=1940000001 node_paths=PackedStringArray("start_game_event", "wave_end_event", "boss_event", "battle_player", "boss_player", "menu_player")]
+[node name="Music" type="Node" unique_id=1940000001 node_paths=PackedStringArray("wave_end_event", "boss_event", "battle_player", "boss_player")]
 script = ExtResource("1_music")
-start_game_event = NodePath("StartGameListener")
 wave_end_event = NodePath("WaveEndEventListener")
 boss_event = NodePath("BossEventListener")
 battle_player = NodePath("BattleTheme")
 boss_player = NodePath("bossTheme")
-menu_player = NodePath("MainMenuTheme")
 
 [node name="BattleTheme" type="AudioStreamPlayer" parent="." unique_id=1940000002]
 stream = ExtResource("2_battle")
@@ -28,19 +24,12 @@ stream = ExtResource("3_lk1la")
 volume_db = -6.0
 bus = &"Music"
 
-[node name="MainMenuTheme" type="AudioStreamPlayer" parent="." unique_id=1333689217]
-stream = ExtResource("4_0ee3t")
-volume_db = -6.0
-bus = &"Music"
-
 [node name="BossEventListener" type="Node" parent="." unique_id=1740532578]
 script = ExtResource("4_8487r")
 event = ExtResource("5_0ee3t")
+metadata/_custom_type_script = "uid://cwms6snwyjyb2"
 
 [node name="WaveEndEventListener" type="Node" parent="." unique_id=887807116]
 script = ExtResource("4_8487r")
 event = ExtResource("6_8487r")
-
-[node name="StartGameListener" type="Node" parent="." unique_id=192420047]
-script = ExtResource("4_8487r")
-event = ExtResource("8_novcm")
+metadata/_custom_type_script = "uid://cwms6snwyjyb2"
