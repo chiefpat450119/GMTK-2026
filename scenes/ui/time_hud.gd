@@ -12,7 +12,7 @@ const REMAINDER_EPSILON := 0.01
 @export var count_duration: float = 0.4
 
 @export var gear: Control
-@export var hourglass: Control
+@export var hourglass: TextureRect
 @export var hourglassLabel: Label
 @export var fill: ProgressBar
 @export var damage_fill : ProgressBar
@@ -26,6 +26,10 @@ const REMAINDER_EPSILON := 0.01
 @export var sand_spawn_point : Control
 @export var num_popup_spawn_point : Control
 
+@export_group("Death Grace Period")
+@export var cracked_hourglass : Texture2D
+@export var grace_font_color : Color = Color(0.85, 0.11, 0.11)
+
 var _previous: float = 0.0
 var _target: float = 0.0
 var _shown: float = 0.0
@@ -34,11 +38,15 @@ var _roll_from: float = 0.0
 var _is_damage_rolling: bool = false
 var _rolling: bool = false
 var _synced: bool = false
+var _in_grace: bool = false
 var _roll_tween: Tween
 var _color_tween: Tween
 var _damage_tween: Tween
 @onready var _fill_style: StyleBoxFlat = _own_fill_style()
 @onready var _original_color: Color = _fill_style.bg_color
+@onready var _label_settings: LabelSettings = _own_label_settings()
+@onready var _base_font_color: Color = _label_settings.font_color if _label_settings else Color.BLACK
+@onready var _base_hourglass: Texture2D = hourglass.texture
 
 func _ready() -> void:
 	
@@ -47,6 +55,39 @@ func _ready() -> void:
 	spend_sand_listener.response.connect(_on_spend_sand)
 	# The player enters the tree alongside this, so take the opening reading late.
 	call_deferred("_on_time_changed")
+
+func _process(_delta: float) -> void:
+	var clock := _player_clock()
+	if clock == null or not clock.in_grace_period():
+		if _in_grace:
+			_leave_grace()
+		return
+
+	if not _in_grace:
+		_enter_grace()
+	hourglassLabel.text = "%.1f" % maxf(clock.grace_remaining(), 0.0)
+
+
+func _enter_grace() -> void:
+	_in_grace = true
+	if cracked_hourglass:
+		hourglass.texture = cracked_hourglass
+	if _label_settings:
+		_label_settings.font_color = grace_font_color
+
+
+func _leave_grace() -> void:
+	_in_grace = false
+	hourglass.texture = _base_hourglass
+	if _label_settings:
+		_label_settings.font_color = _base_font_color
+	_shown_whole = -1
+
+
+func _player_clock() -> TimeComponent:
+	if Player.instance == null:
+		return null
+	return Player.instance.time_component
 
 
 # TimeComponent raises its event on every change, including the decay it applies
@@ -263,6 +304,18 @@ func _own_fill_style() -> StyleBoxFlat:
 	var style := fill.get_theme_stylebox("fill").duplicate() as StyleBoxFlat
 	fill.add_theme_stylebox_override("fill", style)
 	return style
+
+
+# The readout's colour lives on its LabelSettings, not on the theme override beside
+# it — label_settings wins over both when it's set. And like the fill stylebox it's a
+# scene sub-resource shared by every instance, so recolouring it in place would take
+# the grace red back into the scene file with it.
+func _own_label_settings() -> LabelSettings:
+	if hourglassLabel.label_settings == null:
+		return null
+	var owned := hourglassLabel.label_settings.duplicate() as LabelSettings
+	hourglassLabel.label_settings = owned
+	return owned
 
 
 # Snaps the bar to white and fades it back, so a gain reads as a hit even when

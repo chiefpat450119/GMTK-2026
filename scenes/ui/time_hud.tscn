@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dmju5rt15nlc0"]
 
 [ext_resource type="Script" uid="uid://3pir5e86ahgu" path="res://scenes/ui/time_hud.gd" id="1_6ody3"]
-[ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="1_listener"]
+[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="1_listener"]
 [ext_resource type="Texture2D" uid="uid://cc65kdivuyd7m" path="res://assets/hud/MACHINE.png" id="1_machine"]
 [ext_resource type="PackedScene" uid="uid://cjluakn0wmxyo" path="res://scenes/ui/bar_segment.tscn" id="1_segment"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="1_time_event"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ugo8ya3h06r6" path="res://assets/hud/BAR_STARTcopy.png" id="5_bar_start"]
 [ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="6_bar_end"]
 [ext_resource type="Resource" uid="uid://c3ckre3yhjs8j" path="res://resources/events/event_channels/player_damage_event.tres" id="6_x368u"]
+[ext_resource type="Texture2D" uid="uid://dtko14qfjf4si" path="res://assets/game_over/HG_CRACKED.png" id="7_hg_cracked"]
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
 [ext_resource type="Resource" uid="uid://bt3bflleqnp2k" path="res://resources/events/event_channels/gun_spend_sand.tres" id="8_ha7dl"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="8_qgna5"]
@@ -55,6 +56,7 @@ machine_sand_scene = ExtResource("3_i6ic3")
 num_popup_scene = ExtResource("4_yao3o")
 sand_spawn_point = NodePath("Hud/Art/SandIntakeSpawnPoint")
 num_popup_spawn_point = NodePath("Hud/Art/NumberPopupSpawnPoint")
+cracked_hourglass = ExtResource("7_hg_cracked")
 
 [node name="TimeChangeListener" type="Node" parent="." unique_id=1104883240]
 script = ExtResource("1_listener")
