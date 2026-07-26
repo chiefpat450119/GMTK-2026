@@ -1,9 +1,15 @@
 class_name CardUI
-extends Control
+extends Button
 ## One selectable upgrade card.
 ##
-## Stateless until setup() fills it in. Emits selected() with the GunData it is
-## showing so the owning GunUI can apply it.
+## Stateless until setup() fills it in. Emits selected() with the Upgrade it is
+## showing so the owning UpgradeUI can apply it.
+##
+## A Button with every state stylebox emptied in the scene, rather than a Control
+## that reads raw mouse events: the card art *is* the button skin, and Button
+## already owns the click rule this needs — action_mode defaults to
+## ACTION_MODE_BUTTON_RELEASE, so a press only claims the click and dragging off
+## the card before letting go cancels it.
 
 signal selected(upgrade: Upgrade)
 
@@ -14,12 +20,10 @@ signal selected(upgrade: Upgrade)
 @export var tradeoff_icon_frame: TextureRect
 
 var _upgrade: Upgrade
-# Whether the press this release belongs to landed on this card. A release with no
-# press behind it is not a click on anything.
-var _pressed_inside := false
 
 
 func _ready() -> void:
+	pressed.connect(_on_pressed)
 	# The root handles the click, so nothing layered on top may swallow it.
 	for child in get_children():
 		if child is Control:
@@ -28,10 +32,6 @@ func _ready() -> void:
 
 func setup(upgrade: Upgrade) -> void:
 	_upgrade = upgrade
-	# A card taken down mid-press — the screen closing under the cursor — would
-	# otherwise come back still owing a release, and the next stray one would pick
-	# this upgrade without the player ever having pressed it.
-	_pressed_inside = false
 	title_label.text = upgrade.title
 	description_label.text = upgrade.get_description()
 	if upgrade.is_tradeoff:
@@ -43,29 +43,10 @@ func setup(upgrade: Upgrade) -> void:
 	if upgrade.icon:
 		icon_rect.texture = upgrade.icon
 
-# Picks on release rather than on press, the way every button does: the press is
-# only a claim on the click, and it stays reversible until the mouse comes up. A
-# card taken the instant the button went down gives the player no way to change
-# their mind, and no moment to see the card react before the screen is gone.
-func _gui_input(event: InputEvent) -> void:
+# Only reachable once the row has dealt this card an upgrade. A blank card left
+# over from a short offer is hidden rather than disabled, so this is belt and
+# braces against a press arriving before the first setup().
+func _on_pressed() -> void:
 	if _upgrade == null:
 		return
-	var button := event as InputEventMouseButton
-	if button == null or button.button_index != MOUSE_BUTTON_LEFT:
-		return
-
-	# Taken either way, so nothing behind the card sees half of a click.
-	accept_event()
-
-	if button.pressed:
-		_pressed_inside = true
-		return
-	if not _pressed_inside:
-		return
-	_pressed_inside = false
-	# The release is delivered here even when the cursor has wandered off, so a
-	# press dragged clear of the card and let go is the standard way to back out.
-	# Measured against the layout rect: the hover reaction is visual only, so the
-	# card being scaled up under the cursor doesn't move the edge being tested.
-	if Rect2(Vector2.ZERO, size).has_point(button.position):
-		selected.emit(_upgrade)
+	selected.emit(_upgrade)

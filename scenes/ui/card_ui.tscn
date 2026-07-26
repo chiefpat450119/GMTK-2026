@@ -28,12 +28,21 @@ region = Rect2(600, 0, 780, 0)
 atlas = ExtResource("4_42yac")
 region = Rect2(600, 0, 780, 0)
 
-[node name="CardUI" type="Control" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label", "normal_icon_frame", "tradeoff_icon_frame")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blank"]
+
+[node name="CardUI" type="Button" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label", "normal_icon_frame", "tradeoff_icon_frame")]
 custom_minimum_size = Vector2(780, 1080)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 780.0
 offset_bottom = 1080.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blank")
 script = ExtResource("0_cardui")
 icon_rect = NodePath("TextureRect")
 title_label = NodePath("Upgrade Name")
