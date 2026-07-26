@@ -7,41 +7,30 @@
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="6_8akj5"]
 [ext_resource type="PackedScene" uid="uid://c5aux63in05c7" path="res://scenes/entities/player/player_camera.tscn" id="6_70kwc"]
 [ext_resource type="Resource" uid="uid://dauni0mo5f7vg" path="res://resources/stats/player_stats/player_speed_stat.tres" id="7_70kwc"]
+[ext_resource type="Texture2D" uid="uid://dgcs3iyrws6gb" path="res://assets/player_sprites/Down 2.PNG" id="7_qko2e"]
+[ext_resource type="Texture2D" uid="uid://co0ph6ll5grpy" path="res://assets/player_sprites/Down_1.PNG" id="8_6u2ft"]
+[ext_resource type="Texture2D" uid="uid://du43tojuvu42d" path="res://assets/player_sprites/SIDE1.PNG" id="9_7nfft"]
+[ext_resource type="Texture2D" uid="uid://ba4rjvdmsyppu" path="res://assets/player_sprites/SIDE2.PNG" id="10_brjyi"]
 [ext_resource type="Script" uid="uid://ulsgba0wksf4" path="res://components/time_component.gd" id="10_pcd0u"]
+[ext_resource type="Texture2D" uid="uid://clq1cjlemleu6" path="res://assets/player_sprites/SIDE3.PNG" id="11_bnv2y"]
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="11_w3p2j"]
+[ext_resource type="Texture2D" uid="uid://dil0u8ut0coia" path="res://assets/player_sprites/Walk_Up_2.PNG" id="12_0xxfp"]
 [ext_resource type="Resource" uid="uid://t5pv2islrmuc" path="res://resources/stats/player_stats/player_time_decay_scale_stat.tres" id="12_knby6"]
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="13_18p7g"]
+[ext_resource type="Texture2D" uid="uid://c44nn6h3yhu3h" path="res://assets/player_sprites/Walk_Up_1.PNG" id="13_l2s38"]
 [ext_resource type="PackedScene" uid="uid://bs7u4xg0su6w3" path="res://scenes/entities/player/dash_component.tscn" id="14_8dash"]
 [ext_resource type="Resource" uid="uid://c3ckre3yhjs8j" path="res://resources/events/event_channels/player_damage_event.tres" id="14_w3p2j"]
 [ext_resource type="Script" uid="uid://ctmy8gd1uy5we" path="res://components/player_hit_feedback.gd" id="16_hitfb"]
 [ext_resource type="Script" uid="uid://cxenibyc3dfbv" path="res://scenes/entities/weapons/GunHolder.gd" id="16_yywfu"]
-[ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
-[ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
 [ext_resource type="Texture2D" uid="uid://dj0i6tyr4byxx" path="res://assets/Dash_Up.PNG" id="17_dashu"]
 [ext_resource type="Texture2D" uid="uid://75n0ttebb5ym" path="res://assets/Dash_Down.PNG" id="18_dashd"]
 [ext_resource type="Texture2D" uid="uid://banlpwd0nn8fu" path="res://assets/Dash_Left_Right.PNG" id="19_dashlr"]
+[ext_resource type="Script" uid="uid://codkb86hcnejp" path="res://components/after_image.gd" id="28_6u2ft"]
+[ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
+[ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_70kwc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_yywfu")
-}],
-"loop": 1,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("17_dashu")
-}],
-"loop": 1,
-"name": &"Dash_Up",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("18_dashd")
@@ -57,13 +46,68 @@ animations = [{
 "loop": 1,
 "name": &"Dash_Left_Right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_dashu")
+}],
+"loop": 1,
+"name": &"Dash_Up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_70kwc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yywfu")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qko2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6u2ft")
+}],
+"loop": 1,
+"name": &"Move_Down",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7nfft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_brjyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bnv2y")
+}],
+"loop": 1,
+"name": &"Move_Side",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_0xxfp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_l2s38")
+}],
+"loop": 1,
+"name": &"Move_Up",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
 radius = 30.61873
 height = 118.0
 
-[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "sprite", "gun_holder")]
+[node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "sprite", "gun_holder", "after_image")]
 z_index = 1
 y_sort_enabled = true
 collision_mask = 2
@@ -73,12 +117,13 @@ movement_component = NodePath("MovementComponent")
 dash_component = NodePath("DashComponent")
 sprite = NodePath("AnimatedSprite2D")
 gun_holder = NodePath("GunHolder")
+after_image = NodePath("AfterImageSpawner")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
-scale = Vector2(0.13148148, 0.13148148)
+scale = Vector2(0.176, 0.131)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"Idle"
+animation = &"Move_Down"
 autoplay = "Idle"
 
 [node name="Placeholder Sprite" type="Sprite2D" parent="." unique_id=1306389928]
@@ -123,3 +168,7 @@ metadata/_custom_type_script = "uid://ctmy8gd1uy5we"
 position = Vector2(0, -60)
 script = ExtResource("16_yywfu")
 metadata/_custom_type_script = "uid://cxenibyc3dfbv"
+
+[node name="AfterImageSpawner" type="Node" parent="." unique_id=80720492]
+script = ExtResource("28_6u2ft")
+metadata/_custom_type_script = "uid://codkb86hcnejp"
