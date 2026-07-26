@@ -7,7 +7,10 @@ extends StateScreen
 @export var of: Control
 @export var time: Control
 @export var play_button: Button
-@export var quit_button: Button
+# The whole button block moves as one. Its children sit in a VBoxContainer, which
+# rewrites their positions on every sort, so a per-button slide would be undone the
+# next time the container laid itself out -- the container is what gets animated.
+@export var buttons_root: Control
 
 var _anim_tween: Tween
 var _base_white_scale: Vector2
@@ -18,6 +21,10 @@ var _base_real_scale: Vector2
 # one, and the animation writing that stale value back is what knocked the logo off
 # centre after a resize. See layout_pos().
 var _base_offsets := {}
+# The button block's authored distance from the bottom edge. Kept apart from
+# _base_offsets because it is the only node here whose top offset is not where it
+# actually sits -- see buttons_rest_pos().
+var _buttons_base_bottom := 0.0
 
 # The white silhouette enters alone: up from under the frame, unwinding a
 # three-quarter turn into the centre, then swelling. The real icon joins it for the
@@ -46,6 +53,17 @@ const COLLAPSE_DELAY = SWELL_DELAY + SWELL_DURATION
 const SWAP_TIME = COLLAPSE_DELAY + COLLAPSE_DURATION
 const WORD_SLIDE_DURATION = 0.4
 const DELAY_BEFORE_WORDS = 0.2
+# when the last of the words starts moving. The buttons are timed off this rather
+# than off a figure of their own, so retiming the words carries them along.
+const LAST_WORD_DELAY = DELAY_BEFORE_WORDS + 0.4
+
+# and the buttons come up last, under the finished title. They travel the words'
+# short distance rather than the logo's, so they read as settling into place rather
+# than as a third entrance, and they start before the last word has quite landed --
+# a clean gap between the two reads as the intro having stalled.
+const BUTTONS_ENTER_FROM = Vector2(0, 60)
+const BUTTONS_SLIDE_DURATION = 0.45
+const BUTTONS_DELAY = SWAP_TIME + LAST_WORD_DELAY + 0.15
 
 
 func _ready() -> void:
@@ -54,6 +72,9 @@ func _ready() -> void:
 	_base_real_scale = real_icon.scale
 	for node in animated_nodes():
 		_base_offsets[node] = Vector2(node.offset_left, node.offset_top)
+	# read before the animation writes to it: position/size are derived every layout
+	# pass, but the offsets stay as the scene authored them until something assigns
+	_buttons_base_bottom = buttons_root.offset_bottom
 
 	# Resizing the window moves every anchored position under the animation, whether
 	# the menu is up or sitting hidden behind a run, so rebuild against the new
@@ -62,7 +83,6 @@ func _ready() -> void:
 
 	super()
 	play_button.pressed.connect(GameStateManager.instance.start_run)
-	quit_button.pressed.connect(get_tree().quit)
 
 
 ## Re-play the intro animation each time the menu comes up.
@@ -78,6 +98,9 @@ func _on_shown() -> void:
 	real_icon.modulate.a = 0
 	for word in [sand, of, time]:
 		word.modulate.a = 0
+	# hidden outright, not merely transparent: a Control at zero alpha still takes
+	# clicks, and Play would otherwise sit live and unseen over the whole intro
+	buttons_root.hide()
 	# Now wait one frame so MAIN_MENU, so process_frame never fires and the await would hang forever.
 	await get_tree().create_timer(0.0, true).timeout
 	start_anim()
@@ -88,9 +111,11 @@ func _on_hidden() -> void:
 		_anim_tween.kill()
 
 
-# Every node the animation drives, all of them children of the same Control.
+# Every node the animation drives. They do not share a parent -- the buttons hang off
+# the screen root rather than the frame the title sits in -- so layout_pos() resolves
+# each one against its own parent.
 func animated_nodes() -> Array:
-	return [hourglass_white, real_icon, sand, of, time]
+	return [hourglass_white, real_icon, sand, of, time, buttons_root]
 
 
 func layout_parent() -> Control:
@@ -102,7 +127,7 @@ func layout_parent() -> Control:
 # (and with it the offsets) on every play, so the authored offsets are kept aside in
 # _base_offsets and the anchor term is re-resolved here each time it is needed.
 func layout_pos(node: Control) -> Vector2:
-	var parent_size := layout_parent().size
+	var parent_size := (node.get_parent() as Control).size
 	var offset: Vector2 = _base_offsets[node]
 	return Vector2(node.anchor_left * parent_size.x, node.anchor_top * parent_size.y) + offset
 
@@ -148,7 +173,7 @@ func word_entries() -> Array:
 	return [
 		[sand, Vector2(-20, 0), Vector2(30, 0), DELAY_BEFORE_WORDS + 0.1],
 		[time, Vector2(20, 0), Vector2(-30, 0), DELAY_BEFORE_WORDS + 0.25],
-		[of, Vector2(0, 20), Vector2(0, -20), DELAY_BEFORE_WORDS + 0.4],
+		[of, Vector2(0, 20), Vector2(0, -20), LAST_WORD_DELAY],
 	]
 
 
@@ -254,6 +279,8 @@ func start_anim(skip_to := 0.0) -> void:
 	for entry in word_entries():
 		slide_word_in(tween, entry[0], entry[1], entry[2], SWAP_TIME + entry[3])
 
+	slide_buttons_in(tween)
+
 	# a rebuilt sequence starts from zero, so replay the part that already happened.
 	# Every tweener above declares its own .from(), so stepping lands on exactly the
 	# state the old tween was in -- only measured against the new layout.
@@ -277,6 +304,47 @@ func slide_word_in(tween: Tween, word: Control, enter_from: Vector2, slide: Vect
 			.set_delay(delay)
 
 
+# Where the button block belongs at the current window size. It cannot go through
+# layout_pos() the way the title does. The block is anchored to the bottom edge and
+# grows upward off its own content, and the nine-patch buttons make it taller than the
+# box it was authored at -- so Godot pins its bottom and pushes its top up past the
+# authored offset, and a slide aiming at that offset would land the block low by the
+# difference. The bottom is the edge the anchors actually hold, so the top is derived
+# from it and the live height instead.
+func buttons_rest_pos() -> Vector2:
+	var parent_size := (buttons_root.get_parent() as Control).size
+	# combined minimum as well as size, because the block is hidden for most of the
+	# intro and a hidden Container does not re-sort
+	var height := maxf(buttons_root.size.y, buttons_root.get_combined_minimum_size().y)
+	var bottom := buttons_root.anchor_bottom * parent_size.y + _buttons_base_bottom
+	return Vector2(
+			buttons_root.anchor_left * parent_size.x + _base_offsets[buttons_root].x,
+			bottom - height)
+
+
+# The block rises the last stretch into that spot. Writing `position` on an anchored
+# Control is a write to its offsets, so this is the same offset-driven move the words
+# make -- and it lands on the resting position re-derived above rather than on
+# wherever a previous play happened to leave it.
+func slide_buttons_in(tween: Tween) -> void:
+	var rest := buttons_rest_pos()
+	var start := rest + BUTTONS_ENTER_FROM
+	buttons_root.hide()
+	buttons_root.position = start
+	buttons_root.modulate.a = 0
+
+	# unhidden on the beat it starts moving, so it is never up and invisible
+	tween.parallel().tween_callback(buttons_root.show).set_delay(BUTTONS_DELAY)
+	tween.parallel().tween_property(buttons_root, "position", rest, BUTTONS_SLIDE_DURATION)\
+			.from(start)\
+			.set_delay(BUTTONS_DELAY)\
+			.set_ease(Tween.EASE_OUT)\
+			.set_trans(Tween.TRANS_CUBIC)
+	tween.parallel().tween_property(buttons_root, "modulate:a", 1, BUTTONS_SLIDE_DURATION)\
+			.from(0.0)\
+			.set_delay(BUTTONS_DELAY)
+
+
 # Where the intro leaves everything. Used to re-centre after a resize that lands once
 # the animation is already over, where there is no tween left to rebuild.
 func apply_rest_state() -> void:
@@ -296,3 +364,7 @@ func apply_rest_state() -> void:
 		var word: Control = entry[0]
 		word.position = layout_pos(word) + entry[1] + entry[2]
 		word.modulate.a = 1
+
+	buttons_root.position = buttons_rest_pos()
+	buttons_root.modulate.a = 1
+	buttons_root.show()

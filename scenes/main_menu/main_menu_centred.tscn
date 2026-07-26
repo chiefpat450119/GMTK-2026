@@ -15,7 +15,7 @@ font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_size = 24
 
-[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "quit_button")]
+[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "buttons_root")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -31,7 +31,7 @@ sand = NodePath("ColorRect/Sand")
 of = NodePath("ColorRect/Time")
 time = NodePath("ColorRect/Of")
 play_button = NodePath("MarginContainer/Buttons/PlayButton")
-quit_button = NodePath("")
+buttons_root = NodePath("MarginContainer")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1525688302]
 layout_mode = 1
