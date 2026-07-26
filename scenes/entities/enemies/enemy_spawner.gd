@@ -93,7 +93,7 @@ func increase_budget(wave_index: int):
 
 func spawn_boss():
 	var instance: BossSpawner = boss_spawner.instantiate()
-	get_tree().current_scene.add_child(instance)
+	get_parent().add_child(instance)
 	instance.global_position = Player.instance.global_position
 	
 	_wave_running = false
