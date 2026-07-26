@@ -109,9 +109,9 @@ func shoot(charge: float = 0.0) -> void:
 		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage + pow(charge, 2) * (max_damage - base_damage) / pow(max_charge_amount, 2)),
-		get_penetration(),
+		_get_penetration(charge),
 	)
-
+	
 	var charge_ratio := _charge_ratio(charge)
 	_shake_camera(shot_trauma * lerpf(1.0, CHARGED_TRAUMA_SCALE, charge_ratio))
 	# The one weapon whose flash varies shot to shot — a tapped shot barely sparks, a
@@ -126,6 +126,12 @@ func shoot(charge: float = 0.0) -> void:
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
 	can_fire = true
 	SFX.play(reload_sfx)
+
+func _get_penetration(charge: float) -> int:
+	var charge_ratio = _charge_ratio(charge)
+	if charge_ratio < 0.5:
+		return 0
+	return 9999999
 
 func calc_speed(charge: float):
 	return base_speed + pow(charge, 2) * (projectile_speed - base_speed) / pow(max_charge_amount, 2)
