@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://crawem36r8m62"]
 
-[ext_resource type="Script" path="res://scenes/autoload/sfx.gd" id="1_sfx"]
-[ext_resource type="Resource" path="res://resources/audio/sound_bank.tres" id="2_bank"]
+[ext_resource type="Script" uid="uid://btfxbe2cc6vel" path="res://scenes/autoload/sfx.gd" id="1_sfx"]
+[ext_resource type="Resource" uid="uid://cki2w5qsfxa7l" path="res://resources/audio/sound_bank.tres" id="2_bank"]
 
-[node name="SFX" type="Node"]
+[node name="SFX" type="Node" unique_id=1478581333]
 script = ExtResource("1_sfx")
 bank = ExtResource("2_bank")

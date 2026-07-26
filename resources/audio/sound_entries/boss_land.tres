@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cs4r2bu6weu5u"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_dxfvl"]
+[ext_resource type="AudioStream" uid="uid://bo6aygle0i84h" path="res://assets/sfx/Boss Land.wav" id="2_xoyxc"]
+
+[resource]
+script = ExtResource("1_dxfvl")
+id = &"boss_land"
+stream = ExtResource("2_xoyxc")
+volume_db = -10.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

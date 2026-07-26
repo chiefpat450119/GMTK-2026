@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cc84td1nxdsdy"
+path="res://.godot/imported/Boss Squat Long.wav-16ffff8f25dd9c355f1aa042877d832c.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Boss Squat Long.wav"
+dest_files=["res://.godot/imported/Boss Squat Long.wav-16ffff8f25dd9c355f1aa042877d832c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

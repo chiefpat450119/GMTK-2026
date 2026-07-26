@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://ddighlhjly1mr"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_d7oad"]
+[ext_resource type="AudioStream" uid="uid://bwgyltv45m2q3" path="res://assets/sfx/Boss Jump.wav" id="2_hfb7t"]
+
+[resource]
+script = ExtResource("1_d7oad")
+id = &"boss_jump"
+stream = ExtResource("2_hfb7t")
+volume_db = -5.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

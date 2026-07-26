@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://df784qk0dc8di"
+path="res://.godot/imported/Shotgun Pump.wav-b7939fe6d0a9142a9eb718273bddc148.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Shotgun Pump.wav"
+dest_files=["res://.godot/imported/Shotgun Pump.wav-b7939fe6d0a9142a9eb718273bddc148.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

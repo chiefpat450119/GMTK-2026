@@ -49,6 +49,9 @@ func enter():
 
 
 func jump_anim():
+	SFX.play(&"boss_jump")
+	SFX.play(&"boss_jump2")
+	SFX.play(&"boss_jump3")
 	await get_tree().create_timer(play_anim(&"Jump_Airborne")).timeout
 	if not _landed:
 		play_anim(&"Jump_Airborne_Freeze")
@@ -63,12 +66,14 @@ func jump_squat_delay(target_type: LandTargetType):
 	var yield_time: float
 	match target_type:
 		LandTargetType.TOWARD_PLAYER:
+			SFX.play(&"boss_squat_short")
 			yield_time = play_anim(&"Jump")
 		LandTargetType.AWAY_FROM_PLAYER:
+			SFX.play(&"boss_squat_long")
 			yield_time = play_anim(&"Jump", 2.0)
 		_:
 			return play_anim(&"Jump")
-	
+
 	await get_tree().create_timer(yield_time).timeout
 
 func get_land_pos(target_type: LandTargetType) -> Vector2:
@@ -97,6 +102,7 @@ func jump(land_pos: Vector2, delta: float):
 		land()
 
 func land():
+	SFX.play(&"boss_land")
 	jump_timer.stop()
 	offset_sprite(0)
 	
