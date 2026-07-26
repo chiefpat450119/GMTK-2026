@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_xvorg")
 title = "Rail Gun"
-description = "charge up"
+description = "If you can endure the charge up, you can deal with multiple enemies at once. A poor choice if you're impatient."
 icon = ExtResource("2_711m2")
 gun_scene = ExtResource("1_odr21")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"

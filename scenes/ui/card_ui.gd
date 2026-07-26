@@ -22,6 +22,10 @@ const RARITY_COLORS := {
 	Upgrade.Rarity.RARE: Color(0.594, 0.864, 0.94),
 	Upgrade.Rarity.EPIC: Color(0.65, 0.29, 1.0),
 	Upgrade.Rarity.LEGENDARY: Color(0.75, 0, 0.07),
+	# Deliberately hideous, and listed here rather than left to the COMMON
+	# fallback: a forced card that looked ordinary is exactly how a DEBUG rarity
+	# survives to a build unnoticed.
+	Upgrade.Rarity.DEBUG: Color(0, 1, 0.15),
 }
 
 const RARITY_NAMES := {
@@ -29,6 +33,7 @@ const RARITY_NAMES := {
 	Upgrade.Rarity.RARE: "Rare",
 	Upgrade.Rarity.EPIC: "Epic",
 	Upgrade.Rarity.LEGENDARY: "Legendary",
+	Upgrade.Rarity.DEBUG: "DEBUG",
 }
 
 ## Applied at display time rather than baked into RARITY_NAMES, so the flourish
@@ -74,8 +79,10 @@ func setup(upgrade: Upgrade) -> void:
 	else:
 		tradeoff_icon_frame.visible = false
 		normal_icon_frame.visible = true
-	if upgrade.icon:
-		icon_rect.texture = upgrade.icon
+	# Assigned unconditionally: cards are reused between offers, so guarding on a
+	# non-null icon would leave a card that has no art wearing the previous
+	# offer's, which reads as the wrong upgrade rather than as a missing icon.
+	icon_rect.texture = upgrade.icon
 	_apply_rarity(upgrade.rarity)
 
 

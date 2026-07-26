@@ -6,12 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://bvrxrup6avivh" path="res://assets/enemies/melee/fastenemy1.png" id="4_yy0l1"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_xb2f6"]
 [ext_resource type="PackedScene" uid="uid://chitburst0001" path="res://scenes/effects/hit_burst.tscn" id="6_burst"]
+[ext_resource type="PackedScene" uid="uid://ld5ydlw5hpva" path="res://scenes/entities/Shadow.tscn" id="7_0rll7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(90.5, 88)
 
 [node name="MeleeEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.85, 0.85)
 collision_mask = 2
 script = ExtResource("2_mel")
 accel_time = 0.5
@@ -35,7 +36,7 @@ hitstop_time = 0.06
 hit_knockback = 950.0
 knockback_time = 0.28
 sand_drop_amt_stat = ExtResource("3_yy0l1")
-sand_drop_amt_base = 3.0
+sand_drop_amt_base = 5.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
 [node name="AtkComponent_Area2D#CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -43,7 +44,7 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4" unique_id=2054313803]
-base_hp = 100.0
+base_hp = 60.0
 
 [node name="HitFeedback" type="Node" parent="." index="5" unique_id=869397989 node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("5_xb2f6")
@@ -68,3 +69,7 @@ offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
 displacement = Vector2(-14, 35)
+
+[node name="Shadow" parent="." index="9" unique_id=852542226 instance=ExtResource("7_0rll7")]
+position = Vector2(-1.6666679, 46.66667)
+scale = Vector2(0.20320311, 0.062376305)

@@ -33,7 +33,7 @@ func _ready() -> void:
 	dash_component.dash_started.connect(_on_dash_started)
 
 
-func _on_dash_started(iframe_duration: float) -> void:
+func _on_dash_started(_origin: Vector2, iframe_duration: float) -> void:
 	time_component.grant_invulnerability(iframe_duration)
 
 
@@ -73,4 +73,3 @@ func _update_sprite(dir: Vector2) -> void:
 		sprite.flip_h = true
 	elif dir.x > 0.0:
 		sprite.flip_h = false
-

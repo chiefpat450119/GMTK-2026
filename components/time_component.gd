@@ -44,6 +44,11 @@ static func find_in(entity: Node) -> TimeComponent:
 func _process(delta: float) -> void:
 	if _dead:
 		return
+	# God mode: freeze the time bar so it never drains. Held above the grace
+	# countdown too, so flipping it on with the clock already empty stops the
+	# window closing rather than watching it run out anyway.
+	if OS.is_debug_build() and DebugMenu.god_mode:
+		return
 	# Drained ahead of the grace return, so a window opened just before the clock
 	# emptied can't sit frozen for the whole grace period and outlast its welcome.
 	_invuln_left = maxf(_invuln_left - delta, 0.0)
@@ -69,10 +74,13 @@ func remove_time(amount: float) -> void:
 ## reactions can play off it. Damage sources should come through here; anything
 ## the player spends by choice, and the decay itself, stays on remove_time.
 ##
-## Returns whether the hit landed. An i-frame window refuses it outright, and
-## callers should read that as no contact at all rather than a hit worth zero:
-## nothing is spent, so nothing reacts and the source isn't used up either.
+## Returns whether the hit landed. An i-frame window — or god mode — refuses it
+## outright, and callers should read that as no contact at all rather than a hit
+## worth zero: nothing is spent, so nothing reacts and the source isn't used up
+## either.
 func damage(amount: float) -> bool:
+	if OS.is_debug_build() and DebugMenu.god_mode:
+		return false
 	if is_invulnerable():
 		return false
 	remove_time(amount)

@@ -7,6 +7,8 @@ var pickup_amt : float
 
 @export var sprite : Sprite2D
 
+var time_elapsed
+
 func setup(amt: float):
 	pickup_amt = amt
 	#sprite.scale = Vector2(amt, amt)
@@ -14,6 +16,8 @@ func setup(amt: float):
 		await get_tree().create_timer(despawn_time).timeout
 		if not _collected:
 			queue_free()
+	
+	time_elapsed = 0
 
 #func _ready() -> void:
 	#if despawn_time > 0:
@@ -21,6 +25,11 @@ func setup(amt: float):
 		#if not _collected:
 			#queue_free()
 
+
+func _process(delta: float) -> void:
+	time_elapsed += delta
+	sprite.scale = Vector2.ONE * (1 + (0.4 * sin(time_elapsed)))
+	sprite.offset.y = sin(time_elapsed) * 10
 
 func _on_collected(player: Player) -> void:
 	# A cleared wave drops a lot of these at once and the player walks through

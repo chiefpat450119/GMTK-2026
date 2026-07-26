@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b60x2awtpg4kb"]
 
-[ext_resource type="Script" uid="uid://cv2es8eidtixv" path="res://scenes/entities/projectiles/projectile.gd" id="1_h20tt"]
+[ext_resource type="Script" uid="uid://do8x8btxdtnn7" path="res://scenes/entities/projectiles/homing_projectile.gd" id="1_h20tt"]
 [ext_resource type="Texture2D" uid="uid://dc6l22uy3gfvf" path="res://assets/placeholder_bullet.png" id="2_0c2y5"]
 [ext_resource type="Script" uid="uid://4oq4rab4kkom" path="res://components/damage_number_popup_component.gd" id="3_prh2u"]
 [ext_resource type="PackedScene" uid="uid://ctroey3a5nb8" path="res://scenes/entities/projectiles/damage_number.tscn" id="4_872r2"]
@@ -11,6 +11,7 @@
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_h20tt")
+homing_speed = 1.1
 speed = 1000.0
 lifetime = 4.0
 damage_popup = NodePath("DamagePopupComponent")
