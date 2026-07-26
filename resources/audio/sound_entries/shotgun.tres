@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://dv2f5jcuxtmdx"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_a8tvw"]
+[ext_resource type="AudioStream" uid="uid://btu6qderav74x" path="res://assets/sfx/ShotGun.wav" id="2_3a0vc"]
+
+[resource]
+script = ExtResource("1_a8tvw")
+id = &"shotgun"
+stream = ExtResource("2_3a0vc")
+max_polyphony = 5
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

@@ -11,6 +11,12 @@ extends Node
 @export var time_changed_event : GameEvent # Raise this for any changes to current, max time, and/or time decay
 @export var time_damaged_event : GameEvent # Raise this when player takes damage
 
+@export_category("Low Time Warning")
+## Seconds remaining at which the warning sounds. Absolute.
+@export var low_time_threshold : float = 10.0
+## SoundBank id for that warning.
+@export var low_time_sfx : StringName = &"low_time"
+
 ## Emitted the moment the clock hits zero. This is what ends a run — GameWorld
 ## connects it to GameStateManager.game_over(). Only fires on the crossing, so
 ## the run doesn't end again every frame the clock sits at zero.
@@ -19,6 +25,7 @@ signal depleted
 signal damaged(amount: float)
 
 var _depleted: bool = false
+var _low_time_warned: bool = false
 
 ## Returns the TimeComponent hanging off an entity, or null if it has none.
 ## Mirrors HealthComponent.find_in so damage sources can hurt the player — whose
@@ -55,12 +62,22 @@ func _set_time(value: float) -> void:
 	time_left = clamp(value, 0, max_time.current_val())
 	if time_changed_event:
 		time_changed_event.raise()
+	_check_low_time()
 	if time_left <= 0.0:
 		if not _depleted:
 			_depleted = true
 			depleted.emit()
 	else:
 		_depleted = false
+
+func _check_low_time() -> void:
+	if low_time_threshold <= 0.0:
+		return
+	if time_left > low_time_threshold:
+		_low_time_warned = false
+	elif not _low_time_warned:
+		_low_time_warned = true
+		SFX.play(low_time_sfx)
 
 
 func time_percentage() -> float:
