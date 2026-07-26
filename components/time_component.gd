@@ -32,6 +32,7 @@ var _dead: bool = false
 var _in_grace: bool = false
 var _grace_left: float = 0.0
 var _low_time_warned: bool = false
+var _invuln_left: float = 0.0
 
 static func find_in(entity: Node) -> TimeComponent:
 	for child in entity.get_children():
@@ -43,6 +44,9 @@ static func find_in(entity: Node) -> TimeComponent:
 func _process(delta: float) -> void:
 	if _dead:
 		return
+	# Drained ahead of the grace return, so a window opened just before the clock
+	# emptied can't sit frozen for the whole grace period and outlast its welcome.
+	_invuln_left = maxf(_invuln_left - delta, 0.0)
 	# The grace window is the one state decay doesn't run in: the clock is already
 	# empty, and what counts down is the window itself.
 	if _in_grace:
@@ -64,10 +68,30 @@ func remove_time(amount: float) -> void:
 ## Time taken by a hit. Same arithmetic as remove_time, announced as a blow so
 ## reactions can play off it. Damage sources should come through here; anything
 ## the player spends by choice, and the decay itself, stays on remove_time.
-func damage(amount: float) -> void:
+##
+## Returns whether the hit landed. An i-frame window refuses it outright, and
+## callers should read that as no contact at all rather than a hit worth zero:
+## nothing is spent, so nothing reacts and the source isn't used up either.
+func damage(amount: float) -> bool:
+	if is_invulnerable():
+		return false
 	remove_time(amount)
 	damaged.emit(amount)
 	time_damaged_event.raise()
+	return true
+
+
+## Refuses incoming damage for [param duration] seconds. Windows never cut each
+## other short — the longest one standing wins — so a source handing out a brief
+## window can't shorten one already running.
+func grant_invulnerability(duration: float) -> void:
+	if _dead:
+		return
+	_invuln_left = maxf(_invuln_left, duration)
+
+
+func is_invulnerable() -> bool:
+	return _invuln_left > 0.0
 
 
 func _set_time(value: float) -> void:

@@ -29,6 +29,14 @@ func _exit_tree() -> void:
 	if instance == self:
 		instance = null
 
+func _ready() -> void:
+	dash_component.dash_started.connect(_on_dash_started)
+
+
+func _on_dash_started(iframe_duration: float) -> void:
+	time_component.grant_invulnerability(iframe_duration)
+
+
 func _physics_process(_delta: float) -> void:
 	dash_component.tick(_delta)
 

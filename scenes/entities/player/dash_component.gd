@@ -1,8 +1,11 @@
 class_name DashComponent
 extends MovementComponent
 
+signal dash_started(iframe_duration: float)
+
 @export var dash_cooldown : Stat
 @export var dash_length : float = 0.3
+@export var iframe_duration : float = 0.4
 
 var _dashing : bool = false
 var _dash_timer : float = 0.0
@@ -35,6 +38,7 @@ func request_dash(start: bool = false, dir: Vector2 = Vector2.ZERO) -> void:
 		_dash_timer = 0.0
 		if dir != Vector2.ZERO:
 			_dash_dir = dir.normalized()
+		dash_started.emit(iframe_duration)
 
 
 func is_dashing() -> bool:

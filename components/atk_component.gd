@@ -57,8 +57,9 @@ func set_active(active: bool) -> void:
 		hurtbox.monitoring = active
 
 ## Applies this entity's damage to whatever damageable pool the target has.
-## Returns false if the target had none. Enemies spend health; the player spends
-## time. base is the pre-mod number; global atk mods are applied here.
+## Returns false if the target had none, or turned the hit away. Enemies spend
+## health; the player spends time. base is the pre-mod number; global atk mods
+## are applied here.
 func attack(base: float, target: Node) -> bool:
 	var damage := damage_for(base)
 
@@ -67,10 +68,12 @@ func attack(base: float, target: Node) -> bool:
 		health.remove_hp(damage)
 		return true
 
+	# A hit refused by i-frames reports as no hit, so the attack interval isn't
+	# spent on it. The overlap re-rolls each frame, so the strike lands the moment
+	# the window closes if the target is still in contact.
 	var time := TimeComponent.find_in(target)
 	if time:
-		time.damage(damage)
-		return true
+		return time.damage(damage)
 
 	return false
 
