@@ -15,7 +15,10 @@ extends Control
 
 func _ready() -> void:
 	GameStateManager.instance.state_changed.connect(_on_state_changed)
-	_apply(GameStateManager.instance.state)
+	var active := GameStateManager.instance.state == state
+	visible = active
+	if active:
+		_on_shown()
 
 
 func _on_state_changed(_from: int, to: int) -> void:

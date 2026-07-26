@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://b5ohnrmp13xa5"]
+
+[ext_resource type="Script" uid="uid://llrm5fw2tbeh" path="res://scenes/main_menu/main_menu.gd" id="1_11ml1"]
+[ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="2_nverk"]
+[ext_resource type="Texture2D" uid="uid://o7lp6gj5jdn1" path="res://assets/square.png" id="3_xy6u8"]
+[ext_resource type="Texture2D" uid="uid://cc65kdivuyd7m" path="res://assets/hud/MACHINE.png" id="4_ksiyh"]
+[ext_resource type="Texture2D" uid="uid://cmelh0rlk6wwa" path="res://assets/hud/GEARcopy.png" id="5_1dlmn"]
+[ext_resource type="LabelSettings" uid="uid://ckd02qkdvmyfw" path="res://scenes/main_menu/title_big.tres" id="6_htj3h"]
+[ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="7_igx8k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_11ml1"]
+font = ExtResource("7_igx8k")
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+outline_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5seab"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xg86"]
+bg_color = Color(0.34407574, 0.34407577, 0.3440756, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thkx5"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "quit_button")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_11ml1")
+hourglass_white = NodePath("ColorRect/Hourglass White")
+real_icon = NodePath("ColorRect/Real Icon")
+gear = NodePath("ColorRect/Real Icon/Gear")
+sand = NodePath("ColorRect/Sand")
+of = NodePath("ColorRect/Time")
+time = NodePath("ColorRect/Of")
+play_button = NodePath("MarginContainer/Buttons/PlayButton")
+quit_button = NodePath("MarginContainer/Buttons/QuitButton")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1525688302]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.026721504, 0.026721502, 0.026721498, 1)
+
+[node name="Hourglass White" type="TextureRect" parent="ColorRect" unique_id=883698836]
+clip_children = 1
+layout_mode = 0
+offset_left = 282.58502
+offset_top = -148.19997
+offset_right = 980.585
+offset_bottom = 782.80005
+scale = Vector2(0.45, 0.45)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_nverk")
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/Hourglass White" unique_id=470056824]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_xy6u8")
+
+[node name="Real Icon" type="TextureRect" parent="ColorRect" unique_id=1057983472]
+layout_mode = 0
+offset_left = 163.58499
+offset_top = -230.20001
+offset_right = 1513.585
+offset_bottom = 849.8
+scale = Vector2(0.47, 0.47)
+pivot_offset_ratio = Vector2(0.35, 0.5)
+texture = ExtResource("4_ksiyh")
+
+[node name="Gear" type="TextureRect" parent="ColorRect/Real Icon" unique_id=1924746912]
+layout_mode = 0
+offset_left = 82.07442
+offset_top = 203.82979
+offset_right = 854.0744
+offset_bottom = 975.8298
+texture = ExtResource("5_1dlmn")
+
+[node name="HourglassReal" type="TextureRect" parent="ColorRect/Real Icon" unique_id=573808805]
+layout_mode = 0
+offset_left = 119.62616
+offset_top = 95.32709
+offset_right = 817.62616
+offset_bottom = 1026.3271
+texture = ExtResource("2_nverk")
+
+[node name="Sand" type="Label" parent="ColorRect" unique_id=875591071]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 121.735
+offset_right = 560.0002
+offset_bottom = 245.73515
+text = "Sand"
+label_settings = ExtResource("6_htj3h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="ColorRect" unique_id=43748029]
+layout_mode = 0
+offset_left = 703.05493
+offset_top = 121.735
+offset_right = 916.05493
+offset_bottom = 245.73515
+text = "Time"
+label_settings = ExtResource("6_htj3h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Of" type="Label" parent="ColorRect" unique_id=1757778761]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 130.0
+offset_right = 757.0
+offset_bottom = 254.00012
+text = "Of"
+label_settings = SubResource("LabelSettings_11ml1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=93433754]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -162.0
+offset_right = 140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 150
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer" unique_id=573013305]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="PlayButton" type="Button" parent="MarginContainer/Buttons" unique_id=1032437129]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5seab")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4xg86")
+theme_override_styles/hover = SubResource("StyleBoxFlat_thkx5")
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/Buttons" unique_id=1321001028]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5seab")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4xg86")
+theme_override_styles/hover = SubResource("StyleBoxFlat_thkx5")
+text = "Quit"

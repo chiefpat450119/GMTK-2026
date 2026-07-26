@@ -9,6 +9,13 @@ extends StateScreen
 @export var play_button: Button
 @export var quit_button: Button
 
+var _anim_tween: Tween
+var _base_white_scale: Vector2
+var _base_real_pos: Vector2
+var _base_real_scale: Vector2
+var _base_sand_pos: Vector2
+var _base_of_pos: Vector2
+var _base_time_pos: Vector2
 
 # The white silhouette enters alone: up from under the frame, unwinding a
 # three-quarter turn into the centre, then swelling. The real icon joins it for the
@@ -43,10 +50,20 @@ func _ready() -> void:
 	super()
 	play_button.pressed.connect(GameStateManager.instance.start_run)
 	quit_button.pressed.connect(get_tree().quit)
+	
+	_base_white_scale = hourglass_white.scale
+	_base_real_pos = real_icon.position
+	_base_real_scale = real_icon.scale
+	_base_sand_pos = sand.position
+	_base_of_pos = of.position
+	_base_time_pos = time.position
 
 
 ## Re-play the intro animation each time the menu comes up.
 func _on_shown() -> void:
+	if _anim_tween and _anim_tween.is_valid():
+		_anim_tween.kill()
+
 	# Snap to the animation-start state immediately, before any frame is
 	# rendered, so the finished layout is never visible. We don't need sizes
 	# for alpha/rotation — only position/scale math needs a layout pass.
@@ -55,9 +72,14 @@ func _on_shown() -> void:
 	real_icon.modulate.a = 0
 	for word in [sand, of, time]:
 		word.modulate.a = 0
-	# Now wait one frame so Control sizes are valid for the tween position math.
-	await get_tree().process_frame
+	# Now wait one frame so MAIN_MENU, so process_frame never fires and the await would hang forever.
+	await get_tree().create_timer(0.0, true).timeout
 	start_anim()
+
+
+func _on_hidden() -> void:
+	if _anim_tween and _anim_tween.is_valid():
+		_anim_tween.kill()
 
 
 # Seconds into the climb at which it has covered the given fraction of its distance.
@@ -81,6 +103,14 @@ func silhouette_pos_at(icon_pos: Vector2, node_scale: Vector2) -> Vector2:
 
 
 func start_anim() -> void:
+	# Restore base positions before animating, so reopening the menu works correctly
+	hourglass_white.scale = _base_white_scale
+	real_icon.position = _base_real_pos
+	real_icon.scale = _base_real_scale
+	sand.position = _base_sand_pos
+	of.position = _base_of_pos
+	time.position = _base_time_pos
+
 	var white_base_scale = hourglass_white.scale
 	var real_rest_pos = real_icon.position
 	var real_final_pos = real_rest_pos - Vector2(0, FINAL_RISE)
@@ -109,7 +139,8 @@ func start_anim() -> void:
 	time.position.x += 20
 	of.position.y += 20
 
-	var tween = create_tween()
+	_anim_tween = create_tween()
+	var tween = _anim_tween
 	tween.set_parallel(true)
 
 	# rises into the frame while unwinding to upright
@@ -168,7 +199,8 @@ func start_anim() -> void:
 
 
 func animate_words() -> void:
-	var tween = create_tween()
+	_anim_tween = create_tween()
+	var tween = _anim_tween
 	slide_word_in(tween, sand, Vector2(30, 0), DELAY_BEFORE_WORDS + 0.1)
 	slide_word_in(tween, time, Vector2(-30, 0), DELAY_BEFORE_WORDS + 0.25)
 	slide_word_in(tween, of, Vector2(0, -20), DELAY_BEFORE_WORDS + 0.4)
