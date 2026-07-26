@@ -22,6 +22,8 @@ const CHARGE_PITCH_RISE : float = 0.6
 var cur_charge_amt : float = 0.0
 var is_charging : bool = false
 
+@export var base_speed := 200
+
 # The sound lives on the SFX autoload, not on this node, so nothing stops it if
 # the run is torn down mid-charge — it would hold that note over the menus.
 func _exit_tree() -> void:
@@ -97,7 +99,7 @@ func shoot(charge: float = 0.0) -> void:
 
 	can_fire = false
 	var projectile : Projectile = projectile_scene.instantiate()
-	projectile.speed = projectile_speed
+	projectile.speed = calc_speed(charge)
 	projectile.trail_settings = projectile_trail
 	get_tree().current_scene.add_child(projectile)
 	var shot_spread := shot_spread_stat.current_val(base_spread)
@@ -123,3 +125,7 @@ func shoot(charge: float = 0.0) -> void:
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
 	can_fire = true
 	SFX.play(reload_sfx)
+
+
+func calc_speed(charge: float):
+	return base_speed + pow(charge, 2) * (projectile_speed - base_speed) / pow(max_charge_amount, 2)

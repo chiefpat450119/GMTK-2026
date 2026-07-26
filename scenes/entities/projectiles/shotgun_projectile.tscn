@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dtligj7sqmy3x"]
+
+[ext_resource type="Script" uid="uid://cv2es8eidtixv" path="res://scenes/entities/projectiles/projectile.gd" id="1_3dynt"]
+[ext_resource type="Texture2D" uid="uid://db6ebmmlc3gbo" path="res://assets/bullets/bullet1.png" id="2_e7j3y"]
+[ext_resource type="Script" uid="uid://4oq4rab4kkom" path="res://components/damage_number_popup_component.gd" id="3_uydx3"]
+[ext_resource type="PackedScene" uid="uid://ctroey3a5nb8" path="res://scenes/entities/projectiles/damage_number.tscn" id="4_6d4aj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
+
+[node name="Projectile" type="Area2D" unique_id=1243975335 node_paths=PackedStringArray("damage_popup")]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_3dynt")
+speed = 1000.0
+lifetime = 0.3
+damage_popup = NodePath("DamagePopupComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1036717662]
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_e7j3y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1243975336]
+shape = SubResource("CircleShape2D_proj")
+
+[node name="DamagePopupComponent" type="Node" parent="." unique_id=949591978]
+script = ExtResource("3_uydx3")
+damage_number = ExtResource("4_6d4aj")
