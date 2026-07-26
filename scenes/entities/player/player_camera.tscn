@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="3_hbahr"]
 
 [node name="PlayerCamera" type="Camera2D" unique_id=1749758649]
+top_level = true
 
 [node name="CameraFollow" type="Node" parent="." unique_id=1429411717 node_paths=PackedStringArray("camera")]
 script = ExtResource("1_wumoh")
