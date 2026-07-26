@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dyvm7fbulb8r8" path="res://scenes/ui/machine_sand.tscn" id="3_i6ic3"]
 [ext_resource type="Texture2D" uid="uid://ugo8ya3h06r6" path="res://assets/hud/BAR_STARTcopy.png" id="5_bar_start"]
 [ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="6_bar_end"]
+[ext_resource type="Resource" uid="uid://c3ckre3yhjs8j" path="res://resources/events/event_channels/player_damage_event.tres" id="6_x368u"]
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="8_qgna5"]
 [ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="9_new_rocker"]
@@ -36,13 +37,15 @@ font_size = 500
 font_color = Color(0.0142752165, 0.014275218, 0.014275218, 1)
 outline_size = 73
 
-[node name="TimeHud" type="CanvasLayer" unique_id=1439624027 node_paths=PackedStringArray("gear", "hourglass", "hourglassLabel", "fill", "time_listener", "row", "sand_spawn_point")]
+[node name="TimeHud" type="CanvasLayer" unique_id=1439624027 node_paths=PackedStringArray("gear", "hourglass", "hourglassLabel", "fill", "damage_fill", "time_listener", "damaged_listener", "row", "sand_spawn_point")]
 script = ExtResource("1_6ody3")
 gear = NodePath("Hud/Art/Gear")
 hourglass = NodePath("Hud/Art/Hourglass")
 hourglassLabel = NodePath("Hud/Art/Timer")
 fill = NodePath("Hud/Art/Bar/Overlay/Fill")
+damage_fill = NodePath("Hud/Art/Bar/Overlay/DamageFill")
 time_listener = NodePath("TimeChangeListener")
+damaged_listener = NodePath("TimeDamagedListener")
 row = NodePath("Hud/Art/Bar/Row")
 segment_scene = ExtResource("1_segment")
 machine_sand_scene = ExtResource("3_i6ic3")
@@ -51,6 +54,10 @@ sand_spawn_point = NodePath("Hud/Art/SandIntakeSpawnPoint")
 [node name="TimeChangeListener" type="Node" parent="." unique_id=1104883240]
 script = ExtResource("1_listener")
 event = ExtResource("1_time_event")
+
+[node name="TimeDamagedListener" type="Node" parent="." unique_id=426878698]
+script = ExtResource("1_listener")
+event = ExtResource("6_x368u")
 
 [node name="Hud" type="Control" parent="." unique_id=1104883201]
 layout_mode = 3
@@ -177,6 +184,7 @@ value = 100.0
 show_percentage = false
 
 [node name="DamageFill" type="ProgressBar" parent="Hud/Art/Bar/Overlay" unique_id=1210942074]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -187,7 +195,7 @@ offset_bottom = 294.29663
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_bar_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_i6ic3")
-value = 100.0
+value = 50.0
 show_percentage = false
 
 [node name="Hourglass" type="TextureRect" parent="Hud/Art" unique_id=1104883211]

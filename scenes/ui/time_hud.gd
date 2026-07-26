@@ -17,6 +17,7 @@ const REMAINDER_EPSILON := 0.01
 @export var fill: ProgressBar
 @export var damage_fill : ProgressBar
 @export var time_listener: GameEventListener
+@export var damaged_listener: GameEventListener
 @export var row: HBoxContainer
 @export var segment_scene: PackedScene
 @export var machine_sand_scene : PackedScene
@@ -26,15 +27,19 @@ var _target: float = 0.0
 var _shown: float = 0.0
 var _shown_whole: int = -1
 var _roll_from: float = 0.0
+var _is_damage_rolling: bool = false
 var _rolling: bool = false
 var _synced: bool = false
 var _roll_tween: Tween
 var _color_tween: Tween
+var _damage_tween: Tween
 @onready var _fill_style: StyleBoxFlat = _own_fill_style()
 @onready var _original_color: Color = _fill_style.bg_color
 
 func _ready() -> void:
+	
 	time_listener.response.connect(_on_time_changed)
+	damaged_listener.response.connect(_remove_time)
 	# The player enters the tree alongside this, so take the opening reading late.
 	call_deferred("_on_time_changed")
 
@@ -58,6 +63,7 @@ func _on_time_changed() -> void:
 
 	var previous := _target
 	_target = time_component.time_left
+	
 
 	if not _synced:
 		# First reading: snap, so the HUD doesn't roll up from zero on spawn.
@@ -65,9 +71,13 @@ func _on_time_changed() -> void:
 		_apply(_target)
 	elif _target - previous >= 0:
 		_add_time(_target - previous)
-	#elif _target - previous < 0:
-		#_remove_time(_target - previous)
 	elif not _rolling:
+		# Resize damage bar to match time amount before damage taken
+		damage_fill.max_value = fill.max_value
+		damage_fill.anchor_right = fill.anchor_right
+		if not _is_damage_rolling:
+			damage_fill.value = previous
+		
 		# Decay arrives as a stream of small decreases, which just track. While
 		# a roll-up is running it owns the readout instead.
 		_apply(_target)
@@ -140,15 +150,27 @@ func _add_time(amount: float) -> void:
 	_flash_fill()
 
 ## Plays the time-removed reaction: displays time removed segment and rolls it down.
-## Called automatically when the component reports a loss.
-func _remove_time(amount : float) -> void:
-	damage_fill.anchor_right = fill.anchor_right
-	damage_fill.value = fill.value
-	var tween = create_tween()
-	tween.tween_property(damage_fill, "value", fill.value, 1)\
-	.set_delay(0.5)\
-	.set_ease(Tween.EASE_IN_OUT)\
-	.set_trans(Tween.TRANS_SINE)
+## Called automatically when TimeComponent emits the damaged signal
+func _remove_time() -> void:
+	_is_damage_rolling = true
+	
+	# Damage bar drains down to new health
+	damage_fill.show()
+	_damage_tween = _restart(_damage_tween)
+	var init_wait := 0.2
+	var duration := 0.5
+	# Accounts for the time that has passed while the tween is happening
+	var dest := _shown - (duration + init_wait) 
+	_damage_tween.tween_property(damage_fill, "value", dest, duration)\
+	.set_delay(init_wait)\
+	.set_ease(Tween.EASE_IN)\
+	.set_trans(Tween.TRANS_CUBIC)
+	_damage_tween.tween_callback(on_damage_tween_end)
+
+func on_damage_tween_end():
+	damage_fill.hide()
+	_is_damage_rolling = false
+
 
 # Shows picked up sand being dropped into the intake pipe part of the
 # time machine sprite and a number popup to show amount of sand gained

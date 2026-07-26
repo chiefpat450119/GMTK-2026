@@ -9,6 +9,7 @@ extends Node
 @onready var time_left := max_time.current_val()
 
 @export var time_changed_event : GameEvent # Raise this for any changes to current, max time, and/or time decay
+@export var time_damaged_event : GameEvent # Raise this when player takes damage
 
 ## Emitted the moment the clock hits zero. This is what ends a run — GameWorld
 ## connects it to GameStateManager.game_over(). Only fires on the crossing, so
@@ -47,6 +48,7 @@ func remove_time(amount: float) -> void:
 func damage(amount: float) -> void:
 	remove_time(amount)
 	damaged.emit(amount)
+	time_damaged_event.raise()
 
 
 func _set_time(value: float) -> void:
