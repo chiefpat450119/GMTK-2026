@@ -7,6 +7,4 @@ script = ExtResource("1_trailcfg")
 lifetime = 0.18
 width = 5.5
 color = Color(2.2, 0.9, 0.6, 1)
-min_distance = 4.0
-additive = true
 metadata/_custom_type_script = "uid://ctrailcfg0001"
