@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cdrain0000001"]
+
+[ext_resource type="Script" uid="uid://4h4ci8x5bc6q" path="res://scenes/ui/color_drain.gd" id="1_drain"]
+[ext_resource type="Shader" uid="uid://bf6ssynf2ynrh" path="res://assets/shaders/color_drain.gdshader" id="2_drainsh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_drain"]
+frequency = 0.007
+fractal_octaves = 3
+fractal_lacunarity = 1.085
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_drain"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_drain")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_drain"]
+shader = ExtResource("2_drainsh")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_drain")
+shader_parameter/drain = 0.0
+shader_parameter/noise_scale = 1.6
+shader_parameter/noise_bias = 1.0
+shader_parameter/partial_drain = 0.55
+shader_parameter/final_drain = 1.0
+shader_parameter/final_from = 0.85
+shader_parameter/drift = 0.01
+
+[node name="ColorDrain" type="ColorRect" unique_id=1960000001]
+process_mode = 1
+material = SubResource("ShaderMaterial_drain")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_drain")
+appear_at = 0.35
+full_at = 0.0
