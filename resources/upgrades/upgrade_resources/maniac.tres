@@ -25,6 +25,7 @@ id = &"maniac"
 title = "Maniac"
 description_override = "Deal 50% more damage, but -15s of max time capacity"
 icon = ExtResource("4_j3o4l")
+rarity = 2
 max_stacks = 3
 effects = Array[ExtResource("1_1ixxj")]([SubResource("Resource_j3o4l"), SubResource("Resource_wl8u3")])
 is_tradeoff = true
