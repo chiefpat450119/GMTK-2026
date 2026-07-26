@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dtu6ixo6e3rfw"]
+
+[ext_resource type="Texture2D" uid="uid://bq2fy0soggyq0" path="res://assets/circle.png" id="1_v0ib6"]
+
+[node name="Shadow" type="Sprite2D" unique_id=852542226]
+modulate = Color(0, 0, 0, 0.4509804)
+z_index = -2
+scale = Vector2(0.61, 0.18)
+texture = ExtResource("1_v0ib6")
