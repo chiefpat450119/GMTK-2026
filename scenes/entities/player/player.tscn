@@ -62,10 +62,9 @@ texture = ExtResource("2_g2els")
 scale = Vector2(0.94713265, 1.0591915)
 shape = SubResource("CapsuleShape2D_g4v7s")
 
-[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
-position = Vector2(0, -35)
-
 [node name="PlayerCamera" parent="." unique_id=1749758649 instance=ExtResource("6_70kwc")]
+
+[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
 
 [node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
