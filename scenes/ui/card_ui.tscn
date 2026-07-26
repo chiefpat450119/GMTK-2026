@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d1b5yelfu11ci" path="res://assets/CARDPARTS/tradeoff_upgrade_frame.tres" id="7_u2fwa"]
 [ext_resource type="FontFile" uid="uid://4h8jintlmxgn" path="res://assets/fonts/Acme-Regular.ttf" id="8_sr4dn"]
 [ext_resource type="Texture2D" uid="uid://c3qeyt0tpuhnn" path="res://assets/CARDPARTS/ICON_CLR/S_NET__ICON.png" id="8_u2fwa"]
+[ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="11_nhbwl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5q575"]
 atlas = ExtResource("1_amabp")
@@ -27,12 +28,21 @@ region = Rect2(600, 0, 780, 0)
 atlas = ExtResource("4_42yac")
 region = Rect2(600, 0, 780, 0)
 
-[node name="CardUI" type="Control" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label", "normal_icon_frame", "tradeoff_icon_frame")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blank"]
+
+[node name="CardUI" type="Button" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label", "normal_icon_frame", "tradeoff_icon_frame")]
 custom_minimum_size = Vector2(780, 1080)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 780.0
 offset_bottom = 1080.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blank")
 script = ExtResource("0_cardui")
 icon_rect = NodePath("TextureRect")
 title_label = NodePath("Upgrade Name")
@@ -124,3 +134,7 @@ text = "Warwick woof woof bark woof 600 movement speed I KNOW ZAUNS STREETS LIKE
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="ButtonFeedback" type="Node" parent="." unique_id=743299139]
+script = ExtResource("11_nhbwl")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"
