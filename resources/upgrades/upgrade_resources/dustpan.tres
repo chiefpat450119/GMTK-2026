@@ -18,6 +18,7 @@ id = &"dustpan"
 title = "Dustpan"
 description_override = "Enemies drop 20% more sand"
 icon = ExtResource("3_4fr1t")
+rarity = 3
 max_stacks = 5
 effects = Array[ExtResource("1_4a0le")]([SubResource("Resource_4fr1t")])
 metadata/_custom_type_script = "uid://031polniagv2"

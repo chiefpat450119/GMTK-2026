@@ -30,7 +30,7 @@ region = Rect2(600, 0, 780, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blank"]
 
-[node name="CardUI" type="Button" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label", "normal_icon_frame", "tradeoff_icon_frame")]
+[node name="CardUI" type="Button" unique_id=1354915375 node_paths=PackedStringArray("icon_rect", "title_label", "description_label", "normal_icon_frame", "tradeoff_icon_frame", "gem_rect", "back_rect", "rarity_label")]
 custom_minimum_size = Vector2(780, 1080)
 layout_mode = 3
 anchors_preset = 0
@@ -49,6 +49,9 @@ title_label = NodePath("Upgrade Name")
 description_label = NodePath("Description")
 normal_icon_frame = NodePath("NormalUpgradeFrame")
 tradeoff_icon_frame = NodePath("TradeoffUpgradeFrame")
+gem_rect = NodePath("Gem")
+back_rect = NodePath("Back")
+rarity_label = NodePath("Rarity Text")
 
 [node name="Back" type="TextureRect" parent="." unique_id=1695400008]
 layout_mode = 0

@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cmelh0rlk6wwa" path="res://assets/hud/GEARcopy.png" id="5_1dlmn"]
 [ext_resource type="LabelSettings" uid="uid://ckd02qkdvmyfw" path="res://scenes/main_menu/title_big.tres" id="6_htj3h"]
 [ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="7_igx8k"]
+[ext_resource type="PackedScene" uid="uid://ctu6nvxq3k8yl" path="res://scenes/ui/utils/nine_patch_button.tscn" id="8_ninep"]
+[ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="9_xy6u8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_11ml1"]
 font = ExtResource("7_igx8k")
@@ -14,16 +16,7 @@ font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_size = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5seab"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xg86"]
-bg_color = Color(0.34407574, 0.34407577, 0.3440756, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thkx5"]
-bg_color = Color(0.8, 0.8, 0.8, 1)
-
-[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "quit_button")]
+[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "buttons_root")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -39,7 +32,7 @@ sand = NodePath("ColorRect/Sand")
 of = NodePath("ColorRect/Time")
 time = NodePath("ColorRect/Of")
 play_button = NodePath("MarginContainer/Buttons/PlayButton")
-quit_button = NodePath("MarginContainer/Buttons/QuitButton")
+buttons_root = NodePath("MarginContainer")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1525688302]
 layout_mode = 1
@@ -170,24 +163,12 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 24
 
-[node name="PlayButton" type="Button" parent="MarginContainer/Buttons" unique_id=1032437129]
+[node name="PlayButton" parent="MarginContainer/Buttons" unique_id=1032437129 instance=ExtResource("8_ninep")]
+custom_minimum_size = Vector2(109.2, 52)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_5seab")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_4xg86")
-theme_override_styles/hover = SubResource("StyleBoxFlat_thkx5")
-text = "Play"
+label_text = "Play"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/Buttons" unique_id=1321001028]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_5seab")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_4xg86")
-theme_override_styles/hover = SubResource("StyleBoxFlat_thkx5")
-text = "Quit"
+[node name="ButtonFeedback" type="Node" parent="MarginContainer/Buttons/PlayButton" unique_id=689710815 node_paths=PackedStringArray("target")]
+script = ExtResource("9_xy6u8")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"

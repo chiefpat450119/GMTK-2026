@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bpausemenu001"]
 
-[ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="1_pause"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0, 0, 0, 1)
+[ext_resource type="Script" uid="uid://bfshy6dqoldem" path="res://scenes/ui/pause_menu.gd" id="1_pause"]
+[ext_resource type="LabelSettings" uid="uid://ckd02qkdvmyfw" path="res://scenes/main_menu/title_big.tres" id="2_8uki6"]
+[ext_resource type="PackedScene" uid="uid://ctu6nvxq3k8yl" path="res://scenes/ui/utils/nine_patch_button.tscn" id="2_ninep"]
+[ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="3_fdbck"]
 
 [node name="PauseMenu" type="Control" unique_id=1920000001 node_paths=PackedStringArray("resume_button", "quit_button")]
 layout_mode = 3
@@ -13,9 +13,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pause")
+resume_button = NodePath("Layout/ResumeButton")
+quit_button = NodePath("Layout/QuitButton")
 state = 2
-resume_button = NodePath("Panel/Layout/ResumeButton")
-quit_button = NodePath("Panel/Layout/QuitButton")
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1920000002]
 layout_mode = 1
@@ -24,58 +24,50 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.6)
 
-[node name="Panel" type="ColorRect" parent="." unique_id=1920000003]
+[node name="Layout" type="VBoxContainer" parent="." unique_id=1920000004]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -196.0
-offset_top = -250.0
-offset_right = 196.0
-offset_bottom = 250.0
+offset_left = -140.0
+offset_top = -180.0
+offset_right = 140.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Layout" type="VBoxContainer" parent="Panel" unique_id=1920000004]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = -32.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Title" type="Label" parent="Panel/Layout" unique_id=1920000005]
+[node name="Title" type="Label" parent="Layout" unique_id=1920000005]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 75
 text = "Paused"
+label_settings = ExtResource("2_8uki6")
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="Panel/Layout" unique_id=1920000006]
+[node name="ResumeButton" parent="Layout" unique_id=1920000006 instance=ExtResource("2_ninep")]
+custom_minimum_size = Vector2(128, 52)
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Resume"
+label_text = "Resume"
 
-[node name="OptionsButton" type="Button" parent="Panel/Layout" unique_id=1920000007]
-layout_mode = 2
-disabled = true
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Options"
+[node name="ButtonFeedback" type="Node" parent="Layout/ResumeButton" unique_id=1920000009 node_paths=PackedStringArray("target")]
+script = ExtResource("3_fdbck")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"
 
-[node name="QuitButton" type="Button" parent="Panel/Layout" unique_id=1920000008]
+[node name="QuitButton" parent="Layout" unique_id=1920000008 instance=ExtResource("2_ninep")]
+custom_minimum_size = Vector2(109.2, 52)
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Quit"
+label_text = "Quit"
+
+[node name="ButtonFeedback" type="Node" parent="Layout/QuitButton" unique_id=1920000011 node_paths=PackedStringArray("target")]
+script = ExtResource("3_fdbck")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"

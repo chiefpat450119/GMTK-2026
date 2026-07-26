@@ -26,6 +26,7 @@ id = &"marksman"
 title = "Marksman"
 description_override = "Enemies drop 20% more sand, but spend 10% more sand per shot"
 icon = ExtResource("4_6dbgv")
+rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_3awbl")]([SubResource("Resource_v1aee"), SubResource("Resource_6dbgv")])
 is_tradeoff = true

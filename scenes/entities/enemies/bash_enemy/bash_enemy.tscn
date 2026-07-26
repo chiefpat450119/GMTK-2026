@@ -37,6 +37,7 @@ animations = [{
 size = Vector2(140, 39)
 
 [node name="BashEnemy" unique_id=1427456001 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+collision_mask = 2
 script = ExtResource("2_bsh")
 attack_interval = 1.0
 charge_time = 0.75
@@ -49,7 +50,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("AnimatedSprite2D")
 sand_drop_amt_stat = ExtResource("4_btkvs")
-sand_drop_amt_base = 10.0
+sand_drop_amt_base = 5.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -75,7 +76,7 @@ position = Vector2(3, -17)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4" unique_id=2054313803]
-base_hp = 27.0
+base_hp = 80.0
 
 [node name="HealthBar" parent="." index="5" unique_id=1031431274]
 offset_left = -24.0

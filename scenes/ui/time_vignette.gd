@@ -27,6 +27,11 @@ const OFF_EPSILON := 0.001
 ## fades in with the intensity, so the effect arrives steady and only starts
 ## breathing as the clock actually runs out. 0 for no pulse at all.
 @export_range(0.0, 1.0) var pulse_depth: float = 0.12
+## Ease-out on the appear_at..full_at ramp. The warning wants to be legible well
+## before the clock is critical, so the front of the range is worth more than
+## the back: at 4.0 the vignette is ~80% up a third of the way in and spends the
+## rest of the run creeping to full. 1.0 for the plain linear ramp.
+@export_range(1.0, 8.0) var ramp: float = 4.0
 
 var _current: float = 0.0
 var _phase: float = 0.0
@@ -61,14 +66,16 @@ func _process(delta: float) -> void:
 
 
 # Maps time remaining onto 0..1. Inverted because the effect grows as the clock
-# shrinks: appear_at reads 0 and full_at reads 1.
+# shrinks: appear_at reads 0 and full_at reads 1. Eased so the ramp still starts
+# from nothing at appear_at rather than popping in at half strength.
 func _read_target() -> float:
 	if Player.instance == null:
 		return 0.0
 	var clock := Player.instance.time_component
 	if clock == null:
 		return 0.0
-	return clampf(inverse_lerp(appear_at, full_at, clock.time_percentage()), 0.0, 1.0)
+	var t := clampf(inverse_lerp(appear_at, full_at, clock.time_percentage()), 0.0, 1.0)
+	return 1.0 - pow(1.0 - t, ramp)
 
 
 # The beat rides on the opacity alone. Folded into the intensity it would drag

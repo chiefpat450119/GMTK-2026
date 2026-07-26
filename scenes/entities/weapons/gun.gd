@@ -18,6 +18,7 @@ extends Node2D
 @export_category("Projectile Info")
 @export var projectile_scene : PackedScene
 @export var projectile_spawn_point : Node2D
+@export var projectile_speed : float = 1000.0
 
 
 ## Projectiles per shot. Above 1 they all leave on the same trigger pull, each
@@ -107,6 +108,7 @@ func _shake_camera(trauma : float) -> void:
 
 func _spawn_projectile() -> void:
 	var projectile : Projectile = projectile_scene.instantiate()
+	projectile.speed = projectile_speed
 
 	# Parented to the scene, not the gun, so shots keep flying independently of
 	# what the gun does after firing.

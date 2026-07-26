@@ -6,13 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://bvrxrup6avivh" path="res://assets/enemies/melee/fastenemy1.png" id="4_yy0l1"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_xb2f6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(117.5, 108.5)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(90.5, 88)
 
 [node name="MeleeEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+collision_mask = 2
 script = ExtResource("2_mel")
 accel_time = 0.5
 decel_time = 0.15
@@ -38,19 +36,12 @@ sand_drop_amt_stat = ExtResource("3_yy0l1")
 sand_drop_amt_base = 3.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
-[node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
-position = Vector2(-2, 3)
-shape = SubResource("RectangleShape2D_body")
-
-[node name="AtkComponent" parent="." index="2" unique_id=2072642346]
-contact_damage = 2.8125
-
-[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(818548376) index="0" unique_id=232668919]
+[node name="AtkComponent_Area2D#CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=2036067485]
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="3" unique_id=2054313803]
-base_hp = 30.0
+base_hp = 100.0
 
 [node name="HitFeedback" type="Node" parent="." index="5" unique_id=869397989 node_paths=PackedStringArray("health")]
 script = ExtResource("5_xb2f6")

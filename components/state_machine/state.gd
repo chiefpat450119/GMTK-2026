@@ -6,6 +6,8 @@ var sm : StateMachine
 signal state_entered()
 signal state_exited()
 
+@export var anim: AnimController
+
 func initialize(machine: StateMachine):
 	sm = machine
 
@@ -26,3 +28,6 @@ func handle_input(_event: InputEvent):
 
 func switch_state(state: State):
 	sm.switch_state(state)
+
+func play_anim(anim_name: StringName, speed_mul : float = 1.0) -> float:
+	return anim.play(anim_name, speed_mul)
