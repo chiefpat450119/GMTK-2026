@@ -18,6 +18,9 @@ const MAX_TARGETS := 32
 @export var dash_component: DashComponent
 @export var damage: Stat
 @export var radius: Stat
+## Spawns the floating numbers. The blast damages enemies without a projectile
+## ever touching them, so it needs its own popup rather than borrowing a bullet's.
+@export var damage_popup: DamageNumberPopup
 
 
 func _ready() -> void:
@@ -27,7 +30,7 @@ func _ready() -> void:
 	dash_component.dash_started.connect(_on_dash_started)
 
 
-func _on_dash_started(origin: Vector2) -> void:
+func _on_dash_started(origin: Vector2, _iframe_duration: float) -> void:
 	var dmg := damage.current_val()
 	var blast_radius := radius.current_val()
 	# Nothing has granted the shockwave yet, which is the common case.
@@ -58,6 +61,10 @@ func _on_dash_started(origin: Vector2) -> void:
 		var health := HealthComponent.find_in(hit.collider)
 		if health:
 			health.remove_hp(dmg)
+			if damage_popup and hit.collider is Node2D:
+				# Rounded like the projectile's, so a blast and a bullet dealing the
+				# same damage can't read as two different numbers.
+				damage_popup.create_popup(roundi(dmg), hit.collider.global_position)
 
 
 # Handed the same radius the query above is built from, rather than reading the

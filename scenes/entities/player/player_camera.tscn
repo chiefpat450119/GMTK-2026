@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b8pv5xkvrpcss" path="res://utils/camera_follow.gd" id="1_wumoh"]
 [ext_resource type="Script" uid="uid://ceefjo2r83hdl" path="res://utils/camera_limits.gd" id="2_5t2q1"]
 [ext_resource type="Script" uid="uid://cxe3gxrs3d831" path="res://utils/camera_shake.gd" id="3_hbahr"]
+[ext_resource type="Script" path="res://utils/camera_grace_zoom.gd" id="4_gz0ne"]
 
 [node name="PlayerCamera" type="Camera2D" unique_id=1749758649]
 top_level = true
@@ -23,3 +24,7 @@ script = ExtResource("3_hbahr")
 camera = NodePath("..")
 decay = 0.7
 metadata/_custom_type_script = "uid://cxe3gxrs3d831"
+
+[node name="CameraGraceZoom" type="Node" parent="." unique_id=1309063960 node_paths=PackedStringArray("camera")]
+script = ExtResource("4_gz0ne")
+camera = NodePath("..")

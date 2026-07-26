@@ -44,8 +44,9 @@ func _ready() -> void:
 
 
 func _on_damaged(amount: float) -> void:
-	if time.time_left <= 0.0:
-		return  # The run ends on this same call, so there's nothing left to react with.
+	# completely dead
+	if time.is_dead():
+		return
 	_play(amount)
 	SFX.play(&"player_damage")
 

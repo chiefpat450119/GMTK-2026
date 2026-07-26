@@ -6,16 +6,18 @@ extends MovementComponent
 ## cooldown timer this replaced; upgrades widen it through dash_charges. Charges
 ## refill one at a time, so holding a spare never stops the next one recharging.
 
-## Fired the instant a dash begins, carrying the dasher's position. Anything that
-## should go off *on* the dash rather than during it — the shockwave, VFX — hangs
-## off this instead of polling is_dashing(), so it lands exactly once per dash.
-signal dash_started(origin: Vector2)
+## Fired the instant a dash begins, carrying the dasher's position and the length
+## of the i-frame window the dash opens. Anything that should go off *on* the dash
+## rather than during it — the shockwave, the i-frames, VFX — hangs off this
+## instead of polling is_dashing(), so it lands exactly once per dash.
+signal dash_started(origin: Vector2, iframe_duration: float)
 
 @export var dash_cooldown : Stat
 ## How many dashes can be banked at once. Left unset this reads as a single
 ## charge, so a scene that predates the pool still behaves the way it used to.
 @export var dash_charges : Stat
 @export var dash_length : float = 0.3
+@export var iframe_duration : float = 0.4
 
 var _dashing : bool = false
 var _dash_timer : float = 0.0
@@ -82,7 +84,7 @@ func request_dash(start: bool = false, dir: Vector2 = Vector2.ZERO) -> void:
 	_dash_timer = 0.0
 	if dir != Vector2.ZERO:
 		_dash_dir = dir.normalized()
-	dash_started.emit(body.global_position if body else Vector2.ZERO)
+	dash_started.emit(body.global_position if body else Vector2.ZERO, iframe_duration)
 
 
 func is_dashing() -> bool:
