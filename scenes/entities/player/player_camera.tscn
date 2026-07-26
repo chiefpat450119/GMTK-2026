@@ -6,6 +6,7 @@
 
 [node name="PlayerCamera" type="Camera2D" unique_id=1749758649]
 top_level = true
+zoom = Vector2(0.8, 0.8)
 
 [node name="CameraFollow" type="Node" parent="." unique_id=1429411717 node_paths=PackedStringArray("camera")]
 script = ExtResource("1_wumoh")

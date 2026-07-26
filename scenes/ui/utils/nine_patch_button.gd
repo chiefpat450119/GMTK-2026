@@ -41,6 +41,16 @@ const PADDING := Vector4(100, 16, 100, 26)
 @onready var label: Label = $Label
 
 
+# SFX plays the UI sounds on every BaseButton that enters the tree, and this button
+# asks for them itself below, so it opts out of that pass -- with both wired, every
+# hover and click would play two voices of the same sample. Here rather than in
+# _ready() because node_added, which is what SFX listens on, is emitted immediately
+# after _enter_tree and long before the tree is ready.
+func _enter_tree() -> void:
+	if not Engine.is_editor_hint():
+		set_meta(SFX.NO_UI_SFX, true)
+
+
 func _ready() -> void:
 	label.text = label_text
 	resized.connect(_apply_scale)
@@ -48,6 +58,20 @@ func _ready() -> void:
 	# feeds the button's minimum size below.
 	label.minimum_size_changed.connect(_apply_scale)
 	_apply_scale()
+
+	pressed.connect(_on_pressed)
+	mouse_entered.connect(_on_mouse_entered)
+
+
+func _on_pressed() -> void:
+	SFX.play(SFX.UI_PRESS)
+
+
+# A disabled button still reports the hover, but shouldn't sound like something is
+# there to click.
+func _on_mouse_entered() -> void:
+	if not disabled:
+		SFX.play(SFX.UI_HOVER)
 
 
 func _apply_scale() -> void:

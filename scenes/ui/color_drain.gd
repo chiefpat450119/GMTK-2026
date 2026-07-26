@@ -17,8 +17,17 @@ var _current: float = 0.0
 
 
 func _ready() -> void:
-	_apply(0.0)
-	visible = false
+	_clear()
+	GameStateManager.instance.state_changed.connect(_on_state_changed)
+
+
+# The tree is paused for GAME_OVER, so the drain freezes exactly where the run
+# left it and holds under the screen — which is the point. Clearing has to be
+# explicit: everything a retry passes through is paused as well, so the ease in
+# _process wouldn't get a frame until the next run was already being played.
+func _on_state_changed(from: int, _to: int) -> void:
+	if from == GameStateManager.GameState.GAME_OVER:
+		_clear()
 
 
 func _process(delta: float) -> void:
@@ -27,9 +36,7 @@ func _process(delta: float) -> void:
 	_current = lerpf(_current, target, 1.0 - exp(-response * delta))
 
 	if _current < OFF_EPSILON and target <= 0.0:
-		_current = 0.0
-		_apply(0.0)
-		visible = false
+		_clear()
 		return
 
 	visible = true
@@ -45,6 +52,12 @@ func _read_target() -> float:
 	if clock == null:
 		return 0.0
 	return clampf(inverse_lerp(appear_at, full_at, clock.time_percentage()), 0.0, 1.0)
+
+
+func _clear() -> void:
+	_current = 0.0
+	_apply(0.0)
+	visible = false
 
 
 func _apply(value: float) -> void:

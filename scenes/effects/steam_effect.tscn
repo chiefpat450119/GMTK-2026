@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://csteamfx0001"]
+
+[ext_resource type="Script" uid="uid://bsteamfx0002" path="res://scenes/effects/steam_effect.gd" id="1_steam"]
+[ext_resource type="Shader" uid="uid://dsteamfx0003" path="res://assets/shaders/steam_puff.gdshader" id="2_puffsh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_billow"]
+shader = ExtResource("2_puffsh")
+shader_parameter/edge_softness = 0.8
+shader_parameter/threshold = 0.14
+shader_parameter/contrast = 1.2
+
+[sub_resource type="Gradient" id="Gradient_billow_noise"]
+offsets = PackedFloat32Array(0, 0.38, 0.66, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.16, 1, 1, 1, 0.88, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_billow"]
+seed = 1731
+frequency = 0.019
+fractal_octaves = 3
+fractal_gain = 0.55
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_billow"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_billow")
+color_ramp = SubResource("Gradient_billow_noise")
+
+[sub_resource type="Curve" id="Curve_billow_scale"]
+_data = [Vector2(0, 0.42), 0.0, 1.1, 0, 0, Vector2(0.45, 0.82), 0.6, 0.6, 0, 0, Vector2(1, 1), 0.25, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_billow_life"]
+offsets = PackedFloat32Array(0, 0.18, 0.6, 1)
+colors = PackedColorArray(1, 0.99, 0.98, 0, 0.98, 0.98, 0.98, 0.34, 0.9, 0.92, 0.95, 0.19, 0.84, 0.87, 0.93, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_puff"]
+shader = ExtResource("2_puffsh")
+shader_parameter/edge_softness = 0.68
+shader_parameter/threshold = 0.2
+shader_parameter/contrast = 1.5
+
+[sub_resource type="Gradient" id="Gradient_puff_noise"]
+offsets = PackedFloat32Array(0, 0.34, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.1, 1, 1, 1, 0.82, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_puff"]
+noise_type = 3
+seed = 8802
+frequency = 0.031
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_puff"]
+width = 96
+height = 96
+noise = SubResource("FastNoiseLite_puff")
+color_ramp = SubResource("Gradient_puff_noise")
+
+[sub_resource type="Curve" id="Curve_puff_scale"]
+_data = [Vector2(0, 0.34), 0.0, 1.4, 0, 0, Vector2(0.4, 0.78), 0.7, 0.7, 0, 0, Vector2(1, 1), 0.3, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_puff_life"]
+offsets = PackedFloat32Array(0, 0.14, 0.55, 1)
+colors = PackedColorArray(1, 1, 0.99, 0, 1, 1, 1, 0.48, 0.94, 0.95, 0.97, 0.26, 0.86, 0.89, 0.94, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wisp"]
+shader = ExtResource("2_puffsh")
+shader_parameter/edge_softness = 0.55
+shader_parameter/threshold = 0.28
+shader_parameter/contrast = 2.0
+
+[sub_resource type="Gradient" id="Gradient_wisp_noise"]
+offsets = PackedFloat32Array(0, 0.46, 0.78, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.06, 1, 1, 1, 0.7, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wisp"]
+noise_type = 4
+seed = 4419
+frequency = 0.045
+fractal_octaves = 4
+fractal_gain = 0.6
+domain_warp_enabled = true
+domain_warp_amplitude = 26.0
+domain_warp_frequency = 0.04
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wisp"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_wisp")
+color_ramp = SubResource("Gradient_wisp_noise")
+
+[sub_resource type="Curve" id="Curve_wisp_scale"]
+_data = [Vector2(0, 0.3), 0.0, 1.6, 0, 0, Vector2(0.5, 0.85), 0.5, 0.5, 0, 0, Vector2(1, 1), 0.2, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_wisp_life"]
+offsets = PackedFloat32Array(0, 0.1, 0.45, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.42, 0.96, 0.97, 0.99, 0.2, 0.9, 0.93, 0.97, 0)
+
+[node name="SteamEffect" type="Node2D" unique_id=2014328004]
+script = ExtResource("1_steam")
+tint = Color(0, 0, 0, 1)
+
+[node name="Billows" type="CPUParticles2D" parent="." unique_id=192875766]
+material = SubResource("ShaderMaterial_billow")
+emitting = false
+amount = 10
+texture = SubResource("NoiseTexture2D_billow")
+lifetime = 2.4
+lifetime_randomness = 0.35
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(16, 4)
+direction = Vector2(0, -1)
+spread = 12.0
+gravity = Vector2(0, -26)
+initial_velocity_min = 34.0
+initial_velocity_max = 62.0
+angular_velocity_min = -14.0
+angular_velocity_max = 14.0
+damping_min = 10.0
+damping_max = 18.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.75
+scale_amount_max = 1.15
+scale_amount_curve = SubResource("Curve_billow_scale")
+color_ramp = SubResource("Gradient_billow_life")
+
+[node name="Puffs" type="CPUParticles2D" parent="." unique_id=422685587]
+material = SubResource("ShaderMaterial_puff")
+emitting = false
+amount = 14
+texture = SubResource("NoiseTexture2D_puff")
+lifetime = 1.7
+lifetime_randomness = 0.3
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(11, 3)
+direction = Vector2(0, -1)
+spread = 17.0
+gravity = Vector2(0, -34)
+initial_velocity_min = 58.0
+initial_velocity_max = 104.0
+angular_velocity_min = -26.0
+angular_velocity_max = 26.0
+damping_min = 16.0
+damping_max = 28.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.6
+scale_amount_max = 0.95
+scale_amount_curve = SubResource("Curve_puff_scale")
+color_ramp = SubResource("Gradient_puff_life")
+
+[node name="Wisps" type="CPUParticles2D" parent="." unique_id=98483111]
+material = SubResource("ShaderMaterial_wisp")
+emitting = false
+amount = 16
+texture = SubResource("NoiseTexture2D_wisp")
+lifetime = 1.1
+lifetime_randomness = 0.4
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(7, 2)
+direction = Vector2(0, -1)
+spread = 24.0
+gravity = Vector2(0, -40)
+initial_velocity_min = 92.0
+initial_velocity_max = 165.0
+angular_velocity_min = -55.0
+angular_velocity_max = 55.0
+damping_min = 30.0
+damping_max = 52.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.34
+scale_amount_max = 0.6
+scale_amount_curve = SubResource("Curve_wisp_scale")
+color_ramp = SubResource("Gradient_wisp_life")
