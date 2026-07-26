@@ -76,6 +76,8 @@ func _gears() -> Array:
 
 
 func _on_shown() -> void:
+	SFX.play(&"victory")
+	SFX.play(&"victory2")
 	if _intro_tween and _intro_tween.is_valid():
 		_intro_tween.kill()
 
