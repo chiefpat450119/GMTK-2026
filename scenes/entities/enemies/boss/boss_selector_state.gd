@@ -3,7 +3,7 @@ extends State
 
 # time before next state starts
 const IDLE_TIME : float = 0.5
-const CLOSE_THRESHOLD: int =  100
+const CLOSE_THRESHOLD: int =  150
 const FAR_THRESHOLD: int = 1000
 
 @export var enemy: Enemy
