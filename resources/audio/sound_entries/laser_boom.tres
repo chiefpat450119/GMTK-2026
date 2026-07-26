@@ -3,8 +3,13 @@
 [ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_wuaoc"]
 [ext_resource type="AudioStream" uid="uid://dfpx25tkc064w" path="res://assets/sfx/Laser Gun Boom.wav" id="2_hi45t"]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_22pgc"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("2_hi45t")
+
 [resource]
 script = ExtResource("1_wuaoc")
 id = &"laser_boom"
-stream = ExtResource("2_hi45t")
+stream = SubResource("AudioStreamRandomizer_22pgc")
 metadata/_custom_type_script = "uid://my4saxjc4cnj"
