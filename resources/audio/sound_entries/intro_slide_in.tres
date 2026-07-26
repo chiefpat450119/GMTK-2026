@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://bo2ogl1yscqng"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_xhy5b"]
+[ext_resource type="AudioStream" uid="uid://bat1jhptcdtvp" path="res://assets/sfx/Intro Slide In.wav" id="2_n480j"]
+
+[resource]
+script = ExtResource("1_xhy5b")
+id = &"intro_slide_in"
+stream = ExtResource("2_n480j")
+volume_db = -5.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

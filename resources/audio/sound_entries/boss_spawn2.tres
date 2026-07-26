@@ -7,5 +7,4 @@
 script = ExtResource("1_krq1v")
 id = &"boss_spawn2"
 stream = ExtResource("2_ug6yf")
-volume_db = 5.0
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

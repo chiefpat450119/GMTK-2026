@@ -119,6 +119,9 @@ func _on_shown() -> void:
 	# Now wait one frame so MAIN_MENU, so process_frame never fires and the await would hang forever.
 	await get_tree().create_timer(0.0, true).timeout
 	start_anim()
+	await get_tree().create_timer(0.8).timeout
+	SFX.play(&"intro_stamp_down")
+	SFX.play(&"intro_stamp_down2")
 
 
 func _on_hidden() -> void:
@@ -236,6 +239,7 @@ func start_anim(skip_to := 0.0) -> void:
 	tween.set_parallel(true)
 
 	# rises into the frame while unwinding to upright
+	SFX.play(&"intro_slide_in")
 	tween.tween_property(hourglass_white, "position", white_rest_pos, RISE_DURATION)\
 			.from(white_rest_pos + Vector2(0, RISE_DISTANCE))\
 			.set_ease(Tween.EASE_OUT)\
@@ -289,7 +293,7 @@ func start_anim(skip_to := 0.0) -> void:
 	tween.tween_property(real_icon, "modulate:a", 1, swap_duration)\
 			.from(0.0)\
 			.set_delay(swap_delay)
-
+	
 	# and the words come in behind the finished logo
 	for entry in word_entries():
 		slide_word_in(tween, entry[0], entry[1], entry[2], SWAP_TIME + entry[3])
