@@ -2629,7 +2629,7 @@ texture = ExtResource("1_wa33t")
 
 [node name="Butt" type="Sprite2D" parent="Visuals/Body" unique_id=1751708151]
 z_index = -1
-position = Vector2(0, -8.484812)
+position = Vector2(0, 7.383)
 scale = Vector2(0.9999999, 0.9999999)
 texture = ExtResource("3_qa4jw")
 

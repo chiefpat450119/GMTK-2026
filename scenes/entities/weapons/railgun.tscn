@@ -31,12 +31,12 @@ fire_cooldown_stat = ExtResource("3_yy7j6")
 shot_spread_stat = ExtResource("4_xnbhe")
 shot_cost_stat = ExtResource("5_0er5g")
 projectile_scene = ExtResource("5_iqphh")
-projectile_spawn_point = NodePath("Bullet Spawn Point")
+projectile_spawn_point = NodePath("Sprite2D/Bullet Spawn Point")
 projectile_speed = 2000.0
 projectile_trail = ExtResource("11_trlrg")
 fire_sfx = &"laser_boom"
 shot_trauma = 0.18
-muzzle_flash = NodePath("Bullet Spawn Point/MuzzleFlash")
+muzzle_flash = NodePath("Sprite2D/Bullet Spawn Point/MuzzleFlash")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1441832555]
 z_index = 3
@@ -50,10 +50,11 @@ sparks = NodePath("EnergySparks")
 
 [node name="EnergySparks" parent="Sprite2D/ChargeFill" unique_id=125761367 instance=ExtResource("10_2j11h")]
 
-[node name="Bullet Spawn Point" type="Node2D" parent="." unique_id=1642815895]
-position = Vector2(121, 0)
+[node name="Bullet Spawn Point" type="Node2D" parent="Sprite2D" unique_id=1642815895]
+position = Vector2(1193.1956, -117.76317)
+scale = Vector2(16.666666, 16.666666)
 
-[node name="MuzzleFlash" parent="Bullet Spawn Point" unique_id=1261853424 instance=ExtResource("12_mflash")]
+[node name="MuzzleFlash" parent="Sprite2D/Bullet Spawn Point" unique_id=1261853424 instance=ExtResource("12_mflash")]
 z_index = 4
 scale = Vector2(0.9, 0.9)
 scale_min = 1.0
