@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cbibum7vt064b"
+path="res://.godot/imported/Sand of Time - Battle Track_24Bit48kHz.WAV MASTER (Back-Up).wav-432b4166a5b341251e5bb87d2cf7e45c.sample"
+
+[deps]
+
+source_file="res://assets/music/Sand of Time - Battle Track_24Bit48kHz.WAV MASTER (Back-Up).wav"
+dest_files=["res://.godot/imported/Sand of Time - Battle Track_24Bit48kHz.WAV MASTER (Back-Up).wav-432b4166a5b341251e5bb87d2cf7e45c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
