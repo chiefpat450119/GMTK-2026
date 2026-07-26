@@ -43,7 +43,7 @@ const spawn_radius: float = 1000.0
 @onready var budget: int = 5
 
 
-@export var boss_spawn_wave: int = 20
+@export var boss_spawn_wave: int = 0
 var wave_counter: int = 0
 
 var _wave_running = true

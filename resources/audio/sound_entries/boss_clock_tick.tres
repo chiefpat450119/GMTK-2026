@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://bccs7y3i5h2pj"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_fneun"]
+[ext_resource type="AudioStream" uid="uid://nsw7acpq42n1" path="res://assets/sfx/Boss Clock Tick.wav" id="2_fcmpp"]
+
+[resource]
+script = ExtResource("1_fneun")
+id = &"boss_clock_tick"
+stream = ExtResource("2_fcmpp")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

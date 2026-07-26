@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://38k4pg8l1e3r"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_a56qx"]
+[ext_resource type="AudioStream" uid="uid://dyschuecwgdsn" path="res://assets/sfx/Boss Clock Shoot Num.wav" id="2_falmx"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ys204"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("2_falmx")
+
+[resource]
+script = ExtResource("1_a56qx")
+id = &"boss_clock_shoot_num"
+stream = SubResource("AudioStreamRandomizer_ys204")
+volume_db = 5.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

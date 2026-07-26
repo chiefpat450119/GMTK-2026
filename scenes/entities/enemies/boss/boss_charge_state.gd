@@ -43,6 +43,7 @@ func _windup():
 	#tween.tween_property(anim, "modulate", Color.CRIMSON, charge_time) \
 		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		#
+	SFX.play(&"boss_dash_charge")
 	await get_tree().create_timer(play_anim(&"Dash", 1.5)).timeout
 
 # temp fx

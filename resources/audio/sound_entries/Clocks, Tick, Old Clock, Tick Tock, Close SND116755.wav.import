@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://1gxoo804rnnf"
+path="res://.godot/imported/Clocks, Tick, Old Clock, Tick Tock, Close SND116755.wav-e9baf13ff411bba3d0bbb5e6bdeb6e3f.sample"
+
+[deps]
+
+source_file="res://resources/audio/sound_entries/Clocks, Tick, Old Clock, Tick Tock, Close SND116755.wav"
+dest_files=["res://.godot/imported/Clocks, Tick, Old Clock, Tick Tock, Close SND116755.wav-e9baf13ff411bba3d0bbb5e6bdeb6e3f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
