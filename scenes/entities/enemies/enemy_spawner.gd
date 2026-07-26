@@ -4,12 +4,12 @@ extends Node
 # indexed by wave_count 
 # tweak pls i pulled these numbers out of my ass
 const BUDGET_TABLE: Array[int] = [
+	8,
 	10,
 	12,
 	14,
-	15,
 	16,
-	23,
+	20,
 	24,
 	26,
 	27,

@@ -52,7 +52,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("AnimatedSprite2D")
 sand_drop_amt_stat = ExtResource("4_btkvs")
-sand_drop_amt_base = 5.0
+sand_drop_amt_base = 9.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -78,7 +78,7 @@ position = Vector2(3, -17)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4" unique_id=2054313803]
-base_hp = 80.0
+base_hp = 100.0
 
 [node name="HealthBar" parent="." index="5" unique_id=1031431274]
 offset_left = -24.0
