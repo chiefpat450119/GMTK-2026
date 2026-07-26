@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bpausemenu001" path="res://scenes/ui/pause_menu.tscn" id="5_pausemenu"]
 [ext_resource type="PackedScene" uid="uid://bgameover0001" path="res://scenes/ui/game_over_screen.tscn" id="6_gameover"]
 [ext_resource type="PackedScene" uid="uid://m3vhsbglajvm" path="res://scenes/ui/upgrade_ui.tscn" id="7_upgui"]
-[ext_resource type="PackedScene" uid="uid://bpbns7bxugk6d" path="res://scenes/ui/hud.tscn" id="8_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="8_hud"]
 [ext_resource type="PackedScene" uid="uid://b0sjtdsf0e68j" path="res://scenes/autoload/game_state_manager.tscn" id="9_gsm"]
 
 [node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]

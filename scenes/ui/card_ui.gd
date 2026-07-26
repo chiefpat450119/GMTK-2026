@@ -21,6 +21,9 @@ func _ready() -> void:
 	for child in get_children():
 		if child is Control:
 			(child as Control).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# SFX auto-wires BaseButtons, and this is a plain Control handling its own
+	# clicks, so it has to ask for the UI sounds itself.
+	mouse_entered.connect(_on_mouse_entered)
 
 
 func setup(upgrade: Upgrade) -> void:
@@ -43,4 +46,10 @@ func _gui_input(event: InputEvent) -> void:
 		var button := event as InputEventMouseButton
 		if button.pressed and button.button_index == MOUSE_BUTTON_LEFT:
 			accept_event()
+			SFX.play(&"ui_press")
 			selected.emit(_upgrade)
+
+
+func _on_mouse_entered() -> void:
+	if _upgrade != null:
+		SFX.play(&"ui_hover")

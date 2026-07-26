@@ -5,5 +5,6 @@
 
 [resource]
 script = ExtResource("1_markg")
+id = &"shotgun_reload"
 stream = ExtResource("2_markg")
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

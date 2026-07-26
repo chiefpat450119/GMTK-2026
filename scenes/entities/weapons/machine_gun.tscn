@@ -21,6 +21,7 @@ shot_spread_stat = ExtResource("4_s8eaq")
 shot_cost_stat = ExtResource("5_wp88b")
 projectile_scene = ExtResource("5_8o0ng")
 projectile_spawn_point = NodePath("Projectile Spawn Point")
+fire_sfx = &"machine_gun"
 shot_trauma = 0.12
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1441832555]

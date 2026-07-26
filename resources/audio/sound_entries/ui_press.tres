@@ -5,5 +5,6 @@
 
 [resource]
 script = ExtResource("1_y2k67")
+id = &"ui_press"
 stream = ExtResource("2_tx4j5")
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

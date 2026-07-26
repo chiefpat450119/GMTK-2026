@@ -1,7 +1,10 @@
 [gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://dpnt1ettijfc8"]
 
 [ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_38ph0"]
+[ext_resource type="AudioStream" uid="uid://ceu6d85wnqu45" path="res://assets/sfx/Laser Gun Charge.wav" id="2_adkfe"]
 
 [resource]
 script = ExtResource("1_38ph0")
+id = &"laser_charge"
+stream = ExtResource("2_adkfe")
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

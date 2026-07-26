@@ -5,5 +5,6 @@
 
 [resource]
 script = ExtResource("1_qd061")
+id = &"gain_exp"
 stream = ExtResource("2_gipw4")
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

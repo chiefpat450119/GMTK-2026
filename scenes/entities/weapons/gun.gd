@@ -23,6 +23,13 @@ extends Node2D
 ## rolling its own spread — that alone makes a shotgun.
 @export var projectile_count : int = 1
 
+@export_category("Audio")
+## SoundBank id played on each shot. Empty is silent.
+@export var fire_sfx : StringName
+## SoundBank id played once the fire cooldown ends, for weapons that should sound
+## like they cycle between shots. Empty is silent.
+@export var reload_sfx : StringName
+
 @export_category("Feel")
 ## Camera trauma per trigger pull. Well under what a hit is worth: this fires
 ## constantly, so it wants to read as recoil rather than as an event.
@@ -60,12 +67,17 @@ func shoot() -> void:
 	for i in projectile_count:
 		_spawn_projectile()
 
-	# Once per trigger pull, not per pellet — a shotgun blast is one kick.
+	# Once per trigger pull, not per pellet — a shotgun blast is one kick, and one
+	# report. SFX owns the player, so the shot is unaffected by this gun being
+	# swapped out or freed while it rings.
 	_shake_camera(shot_trauma)
+	SFX.play(fire_sfx)
 
 	# Fire cooldown
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
 	can_fire = true
+	if reload_sfx:
+		SFX.play(reload_sfx)
 
 func _shake_camera(trauma : float) -> void:
 	CameraShake.shake_capped(trauma, trauma * SUSTAINED_TRAUMA_LIMIT)
