@@ -23,7 +23,7 @@ fire_cooldown_stat = ExtResource("3_wp88b")
 shot_spread_stat = ExtResource("4_s8eaq")
 shot_cost_stat = ExtResource("5_wp88b")
 projectile_scene = ExtResource("5_8o0ng")
-projectile_spawn_point = NodePath("Projectile Spawn Point")
+projectile_spawn_point = NodePath("Sprite2D/Projectile Spawn Point")
 projectile_speed = 1500.0
 fire_sfx = &"machine_gun"
 shot_trauma = 0.12
@@ -34,5 +34,6 @@ position = Vector2(53.052643, 3)
 scale = Vector2(0.2894737, 0.28947368)
 texture = ExtResource("8_s8eaq")
 
-[node name="Projectile Spawn Point" type="Node2D" parent="." unique_id=1642815895]
-position = Vector2(103, 2)
+[node name="Projectile Spawn Point" type="Node2D" parent="Sprite2D" unique_id=1642815895]
+position = Vector2(172.54543, -3.454545)
+scale = Vector2(3.4545453, 3.4545455)

@@ -15,3 +15,4 @@ extends Node
 
 func _ready() -> void:
 	GameStateManager.instance.bind_shell(world_mount)
+	ShaderPrewarm.run(self)
