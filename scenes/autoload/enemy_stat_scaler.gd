@@ -19,8 +19,8 @@ enum Difficulty { EASY, HARD }
 
 ## How fast enemy stats climb per wave.
 const ENEMY_GROWTH_MULTIPLIERS := {
-	Difficulty.EASY: 0.9,
-	Difficulty.HARD: 2.5,
+	Difficulty.EASY: 0.85,
+	Difficulty.HARD: 2,
 }
 
 ## How much XP a level costs. Levels are what hand out upgrades, one apiece, so
