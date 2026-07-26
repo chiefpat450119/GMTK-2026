@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bscnfade0001"]
+
+[ext_resource type="Script" uid="uid://b7rtk0crv14pm" path="res://scenes/ui/scene_transition.gd" id="1_fade"]
+
+[node name="SceneTransition" type="CanvasLayer" unique_id=1930000001 node_paths=PackedStringArray("fade")]
+layer = 100
+process_mode = 3
+script = ExtResource("1_fade")
+fade = NodePath("Fade")
+
+[node name="Fade" type="ColorRect" parent="." unique_id=1930000002]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

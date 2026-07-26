@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://m3vhsbglajvm" path="res://scenes/ui/upgrade_ui.tscn" id="7_upgui"]
 [ext_resource type="PackedScene" uid="uid://bpbns7bxugk6d" path="res://scenes/ui/hud.tscn" id="8_hud"]
 [ext_resource type="PackedScene" uid="uid://b0sjtdsf0e68j" path="res://scenes/autoload/game_state_manager.tscn" id="9_gsm"]
+[ext_resource type="PackedScene" uid="uid://bscnfade0001" path="res://scenes/ui/scene_transition.tscn" id="10_fade"]
 
 [node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
 script = ExtResource("1_o5qli")
@@ -35,3 +36,5 @@ process_mode = 3
 
 [node name="UpgradeUI" parent="." unique_id=961278475 node_paths=PackedStringArray("manager") instance=ExtResource("7_upgui")]
 manager = NodePath("../UpgradeManager")
+
+[node name="SceneTransition" parent="." unique_id=961278478 instance=ExtResource("10_fade")]

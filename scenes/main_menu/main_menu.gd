@@ -82,7 +82,13 @@ func _ready() -> void:
 	layout_parent().resized.connect(_on_layout_changed)
 
 	super()
-	play_button.pressed.connect(GameStateManager.instance.start_run)
+	play_button.pressed.connect(_on_play_pressed)
+
+
+# Behind the fade rather than on the press: the run is built at the darkest point,
+# so the title is never seen blinking out from under the world arriving.
+func _on_play_pressed() -> void:
+	SceneTransition.instance.play(GameStateManager.instance.start_run)
 
 
 ## Re-play the intro animation each time the menu comes up.
