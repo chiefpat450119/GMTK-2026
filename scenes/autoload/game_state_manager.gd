@@ -10,20 +10,25 @@ extends Node
 ##      behind the pause menu.
 ##   2. The run lifecycle: rebuilding the world, and clearing the run state that
 ##      lives in shared Stat resources.
-##   3. The handoff to the upgrade screen, so the game is reliably paused behind
-##      it and reliably running again once a card is picked.
+##   3. The handoff to the card screens — the gun pick that opens a run and the
+##      upgrade picks along the way — so the game is reliably paused behind them
+##      and reliably running again once a card is chosen.
 ##
 ## main.tscn hands over its world mount with bind_shell() on ready. Until that
 ## lands this sits in MAIN_MENU and start_run() is a no-op.
 
 static var instance: GameStateManager
 
+## SELECTING_GUN sits at the end rather than beside the other modal states: these
+## are serialised by value in the scenes that a StateScreen belongs to, so
+## inserting one in the middle would quietly re-point every screen after it.
 enum GameState {
 	MAIN_MENU,
 	PLAYING,
 	PAUSED,
 	UPGRADING,
 	GAME_OVER,
+	SELECTING_GUN,
 }
 
 ## Emitted after `state` is already updated, so handlers can read it directly.
@@ -37,6 +42,8 @@ const PAUSE_ACTION := &"Pause"
 @export var stat_registry: StatRegistry
 ## Raised to put the upgrade screen up.
 @export var upgrade_offer_event: GameEvent
+## Raised to put the gun pick screen up, once at the top of every run.
+@export var gun_offer_event: GameEvent
 
 var state: GameState = GameState.MAIN_MENU
 
@@ -71,7 +78,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed(PAUSE_ACTION):
 		return
-	# Ignored during UPGRADING and GAME_OVER — those are modal by design.
+	# Ignored during UPGRADING, SELECTING_GUN and GAME_OVER — modal by design.
 	if state == GameState.PLAYING or state == GameState.PAUSED:
 		get_viewport().set_input_as_handled()
 		toggle_pause()
@@ -96,8 +103,9 @@ static func unregister_resettable(node: Node) -> void:
 
 # --- transitions ---
 
-## Starts a fresh run: tears the old world down, wipes run state, rebuilds.
-## Retry goes through here too, so nothing can leak between attempts.
+## Starts a fresh run: tears the old world down, wipes run state, rebuilds, and
+## opens on the gun pick. Retry goes through here too, so nothing can leak
+## between attempts and every attempt gets its own choice of gun.
 func start_run() -> void:
 	if _world_mount == null:
 		push_error("start_run() called before bind_shell() — no world mount")
@@ -108,8 +116,26 @@ func start_run() -> void:
 	_reset_run()
 	if not _build_world():
 		return
-	_set_state(GameState.PLAYING)
-	_world.begin()
+	if gun_offer_event == null:
+		# Misconfigured rather than deliberate — start the run anyway instead of
+		# dropping the player into a world they can never be handed control of.
+		push_error("GameStateManager has no gun_offer_event — starting without a gun pick")
+		_begin_playing()
+		return
+	# The world is built but held: SELECTING_GUN pauses the tree through
+	# _apply_pause(), so it sits frozen behind the cards, and begin() waits until
+	# one is picked — otherwise the first wave would be spawning, and the clock
+	# running, behind a screen the player hasn't answered yet.
+	_set_state(GameState.SELECTING_GUN)
+	gun_offer_event.raise()
+
+
+## Called by GunSelectUI once the chosen gun is equipped, and by the same screen
+## when it has nothing to offer. Hands the run over to the first wave.
+func close_gun_select() -> void:
+	if state != GameState.SELECTING_GUN:
+		return
+	_begin_playing()
 
 
 func pause() -> void:
@@ -185,6 +211,13 @@ func to_main_menu() -> void:
 
 
 # --- internals ---
+
+# Unpauses and lets the run actually start. Only reached from the gun pick, so
+# there is one place that decides a run has begun.
+func _begin_playing() -> void:
+	_set_state(GameState.PLAYING)
+	_world.begin()
+
 
 func _reset_run() -> void:
 	# Offers owed to the previous run die with it — a retry out of a queued
