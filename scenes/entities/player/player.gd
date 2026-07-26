@@ -65,4 +65,3 @@ func _update_sprite(dir: Vector2) -> void:
 		sprite.flip_h = true
 	elif dir.x > 0.0:
 		sprite.flip_h = false
-
