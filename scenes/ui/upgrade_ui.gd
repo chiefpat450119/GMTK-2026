@@ -50,9 +50,9 @@ func _ready() -> void:
 
 
 func _on_state_changed(_from: int, _to: int) -> void:
-	# Anything that leaves UPGRADING takes the cards down — including a Retry or a
+	# Anything that leaves SELECTING_GUN takes the cards down — including a Retry or a
 	# quit-to-menu triggered from somewhere this screen knows nothing about.
-	if GameStateManager.instance.state != GameStateManager.GameState.UPGRADING:
+	if GameStateManager.instance.state != GameStateManager.GameState.SELECTING_GUN:
 		_close()
 
 

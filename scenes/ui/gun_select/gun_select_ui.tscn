@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://wo555kto5xx0" path="res://resources/gun_data/railgun_data.tres" id="3_vovo8"]
 [ext_resource type="Resource" uid="uid://cvhv6ywpyycqb" path="res://resources/gun_data/shotgun_data.tres" id="4_i0h2r"]
 [ext_resource type="Resource" uid="uid://dg6iaxb5qyxtn" path="res://resources/gun_data/machinegun_data.tres" id="5_ocijn"]
-[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="6_7j4gv"]
+[ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="6_7j4gv"]
 [ext_resource type="Resource" uid="uid://bedsny34haj0h" path="res://resources/events/event_channels/gun_offer_event.tres" id="7_hcs37"]
 [ext_resource type="PackedScene" uid="uid://bv7af1ysf63gs" path="res://scenes/ui/gun_select/gun_card_ui.tscn" id="8_hcs37"]
 
@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://caabifq7f44n3"
 [node name="OfferListener" type="Node" parent="." unique_id=439142991]
 script = ExtResource("6_7j4gv")
 event = ExtResource("7_hcs37")
-metadata/_custom_type_script = "uid://cwms6snwyjyb2"
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1937253074]
 anchors_preset = 15

@@ -23,6 +23,7 @@ enum GameState {
 	PLAYING,
 	PAUSED,
 	UPGRADING,
+	SELECTING_GUN,
 	GAME_OVER,
 }
 
@@ -37,6 +38,8 @@ const PAUSE_ACTION := &"Pause"
 @export var stat_registry: StatRegistry
 ## Raised to put the upgrade screen up.
 @export var upgrade_offer_event: GameEvent
+## Raised to put the gun select screen up.
+@export var gun_offer_event: GameEvent
 
 var state: GameState = GameState.MAIN_MENU
 
@@ -108,6 +111,7 @@ func start_run() -> void:
 	_reset_run()
 	if not _build_world():
 		return
+	# Start player at gun selection screen
 	_set_state(GameState.PLAYING)
 	_world.begin()
 
@@ -130,6 +134,20 @@ func toggle_pause() -> void:
 	elif state == GameState.PAUSED:
 		resume()
 
+## Shows gun selection screen
+func show_gun_selection() -> void:
+	if state != GameState.PLAYING and state != GameState.SELECTING_GUN:
+		return
+	# SELECTING_GUN pauses the tree through _apply_pause(), so the world is frozen
+	# behind the cards without GunSelectUI touching get_tree().paused itself.
+	_set_state(GameState.SELECTING_GUN)
+	gun_offer_event.raise()
+	
+## Hides gun selection screen
+func hide_gun_selection() -> void:
+	if state != GameState.SELECTING_GUN:
+		return
+	_set_state(GameState.PLAYING)
 
 ## Puts the upgrade screen up, or queues another one behind the one already up.
 ## Safe to call several times in the same frame — a big XP pickup does exactly
