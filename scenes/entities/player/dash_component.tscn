@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2"]
 [ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3"]
 [ext_resource type="Resource" uid="uid://c2vk8rd5nwq3t" path="res://resources/stats/player_stats/player_dash_charges.tres" id="4"]
-[ext_resource type="Script" uid="uid://bk9wr2ncx4t7d" path="res://scenes/entities/player/dash_shockwave.gd" id="5"]
+[ext_resource type="Script" uid="uid://blawr2ncx4t7d" path="res://scenes/entities/player/dash_shockwave.gd" id="5"]
 [ext_resource type="Resource" uid="uid://dw7pf3xnak12b" path="res://resources/stats/player_stats/player_dash_shockwave_damage.tres" id="6"]
 [ext_resource type="Resource" uid="uid://b5t00qhj4rn6c" path="res://resources/stats/player_stats/player_dash_shockwave_radius.tres" id="7"]
 [ext_resource type="Script" uid="uid://4oq4rab4kkom" path="res://components/damage_number_popup_component.gd" id="8"]
