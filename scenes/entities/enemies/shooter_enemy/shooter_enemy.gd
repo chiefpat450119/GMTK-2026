@@ -1,7 +1,7 @@
 class_name ShooterEnemy
 extends Enemy
 
-const SHOT_DAMAGE := 2.0  # Damage per landed shot (before global atk mods)
+@export var shot_damage := 2.0  # Damage per landed shot (before global atk mods)
 
 # The art is an upright figure with the barrel out front, so the body never spins to
 # face the player — it mirrors to the player's side and leans to aim. Recoil runs
@@ -103,7 +103,7 @@ func _shoot(dir: Vector2) -> void:
 	# angle comes from dir, not the body, so aiming never depended on the body spinning.
 	var projectile: Projectile = projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
-	projectile.launch(global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(SHOT_DAMAGE))
+	projectile.launch(global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(shot_damage))
 
 	recoil_lean = RECOIL_LEAN
 
