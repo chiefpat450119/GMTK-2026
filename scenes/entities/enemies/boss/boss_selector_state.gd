@@ -14,7 +14,7 @@ const FAR_THRESHOLD: int = 1000
 @export var far_state_pool: Array[State]
 
 
-@export_range(0,1) var chance_of_minion_spawn = 0.1
+@export_range(0,1) var chance_of_minion_spawn = 0.5
 @export var minion_spawner: MinionSpawner
 
 func enter():

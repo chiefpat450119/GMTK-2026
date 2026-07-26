@@ -36,6 +36,8 @@ const spawn_radius: float = 1000.0
 
 @export var wave_timer: Timer
 @export var wave_changed_event : GameEvent
+## Raised once, a few waves out from the boss, so the HUD can warn the player.
+@export var boss_incoming_event : GameEvent
 @export var enemy_pool: Array[EnemySpawnData]
 
 @export var boss_spawner: PackedScene
@@ -44,16 +46,22 @@ const spawn_radius: float = 1000.0
 
 
 @export var boss_spawn_wave: int = 20
+## Wave after which the boss warning banner goes up. Clamped below
+## boss_spawn_wave at raise time, so lowering the boss wave for testing still
+## gets a warning instead of silently skipping it.
+@export var boss_warning_wave: int = 10
 var wave_counter: int = 0
 
 @export var boss_start_event: GameEvent
 @export var wave_end_event: GameEvent
 
 var _wave_running = true
+var _boss_warned = false
 
 func begin_waves():
 	wave_counter = 0
 	_wave_running = true
+	_boss_warned = false
 	spawn_wave()
 	
 	if wave_timer:
@@ -74,9 +82,26 @@ func spawn_wave():
 	
 	increase_budget(wave_counter)
 	wave_counter += 1
-	
+
 	if wave_changed_event:
 		wave_changed_event.raise()
+
+	_maybe_warn_boss()
+
+
+func _maybe_warn_boss():
+	if _boss_warned or boss_incoming_event == null:
+		return
+
+	# One wave before the boss at the latest: a lowered boss_spawn_wave (debug or
+	# balance pass) shouldn't leave the boss arriving unannounced.
+	var warn_at: int = min(boss_warning_wave, max(boss_spawn_wave - 1, 1))
+	if wave_counter < warn_at:
+		return
+
+	_boss_warned = true
+	boss_incoming_event.raise()
+	print("BOSS WARNING raised at wave ", wave_counter, " (boss at ", boss_spawn_wave, ")")
 
 func spawn_enemies(enemies: Array[EnemySpawnData]):
 	var msg := "BUDGET: " + str(budget) + ", RATINGS: ["

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cvignette0001" path="res://scenes/ui/time_vignette.tscn" id="5_vignette"]
 [ext_resource type="PackedScene" uid="uid://cdrain0000001" path="res://scenes/ui/color_drain.tscn" id="6_drain"]
 [ext_resource type="PackedScene" uid="uid://bstykdjfsuh6n" path="res://scenes/ui/xp_meter.tscn" id="7_gss2c"]
+[ext_resource type="PackedScene" uid="uid://4jppb7ih4602" path="res://scenes/ui/boss_warning.tscn" id="8_bosswarn"]
 
 [node name="Hud" type="Control" unique_id=1940000001 node_paths=PackedStringArray("time_hud", "xp_ui", "xp_listener")]
 layout_mode = 3
@@ -34,4 +35,7 @@ event = ExtResource("4_xpevt")
 [node name="TimeHud" parent="." unique_id=1940000003 instance=ExtResource("2_timehud")]
 
 [node name="XpMeter" parent="." unique_id=702229963 instance=ExtResource("7_gss2c")]
+layout_mode = 1
+
+[node name="BossWarning" parent="." unique_id=1471836218 instance=ExtResource("8_bosswarn")]
 layout_mode = 1
