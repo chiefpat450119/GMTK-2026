@@ -3,13 +3,11 @@ extends Node
 @export var duck_db: float = -12.0
 @export var fade_duration: float = 0.35
 
-@export var start_game_event: GameEventListener
 @export var wave_end_event: GameEventListener
 @export var boss_event: GameEventListener
 
 @export var battle_player: AudioStreamPlayer
 @export var boss_player: AudioStreamPlayer
-@export var menu_player: AudioStreamPlayer
 
 var _active_player: AudioStreamPlayer
 var _full_db: Dictionary[AudioStreamPlayer, float] = {}
@@ -21,13 +19,11 @@ func _ready() -> void:
 
 	_full_db[battle_player] = battle_player.volume_db
 	_full_db[boss_player] = boss_player.volume_db
-	_full_db[menu_player] = menu_player.volume_db
 
-	_active_player = menu_player
+	_active_player = battle_player
 
 	GameStateManager.instance.state_changed.connect(_on_state_changed)
-	
-	
+
 	wave_end_event.response.connect(_on_wave_end)
 	boss_event.response.connect(_on_boss_start)
 
@@ -57,15 +53,10 @@ func _on_wave_end() -> void:
 	if _active_player == battle_player:
 		_active_player = null
 
-func _on_game_start() -> void:
-	_stop_all()
-	_switch_track(battle_player)
 
 func _on_boss_start() -> void:
 	_switch_track(boss_player)
 
-func _on_menu_start() -> void:
-	_switch_track(menu_player)
 
 func _switch_track(next_player: AudioStreamPlayer) -> void:
 	_cancel_fade()
@@ -90,9 +81,6 @@ func _apply(state: int) -> void:
 		GameStateManager.GameState.PAUSED:
 			if _active_player != null:
 				_active_player.stream_paused = true
-				
-		GameStateManager.GameState.MAIN_MENU:
-			_play_active(false)
 
 		_:
 			_stop_all()

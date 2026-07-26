@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ctu6nvxq3k8yl"]
 
 [ext_resource type="Script" uid="uid://bwwa02q616ifb" path="res://scenes/ui/utils/nine_patch_button.gd" id="1_script"]
-[ext_resource type="Resource" uid="uid://bcii55pbaemih" path="res://resources/events/event_channels/start_game_event.tres" id="2_a8dbp"]
 [ext_resource type="Texture2D" uid="uid://byvuer7qmyxym" path="res://assets/BUTTON_NOBACK.png" id="2_btn"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="3_i3l8r"]
 
@@ -23,7 +22,6 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_btn")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_btn")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btn")
 script = ExtResource("1_script")
-start_game_event = ExtResource("2_a8dbp")
 
 [node name="Background" type="NinePatchRect" parent="." unique_id=487670772]
 show_behind_parent = true
