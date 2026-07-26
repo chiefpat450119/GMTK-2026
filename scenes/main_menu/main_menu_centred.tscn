@@ -52,11 +52,15 @@ color = Color(0.026721504, 0.026721502, 0.026721498, 1)
 
 [node name="Hourglass White" type="TextureRect" parent="ColorRect" unique_id=883698836]
 clip_children = 1
-layout_mode = 0
-offset_left = 282.58502
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -357.41498
 offset_top = -148.19997
-offset_right = 980.585
+offset_right = 340.58502
 offset_bottom = 782.80005
+grow_horizontal = 2
 scale = Vector2(0.45, 0.45)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("2_nverk")
@@ -71,11 +75,15 @@ grow_vertical = 2
 texture = ExtResource("3_xy6u8")
 
 [node name="Real Icon" type="TextureRect" parent="ColorRect" unique_id=1057983472]
-layout_mode = 0
-offset_left = 163.58499
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.415
 offset_top = -230.20001
-offset_right = 1513.585
+offset_right = 873.58496
 offset_bottom = 849.8
+grow_horizontal = 2
 scale = Vector2(0.47, 0.47)
 pivot_offset_ratio = Vector2(0.35, 0.5)
 texture = ExtResource("4_ksiyh")
@@ -97,33 +105,45 @@ offset_bottom = 1026.3271
 texture = ExtResource("2_nverk")
 
 [node name="Sand" type="Label" parent="ColorRect" unique_id=875591071]
-layout_mode = 0
-offset_left = 348.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -392.0
 offset_top = 121.735
-offset_right = 560.0002
+offset_right = 20.0
 offset_bottom = 245.73515
+grow_horizontal = 2
 text = "Sand"
 label_settings = ExtResource("6_htj3h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Time" type="Label" parent="ColorRect" unique_id=43748029]
-layout_mode = 0
-offset_left = 703.05493
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.945068
 offset_top = 121.735
-offset_right = 916.05493
+offset_right = 376.05493
 offset_bottom = 245.73515
+grow_horizontal = 2
 text = "Time"
 label_settings = ExtResource("6_htj3h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Of" type="Label" parent="ColorRect" unique_id=1757778761]
-layout_mode = 0
-offset_left = 544.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -196.0
 offset_top = 130.0
-offset_right = 757.0
+offset_right = 217.0
 offset_bottom = 254.00012
+grow_horizontal = 2
 text = "Of"
 label_settings = SubResource("LabelSettings_11ml1")
 horizontal_alignment = 1
