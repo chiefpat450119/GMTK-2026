@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://b5t00qhj4rn6c"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_shockwave_radius"]
+
+[resource]
+script = ExtResource("1_shockwave_radius")
+stat_name = "Dash Shockwave Radius"
+base_val = 390.0
+min_val = 0.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"
