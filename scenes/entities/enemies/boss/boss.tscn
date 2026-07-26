@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_base"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_boss"]
 [ext_resource type="Script" uid="uid://1lk5qevh2w7y" path="res://components/state_machine/state_machine.gd" id="3_boss"]
-[ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="3_t78gy"]
 [ext_resource type="Script" uid="uid://ptajhna0r1rr" path="res://scenes/entities/enemies/boss/boss_move_state.gd" id="4_boss"]
 [ext_resource type="Script" uid="uid://dnn0w0npw3nh3" path="res://scenes/entities/enemies/boss/boss_selector_state.gd" id="5_boss"]
 [ext_resource type="Script" uid="uid://7e4yn3vgx3tj" path="res://scenes/entities/enemies/boss/boss_attack_state.gd" id="6_boss"]
@@ -163,27 +162,23 @@ position = Vector2(0, 136)
 scale = Vector2(200.059, 46.811)
 mesh = SubResource("SphereMesh_shadow")
 
-[node name="temp sprite" type="Sprite2D" parent="." index="10" unique_id=1797294995]
-visible = false
-texture = ExtResource("3_t78gy")
-
-[node name="HealthBar" parent="." index="11" unique_id=1031431274]
+[node name="HealthBar" parent="." index="10" unique_id=1031431274]
 offset_left = -37.0
 offset_top = 159.0
 offset_right = 33.0
 offset_bottom = 167.0
 displacement = Vector2(-25, 250)
 
-[node name="HitFeedback" type="Node" parent="." index="12" unique_id=986133604 node_paths=PackedStringArray("health")]
+[node name="HitFeedback" type="Node" parent="." index="11" unique_id=986133604 node_paths=PackedStringArray("health")]
 script = ExtResource("17_d50xw")
 health = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://sqe3naukul5d"
 
-[node name="MinionSpawner" type="Node" parent="." index="14" unique_id=853227253]
+[node name="MinionSpawner" type="Node" parent="." index="13" unique_id=853227253]
 script = ExtResource("18_ntimd")
 enemies_to_spawn = Array[PackedScene]([ExtResource("19_g3w23"), ExtResource("19_g3w23"), ExtResource("20_g3w23"), ExtResource("20_g3w23")])
 metadata/_custom_type_script = "uid://ckj6rgr44um6i"
 
-[node name="VictoryOnDeath" type="Node" parent="." index="15" unique_id=1962911324 node_paths=PackedStringArray("health")]
+[node name="VictoryOnDeath" type="Node" parent="." index="14" unique_id=1962911324 node_paths=PackedStringArray("health")]
 script = ExtResource("21_vadhy")
 health = NodePath("../HealthComponent")
