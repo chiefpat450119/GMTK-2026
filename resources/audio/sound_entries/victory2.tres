@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://bs8r17xibm3us"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_u8owa"]
+[ext_resource type="AudioStream" uid="uid://dyd3kknhapsag" path="res://assets/sfx/Victory2.wav" id="2_u8owa"]
+
+[resource]
+script = ExtResource("1_u8owa")
+id = &"victory2"
+stream = ExtResource("2_u8owa")
+volume_db = -4.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

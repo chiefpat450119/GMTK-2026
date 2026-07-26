@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cwxeu37j6ic1k"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_t1koo"]
+[ext_resource type="AudioStream" uid="uid://dy7wo6l6b6m4n" path="res://assets/sfx/Intro Stamp Down.wav" id="2_x6mtk"]
+
+[resource]
+script = ExtResource("1_t1koo")
+id = &"intro_stamp_down"
+stream = ExtResource("2_x6mtk")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

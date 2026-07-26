@@ -17,19 +17,23 @@ extends Node
 ## SoundBank id for that warning.
 @export var low_time_sfx : StringName = &"low_time"
 
-## Emitted the moment the clock hits zero. This is what ends a run — GameWorld
-## connects it to GameStateManager.game_over(). Only fires on the crossing, so
-## the run doesn't end again every frame the clock sits at zero.
+@export_category("Death Grace Period")
+@export var death_grace_period : float = 3.0
+
+# dies
 signal depleted
+signal grace_started
+signal grace_survived
 ## Emitted only for time taken by a hit
 signal damaged(amount: float)
 
-var _depleted: bool = false
+# Terminal (cant grace)
+var _dead: bool = false
+var _in_grace: bool = false
+var _grace_left: float = 0.0
 var _low_time_warned: bool = false
+var _invuln_left: float = 0.0
 
-## Returns the TimeComponent hanging off an entity, or null if it has none.
-## Mirrors HealthComponent.find_in so damage sources can hurt the player — whose
-## pool is time — without knowing its concrete type.
 static func find_in(entity: Node) -> TimeComponent:
 	for child in entity.get_children():
 		if child is TimeComponent:
@@ -38,8 +42,22 @@ static func find_in(entity: Node) -> TimeComponent:
 
 
 func _process(delta: float) -> void:
-	# God mode: freeze the time bar so it never drains.
+	if _dead:
+		return
+	# God mode: freeze the time bar so it never drains. Held above the grace
+	# countdown too, so flipping it on with the clock already empty stops the
+	# window closing rather than watching it run out anyway.
 	if OS.is_debug_build() and DebugMenu.god_mode:
+		return
+	# Drained ahead of the grace return, so a window opened just before the clock
+	# emptied can't sit frozen for the whole grace period and outlast its welcome.
+	_invuln_left = maxf(_invuln_left - delta, 0.0)
+	# The grace window is the one state decay doesn't run in: the clock is already
+	# empty, and what counts down is the window itself.
+	if _in_grace:
+		_grace_left -= delta
+		if _grace_left <= 0.0:
+			_die()
 		return
 	remove_time(time_decay_scale.current_val() * delta)
 	
@@ -55,25 +73,91 @@ func remove_time(amount: float) -> void:
 ## Time taken by a hit. Same arithmetic as remove_time, announced as a blow so
 ## reactions can play off it. Damage sources should come through here; anything
 ## the player spends by choice, and the decay itself, stays on remove_time.
-func damage(amount: float) -> void:
+##
+## Returns whether the hit landed. An i-frame window — or god mode — refuses it
+## outright, and callers should read that as no contact at all rather than a hit
+## worth zero: nothing is spent, so nothing reacts and the source isn't used up
+## either.
+func damage(amount: float) -> bool:
 	if OS.is_debug_build() and DebugMenu.god_mode:
-		return
+		return false
+	if is_invulnerable():
+		return false
 	remove_time(amount)
 	damaged.emit(amount)
 	time_damaged_event.raise()
+	return true
+
+
+## Refuses incoming damage for [param duration] seconds. Windows never cut each
+## other short — the longest one standing wins — so a source handing out a brief
+## window can't shorten one already running.
+func grant_invulnerability(duration: float) -> void:
+	if _dead:
+		return
+	_invuln_left = maxf(_invuln_left, duration)
+
+
+func is_invulnerable() -> bool:
+	return _invuln_left > 0.0
 
 
 func _set_time(value: float) -> void:
+	if _dead:
+		return
 	time_left = clamp(value, 0, max_time.current_val())
 	if time_changed_event:
 		time_changed_event.raise()
 	_check_low_time()
 	if time_left <= 0.0:
-		if not _depleted:
-			_depleted = true
-			depleted.emit()
-	else:
-		_depleted = false
+		_enter_grace()
+	elif _in_grace:
+		_leave_grace()
+
+
+func in_grace_period() -> bool:
+	return _in_grace
+
+
+func grace_remaining() -> float:
+	return _grace_left if _in_grace else 0.0
+
+
+func grace_ratio() -> float:
+	if not _in_grace or death_grace_period <= 0.0:
+		return 0.0
+	return clampf(_grace_left / death_grace_period, 0.0, 1.0)
+
+
+func is_dead() -> bool:
+	return _dead
+
+
+func _enter_grace() -> void:
+	if _in_grace or _dead:
+		return
+	if death_grace_period <= 0.0:
+		_die()
+		return
+	_in_grace = true
+	_grace_left = death_grace_period
+	grace_started.emit()
+
+
+func _leave_grace() -> void:
+	_in_grace = false
+	_grace_left = 0.0
+	grace_survived.emit()
+
+
+func _die() -> void:
+	if _dead:
+		return
+	_dead = true
+	_in_grace = false
+	_grace_left = 0.0
+	depleted.emit()
+
 
 func _check_low_time() -> void:
 	if low_time_threshold <= 0.0:

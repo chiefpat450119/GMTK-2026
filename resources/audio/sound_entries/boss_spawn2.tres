@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://c700dhklq4txn"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_krq1v"]
+[ext_resource type="AudioStream" uid="uid://dp4muhbu2ntuy" path="res://assets/sfx/Boss Spawn2.wav" id="2_ug6yf"]
+
+[resource]
+script = ExtResource("1_krq1v")
+id = &"boss_spawn2"
+stream = ExtResource("2_ug6yf")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

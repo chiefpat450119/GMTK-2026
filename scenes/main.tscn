@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b0sjtdsf0e68j" path="res://scenes/autoload/game_state_manager.tscn" id="9_gsm"]
 [ext_resource type="PackedScene" uid="uid://bscnfade0001" path="res://scenes/ui/scene_transition.tscn" id="10_fade"]
 [ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="10_gunsel"]
+[ext_resource type="Script" uid="uid://dr7pn5437usqx" path="res://scenes/autoload/grace_slowdown.gd" id="11_graceslow"]
 [ext_resource type="PackedScene" uid="uid://bmusicplr0001" path="res://scenes/autoload/music.tscn" id="11_music"]
 [ext_resource type="PackedScene" uid="uid://cgn3cu48w3bmr" path="res://scenes/ui/victory_screen.tscn" id="12_victory"]
 [ext_resource type="PackedScene" uid="uid://bdebugmenu001" path="res://scenes/ui/debug_menu.tscn" id="13_debug"]
@@ -22,6 +23,9 @@ world_mount = NodePath("World")
 [node name="GameStateManager" parent="." unique_id=961278477 instance=ExtResource("9_gsm")]
 
 [node name="Music" parent="." unique_id=961278491 instance=ExtResource("11_music")]
+
+[node name="GraceSlowdown" type="Node" parent="." unique_id=961278493]
+script = ExtResource("11_graceslow")
 
 [node name="World" type="Node2D" parent="." unique_id=961278469]
 

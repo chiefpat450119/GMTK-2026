@@ -21,7 +21,7 @@ shader_parameter/drain = 0.0
 shader_parameter/noise_scale = 1.6
 shader_parameter/noise_bias = 1.0
 shader_parameter/partial_drain = 0.55
-shader_parameter/final_drain = 1.0
+shader_parameter/final_drain = 0.65
 shader_parameter/final_from = 0.85
 shader_parameter/drift = 0.01
 

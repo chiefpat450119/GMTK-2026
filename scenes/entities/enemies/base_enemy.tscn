@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="7_base"]
 [ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="8_base"]
 [ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="8_i2g43"]
-[ext_resource type="Script" path="res://components/disintegrate_on_death.gd" id="9_dis"]
+[ext_resource type="Script" uid="uid://boxksr7lslm4g" path="res://components/disintegrate_on_death.gd" id="9_dis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
@@ -53,7 +53,7 @@ shape = SubResource("RectangleShape2D_hitbx")
 [node name="HealthComponent" type="Node" parent="." unique_id=2054313803]
 script = ExtResource("6_base")
 max_hp = ExtResource("7_base")
-base_hp = 25.0
+base_hp = 2000.0
 death_event = ExtResource("8_i2g43")
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
@@ -64,5 +64,5 @@ offset_right = 25.0
 offset_bottom = 80.0
 health_component = NodePath("../HealthComponent")
 
-[node name="DisintegrateOnDeath" type="Node" parent="."]
+[node name="DisintegrateOnDeath" type="Node" parent="." unique_id=1561742625]
 script = ExtResource("9_dis")

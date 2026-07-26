@@ -77,8 +77,10 @@ func _on_body_entered(body: Node2D) -> void:
 		damage_popup.create_popup(roundi(damage), body.global_position) # Round to nearest whole num
 	else:
 		var time := TimeComponent.find_in(body)
-		if time:
-			time.damage(damage)
+		if time and not time.damage(damage):
+			# Turned away by i-frames. The shot carries on rather than being eaten
+			# by a dash, and doesn't spend a pierce on a target it never hurt.
+			return
 
 	# A body with no damageable pool still soaks a pierce — it blocked the shot
 	# either way.

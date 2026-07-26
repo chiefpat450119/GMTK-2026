@@ -7,4 +7,5 @@
 script = ExtResource("1_qscvt")
 id = &"boss_clock_swing2"
 stream = ExtResource("2_qscvt")
+volume_db = 5.0
 metadata/_custom_type_script = "uid://my4saxjc4cnj"
