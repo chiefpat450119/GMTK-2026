@@ -251,7 +251,6 @@ func _teardown_world() -> void:
 	_world.free()
 	_world = null
 
-
 func _set_state(next: GameState) -> void:
 	if next == state:
 		return
