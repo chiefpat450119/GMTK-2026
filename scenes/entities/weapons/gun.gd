@@ -31,6 +31,13 @@ extends Node2D
 const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 
 var can_fire : bool = true
+var ani_sprite
+
+func _ready() -> void:
+	#gets the animated sprite that the gun moves aroundd
+	for child in sprite.get_parent().get_parent().get_children():
+		if child is AnimatedSprite2D:
+			ani_sprite = child
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -43,10 +50,15 @@ func _physics_process(_delta: float) -> void:
 	# Makes the gun look like it's rotating around the player in 3D space
 	var left_threshold := -45
 	var right_threshold := -135
-	if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
-		sprite.z_index = 1
-	else:
-		sprite.z_index = 3
+	if ani_sprite: #no need to do this if there is no sprite to go behind
+		if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
+			#including both of these is not techincally needed but
+			#if other things change it is probably more likely to work
+			sprite.get_parent().set_draw_behind_parent(true)
+			ani_sprite.set_draw_behind_parent(false)
+		else:
+			sprite.get_parent().set_draw_behind_parent(false)
+			ani_sprite.set_draw_behind_parent(true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Fire"):

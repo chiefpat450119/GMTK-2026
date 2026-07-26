@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cgw0rld1shell"]
 
 [ext_resource type="Script" uid="uid://0hvpwbynmmg" path="res://scenes/game/game_world.gd" id="1_gwrld"]
-[ext_resource type="PackedScene" path="res://scenes/map/map.tscn" id="2_map"]
+[ext_resource type="PackedScene" uid="uid://dljq5qhsbbgsw" path="res://scenes/map/map.tscn" id="2_map"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="3_plyr"]
 [ext_resource type="Texture2D" uid="uid://dt08epetd6n1m" path="res://assets/Desert_Objects.png" id="4_jmprd"]
 [ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="5_spwn"]
@@ -12,28 +12,40 @@
 texture = ExtResource("4_jmprd")
 texture_region_size = Vector2i(200, 200)
 0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 18)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 18)
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 18)
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, 18)
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, 18)
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, 18)
 2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, 18)
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 18)
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, 18)
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, 18)
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, 18)
 3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, 18)
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 
 [sub_resource type="TileSet" id="TileSet_wj4nx"]
@@ -49,20 +61,22 @@ collectables = NodePath("Collectables")
 
 [node name="Map" parent="." unique_id=1900000002 instance=ExtResource("2_map")]
 
-[node name="Obstacles" type="TileMapLayer" parent="." unique_id=793358562]
+[node name="Collectables" type="Node2D" parent="." unique_id=1900000008]
+
+[node name="EnemySpawner" parent="." unique_id=1900000005 instance=ExtResource("5_spwn")]
+
+[node name="YSortedItems" type="Node2D" parent="." unique_id=273164103]
+y_sort_enabled = true
+
+[node name="Obstacles" type="TileMapLayer" parent="YSortedItems" unique_id=793358562]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AADx/wUAAAACAAAAAADz/wMAAAACAAAAAAD4/wQAAAACAAAAAAD5/wUAAAAAAAIAAAD6/wUAAAACAAEAAAD7//3/AAACAAAAAAACAPj/AAACAAAAAAAHAAgAAAACAAAAAAALAP3/AAACAAAAAAANAAkAAAACAAAAAAASAAUAAAACAAAAAAATAAAAAAACAAAAAAAXAAYAAAACAAAAAAD1/wEAAAADAAAAAAD1/wUAAAADAAAAAAD2//n/AAADAAAAAAD3//z/AAADAAAAAAD+//n/AAADAAAAAAD+/wQAAAADAAAAAAD///v/AAADAAAAAAAAAAYAAAADAAAAAAABAAgAAAADAAAAAAAEAP3/AAACAAIAAAAGAAQAAAADAAAAAAAIAAIAAAADAAAAAAAKAP7/AAADAAAAAAANAP3/AAADAAAAAAARAAUAAAADAAAAAAAWAAsAAAABAAEAAAD1/wMAAAADAAAAAAD5/wYAAAADAAAAAAD7//r/AAADAAAAAAD7/woAAAADAAAAAAAAAPr/AAADAAAAAAAHAAYAAAADAAAAAAAJAPv/AAADAAAAAAALAAcAAAADAAAAAAANAAIAAAADAAAAAAAOAAYAAAADAAAAAAAPAAoAAAADAAAAAAAQAPz/AAADAAAAAAASAPv/AAADAAAAAAAVAAEAAAADAAAAAADz//n/AAAAAAEAAAD//wwAAAAAAAEAAAABAPr/AAAAAAEAAAACAP7/AAAAAAEAAAACAAEAAAAAAAEAAAAGAP7/AAAAAAEAAAAHAAkAAAAAAAEAAAAMAAQAAAAAAAEAAAAUAP7/AAAAAAEAAAD5/wQAAAABAAEAAAD5/wcAAAABAAEAAAD6//z/AAABAAEAAAD9//b/AAABAAEAAAD+/wMAAAABAAEAAAAQAAsAAAABAAEAAAARAAwAAAABAAEAAAATAPj/AAABAAEAAAAUAAMAAAABAAEAAADy/wsAAAACAAEAAAD0//v/AAACAAEAAAD2//7/AAACAAEAAAD7/wwAAAACAAEAAAAYAAQAAAACAAEAAAAWAPv/AAACAAIAAAAXAPz/AAADAAEAAAAUAPz/AAADAAIAAAATAP7/AAADAAEAAAD6/wYAAAACAAIAAAD+/wYAAAACAAIAAAD//wIAAAACAAIAAAAIAAYAAAACAAIAAAAPAPj/AAACAAIAAAAPAAYAAAACAAIAAAAYAAoAAAACAAIAAADz/wkAAAACAAIAAAD1//v/AAABAAIAAAD2/woAAAABAAIAAAD6/wkAAAABAAIAAAAGAAAAAAABAAIAAAAGAAoAAAABAAIAAAAOAPj/AAABAAIAAAAYAPz/AAABAAIAAAD0/wcAAAAAAAIAAAD5/wIAAAAAAAIAAAAEAP7/AAAAAAIAAAAFAAYAAAAAAAIAAAAFAAoAAAAAAAIAAAAKAAMAAAAAAAIAAAA=")
 tile_set = SubResource("TileSet_wj4nx")
 
-[node name="Collectables" type="Node2D" parent="." unique_id=1900000008]
+[node name="Player" parent="YSortedItems" unique_id=1900000003 instance=ExtResource("3_plyr")]
 
-[node name="Player" parent="." unique_id=1900000003 instance=ExtResource("3_plyr")]
-y_sort_enabled = true
-
-[node name="LevelComponent" type="Node" parent="Player" unique_id=1900000007]
+[node name="LevelComponent" type="Node" parent="YSortedItems/Player" unique_id=1900000007]
 script = ExtResource("6_level")
 xp_changed_event = ExtResource("7_xpevt")
 
-[node name="EnemySpawner" parent="." unique_id=1900000005 instance=ExtResource("5_spwn")]
-
-[editable path="Player"]
+[editable path="YSortedItems/Player"]
