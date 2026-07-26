@@ -35,4 +35,4 @@ scale = Vector2(0.2894737, 0.28947368)
 texture = ExtResource("8_s8eaq")
 
 [node name="Projectile Spawn Point" type="Node2D" parent="." unique_id=1642815895]
-position = Vector2(144.05264, 0)
+position = Vector2(103, 2)
