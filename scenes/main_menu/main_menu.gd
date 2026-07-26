@@ -11,11 +11,13 @@ extends StateScreen
 
 var _anim_tween: Tween
 var _base_white_scale: Vector2
-var _base_real_pos: Vector2
 var _base_real_scale: Vector2
-var _base_sand_pos: Vector2
-var _base_of_pos: Vector2
-var _base_time_pos: Vector2
+# Offsets exactly as authored in the scene, per node. Positions are derived from
+# these against the live parent size rather than captured once, because the title is
+# anchored to the centre: a position read at one window size is wrong at every other
+# one, and the animation writing that stale value back is what knocked the logo off
+# centre after a resize. See layout_pos().
+var _base_offsets := {}
 
 # The white silhouette enters alone: up from under the frame, unwinding a
 # three-quarter turn into the centre, then swelling. The real icon joins it for the
@@ -47,16 +49,20 @@ const DELAY_BEFORE_WORDS = 0.2
 
 
 func _ready() -> void:
+	# before super(), which can put the screen up and start the animation on the spot
+	_base_white_scale = hourglass_white.scale
+	_base_real_scale = real_icon.scale
+	for node in animated_nodes():
+		_base_offsets[node] = Vector2(node.offset_left, node.offset_top)
+
+	# Resizing the window moves every anchored position under the animation, whether
+	# the menu is up or sitting hidden behind a run, so rebuild against the new
+	# layout instead of leaving the logo parked where the old one put it.
+	layout_parent().resized.connect(_on_layout_changed)
+
 	super()
 	play_button.pressed.connect(GameStateManager.instance.start_run)
 	quit_button.pressed.connect(get_tree().quit)
-	
-	_base_white_scale = hourglass_white.scale
-	_base_real_pos = real_icon.position
-	_base_real_scale = real_icon.scale
-	_base_sand_pos = sand.position
-	_base_of_pos = of.position
-	_base_time_pos = time.position
 
 
 ## Re-play the intro animation each time the menu comes up.
@@ -82,6 +88,39 @@ func _on_hidden() -> void:
 		_anim_tween.kill()
 
 
+# Every node the animation drives, all of them children of the same Control.
+func animated_nodes() -> Array:
+	return [hourglass_white, real_icon, sand, of, time]
+
+
+func layout_parent() -> Control:
+	return real_icon.get_parent() as Control
+
+
+# Where a node's anchors put it at the current window size. This is what `position`
+# would read if nothing had ever written to it -- the animation overwrites position
+# (and with it the offsets) on every play, so the authored offsets are kept aside in
+# _base_offsets and the anchor term is re-resolved here each time it is needed.
+func layout_pos(node: Control) -> Vector2:
+	var parent_size := layout_parent().size
+	var offset: Vector2 = _base_offsets[node]
+	return Vector2(node.anchor_left * parent_size.x, node.anchor_top * parent_size.y) + offset
+
+
+# The window changed size, so every position the running animation is aiming at
+# belongs to the old layout. Rebuild the sequence against the new one and fast-forward
+# it to where it had got to, so a resize mid-intro re-centres without restarting the
+# animation. Nothing to do while hidden -- _on_shown() rebuilds from scratch anyway.
+func _on_layout_changed() -> void:
+	if not visible:
+		return
+	if _anim_tween and _anim_tween.is_valid() and _anim_tween.is_running():
+		var elapsed := _anim_tween.get_total_elapsed_time()
+		start_anim(elapsed)
+	else:
+		apply_rest_state()
+
+
 # Seconds into the climb at which it has covered the given fraction of its distance.
 # The climb is a cubic ease-in, so distance is time cubed and this inverts it.
 func climb_time_at(travel: float) -> float:
@@ -102,29 +141,49 @@ func silhouette_pos_at(icon_pos: Vector2, node_scale: Vector2) -> Vector2:
 	return target - white_pivot - (hourglass_white.size * 0.5 - white_pivot) * node_scale
 
 
-func start_anim() -> void:
-	# Restore base positions before animating, so reopening the menu works correctly
-	hourglass_white.scale = _base_white_scale
-	real_icon.position = _base_real_pos
-	real_icon.scale = _base_real_scale
-	sand.position = _base_sand_pos
-	of.position = _base_of_pos
-	time.position = _base_time_pos
+# node, the offset it enters from, the distance it slides, and when it starts. The
+# entry offset and the slide together decide where a word ends up, so both the
+# animation and a relayout mid-flight read them from here and agree on the resting spot.
+func word_entries() -> Array:
+	return [
+		[sand, Vector2(-20, 0), Vector2(30, 0), DELAY_BEFORE_WORDS + 0.1],
+		[time, Vector2(20, 0), Vector2(-30, 0), DELAY_BEFORE_WORDS + 0.25],
+		[of, Vector2(0, 20), Vector2(0, -20), DELAY_BEFORE_WORDS + 0.4],
+	]
 
-	var white_base_scale = hourglass_white.scale
-	var real_rest_pos = real_icon.position
-	var real_final_pos = real_rest_pos - Vector2(0, FINAL_RISE)
+
+# The scale the logo settles at. Both nodes share it, so the two silhouettes stay
+# stacked through the dissolve.
+func final_scale() -> Vector2:
+	return _base_real_scale * FINAL_SCALE
+
+
+# `skip_to` fast-forwards the freshly built sequence, used when a resize forces the
+# animation to be rebuilt against a new layout part-way through.
+func start_anim(skip_to := 0.0) -> void:
+	if _anim_tween and _anim_tween.is_valid():
+		_anim_tween.kill()
+
+	# Resolve every position from the anchors and the current window size, so
+	# reopening the menu -- or reopening it at a different size -- still centres.
+	# The silhouette's scale tweener only takes over once the rise has landed, so its
+	# starting size has to be put back by hand after a previous play shrank it.
+	var white_base_scale := _base_white_scale
+	hourglass_white.scale = white_base_scale
+	var real_rest_pos := layout_pos(real_icon)
+	var real_final_pos := real_rest_pos - Vector2(0, FINAL_RISE)
 	# both nodes carry the same 698x931 hourglass texture, so holding them at one
 	# shared scale is what keeps the two silhouettes stacked through the dissolve
-	var swell_scale = white_base_scale * SWELL_SCALE
-	var final_scale = real_icon.scale * FINAL_SCALE
+	var swell_scale := white_base_scale * SWELL_SCALE
+	var end_scale := final_scale()
 	# and the silhouette rests wherever it has to for the icon to surface out of it
 	# without a seam -- both ends solved, so the whole climb stays registered
-	var white_rest_pos = silhouette_pos_at(real_rest_pos, swell_scale)
-	var white_final_pos = silhouette_pos_at(real_final_pos, final_scale)
+	var white_rest_pos := silhouette_pos_at(real_rest_pos, swell_scale)
+	var white_final_pos := silhouette_pos_at(real_final_pos, end_scale)
 
 	# the real icon waits out of sight at the swelled size, ready to climb in step
 	# with the silhouette rather than appearing once the silhouette has finished
+	real_icon.position = real_rest_pos
 	real_icon.scale = swell_scale
 	real_icon.modulate.a = 0
 
@@ -132,22 +191,17 @@ func start_anim() -> void:
 	hourglass_white.rotation_degrees = SPIN_DEGREES
 	hourglass_white.position = white_rest_pos + Vector2(0, RISE_DISTANCE)
 
-	# the words start invisible and offset, then slide + fade in once the logo lands
-	for word in [sand, of, time]:
-		word.modulate.a = 0
-	sand.position.x -= 20
-	time.position.x += 20
-	of.position.y += 20
-
 	_anim_tween = create_tween()
 	var tween = _anim_tween
 	tween.set_parallel(true)
 
 	# rises into the frame while unwinding to upright
 	tween.tween_property(hourglass_white, "position", white_rest_pos, RISE_DURATION)\
+			.from(white_rest_pos + Vector2(0, RISE_DISTANCE))\
 			.set_ease(Tween.EASE_OUT)\
 			.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(hourglass_white, "rotation_degrees", 0, SPIN_DURATION)\
+			.from(SPIN_DEGREES)\
 			.set_ease(Tween.EASE_OUT)\
 			.set_trans(Tween.TRANS_CUBIC)
 
@@ -160,7 +214,7 @@ func start_anim() -> void:
 
 	# ...and from there the silhouette and the real icon climb together, on the same
 	# curve and the same scale, so they read as one object the whole way up
-	tween.tween_property(hourglass_white, "scale", final_scale, COLLAPSE_DURATION)\
+	tween.tween_property(hourglass_white, "scale", end_scale, COLLAPSE_DURATION)\
 			.from(swell_scale)\
 			.set_delay(COLLAPSE_DELAY)\
 			.set_ease(Tween.EASE_IN)\
@@ -170,7 +224,7 @@ func start_anim() -> void:
 			.set_delay(COLLAPSE_DELAY)\
 			.set_ease(Tween.EASE_IN)\
 			.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(real_icon, "scale", final_scale, COLLAPSE_DURATION)\
+	tween.tween_property(real_icon, "scale", end_scale, COLLAPSE_DURATION)\
 			.from(swell_scale)\
 			.set_delay(COLLAPSE_DELAY)\
 			.set_ease(Tween.EASE_IN)\
@@ -185,32 +239,60 @@ func start_anim() -> void:
 	# the silhouette holds then drops away while the icon front-loads its fade to
 	# cover the gap -- two shapes fading linearly past each other let the background
 	# through in the middle, and the logo visibly dims as it crosses over
-	var swap_delay = COLLAPSE_DELAY + climb_time_at(SWAP_FROM_TRAVEL)
-	var swap_duration = climb_time_at(SWAP_TO_TRAVEL) - climb_time_at(SWAP_FROM_TRAVEL)
+	var swap_delay := COLLAPSE_DELAY + climb_time_at(SWAP_FROM_TRAVEL)
+	var swap_duration := climb_time_at(SWAP_TO_TRAVEL) - climb_time_at(SWAP_FROM_TRAVEL)
 	tween.tween_property(hourglass_white, "modulate:a", 0, swap_duration)\
+			.from(1.0)\
 			.set_delay(swap_delay)\
 			.set_ease(Tween.EASE_IN)\
 			.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(real_icon, "modulate:a", 1, swap_duration)\
+			.from(0.0)\
 			.set_delay(swap_delay)
 
 	# and the words come in behind the finished logo
-	tween.tween_callback(animate_words).set_delay(SWAP_TIME)
+	for entry in word_entries():
+		slide_word_in(tween, entry[0], entry[1], entry[2], SWAP_TIME + entry[3])
+
+	# a rebuilt sequence starts from zero, so replay the part that already happened.
+	# Every tweener above declares its own .from(), so stepping lands on exactly the
+	# state the old tween was in -- only measured against the new layout.
+	if skip_to > 0.0:
+		tween.custom_step(skip_to)
 
 
-func animate_words() -> void:
-	_anim_tween = create_tween()
-	var tween = _anim_tween
-	slide_word_in(tween, sand, Vector2(30, 0), DELAY_BEFORE_WORDS + 0.1)
-	slide_word_in(tween, time, Vector2(-30, 0), DELAY_BEFORE_WORDS + 0.25)
-	slide_word_in(tween, of, Vector2(0, -20), DELAY_BEFORE_WORDS + 0.4)
-
-
-func slide_word_in(tween: Tween, word: Control, offset: Vector2, delay: float) -> void:
-	tween.parallel().tween_property(word, "position", offset, WORD_SLIDE_DURATION)\
+func slide_word_in(tween: Tween, word: Control, enter_from: Vector2, slide: Vector2, delay: float) -> void:
+	var start := layout_pos(word) + enter_from
+	word.position = start
+	word.modulate.a = 0
+	# absolute rather than relative, so rebuilding the tween after a resize aims at
+	# the same spot instead of stacking another slide onto wherever the word sits
+	tween.parallel().tween_property(word, "position", start + slide, WORD_SLIDE_DURATION)\
+			.from(start)\
 			.set_delay(delay)\
-			.as_relative()\
 			.set_ease(Tween.EASE_OUT)\
 			.set_trans(Tween.TRANS_CUBIC)
 	tween.parallel().tween_property(word, "modulate:a", 1, WORD_SLIDE_DURATION)\
+			.from(0.0)\
 			.set_delay(delay)
+
+
+# Where the intro leaves everything. Used to re-centre after a resize that lands once
+# the animation is already over, where there is no tween left to rebuild.
+func apply_rest_state() -> void:
+	var end_scale := final_scale()
+	var real_final_pos := layout_pos(real_icon) - Vector2(0, FINAL_RISE)
+
+	real_icon.position = real_final_pos
+	real_icon.scale = end_scale
+	real_icon.modulate.a = 1
+
+	hourglass_white.position = silhouette_pos_at(real_final_pos, end_scale)
+	hourglass_white.scale = end_scale
+	hourglass_white.rotation_degrees = 0
+	hourglass_white.modulate.a = 0
+
+	for entry in word_entries():
+		var word: Control = entry[0]
+		word.position = layout_pos(word) + entry[1] + entry[2]
+		word.modulate.a = 1
