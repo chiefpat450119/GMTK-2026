@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="9_rlr3w"]
 [ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="10_2u420"]
 [ext_resource type="PackedScene" uid="uid://cfcpevtu3ea0l" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.tscn" id="10_8xieo"]
+[ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="11_shtgn"]
 
 [node name="TestUpgradeSystem+HUD" type="Node2D" unique_id=1037445340]
 script = ExtResource("1_iui5b")
@@ -15,7 +16,7 @@ gun_offer_event = ExtResource("3_2u420")
 
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("8_v65ji")]
 
-[node name="Shotgun" parent="Player" index="3" unique_id=933200610]
+[node name="Shotgun" parent="Player" unique_id=933200610 instance=ExtResource("11_shtgn")]
 base_fire_cooldown = 0.5
 base_cost = 3.0
 
