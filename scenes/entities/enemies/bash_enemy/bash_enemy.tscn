@@ -37,6 +37,7 @@ animations = [{
 size = Vector2(140, 39)
 
 [node name="BashEnemy" unique_id=1427456001 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+collision_mask = 2
 script = ExtResource("2_bsh")
 attack_interval = 1.0
 charge_time = 0.75
