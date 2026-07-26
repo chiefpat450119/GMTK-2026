@@ -8,8 +8,7 @@ extends Control
 ## TimeHud is its own CanvasLayer, so it renders independently of this Control
 ## and has to be shown and hidden alongside it by hand.
 @export var time_hud: CanvasLayer
-@export var xp_bar: ProgressBar
-@export var level_label: Label
+@export var xp_ui: XPMeter
 @export var xp_listener: GameEventListener
 
 
@@ -48,6 +47,4 @@ func _on_xp_changed() -> void:
 	var level := LevelComponent.find_in(Player.instance)
 	if level == null:
 		return
-	xp_bar.max_value = level.requirement()
-	xp_bar.value = level.xp
-	level_label.text = "Lv %d" % level.level
+	xp_ui.update_xp(level.level, int(level.xp), int(level.requirement()))

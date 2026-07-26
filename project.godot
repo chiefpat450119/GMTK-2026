@@ -15,10 +15,15 @@ run/main_scene="uid://ctae7kpgvna66"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://mfwr3uxb8ino"
+
 [autoload]
 
 CollectableManagerInstance="*uid://bhn518m4rokgf"
 EnemyStatScalerInstance="*uid://dxrbm8nooaen4"
+SFX="*res://scenes/autoload/sfx.tscn"
 
 [display]
 

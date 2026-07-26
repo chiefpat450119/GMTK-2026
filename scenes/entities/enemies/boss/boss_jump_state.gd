@@ -18,7 +18,7 @@ const JUMP_AWAY_DISTANCE: int = 100
 
 @export var jump_land_atk: AtkComponent
 
-@export var sprite: Sprite2D
+#@export var sprite: Sprite2D
 @export var collider: CollisionShape2D
 
 
@@ -30,17 +30,29 @@ const JUMP_AWAY_DISTANCE: int = 100
 var land_target := Vector2.ZERO
 var jump_speed : float
 
+var _landed = false
+
 func enter():
 	# play animation
 	super()
+	_landed = false
 	
 	await jump_squat_delay(land_target_type)
+	jump_anim()
+	await get_tree().create_timer(0.2).timeout
 	
 	land_target = get_land_pos(land_target_type)
 	var jump_distance := enemy.position.distance_to(land_target)
 	jump_speed = jump_distance / jump_duration
 	
 	jump_timer.start()
+
+
+func jump_anim():
+	await get_tree().create_timer(play_anim(&"Jump_Airborne")).timeout
+	if not _landed:
+		play_anim(&"Jump_Airborne_Freeze")
+
 
 func physics_tick(_delta: float):
 	if jump_timer.is_started():
@@ -51,11 +63,11 @@ func jump_squat_delay(target_type: LandTargetType):
 	var yield_time: float
 	match target_type:
 		LandTargetType.TOWARD_PLAYER:
-			yield_time = JUMP_SQUAT_TIME
+			yield_time = play_anim(&"Jump")
 		LandTargetType.AWAY_FROM_PLAYER:
-			yield_time = JUMP_SQUAT_TIME_FAST
+			yield_time = play_anim(&"Jump", 2.0)
 		_:
-			return JUMP_SQUAT_TIME
+			return play_anim(&"Jump")
 	
 	await get_tree().create_timer(yield_time).timeout
 
@@ -88,20 +100,22 @@ func land():
 	jump_timer.stop()
 	offset_sprite(0)
 	
+	_landed = true
+	
 	jump_land_atk.set_active(true)
 	#play land anim or fx
-	await get_tree().create_timer(JUMP_COOLDOWN).timeout
+	await get_tree().create_timer(play_anim(&"Jump_End")).timeout
 	jump_land_atk.set_active(false)
 
 	
 	switch_state(selector_state)
-	#spawn atk
 
 
 func offset_sprite(offset: float):
 	var offset_vec := offset * Vector2.DOWN 
-	sprite.offset = offset_vec
+	anim.position = offset_vec
 	collider.position = offset_vec
+	jump_land_atk.position = offset_vec
 
 func exit():
 

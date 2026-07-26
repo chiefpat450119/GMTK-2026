@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d3qbk2po7jyjc"
+path="res://.godot/imported/Getting Exp Sound.wav-6dd7ac2dd316274a596bd39e15e8126d.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Getting Exp Sound.wav"
+dest_files=["res://.godot/imported/Getting Exp Sound.wav-6dd7ac2dd316274a596bd39e15e8126d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
