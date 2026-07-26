@@ -46,15 +46,20 @@ const spawn_radius: float = 1000.0
 @export var boss_spawn_wave: int = 20
 var wave_counter: int = 0
 
+var _wave_running = true
 
 func begin_waves():
+	wave_counter = 0
+	_wave_running = true
 	spawn_wave()
 	wave_timer.start()
 	wave_timer.timeout.connect(spawn_wave)
-	wave_counter = 0
 
 
 func spawn_wave():
+	if not _wave_running:
+		return
+	
 	if wave_counter >= boss_spawn_wave: 
 		spawn_boss()
 		return
@@ -86,6 +91,8 @@ func spawn_boss():
 	var instance: BossSpawner = boss_spawner.instantiate()
 	get_tree().current_scene.add_child(instance)
 	instance.global_position = Player.instance.global_position
+	
+	_wave_running = false
 
 func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	# instantiate enemy 
