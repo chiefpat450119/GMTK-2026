@@ -40,6 +40,7 @@ const PADDING := Vector4(100, 16, 100, 26)
 @onready var background: NinePatchRect = $Background
 @onready var label: Label = $Label
 
+@export var start_game_event : GameEvent
 
 # SFX plays the UI sounds on every BaseButton that enters the tree, and this button
 # asks for them itself below, so it opts out of that pass -- with both wired, every
@@ -64,6 +65,8 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
+	if start_game_event:
+		start_game_event.raise()
 	SFX.play(SFX.UI_PRESS)
 
 
