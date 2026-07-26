@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://c2vk8rd5nwq3t"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_charges"]
+
+[resource]
+script = ExtResource("1_charges")
+stat_name = "Dash Charges"
+base_val = 1.0
+min_val = 1.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"

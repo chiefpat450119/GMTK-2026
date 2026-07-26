@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://dl5rkafbq0wc3"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_effect"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_upgrade"]
+[ext_resource type="Resource" uid="uid://c2vk8rd5nwq3t" path="res://resources/stats/player_stats/player_dash_charges.tres" id="3_dash_charges"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_placeholder"]
+
+[sub_resource type="Resource" id="Resource_afterimage"]
+script = ExtResource("1_effect")
+target_stat = ExtResource("3_dash_charges")
+value = 1.0
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_upgrade")
+id = &"afterimage"
+title = "Afterimage"
+description_override = "+1 dash charge — bank a second dash and chain them back to back"
+icon = ExtResource("4_placeholder")
+rarity = 2
+max_stacks = 2
+effects = Array[ExtResource("1_effect")]([SubResource("Resource_afterimage")])
+metadata/_custom_type_script = "uid://031polniagv2"

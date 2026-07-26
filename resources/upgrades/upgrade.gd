@@ -5,14 +5,20 @@ extends Resource
 ## Holds display data and a list of UpgradeEffects. Applying it pushes a
 ## Modifier onto each targeted Stat. 
 
-## Draw tier. Rarer tiers are drawn less often — see RARITY_WEIGHTS. Ordered
-## common-to-rare so the enum reads as an escalation and so a card that forgot to
-## set one lands on the harmless default rather than on Legendary.
+## Draw tier. Rarer tiers are drawn less often — see RARITY_WEIGHTS. The shipping
+## tiers are ordered common-to-rare so the enum reads as an escalation and so a
+## card that forgot to set one lands on the harmless default rather than on
+## Legendary. DEBUG breaks that ordering on purpose: rarity is serialised as a
+## bare int in every card's .tres, so a new tier can only be appended — inserting
+## one would silently re-tier every card already saved.
 enum Rarity {
 	COMMON,
 	RARE,
 	EPIC,
 	LEGENDARY,
+	## Testing only, and the *most* common tier despite sitting last. Set a card to
+	## this to force it in front of you; nothing should ship on DEBUG.
+	DEBUG,
 }
 
 ## Relative draw weight per tier. Higher == more common. These are the only draw
@@ -23,6 +29,11 @@ const RARITY_WEIGHTS := {
 	Rarity.RARE: 5.0,
 	Rarity.EPIC: 3.0,
 	Rarity.LEGENDARY: 1.0,
+	# Orders of magnitude past the whole pool's combined weight, so a DEBUG card
+	# takes the first slot of essentially every offer. It is only near-certain
+	# rather than certain, and only for one slot: roll() erases each pick before
+	# drawing the next, so the remaining cards still come off the normal table.
+	Rarity.DEBUG: 10000.0,
 }
 
 @export var id: StringName = &""

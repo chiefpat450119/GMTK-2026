@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://bx2mg6khv7td8"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_effect"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_upgrade"]
+[ext_resource type="Resource" uid="uid://dw7pf3xnak12b" path="res://resources/stats/player_stats/player_dash_shockwave_damage.tres" id="3_shockwave_dmg"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_placeholder"]
+
+[sub_resource type="Resource" id="Resource_sandblast"]
+script = ExtResource("1_effect")
+target_stat = ExtResource("3_shockwave_dmg")
+value = 25.0
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_upgrade")
+id = &"sandblast"
+title = "Sandblast"
+description_override = "Dashing blasts nearby enemies for 25 damage (Can stack multiple times)"
+icon = ExtResource("4_placeholder")
+rarity = 2
+max_stacks = 1
+effects = Array[ExtResource("1_effect")]([SubResource("Resource_sandblast")])
+metadata/_custom_type_script = "uid://031polniagv2"

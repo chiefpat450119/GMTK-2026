@@ -3,8 +3,19 @@
 [ext_resource type="Script" uid="uid://cmxhpmdbfnacg" path="res://scenes/entities/player/dash_component.gd" id="1"]
 [ext_resource type="Resource" uid="uid://cpmdbjrugn0ku" path="res://resources/stats/player_stats/player_dash_speed.tres" id="2"]
 [ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3"]
+[ext_resource type="Resource" uid="uid://c2vk8rd5nwq3t" path="res://resources/stats/player_stats/player_dash_charges.tres" id="4"]
+[ext_resource type="Script" uid="uid://bk9wr2ncx4t7d" path="res://scenes/entities/player/dash_shockwave.gd" id="5"]
+[ext_resource type="Resource" uid="uid://dw7pf3xnak12b" path="res://resources/stats/player_stats/player_dash_shockwave_damage.tres" id="6"]
+[ext_resource type="Resource" uid="uid://b5t00qhj4rn6c" path="res://resources/stats/player_stats/player_dash_shockwave_radius.tres" id="7"]
 
 [node name="DashComponent" type="Node" unique_id=505839928]
 script = ExtResource("1")
 dash_cooldown = ExtResource("3")
+dash_charges = ExtResource("4")
 speed_stat = ExtResource("2")
+
+[node name="DashShockwave" type="Node" parent="." unique_id=418273905 node_paths=PackedStringArray("dash_component")]
+script = ExtResource("5")
+dash_component = NodePath("..")
+damage = ExtResource("6")
+radius = ExtResource("7")
