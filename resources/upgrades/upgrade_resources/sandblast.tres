@@ -18,6 +18,6 @@ title = "Sandblast"
 description_override = "Dashing blasts nearby enemies for 25 damage (Can stack multiple times)"
 icon = ExtResource("4_placeholder")
 rarity = 2
-max_stacks = 1
+max_stacks = 3
 effects = Array[ExtResource("1_effect")]([SubResource("Resource_sandblast")])
 metadata/_custom_type_script = "uid://031polniagv2"
