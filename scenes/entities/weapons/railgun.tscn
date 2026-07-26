@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://71d2yo7scc7y" path="res://assets/guns/railgun.png" id="8_yy7j6"]
 [ext_resource type="Script" uid="uid://bqx7n2rflatvm" path="res://scenes/entities/weapons/railgun_charge_fill.gd" id="9_2j11h"]
 [ext_resource type="PackedScene" uid="uid://csparkfx0001" path="res://scenes/effects/energy_sparks.tscn" id="10_2j11h"]
+[ext_resource type="Resource" uid="uid://ctrailrg0001" path="res://resources/trails/railgun_trail.tres" id="11_trlrg"]
 
 [node name="Railgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("charge_fill", "sprite", "projectile_spawn_point")]
 script = ExtResource("1_2j11h")
@@ -31,6 +32,7 @@ shot_cost_stat = ExtResource("5_0er5g")
 projectile_scene = ExtResource("5_iqphh")
 projectile_spawn_point = NodePath("Bullet Spawn Point")
 projectile_speed = 2000.0
+projectile_trail = ExtResource("11_trlrg")
 fire_sfx = &"laser_boom"
 shot_trauma = 0.18
 

@@ -71,6 +71,7 @@ func shoot(charge: float = 0.0) -> void:
 	can_fire = false
 	var projectile : Projectile = projectile_scene.instantiate()
 	projectile.speed = projectile_speed
+	projectile.trail_settings = projectile_trail
 	get_tree().current_scene.add_child(projectile)
 	var shot_spread := shot_spread_stat.current_val(base_spread)
 	projectile.launch(
