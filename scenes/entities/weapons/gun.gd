@@ -18,6 +18,10 @@ extends Node2D
 @export var fire_cooldown_stat : Stat
 @export var shot_spread_stat : Stat
 @export var shot_cost_stat : Stat
+## Shared across every gun, so a pierce upgrade taken while holding one weapon is
+## still there after swapping. Stacks on top of base_penetration rather than
+## replacing it — the railgun stays the gun that punches through a line.
+@export var penetration_stat : Stat
 
 @export_category("Projectile Info")
 @export var projectile_scene : PackedScene
@@ -110,6 +114,15 @@ func shoot() -> void:
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout
 	can_fire = true
 
+## Bodies a shot punches through before it dies. Rounded because pierce is a
+## count, and floored at 0 so a negative modifier can only take the bonus away,
+## never make a shot vanish on the first thing it touches.
+func get_penetration() -> int:
+	if penetration_stat == null:
+		return base_penetration
+	return maxi(0, int(roundf(penetration_stat.current_val(base_penetration))))
+
+
 func _shake_camera(trauma : float) -> void:
 	CameraShake.shake_capped(trauma, trauma * SUSTAINED_TRAUMA_LIMIT)
 
@@ -128,5 +141,5 @@ func _spawn_projectile() -> void:
 		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage),
-		base_penetration,
+		get_penetration(),
 	)

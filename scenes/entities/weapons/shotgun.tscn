@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_fire_cooldown_stat.tres" id="3_hyjqx"]
 [ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_shot_spread_stat.tres" id="4_5lrpp"]
 [ext_resource type="Resource" uid="uid://btmnp0s0wl3jj" path="res://resources/stats/player_stats/player_shot_cost_stat.tres" id="5_nc227"]
+[ext_resource type="Resource" uid="uid://b8pen3tr4t10n" path="res://resources/stats/player_stats/player_penetration_stat.tres" id="6_pntrn"]
 [ext_resource type="PackedScene" uid="uid://dtligj7sqmy3x" path="res://scenes/entities/projectiles/shotgun_projectile.tscn" id="7_1hj3y"]
 [ext_resource type="Texture2D" uid="uid://b603kdu3cjyds" path="res://assets/guns/shotgun.png" id="8_hyjqx"]
 [ext_resource type="Resource" uid="uid://ctrailsg0001" path="res://resources/trails/shotgun_trail.tres" id="9_trlsg"]
@@ -24,6 +25,7 @@ damage_stat = ExtResource("2_nc227")
 fire_cooldown_stat = ExtResource("3_hyjqx")
 shot_spread_stat = ExtResource("4_5lrpp")
 shot_cost_stat = ExtResource("5_nc227")
+penetration_stat = ExtResource("6_pntrn")
 projectile_scene = ExtResource("7_1hj3y")
 projectile_spawn_point = NodePath("Sprite2D/Projectile Spawn Point")
 projectile_trail = ExtResource("9_trlsg")

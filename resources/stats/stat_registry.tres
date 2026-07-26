@@ -19,8 +19,9 @@
 [ext_resource type="Resource" uid="uid://c2vk8rd5nwq3t" path="res://resources/stats/player_stats/player_dash_charges.tres" id="17_dshch"]
 [ext_resource type="Resource" uid="uid://dw7pf3xnak12b" path="res://resources/stats/player_stats/player_dash_shockwave_damage.tres" id="18_shkdm"]
 [ext_resource type="Resource" uid="uid://b5t00qhj4rn6c" path="res://resources/stats/player_stats/player_dash_shockwave_radius.tres" id="19_shkrd"]
+[ext_resource type="Resource" uid="uid://b8pen3tr4t10n" path="res://resources/stats/player_stats/player_penetration_stat.tres" id="20_pntrn"]
 
 [resource]
 script = ExtResource("1_6tbpg")
-stats = Array[ExtResource("2_saxxb")]([ExtResource("3_0glaj"), ExtResource("4_5kelx"), ExtResource("5_2tn5q"), ExtResource("6_wgkaw"), ExtResource("7_g5ira"), ExtResource("8_sg6vt"), ExtResource("9_4skcj"), ExtResource("10_5x860"), ExtResource("11_l72wd"), ExtResource("12_uk1ho"), ExtResource("13_47hm6"), ExtResource("14_rp1pi"), ExtResource("15_d8red"), ExtResource("16_5ftsb"), ExtResource("17_dshch"), ExtResource("18_shkdm"), ExtResource("19_shkrd")])
+stats = Array[ExtResource("2_saxxb")]([ExtResource("3_0glaj"), ExtResource("4_5kelx"), ExtResource("5_2tn5q"), ExtResource("6_wgkaw"), ExtResource("7_g5ira"), ExtResource("8_sg6vt"), ExtResource("9_4skcj"), ExtResource("10_5x860"), ExtResource("11_l72wd"), ExtResource("12_uk1ho"), ExtResource("13_47hm6"), ExtResource("14_rp1pi"), ExtResource("15_d8red"), ExtResource("16_5ftsb"), ExtResource("17_dshch"), ExtResource("18_shkdm"), ExtResource("19_shkrd"), ExtResource("20_pntrn")])
 metadata/_custom_type_script = "uid://ckjdoagtnn6ar"

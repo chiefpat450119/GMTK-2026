@@ -18,7 +18,7 @@ func _spawn_projectile() -> void:
 		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage),
-		base_penetration,
+		get_penetration(),
 	)
 
 func get_speed(base: float) -> float:

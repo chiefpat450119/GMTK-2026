@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Upgrade" format=3 uid="uid://daprc1ngr0nds"]
+
+[ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_pierc"]
+[ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_pierc"]
+[ext_resource type="Resource" uid="uid://b8pen3tr4t10n" path="res://resources/stats/player_stats/player_penetration_stat.tres" id="3_pierc"]
+[ext_resource type="Texture2D" uid="uid://cvnampk2g82m5" path="res://assets/CARDPARTS/ICON_CLR/PIERCING_BULLET__ICON.png" id="4_pierc"]
+
+[sub_resource type="Resource" id="Resource_pierc"]
+script = ExtResource("1_pierc")
+target_stat = ExtResource("3_pierc")
+value = 1.0
+metadata/_custom_type_script = "uid://c4g5trltj6fty"
+
+[resource]
+script = ExtResource("2_pierc")
+id = &"piercing_rounds"
+title = "Piercing Rounds"
+description_override = "Shots punch through 1 more enemy"
+icon = ExtResource("4_pierc")
+rarity = 2
+max_stacks = 3
+effects = Array[ExtResource("1_pierc")]([SubResource("Resource_pierc")])
+metadata/_custom_type_script = "uid://031polniagv2"
