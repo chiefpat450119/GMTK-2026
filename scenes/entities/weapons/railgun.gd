@@ -17,6 +17,7 @@ func _physics_process(delta: float) -> void:
 	if is_charging and can_fire:
 		cur_charge_amt = minf(cur_charge_amt + charge_rate * delta, max_charge_amount)
 		Player.instance.time_component.remove_time(base_cost * delta)
+		spend_sand_event.raise()
 		sprite.modulate = Color.RED.lerp(Color.WHITE, 1.0 - (cur_charge_amt / max_charge_amount))
 
 func _unhandled_input(event: InputEvent) -> void:

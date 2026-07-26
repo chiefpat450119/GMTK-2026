@@ -5,24 +5,25 @@
 [ext_resource type="Texture2D" uid="uid://bybujkuqpc4l2" path="res://assets/weapon_card/ICON_SHOTGUN.png" id="3_0wgyb"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="8_6y72k"]
 [ext_resource type="FontFile" uid="uid://4h8jintlmxgn" path="res://assets/fonts/Acme-Regular.ttf" id="9_4os5r"]
+[ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="10_bfeed"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blank"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g4v7s"]
 atlas = ExtResource("2_xtlgu")
 
 [node name="GunCardUI" type="Button" unique_id=392996201 node_paths=PackedStringArray("icon_rect", "title_label", "description_label")]
 process_mode = 3
-custom_minimum_size = Vector2(776.25, 1080)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -388.125
-offset_top = -540.0
-offset_right = 388.125
-offset_bottom = 540.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(780, 1080)
+offset_right = 780.0
+offset_bottom = 1080.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_blank")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_blank")
 script = ExtResource("1_idpx1")
 icon_rect = NodePath("Icon")
 title_label = NodePath("Gun Name")
@@ -86,3 +87,7 @@ text = "Warwick woof woof bark woof 600 movement speed I KNOW ZAUNS STREETS LIKE
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="ButtonFeedback" type="Node" parent="." unique_id=743299140]
+script = ExtResource("10_bfeed")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"

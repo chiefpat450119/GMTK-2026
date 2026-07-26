@@ -15,23 +15,36 @@ const REMAINDER_EPSILON := 0.01
 @export var hourglass: Control
 @export var hourglassLabel: Label
 @export var fill: ProgressBar
+@export var damage_fill : ProgressBar
 @export var time_listener: GameEventListener
+@export var damaged_listener: GameEventListener
+@export var spend_sand_listener: GameEventListener
 @export var row: HBoxContainer
 @export var segment_scene: PackedScene
+@export var machine_sand_scene : PackedScene
+@export var num_popup_scene : PackedScene
+@export var sand_spawn_point : Control
+@export var num_popup_spawn_point : Control
 
+var _previous: float = 0.0
 var _target: float = 0.0
 var _shown: float = 0.0
 var _shown_whole: int = -1
 var _roll_from: float = 0.0
+var _is_damage_rolling: bool = false
 var _rolling: bool = false
 var _synced: bool = false
 var _roll_tween: Tween
 var _color_tween: Tween
+var _damage_tween: Tween
 @onready var _fill_style: StyleBoxFlat = _own_fill_style()
 @onready var _original_color: Color = _fill_style.bg_color
 
 func _ready() -> void:
+	
 	time_listener.response.connect(_on_time_changed)
+	damaged_listener.response.connect(_on_take_damage)
+	spend_sand_listener.response.connect(_on_spend_sand)
 	# The player enters the tree alongside this, so take the opening reading late.
 	call_deferred("_on_time_changed")
 
@@ -53,16 +66,18 @@ func _on_time_changed() -> void:
 	if not is_equal_approx(cap, fill.max_value):
 		set_time_cap(cap)
 
-	var previous := _target
+	_previous = _target
 	_target = time_component.time_left
+	
 
 	if not _synced:
 		# First reading: snap, so the HUD doesn't roll up from zero on spawn.
 		_synced = true
 		_apply(_target)
-	elif _target - previous >= 1:
-		_add_time(_target - previous)
+	elif _target - _previous >= 0:
+		_add_time(_target - _previous)
 	elif not _rolling:
+		
 		# Decay arrives as a stream of small decreases, which just track. While
 		# a roll-up is running it owns the readout instead.
 		_apply(_target)
@@ -121,17 +136,65 @@ func _segments() -> Array[BarSegment]:
 	return found
 
 
-## Plays the time-gained reaction: rolls the readout up and kicks the mechanism.
+## Plays the time-gained reaction: rolls the readout up, kicks the mechanism,
+## and displays a number popup.
 ## Called automatically when the component reports a gain, and safe to call
 ## directly.
 func _add_time(amount: float) -> void:
 	if is_zero_approx(amount):
 		return
-
+	
+	_play_sand_intake_animation()
 	_roll_readout()
 	_play_mechanism()
 	_flash_fill()
 
+## Plays the time-removed reaction: displays time removed segment and rolls it down.
+## Called automatically when TimeComponent emits the damaged signal
+func _on_take_damage() -> void:
+	# Resize damage bar to match time amount before damage taken
+	damage_fill.max_value = fill.max_value
+	damage_fill.anchor_right = fill.anchor_right
+	if not _is_damage_rolling:
+		damage_fill.value = _previous
+
+	_is_damage_rolling = true
+	
+	# Damage bar drains down to new health
+	damage_fill.show()
+	_damage_tween = _restart(_damage_tween)
+	var init_wait := 0.2
+	var duration := 0.5
+	# Accounts for the time that has passed while the tween is happening
+	var dest := _shown - (duration + init_wait) 
+	_damage_tween.tween_property(damage_fill, "value", dest, duration)\
+	.set_delay(init_wait)\
+	.set_ease(Tween.EASE_IN)\
+	.set_trans(Tween.TRANS_CUBIC)
+	_damage_tween.tween_callback(on_damage_tween_end)
+
+func on_damage_tween_end():
+	damage_fill.hide()
+	_is_damage_rolling = false
+
+## Creates a number popup to display amount of sand spent when shooting guns
+func _on_spend_sand() -> void:
+	var num_popup_instance : SandAmountPopup = num_popup_scene.instantiate()
+	var sand_spent_amt =  snapped(_previous - _shown, 0.1)
+	num_popup_instance.number_popup.text = "-" + str(sand_spent_amt)
+	num_popup_instance.number_popup.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0, 1.0))
+	num_popup_spawn_point.add_child(num_popup_instance)
+
+# Shows picked up sand being dropped into the intake pipe part of the
+# time machine sprite and a number popup to show amount of sand gained
+func _play_sand_intake_animation() -> void:
+	var sand_instance : MachineSand = machine_sand_scene.instantiate()
+	var sand_gained_amt =  snapped(_target - _shown, 0.1)
+	var num_popup_instance : SandAmountPopup = num_popup_scene.instantiate()
+	num_popup_instance.number_popup.text = "+" + str(sand_gained_amt)
+	num_popup_instance.number_popup.add_theme_color_override("font_color", Color(1.0, 0.769, 0.0, 1.0))
+	sand_spawn_point.add_child(sand_instance)
+	num_popup_spawn_point.add_child(num_popup_instance)
 
 # Interpolates a 0..1 weight rather than a fixed end value, so decay landing
 # mid-roll is tracked and the readout finishes on the real number.
