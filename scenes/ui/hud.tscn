@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bpbns7bxugk6d"]
 
-[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://ba2ro433ex22g" path="res://scenes/ui/hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="2_timehud"]
 [ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="3_evtlsn"]
 [ext_resource type="Resource" path="res://resources/events/event_channels/player_xp_changed_event.tres" id="4_xpevt"]
@@ -44,7 +44,6 @@ theme_override_constants/separation = 12
 [node name="LevelLabel" type="Label" parent="XpMeter" unique_id=1940000005]
 custom_minimum_size = Vector2(72, 0)
 layout_mode = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -58,5 +57,4 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
 max_value = 8.0
-value = 0.0
 show_percentage = false
