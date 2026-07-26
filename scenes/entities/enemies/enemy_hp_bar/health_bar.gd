@@ -2,7 +2,7 @@ extends ProgressBar
 
 @export var health_component : HealthComponent
 var parent
-var displacement #relevant when rotating
+@export var displacement : Vector2 #relevant when rotating
 var max_hp : float
 var current_health : float
 # Called when the node enters the scene tree for the first time.
@@ -10,7 +10,7 @@ func _ready() -> void:
 	parent = get_parent()
 	max_hp = health_component.max_hp.current_val()
 	current_health = health_component.hp
-	displacement = Vector2(-size.x / 2, position.y) #x is centered for now
+	# displacement = Vector2(-size.x / 2, position.y) #x is centered for now
 	max_hp = current_health #this is an assumption
 	self.max_value = max_hp
 
