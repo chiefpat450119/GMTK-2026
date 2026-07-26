@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="2_timehud"]
 [ext_resource type="Script" path="res://resources/events/game_event_listener.gd" id="3_evtlsn"]
 [ext_resource type="Resource" path="res://resources/events/event_channels/player_xp_changed_event.tres" id="4_xpevt"]
+[ext_resource type="PackedScene" uid="uid://cvignette0001" path="res://scenes/ui/time_vignette.tscn" id="5_vignette"]
+[ext_resource type="PackedScene" uid="uid://cdrain0000001" path="res://scenes/ui/color_drain.tscn" id="6_drain"]
 
 [node name="Hud" type="Control" unique_id=1940000001 node_paths=PackedStringArray("time_hud", "xp_bar", "level_label", "xp_listener")]
 layout_mode = 3
@@ -18,6 +20,10 @@ time_hud = NodePath("TimeHud")
 xp_bar = NodePath("XpMeter/XpBar")
 level_label = NodePath("XpMeter/LevelLabel")
 xp_listener = NodePath("XpListener")
+
+[node name="ColorDrain" parent="." unique_id=1940000008 instance=ExtResource("6_drain")]
+
+[node name="TimeVignette" parent="." unique_id=1940000007 instance=ExtResource("5_vignette")]
 
 [node name="XpListener" type="Node" parent="." unique_id=1940000002]
 script = ExtResource("3_evtlsn")
