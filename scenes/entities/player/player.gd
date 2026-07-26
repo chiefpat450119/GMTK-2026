@@ -11,6 +11,9 @@ static var instance: Player
 
 @export var gun_holder: GunHolder
 
+@export var after_image: AfterImageSpawner
+var _after_image_timer: float
+
 ## Last non-zero movement input, so a dash tapped from a standstill still travels
 ## the way the player was last headed instead of being spent on nothing.
 var _last_dir: Vector2 = Vector2.RIGHT
@@ -39,10 +42,35 @@ func _physics_process(_delta: float) -> void:
 
 	if dash_component.is_dashing():
 		dash_component.move_dash()
+		spawn_after_image(_delta)
 	else:
 		movement_component.move(dir)
+		_after_image_timer = 0.0
 
 	_update_sprite(dir)
+
+
+func spawn_after_image(delta):
+	#copy sprite current frame sprite. spawn afterimage every 0.1s
+	_after_image_timer -= delta
+	if _after_image_timer > 0.0:
+		return
+		
+	_after_image_timer = 0.1
+	
+	var frame_texture := sprite.sprite_frames.get_frame_texture(
+		sprite.animation,
+		sprite.frame
+	)
+	
+
+	var image = after_image.spawn_image(self, frame_texture)
+	sprite.visible = false
+	image.flip_h = sprite.flip_h
+	image.global_transform = sprite.global_transform
+	image.scale = sprite.scale
+	await get_tree().create_timer(.001).timeout
+	sprite.visible = true
 
 
 ## A dash holds its launch pose for its whole duration, matching the locked
@@ -59,6 +87,17 @@ func _update_sprite(dir: Vector2) -> void:
 		else:
 			sprite.animation = &"Dash_Down"
 		return
+	elif dir != Vector2.ZERO:
+		if absf(dir.x) > absf(dir.y):
+			sprite.animation = &"Move_Side"
+			sprite.flip_h = dir.x < 0.0
+		elif dir.y < 0.0:
+			sprite.animation = &"Move_Up"
+		else:
+			sprite.animation = &"Move_Down"
+		return
+
+		
 
 	sprite.animation = &"Idle"
 	if dir.x < 0.0:

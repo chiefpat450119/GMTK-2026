@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://choujom3wrdrn"]
+
+[ext_resource type="Script" uid="uid://c6c4ard1fik6" path="res://components/after_image_effect.gd" id="1_otlui"]
+
+[node name="AfterImageEffect" type="Sprite2D" unique_id=1218719711]
+script = ExtResource("1_otlui")
