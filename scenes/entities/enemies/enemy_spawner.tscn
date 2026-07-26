@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="5_vbtlo"]
 [ext_resource type="PackedScene" uid="uid://dp3qwlpjcoxug" path="res://scenes/entities/enemies/tank_enemy/tank_enemy.tscn" id="7_vbtlo"]
 [ext_resource type="PackedScene" uid="uid://dkqk6rl7ptow5" path="res://scenes/entities/enemies/boss_spawner.tscn" id="8_eklk0"]
+[ext_resource type="Resource" uid="uid://c77jcnl1d6ufe" path="res://resources/events/event_channels/boss_spawn_event.tres" id="9_mfkhe"]
+[ext_resource type="Resource" uid="uid://bflkttrkfcadw" path="res://resources/events/event_channels/waves_end_event.tres" id="10_e83pj"]
 [ext_resource type="Resource" uid="uid://dd2tntkcmb3b" path="res://resources/events/event_channels/boss_incoming_event.tres" id="9_bossevt"]
 
 [sub_resource type="Resource" id="Resource_wqkcr"]
@@ -41,7 +43,9 @@ wave_changed_event = ExtResource("3_0okg5")
 boss_incoming_event = ExtResource("9_bossevt")
 enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubResource("Resource_p0kws"), SubResource("Resource_dunn1"), SubResource("Resource_6gnc1")])
 boss_spawner = ExtResource("8_eklk0")
-boss_spawn_wave = 15
+boss_spawn_wave = 2
+boss_start_event = ExtResource("9_mfkhe")
+wave_end_event = ExtResource("10_e83pj")
 metadata/_custom_type_script = "uid://c680wy8q4de83"
 
 [node name="Timer" type="Timer" parent="." unique_id=681572550]

@@ -52,6 +52,9 @@ const spawn_radius: float = 1000.0
 @export var boss_warning_wave: int = 10
 var wave_counter: int = 0
 
+@export var boss_start_event: GameEvent
+@export var wave_end_event: GameEvent
+
 var _wave_running = true
 var _boss_warned = false
 
@@ -117,6 +120,12 @@ func increase_budget(wave_index: int):
 	budget = BUDGET_TABLE[wave_index]
 
 func spawn_boss():
+	wave_end_event.raise()
+	
+	await get_tree().create_timer(5).timeout
+	
+	boss_start_event.raise()
+	
 	var instance: BossSpawner = boss_spawner.instantiate()
 	get_parent().add_child(instance)
 	instance.global_position = Player.instance.global_position

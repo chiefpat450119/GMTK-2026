@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://ikct57o3phca" path="res://scenes/ui/time_vignette.gd" id="1_vign"]
 [ext_resource type="Shader" uid="uid://behffys52nawn" path="res://assets/shaders/time_vignette.gdshader" id="2_vignsh"]
+[ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="3_evtlsn"]
+[ext_resource type="Resource" uid="uid://bflkttrkfcadw" path="res://resources/events/event_channels/waves_end_event.tres" id="4_waveend"]
+[ext_resource type="Resource" uid="uid://c77jcnl1d6ufe" path="res://resources/events/event_channels/boss_spawn_event.tres" id="5_bossevt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vign"]
 shader = ExtResource("2_vignsh")
@@ -14,7 +17,7 @@ shader_parameter/feather = 0.55
 shader_parameter/max_opacity = 0.85
 shader_parameter/desaturation = 0.5
 
-[node name="TimeVignette" type="ColorRect" unique_id=1950000001]
+[node name="TimeVignette" type="ColorRect" unique_id=1950000001 node_paths=PackedStringArray("lull_start_event", "lull_end_event")]
 process_mode = 1
 material = SubResource("ShaderMaterial_vign")
 anchors_preset = 15
@@ -25,3 +28,13 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_vign")
 appear_at = 0.35
+lull_start_event = NodePath("WaveEndListener")
+lull_end_event = NodePath("BossSpawnListener")
+
+[node name="WaveEndListener" type="Node" parent="." unique_id=1950000002]
+script = ExtResource("3_evtlsn")
+event = ExtResource("4_waveend")
+
+[node name="BossSpawnListener" type="Node" parent="." unique_id=1950000003]
+script = ExtResource("3_evtlsn")
+event = ExtResource("5_bossevt")
