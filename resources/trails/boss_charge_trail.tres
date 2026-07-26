@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrailSettings" format=3 uid="uid://krdtiwmyqohy"]
+
+[ext_resource type="Script" uid="uid://ctrailcfg0001" path="res://resources/trails/trail_settings.gd" id="1_5jmx0"]
+
+[sub_resource type="Curve" id="Curve_ypjxc"]
+_data = [Vector2(0, 0.014062405), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_5jmx0")
+lifetime = 0.83
+width = 151.0
+width_curve = SubResource("Curve_ypjxc")
+metadata/_custom_type_script = "uid://ctrailcfg0001"

@@ -6,4 +6,5 @@
 script = ExtResource("1_uxmib")
 stat_name = "Dash Cooldown"
 base_val = 1.5
+min_val = 0.25
 metadata/_custom_type_script = "uid://bnaam37pn33wi"
