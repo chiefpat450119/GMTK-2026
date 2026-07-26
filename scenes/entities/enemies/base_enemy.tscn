@@ -20,7 +20,7 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_base")
 movement = NodePath("MovementComponent")
-atk = NodePath("AtkComponent")
+atk = NodePath("ContactDmgAtkComponent")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://t6dhj0sncyou"
 
@@ -34,17 +34,17 @@ speed_stat = ExtResource("3_base")
 base_speed = 500.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="AtkComponent" type="Node2D" parent="." unique_id=1937951491 node_paths=PackedStringArray("hurtbox")]
+[node name="ContactDmgAtkComponent" type="Node2D" parent="." unique_id=1937951491 node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("4_base")
 atk_stat = ExtResource("5_base")
-hurtbox = NodePath("Area2D")
+hurtbox = NodePath("Hitbox")
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
-[node name="Area2D" type="Area2D" parent="AtkComponent" unique_id=305433825]
+[node name="Hitbox" type="Area2D" parent="ContactDmgAtkComponent" unique_id=305433825]
 collision_layer = 0
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AtkComponent/Area2D" unique_id=829799730]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDmgAtkComponent/Hitbox" unique_id=829799730]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_hitbx")
 

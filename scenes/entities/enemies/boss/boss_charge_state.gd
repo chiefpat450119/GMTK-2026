@@ -4,7 +4,7 @@ extends State
 
 @export var enemy: Enemy
 @export var selector_state: SelectorState
-@export var charge_movement: MovementComponent
+@export var movement: MovementComponent
 @export var sprite: Sprite2D
 
 @onready var init_sprite_scale_y := sprite.scale.y
@@ -13,6 +13,7 @@ extends State
 @export var windup_time: float = 1.0
 #@export var charge_speed: float = 1000.0
 @export var charge_time: float = 0.85
+@export var speed_mul: float = 1000.0
 #@export var speed_stat: Stat
 
 @onready var charge_timer := Cooldown.new(charge_time)
@@ -56,10 +57,12 @@ func physics_tick(_delta: float):
 	
 	charge_timer.tick(_delta)
 	
-	charge_movement.move(charge_dir)
 
 	if charge_timer.is_done():
 		switch_state(selector_state)
+	else:
+		movement.move(charge_dir * speed_mul)
+		
 
 func exit():
 	charge_timer.stop()

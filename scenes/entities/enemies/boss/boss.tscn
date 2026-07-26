@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_base"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="2_boss"]
 [ext_resource type="Script" uid="uid://1lk5qevh2w7y" path="res://components/state_machine/state_machine.gd" id="3_boss"]
+[ext_resource type="Texture2D" uid="uid://dqr3y206l0g0y" path="res://assets/placeholder_player_sprite.png" id="3_t78gy"]
 [ext_resource type="Script" uid="uid://ptajhna0r1rr" path="res://scenes/entities/enemies/boss/boss_move_state.gd" id="4_boss"]
 [ext_resource type="Script" uid="uid://dnn0w0npw3nh3" path="res://scenes/entities/enemies/boss/boss_selector_state.gd" id="5_boss"]
 [ext_resource type="Script" uid="uid://7e4yn3vgx3tj" path="res://scenes/entities/enemies/boss/boss_attack_state.gd" id="6_boss"]
@@ -10,16 +11,17 @@
 [ext_resource type="Script" uid="uid://cfa7wfp8t2gmq" path="res://scenes/entities/enemies/boss/boss_jump_state.gd" id="8_boss"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="9_boss"]
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="10_boss"]
+[ext_resource type="Script" uid="uid://csnnnjtxxmpny" path="res://scenes/entities/enemies/boss/boss_clock_atk_state.gd" id="10_obr17"]
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="11_boss"]
+[ext_resource type="PackedScene" uid="uid://br0nj154avgma" path="res://scenes/entities/enemies/boss/clock_attack/clock_attack_controller.tscn" id="11_nvjhm"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="12_boss"]
-[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="13_boss"]
 [ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="14_boss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(56, 134)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_contact"]
-radius = 62.39391
+radius = 29.15476
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
 radius = 62.39391
@@ -30,59 +32,64 @@ radius = 62.39391
 collision_mask = 2
 sand_drop_amt_stat = ExtResource("2_boss")
 
-[node name="Sprite2D" parent="." index="0"]
-scale = Vector2(0.29814816, 0.1388889)
-texture = ExtResource("13_boss")
-
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="MovementComponent" parent="." index="2"]
+[node name="MovementComponent" parent="." index="1" unique_id=938060982]
 base_speed = 300.0
 
-[node name="AtkComponent" parent="." index="3"]
-hurtbox = NodePath("../hurtbox")
+[node name="ContactDmgAtkComponent" parent="." index="2" unique_id=1937951491]
+hurtbox = NodePath("../JumpAtkComponent/hurtbox")
+active_on_ready = false
 
-[node name="CollisionShape2D" parent="AtkComponent/Area2D" index="0"]
+[node name="CollisionShape2D" parent="ContactDmgAtkComponent/Hitbox" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
 shape = SubResource("CircleShape2D_contact")
 
-[node name="HealthComponent" parent="." index="4"]
+[node name="HealthComponent" parent="." index="3" unique_id=1764093225]
 base_hp = 100.0
 death_event = ExtResource("14_boss")
 
-[node name="HealthBar" parent="." index="5"]
+[node name="HealthBar" parent="." index="4" unique_id=1371187517]
 offset_left = -35.0
 offset_top = 80.0
 offset_right = 35.0
 offset_bottom = 88.0
 
-[node name="StateMachine" type="Node" parent="." index="6" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." index="5" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_boss")
-initial_state = NodePath("BossJumpState")
+initial_state = NodePath("Selector state")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
-[node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state")]
+[node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state", "attack_state", "contact_atk_component")]
 script = ExtResource("4_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
+attack_state = NodePath("../BossAttackState")
+contact_atk_component = NodePath("../../ContactDmgAtkComponent")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("state_pool")]
+[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("enemy", "mid_state_pool", "close_state_pool", "far_state_pool")]
 script = ExtResource("5_boss")
-state_pool = [NodePath("../Move state"), NodePath("../BossAttackState"), NodePath("../BossChargeState"), NodePath("../BossJumpState")]
+enemy = NodePath("../..")
+mid_state_pool = [NodePath("../Move state"), NodePath("../BossChargeState"), NodePath("../BossJumpState"), NodePath("../BossClockAtkState")]
+close_state_pool = [NodePath("../BossAttackState")]
+far_state_pool = [NodePath("../BossChargeState"), NodePath("../BossChargeState")]
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="BossAttackState" type="Node" parent="StateMachine" index="2" unique_id=1069010376 node_paths=PackedStringArray("selector_state")]
+[node name="BossAttackState" type="Node" parent="StateMachine" index="2" unique_id=1069010376 node_paths=PackedStringArray("selector_state", "atk_component", "sprite")]
 script = ExtResource("6_boss")
 selector_state = NodePath("../Selector state")
+atk_component = NodePath("../../MeleeAtkComponent")
+sprite = NodePath("../../temp sprite")
 metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
 
-[node name="BossChargeState" type="Node" parent="StateMachine" index="3" unique_id=1504210145 node_paths=PackedStringArray("enemy", "selector_state", "charge_movement", "sprite")]
+[node name="BossChargeState" type="Node" parent="StateMachine" index="3" unique_id=1504210145 node_paths=PackedStringArray("enemy", "selector_state", "movement", "sprite")]
 script = ExtResource("7_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
-charge_movement = NodePath("../../ChareMovementComponent")
-sprite = NodePath("../../Sprite2D")
+movement = NodePath("../../MovementComponent")
+sprite = NodePath("../../temp sprite")
+speed_mul = 3.3
 metadata/_custom_type_script = "uid://dxixpb5jluxll"
 
 [node name="BossJumpState" type="Node" parent="StateMachine" index="4" unique_id=1914301936 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider")]
@@ -90,35 +97,70 @@ script = ExtResource("8_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 jump_land_atk = NodePath("../../JumpAtkComponent")
-sprite = NodePath("../../Sprite2D")
+sprite = NodePath("../../temp sprite")
 collider = NodePath("../../CollisionShape2D")
 jump_height = 1200.0
 metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
 
-[node name="ChareMovementComponent" type="Node" parent="." index="7" unique_id=1169370034 node_paths=PackedStringArray("body")]
+[node name="BossJumpAwayState" type="Node" parent="StateMachine" index="5" unique_id=974032606 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider")]
+script = ExtResource("8_boss")
+land_target_type = 1
+enemy = NodePath("../..")
+selector_state = NodePath("../Selector state")
+jump_land_atk = NodePath("../../JumpAtkComponent")
+sprite = NodePath("../../temp sprite")
+collider = NodePath("../../CollisionShape2D")
+jump_height = 1200.0
+metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
+
+[node name="BossClockAtkState" type="Node" parent="StateMachine" index="6" unique_id=648173324 node_paths=PackedStringArray("enemy", "selector_state")]
+script = ExtResource("10_obr17")
+enemy = NodePath("../..")
+selector_state = NodePath("../Selector state")
+clock_attack = ExtResource("11_nvjhm")
+metadata/_custom_type_script = "uid://csnnnjtxxmpny"
+
+[node name="ChargeMovementComponent" type="Node" parent="." index="6" unique_id=1169370034 node_paths=PackedStringArray("body")]
 script = ExtResource("9_boss")
 body = NodePath("..")
 speed_stat = ExtResource("10_boss")
 base_speed = 1000.0
 metadata/_custom_type_script = "uid://lajktjxbrn2c"
 
-[node name="JumpAtkComponent" type="Node2D" parent="." index="8" unique_id=857663781 node_paths=PackedStringArray("hurtbox")]
+[node name="JumpAtkComponent" type="Node2D" parent="." index="7" unique_id=857663781 node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("11_boss")
 atk_stat = ExtResource("12_boss")
-hurtbox = NodePath("../hurtbox")
+hurtbox = NodePath("hurtbox")
 attack_interval = 4.0
 active_on_ready = false
 metadata/_custom_type_script = "uid://c1mak22ii3tpp"
 
-[node name="hurtbox" type="Area2D" parent="." index="9" unique_id=966464268]
+[node name="hurtbox" type="Area2D" parent="JumpAtkComponent" index="0" unique_id=966464268]
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" index="0" unique_id=1456833084]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpAtkComponent/hurtbox" index="0" unique_id=1456833084]
 shape = SubResource("CircleShape2D_hurtbox")
 
-[node name="Shadow" type="MeshInstance2D" parent="." index="10" unique_id=344692980]
+[node name="MeleeAtkComponent" type="Node2D" parent="." index="8" unique_id=1495554440 node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("11_boss")
+atk_stat = ExtResource("12_boss")
+hurtbox = NodePath("hurtbox")
+attack_interval = 4.0
+active_on_ready = false
+metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="hurtbox" type="Area2D" parent="MeleeAtkComponent" index="0" unique_id=2115074177]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAtkComponent/hurtbox" index="0" unique_id=2106556046]
+shape = SubResource("CircleShape2D_hurtbox")
+
+[node name="Shadow" type="MeshInstance2D" parent="." index="9" unique_id=344692980]
 modulate = Color(0, 0, 0, 0.38431373)
 z_index = -2
 position = Vector2(3, 62)
 scale = Vector2(122.88891, 28.750011)
 mesh = SubResource("SphereMesh_shadow")
+
+[node name="temp sprite" type="Sprite2D" parent="." index="10" unique_id=1797294995]
+texture = ExtResource("3_t78gy")
