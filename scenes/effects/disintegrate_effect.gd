@@ -63,6 +63,12 @@ func setup(source: Node2D) -> void:
 
 func _ready() -> void:
 	global_transform = _source_transform
+	# The tree entry that ran this _ready() already reset interpolation, and it did so
+	# against the transform the scene shipped with — identity, at the world origin. The
+	# line above is a teleport as far as interpolation is concerned, so without a second
+	# reset the corpse spends its first frame partway through a slide in from the origin
+	# at ten times its own size, which is most of the crumble at these durations.
+	reset_physics_interpolation()
 
 	var mat := _own_material()
 	if mat == null:

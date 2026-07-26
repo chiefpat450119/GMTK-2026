@@ -1,4 +1,5 @@
-# Flash, squash, shake and knockback reaction for anything that owns a HealthComponent.
+# Flash, squash, shake, spray and knockback reaction for anything that owns a
+# HealthComponent.
 #
 # Drop as a child of an enemy; it finds the health component and the sprite on
 # that enemy on its own. Nothing has to call it — losing hp is the trigger, so
@@ -9,6 +10,10 @@
 # position and colour each ride their own tween, so a re-hit mid-reaction
 # restarts cleanly and an owner script grabbing one of those properties back
 # can't strand the others mid-flight.
+#
+# The shove and the particle spray share one direction and one strength, so which way
+# the body goes, which way the spray goes and how much of either there is all describe
+# the same hit rather than three loosely related things happening at once.
 
 class_name HitFeedback
 extends Node
@@ -20,15 +25,26 @@ const HIT_STRETCH := 1.14  # sprite scale.x multiplier on that frame, so the vol
 const SHAKE_DIST := 6.0  # Pixels of the first shake swing
 const SHAKE_SWINGS := 4  # Swings the shake decays over before settling
 const KNOCKBACK_TIME := 0.05  # Seconds for the shove to decay to a stop
-const KNOCKBACK_MAX_DAMAGE := 250.0  # Damage in one hit that earns the full shove
-const KNOCKBACK_MAX_SCALE := 1.3  # knockback_speed multiplier at that damage
+const KNOCKBACK_MAX_SCALE := 1.8  # knockback_speed multiplier a full-strength hit earns
+# Share of a body's own full hp that one hit has to take to earn the biggest reaction
+# there is. Measured against the body rather than against a fixed damage number,
+# because a fixed one is wrong twice over: 25 damage is half a scout and a scratch on
+# a tank, and a late-game gun clears any threshold picked for an early-game one, so
+# every hit ends up maxed and the reaction stops saying anything at all.
+const BIG_HIT_FRACTION := 0.22
+# Pixels back up the incoming hit to start the spray, so it comes off the struck side
+# of the body rather than out of its middle.
+const BURST_BACKSET := 24.0
 
 @export var health: HealthComponent  # Defaults to the health component on our parent
 @export var sprite: Node2D  # Defaults to the first sprite on our parent
+## Particles thrown off along the shove — hit_burst.tscn, or anything with a HitBurst
+## root. Leaving it unset opts a body out of the spray.
+@export var burst_scene: PackedScene
 # Opening speed of the shove, in px/s. Enemies walk at 400-550 and keep driving at
 # the player through the shove, so anything near their own speed cancels out and
 # reads as a stumble rather than a hit. 0 opts a body out of being moved at all.
-@export var knockback_speed := 700.0
+@export var knockback_speed := 900.0
 
 # Multiplier the last hit earned, 1.0 up to KNOCKBACK_MAX_SCALE. A chip hit shoving as
 # hard as a crit reads as the enemy having no weight, so damage picks the speed and the
@@ -122,36 +138,70 @@ func _play(damage: float) -> void:
 	flash_tween.tween_property(sprite, "modulate", base_modulate, RECOVER_TIME) \
 		.from(FLASH_COLOR)
 
-	_knock_back(dir, damage)
+	# How hard the hit was, 0 for a chip and 1 for one taking BIG_HIT_FRACTION of the
+	# body's hp. The shove and the spray both ride it, so they always agree.
+	var bar := maxf(health.effective_max_hp * BIG_HIT_FRACTION, 1.0)
+	var strength := clampf(damage / bar, 0.0, 1.0)
+	var impact_dir := _impact_dir(dir)
+	_burst(impact_dir, strength)
+	_knock_back(impact_dir, strength)
 
 
-# A short shove of the body itself, away from the player. The sprite shake sells the
-# impact but leaves the enemy standing exactly where it stood; moving the body is what
-# makes a hit feel like it landed on something with weight.
+# Which way the hit drove the body: away from the player. They're the only thing that
+# deals damage, so taking the direction from them keeps this a self-contained reaction
+# that no damage source has to know about or call. Falls back to whatever the shake
+# picked when there's no player, or when the body is sitting dead-centre on them and
+# there's no direction left to take.
+func _impact_dir(fallback: Vector2) -> Vector2:
+	var player := Player.instance
+	if player == null:
+		return fallback
+
+	var away := sprite.global_position - player.global_position
+	if away.length() <= 0.01:
+		return fallback
+	return away.normalized()
+
+
+# A short shove of the body itself. The sprite shake sells the impact but leaves the
+# enemy standing exactly where it stood; moving the body is what makes a hit feel like
+# it landed on something with weight.
 #
-# Away-from-the-player rather than along the projectile: the player is the only thing
-# that deals damage, and taking the direction from them keeps this a self-contained
-# reaction that no damage source has to know about or call.
-#
-# How hard is straight off the damage of the hit, so a build that trades fire rate for
-# a heavy shot gets to see the weight of it. Ramps linearly and flattens at
-# KNOCKBACK_MAX_DAMAGE rather than running away with a late-game damage number.
-func _knock_back(fallback_dir: Vector2, damage: float) -> void:
+# How hard is straight off what the hit took out of the body, so a build that trades
+# fire rate for a heavy shot gets to see the weight of it, and the same shot moves a
+# scout further than it moves a tank.
+func _knock_back(dir: Vector2, strength: float) -> void:
 	if body == null or knockback_speed <= 0.0:
 		return
 
-	var t := clampf(damage / KNOCKBACK_MAX_DAMAGE, 0.0, 1.0)
-	knockback_scale = lerpf(1.0, KNOCKBACK_MAX_SCALE, t)
-
-	knockback_dir = fallback_dir  # Whatever the shake picked, if there's no player to shove away from
-	var player := Player.instance
-	if player != null:
-		var away := body.global_position - player.global_position
-		if away.length() > 0.01:  # Sitting dead-centre on the player leaves no direction to take
-			knockback_dir = away.normalized()
-
+	knockback_scale = lerpf(1.0, KNOCKBACK_MAX_SCALE, strength)
+	knockback_dir = dir
 	knockback.start()
 	set_physics_process(true)
+
+
+# The spray, fired along the same direction the shove goes. Parented beside the body
+# rather than under it — the same place DisintegrateOnDeath puts its corpse — so it
+# y-sorts into the world at the right depth, and a hit landed a moment before death
+# doesn't have its particles freed along with the body they came off.
+#
+# Bodies that opt out of the shove still get it: knockback_speed is about whether
+# something can be moved, and even an immovable enemy should spit when it's struck.
+func _burst(dir: Vector2, strength: float) -> void:
+	if burst_scene == null:
+		return
+
+	var host := get_parent().get_parent()
+	if host == null:
+		return
+
+	var burst := burst_scene.instantiate() as HitBurst
+	if burst == null:
+		push_error("HitFeedback on %s: burst_scene must have a HitBurst root" % get_parent().name)
+		return
+
+	burst.setup(sprite.global_position - dir * BURST_BACKSET, dir, strength)
+	host.add_child(burst)
 
 
 # Moved with move_and_collide rather than by writing velocity: the owner script drives

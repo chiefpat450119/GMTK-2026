@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="3_yy0l1"]
 [ext_resource type="Texture2D" uid="uid://bvrxrup6avivh" path="res://assets/enemies/melee/fastenemy1.png" id="4_yy0l1"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_xb2f6"]
+[ext_resource type="PackedScene" uid="uid://chitburst0001" path="res://scenes/effects/hit_burst.tscn" id="6_burst"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(90.5, 88)
@@ -39,12 +40,14 @@ metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_hitbx")
 
-[node name="HealthComponent" parent="." index="3" unique_id=2054313803]
+[node name="HealthComponent" parent="." index="4" unique_id=2054313803]
 base_hp = 100.0
 
-[node name="HitFeedback" type="Node" parent="." index="5" unique_id=869397989 node_paths=PackedStringArray("health")]
+[node name="HitFeedback" type="Node" parent="." index="5" unique_id=869397989 node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("5_xb2f6")
 health = NodePath("../HealthComponent")
+sprite = NodePath("../Sprite2D")
+burst_scene = ExtResource("6_burst")
 metadata/_custom_type_script = "uid://sqe3naukul5d"
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="6" unique_id=1746956516]
