@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://vduxvuwbrjn7" path="res://assets/enemies/bash/Melee charge enemy Run 4.png" id="9_180ps"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="9_lfiob"]
 [ext_resource type="PackedScene" uid="uid://chitburst0001" path="res://scenes/effects/hit_burst.tscn" id="10_burst"]
+[ext_resource type="PackedScene" uid="uid://ld5ydlw5hpva" path="res://scenes/entities/Shadow.tscn" id="11_s80sc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(185, 86)
@@ -52,7 +53,7 @@ accel_time = 0.5
 decel_time = 0.15
 sprite = NodePath("AnimatedSprite2D")
 sand_drop_amt_stat = ExtResource("4_btkvs")
-sand_drop_amt_base = 5.0
+sand_drop_amt_base = 9.0
 metadata/_custom_type_script = "uid://bpy0krfc3lfl3"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -78,7 +79,7 @@ position = Vector2(3, -17)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4" unique_id=2054313803]
-base_hp = 80.0
+base_hp = 100.0
 
 [node name="HealthBar" parent="." index="5" unique_id=1031431274]
 offset_left = -24.0
@@ -92,3 +93,7 @@ script = ExtResource("9_lfiob")
 health = NodePath("../HealthComponent")
 sprite = NodePath("../AnimatedSprite2D")
 burst_scene = ExtResource("10_burst")
+
+[node name="Shadow" parent="." index="8" unique_id=852542226 instance=ExtResource("11_s80sc")]
+position = Vector2(-31.875, 46.249992)
+scale = Vector2(0.20301758, 0.05208985)

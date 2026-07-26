@@ -4,12 +4,12 @@ extends Node
 # indexed by wave_count 
 # tweak pls i pulled these numbers out of my ass
 const BUDGET_TABLE: Array[int] = [
+	8,
 	10,
 	12,
 	14,
-	15,
 	16,
-	23,
+	20,
 	24,
 	26,
 	27,
@@ -93,7 +93,7 @@ func increase_budget(wave_index: int):
 
 func spawn_boss():
 	var instance: BossSpawner = boss_spawner.instantiate()
-	get_tree().current_scene.add_child(instance)
+	get_parent().add_child(instance)
 	instance.global_position = Player.instance.global_position
 	
 	_wave_running = false

@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="10_gunsel"]
 [ext_resource type="PackedScene" uid="uid://bmusicplr0001" path="res://scenes/autoload/music.tscn" id="11_music"]
 [ext_resource type="PackedScene" uid="uid://cgn3cu48w3bmr" path="res://scenes/ui/victory_screen.tscn" id="12_victory"]
+[ext_resource type="PackedScene" uid="uid://bdebugmenu001" path="res://scenes/ui/debug_menu.tscn" id="13_debug"]
 
 [node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
 script = ExtResource("1_o5qli")
@@ -40,6 +41,8 @@ process_mode = 3
 [node name="VictoryScreen" parent="UI" unique_id=961278492 instance=ExtResource("12_victory")]
 
 [node name="MainMenuCentred" parent="UI" unique_id=1728097420 instance=ExtResource("6_85g3d")]
+
+[node name="DebugMenu" parent="UI" unique_id=1920100001 instance=ExtResource("13_debug")]
 
 [node name="UpgradeUI" parent="." unique_id=961278475 node_paths=PackedStringArray("manager") instance=ExtResource("7_upgui")]
 manager = NodePath("../UpgradeManager")

@@ -15,7 +15,7 @@ extends Resource
 @export_range(0.0, 2.0, 0.01) var lifetime := 0.1
 
 ## Thickness at the head, in pixels, before the taper.
-@export_range(0.0, 64.0, 0.5) var width := 6.0
+@export_range(0.0, 200.0, 0.5) var width := 6.0
 
 ## Tint of the streak. Channels above 1.0 are deliberate and legal here — the
 ## viewport is HDR and the world has a bloom pass, so an over-bright colour is what

@@ -26,13 +26,13 @@ func _ready() -> void:
 	await clock.expand_hand(0)
 	
 	var instance: Enemy = boss_scene.instantiate()
-	get_tree().current_scene.add_child(instance)
+	get_parent().add_child(instance)
 	instance.position = position
 	
 	SFX.play(&"boss_clock_swing")
 	boss_visual.visible = false
 	steam.stop()
-	steam.reparent(get_tree().current_scene)
+	steam.reparent(get_parent())
 	
 	queue_free()
 

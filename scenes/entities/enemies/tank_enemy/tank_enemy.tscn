@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_6bc1s"]
 [ext_resource type="Texture2D" uid="uid://bhotpk56w2vps" path="res://assets/enemies/tank/tank 1.png" id="5_gdray"]
 [ext_resource type="PackedScene" uid="uid://chitburst0001" path="res://scenes/effects/hit_burst.tscn" id="6_burst"]
+[ext_resource type="PackedScene" uid="uid://ld5ydlw5hpva" path="res://scenes/entities/Shadow.tscn" id="7_lr41p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(107.75, 167.25)
@@ -37,7 +38,7 @@ hitstop_time = 0.13
 hit_knockback = 280.0
 knockback_time = 0.4
 sand_drop_amt_stat = ExtResource("3_lqypu")
-sand_drop_amt_base = 10.0
+sand_drop_amt_base = 20.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -56,7 +57,7 @@ position = Vector2(0, -26)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="3" unique_id=2054313803]
-base_hp = 500.0
+base_hp = 400.0
 
 [node name="HealthBar" parent="." index="4" unique_id=1031431274]
 offset_top = 66.47058
@@ -73,3 +74,7 @@ metadata/_custom_type_script = "uid://sqe3naukul5d"
 position = Vector2(-0.9999999, -27)
 scale = Vector2(0.20084748, 0.2008475)
 texture = ExtResource("5_gdray")
+
+[node name="Shadow" parent="." index="8" unique_id=852542226 instance=ExtResource("7_lr41p")]
+position = Vector2(-0.58823514, 53.529404)
+scale = Vector2(0.19257584, 0.09746553)
