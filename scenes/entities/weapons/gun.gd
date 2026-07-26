@@ -1,6 +1,7 @@
 class_name Gun
 extends Node2D
 
+@export var spend_sand_event : GameEvent
 @export var sprite : Sprite2D
 @export var base_damage : float
 @export var base_fire_cooldown : float
@@ -51,6 +52,7 @@ func shoot() -> void:
 
 	can_fire = false
 	Player.instance.time_component.remove_time(shot_cost_stat.current_val(base_cost))
+	spend_sand_event.raise()
 	for i in projectile_count:
 		_spawn_projectile()
 

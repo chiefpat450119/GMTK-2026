@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnooxmd2m55c5"]
 
 [ext_resource type="Script" uid="uid://ddw38bbd7k65f" path="res://scenes/entities/weapons/shotgun.gd" id="1_2b38s"]
+[ext_resource type="Resource" uid="uid://bt3bflleqnp2k" path="res://resources/events/event_channels/gun_spend_sand.tres" id="2_hyjqx"]
 [ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="2_nc227"]
 [ext_resource type="Resource" uid="uid://du1e8ddp0oyhi" path="res://resources/stats/player_stats/player_fire_cooldown_stat.tres" id="3_hyjqx"]
 [ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_shot_spread_stat.tres" id="4_5lrpp"]
@@ -10,6 +11,7 @@
 
 [node name="Shotgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
 script = ExtResource("1_2b38s")
+spend_sand_event = ExtResource("2_hyjqx")
 sprite = NodePath("Sprite2D")
 base_damage = 10.0
 base_fire_cooldown = 1.0

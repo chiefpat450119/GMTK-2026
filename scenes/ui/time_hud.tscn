@@ -7,10 +7,12 @@
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="1_time_event"]
 [ext_resource type="Texture2D" uid="uid://cmelh0rlk6wwa" path="res://assets/hud/GEARcopy.png" id="2_gear"]
 [ext_resource type="PackedScene" uid="uid://dyvm7fbulb8r8" path="res://scenes/ui/machine_sand.tscn" id="3_i6ic3"]
+[ext_resource type="PackedScene" uid="uid://ekainhx7lp4a" path="res://scenes/ui/sand_amount_popup.tscn" id="4_yao3o"]
 [ext_resource type="Texture2D" uid="uid://ugo8ya3h06r6" path="res://assets/hud/BAR_STARTcopy.png" id="5_bar_start"]
 [ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="6_bar_end"]
 [ext_resource type="Resource" uid="uid://c3ckre3yhjs8j" path="res://resources/events/event_channels/player_damage_event.tres" id="6_x368u"]
 [ext_resource type="Texture2D" uid="uid://b7pmtlq50gy5p" path="res://assets/hud/HG_STROKEcopy.png" id="7_hourglass"]
+[ext_resource type="Resource" uid="uid://bt3bflleqnp2k" path="res://resources/events/event_channels/gun_spend_sand.tres" id="8_ha7dl"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="8_qgna5"]
 [ext_resource type="FontFile" uid="uid://3ppanmtlb3gt" path="res://assets/fonts/NewRocker-Regular.ttf" id="9_new_rocker"]
 [ext_resource type="Texture2D" uid="uid://d2lxftbgwcu02" path="res://assets/hud/DASH_ICON_NOBCK.png" id="12_blvwf"]
@@ -37,7 +39,7 @@ font_size = 500
 font_color = Color(0.0142752165, 0.014275218, 0.014275218, 1)
 outline_size = 73
 
-[node name="TimeHud" type="CanvasLayer" unique_id=1439624027 node_paths=PackedStringArray("gear", "hourglass", "hourglassLabel", "fill", "damage_fill", "time_listener", "damaged_listener", "row", "sand_spawn_point")]
+[node name="TimeHud" type="CanvasLayer" unique_id=1439624027 node_paths=PackedStringArray("gear", "hourglass", "hourglassLabel", "fill", "damage_fill", "time_listener", "damaged_listener", "spend_sand_listener", "row", "sand_spawn_point", "num_popup_spawn_point")]
 script = ExtResource("1_6ody3")
 gear = NodePath("Hud/Art/Gear")
 hourglass = NodePath("Hud/Art/Hourglass")
@@ -46,10 +48,13 @@ fill = NodePath("Hud/Art/Bar/Overlay/Fill")
 damage_fill = NodePath("Hud/Art/Bar/Overlay/DamageFill")
 time_listener = NodePath("TimeChangeListener")
 damaged_listener = NodePath("TimeDamagedListener")
+spend_sand_listener = NodePath("GunSpendSandListener")
 row = NodePath("Hud/Art/Bar/Row")
 segment_scene = ExtResource("1_segment")
 machine_sand_scene = ExtResource("3_i6ic3")
+num_popup_scene = ExtResource("4_yao3o")
 sand_spawn_point = NodePath("Hud/Art/SandIntakeSpawnPoint")
+num_popup_spawn_point = NodePath("Hud/Art/NumberPopupSpawnPoint")
 
 [node name="TimeChangeListener" type="Node" parent="." unique_id=1104883240]
 script = ExtResource("1_listener")
@@ -58,6 +63,10 @@ event = ExtResource("1_time_event")
 [node name="TimeDamagedListener" type="Node" parent="." unique_id=426878698]
 script = ExtResource("1_listener")
 event = ExtResource("6_x368u")
+
+[node name="GunSpendSandListener" type="Node" parent="." unique_id=1886404511]
+script = ExtResource("1_listener")
+event = ExtResource("8_ha7dl")
 
 [node name="Hud" type="Control" parent="." unique_id=1104883201]
 layout_mode = 3
@@ -91,6 +100,13 @@ offset_left = 933.3333
 offset_top = 288.5714
 offset_right = 973.3333
 offset_bottom = 328.5714
+
+[node name="NumberPopupSpawnPoint" type="Control" parent="Hud/Art" unique_id=219273835]
+anchors_preset = 0
+offset_left = 714.2857
+offset_top = 231.42856
+offset_right = 754.2857
+offset_bottom = 271.42856
 
 [node name="Machine" type="TextureRect" parent="Hud/Art" unique_id=1104883202]
 layout_mode = 0
