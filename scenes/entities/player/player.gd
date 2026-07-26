@@ -72,13 +72,8 @@ func spawn_after_image(delta):
 	)
 	
 
-	var image = after_image.spawn_image(self, frame_texture)
-	sprite.visible = false
-	image.flip_h = sprite.flip_h
-	image.global_transform = sprite.global_transform
-	image.scale = sprite.scale
-	await get_tree().create_timer(.001).timeout
-	sprite.visible = true
+	after_image.spawn_image(self, frame_texture, sprite.scale, sprite.flip_h)
+
 
 
 ## A dash holds its launch pose for its whole duration, matching the locked
