@@ -57,12 +57,22 @@ func physics_tick(_delta: float):
 	
 	charge_timer.tick(_delta)
 	
+<<<<<<< Updated upstream
 
 	if charge_timer.is_done():
 		switch_state(selector_state)
 	else:
 		movement.move(charge_dir * speed_mul)
 		
+=======
+	if charge_timer.is_done():
+		switch_state(selector_state)
+	else:
+		charge_movement.move(charge_dir)
+
+func wind_down():
+	pass
+>>>>>>> Stashed changes
 
 func exit():
 	charge_timer.stop()
