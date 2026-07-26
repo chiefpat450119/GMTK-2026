@@ -18,7 +18,7 @@ func _on_state_changed(_from: int, _to: int) -> void:
 		
 #shows curser and hides menu cursor
 func show_custom_cursor():
-	Input.set_custom_mouse_cursor(custom_cursor_img, Input.CURSOR_ARROW, Vector2(0, 0))
+	Input.set_custom_mouse_cursor(custom_cursor_img, Input.CURSOR_ARROW, custom_cursor_img.get_size() / 2)
 	
 #hides curser and shows menu cursor
 func regular_cursor():
