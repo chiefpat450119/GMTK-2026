@@ -21,7 +21,25 @@
 [ext_resource type="Resource" uid="uid://cq2b0y4ft8dly" path="res://resources/audio/sound_entries/hourglass_gear.tres" id="18_1j31u"]
 [ext_resource type="Resource" uid="uid://r6l4urpbx7dy" path="res://resources/audio/sound_entries/hourglass_gear2.tres" id="19_0lsqa"]
 [ext_resource type="Resource" uid="uid://c83w2h34hm1nk" path="res://resources/audio/sound_entries/dash.tres" id="20_0lsqa"]
+[ext_resource type="Resource" uid="uid://c3qhf85abow6f" path="res://resources/audio/sound_entries/shotgun_firing.tres" id="21_okbv8"]
+[ext_resource type="Resource" uid="uid://cu5553dicngl4" path="res://resources/audio/sound_entries/shotgun_pump.tres" id="22_imk7s"]
+[ext_resource type="Resource" uid="uid://douuysflw2ei8" path="res://resources/audio/sound_entries/machine_gun_firing.tres" id="23_qftxo"]
+[ext_resource type="Resource" uid="uid://cvtrmrew42huk" path="res://resources/audio/sound_entries/boss_squat_long.tres" id="24_lxhis"]
+[ext_resource type="Resource" uid="uid://dtgynrs0tg0s6" path="res://resources/audio/sound_entries/boss_squat_short.tres" id="25_gi2l4"]
+[ext_resource type="Resource" uid="uid://c3576bh7w26s7" path="res://resources/audio/sound_entries/boss_clock_numbers.tres" id="26_scqqa"]
+[ext_resource type="Resource" uid="uid://car0y7bsr3ddb" path="res://resources/audio/sound_entries/boss_clock_expand_edge.tres" id="27_xsiuw"]
+[ext_resource type="Resource" uid="uid://h3dhivrgg2h1" path="res://resources/audio/sound_entries/boss_clock_swing.tres" id="28_loer6"]
+[ext_resource type="Resource" uid="uid://o2lnqi6f2ehs" path="res://resources/audio/sound_entries/boss_clock_swing2.tres" id="29_alkre"]
+[ext_resource type="Resource" uid="uid://dsrwjw8q1uocy" path="res://resources/audio/sound_entries/boss_clock_charge.tres" id="30_urugl"]
+[ext_resource type="Resource" uid="uid://bi7b4sj5n8mwd" path="res://resources/audio/sound_entries/boss_clock_charge2.tres" id="31_alkre"]
+[ext_resource type="Resource" uid="uid://ddighlhjly1mr" path="res://resources/audio/sound_entries/boss_jump.tres" id="32_v2pln"]
+[ext_resource type="Resource" uid="uid://c05b8pqe6uo6l" path="res://resources/audio/sound_entries/boss_jump2.tres" id="33_ybaha"]
+[ext_resource type="Resource" uid="uid://b3u4lemm2e18m" path="res://resources/audio/sound_entries/boss_jump3.tres" id="34_68gmx"]
+[ext_resource type="Resource" uid="uid://cs4r2bu6weu5u" path="res://resources/audio/sound_entries/boss_land.tres" id="35_ybaha"]
+[ext_resource type="Resource" uid="uid://2a0yom0jg6ss" path="res://resources/audio/sound_entries/boss_swing_attack.tres" id="36_pgaii"]
+[ext_resource type="Resource" uid="uid://dy5s2rdudf5b4" path="res://resources/audio/sound_entries/boss_swing_charge.tres" id="37_os4ja"]
+[ext_resource type="Resource" uid="uid://c6b7vn3cowhlr" path="res://resources/audio/sound_entries/boss_swing_attack2.tres" id="38_6lpo0"]
 
 [resource]
 script = ExtResource("2_bank")
-entries = Array[ExtResource("1_entry")]([ExtResource("2_umckl"), ExtResource("3_7dr5y"), ExtResource("4_82ma5"), ExtResource("5_p82ck"), ExtResource("6_h2po5"), ExtResource("7_44ahy"), ExtResource("8_lb50k"), ExtResource("9_2kr3y"), ExtResource("10_1j31u"), ExtResource("11_0lsqa"), ExtResource("12_7dr5y"), ExtResource("13_82ma5"), ExtResource("14_p82ck"), ExtResource("15_lb50k"), ExtResource("16_2kr3y"), ExtResource("17_1j31u"), ExtResource("18_1j31u"), ExtResource("19_0lsqa"), ExtResource("20_0lsqa")])
+entries = Array[ExtResource("1_entry")]([ExtResource("2_umckl"), ExtResource("3_7dr5y"), ExtResource("4_82ma5"), ExtResource("5_p82ck"), ExtResource("6_h2po5"), ExtResource("7_44ahy"), ExtResource("8_lb50k"), ExtResource("9_2kr3y"), ExtResource("10_1j31u"), ExtResource("11_0lsqa"), ExtResource("12_7dr5y"), ExtResource("13_82ma5"), ExtResource("14_p82ck"), ExtResource("15_lb50k"), ExtResource("16_2kr3y"), ExtResource("17_1j31u"), ExtResource("18_1j31u"), ExtResource("19_0lsqa"), ExtResource("20_0lsqa"), ExtResource("21_okbv8"), ExtResource("22_imk7s"), ExtResource("23_qftxo"), ExtResource("24_lxhis"), ExtResource("25_gi2l4"), ExtResource("26_scqqa"), ExtResource("27_xsiuw"), ExtResource("28_loer6"), ExtResource("29_alkre"), ExtResource("30_urugl"), ExtResource("31_alkre"), ExtResource("32_v2pln"), ExtResource("33_ybaha"), ExtResource("34_68gmx"), ExtResource("35_ybaha"), ExtResource("36_pgaii"), ExtResource("37_os4ja"), ExtResource("38_6lpo0")])

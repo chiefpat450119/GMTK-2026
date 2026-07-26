@@ -23,6 +23,7 @@ extends Node2D
 @export var projectile_scene : PackedScene
 @export var projectile_spawn_point : Node2D
 @export var projectile_speed : float = 1000.0
+@export var projectile_trail : TrailSettings
 
 
 ## Projectiles per shot. Above 1 they all leave on the same trigger pull, each
@@ -40,6 +41,7 @@ extends Node2D
 ## Camera trauma per trigger pull. Well under what a hit is worth: this fires
 ## constantly, so it wants to read as recoil rather than as an event.
 @export var shot_trauma : float = 0.2
+@export var muzzle_flash : MuzzleFlash
 const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 
 var can_fire : bool = true
@@ -50,7 +52,7 @@ var ani_sprite
 var gun_holder : Node2D
 
 func _ready() -> void:
-	#gets the animated sprite that the gun moves aroundd
+	#gets the animated sprite that the gun moves around
 	var player := Player.instance
 	if player == null:
 		return
@@ -58,14 +60,13 @@ func _ready() -> void:
 		if child is AnimatedSprite2D:
 			ani_sprite = child
 	gun_holder = player.gun_holder
-
+	
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
-
 	if abs(rad_to_deg(transform.get_rotation())) > 90:
-		sprite.flip_v = true
+		sprite.scale.y = -abs(sprite.scale.y)
 	else:
-		sprite.flip_v = false
+		sprite.scale.y = abs(sprite.scale.y)
 
 	# Makes the gun look like it's rotating around the player in 3D space
 	var left_threshold := -45
@@ -99,6 +100,8 @@ func shoot() -> void:
 	# swapped out or freed while it rings.
 	_shake_camera(shot_trauma)
 	SFX.play(fire_sfx)
+	if muzzle_flash:
+		muzzle_flash.fire()
 
 	# Fire cooldown
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout
@@ -113,6 +116,7 @@ func _shake_camera(trauma : float) -> void:
 func _spawn_projectile() -> void:
 	var projectile : Projectile = projectile_scene.instantiate()
 	projectile.speed = projectile_speed
+	projectile.trail_settings = projectile_trail
 
 	# Parented to the scene, not the gun, so shots keep flying independently of
 	# what the gun does after firing.
