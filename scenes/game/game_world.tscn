@@ -83,6 +83,7 @@ environment = SubResource("Environment_glow")
 [node name="Collectables" type="Node2D" parent="." unique_id=1900000008]
 
 [node name="EnemySpawner" parent="." unique_id=1900000005 instance=ExtResource("5_spwn")]
+boss_spawn_wave = 15
 
 [node name="YSortedItems" type="Node2D" parent="." unique_id=273164103]
 y_sort_enabled = true

@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://cwms6snwyjyb2" path="res://resources/events/game_event_listener.gd" id="24_brjyi"]
 [ext_resource type="Resource" uid="uid://chpxddw3fk4yj" path="res://resources/events/event_channels/max_hp_upgrade_collected_event.tres" id="25_bnv2y"]
 [ext_resource type="Script" uid="uid://codkb86hcnejp" path="res://components/after_image.gd" id="28_6u2ft"]
+[ext_resource type="PackedScene" uid="uid://ld5ydlw5hpva" path="res://scenes/entities/Shadow.tscn" id="31_bnv2y"]
 [ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="pickup_range"]
 [ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="player_pickup"]
 
@@ -180,3 +181,7 @@ metadata/_custom_type_script = "uid://cxenibyc3dfbv"
 [node name="AfterImageSpawner" type="Node" parent="." unique_id=80720492]
 script = ExtResource("28_6u2ft")
 metadata/_custom_type_script = "uid://codkb86hcnejp"
+
+[node name="Shadow" parent="." unique_id=852542226 instance=ExtResource("31_bnv2y")]
+position = Vector2(6.000001, 62)
+scale = Vector2(0.16226563, 0.047881663)

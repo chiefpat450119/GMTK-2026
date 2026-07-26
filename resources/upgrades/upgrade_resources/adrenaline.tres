@@ -15,7 +15,8 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 [sub_resource type="Resource" id="Resource_adrenaline_time"]
 script = ExtResource("1_effect")
 target_stat = ExtResource("3_rd44s")
-value = -8.0
+value = 0.1
+operation = 1
 metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rd44s"]
