@@ -11,12 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://b0sjtdsf0e68j" path="res://scenes/autoload/game_state_manager.tscn" id="9_gsm"]
 [ext_resource type="PackedScene" uid="uid://bscnfade0001" path="res://scenes/ui/scene_transition.tscn" id="10_fade"]
 [ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="10_gunsel"]
+[ext_resource type="PackedScene" uid="uid://bmusicplr0001" path="res://scenes/autoload/music.tscn" id="11_music"]
 
 [node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
 script = ExtResource("1_o5qli")
 world_mount = NodePath("World")
 
 [node name="GameStateManager" parent="." unique_id=961278477 instance=ExtResource("9_gsm")]
+
+[node name="Music" parent="." unique_id=961278491 instance=ExtResource("11_music")]
 
 [node name="World" type="Node2D" parent="." unique_id=961278469]
 
