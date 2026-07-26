@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cdisint000001"]
+
+[ext_resource type="Script" path="res://scenes/effects/disintegrate_effect.gd" id="1_dis"]
+[ext_resource type="Shader" path="res://assets/shaders/disintegrate.gdshader" id="2_dissh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dis"]
+frequency = 0.012
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dis"]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_dis")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dis"]
+shader = ExtResource("2_dissh")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_dis")
+shader_parameter/progress = 0.0
+shader_parameter/noise_scale = 4.5
+shader_parameter/noise_offset = Vector2(0, 0)
+shader_parameter/sweep_dir = Vector2(0, 1)
+shader_parameter/sweep_weight = 0.45
+shader_parameter/grain_scale = 5.0
+shader_parameter/grain_amount = 0.2
+shader_parameter/edge_width = 0.07
+shader_parameter/edge_color = Color(1, 0.78, 0.42, 1)
+shader_parameter/edge_energy = 1.3
+shader_parameter/edge_reach = 1.6
+shader_parameter/wind_dir = Vector2(0.35, -1)
+shader_parameter/wind_smear = 0.03
+shader_parameter/noise_drift = 0.05
+
+[node name="DisintegrateEffect" type="Sprite2D"]
+material = SubResource("ShaderMaterial_dis")
+script = ExtResource("1_dis")
+duration = 0.45

@@ -28,19 +28,17 @@ func physics_tick(_delta: float):
 	state_timer.tick(_delta)
 	
 	var dir := enemy.get_to_player_vec()
-	enemy.accelerate(dir.normalized(), 1, accel_time, deccel_time, _delta)
+	if enemy.get_to_player_vec().length() > PLAYER_DISTANCE_THRESHOLD:
+		enemy.accelerate(dir.normalized(), 1, accel_time, deccel_time, _delta)
 	
-	_check_switch(dir)
+	_check_switch()
 
 
-func _check_switch(dir: Vector2):
+func _check_switch():
 	# move for atleast Min move time
 	if state_timer.time_elapsed() < MIN_MOVE_TIME and state_timer._duration > MIN_MOVE_TIME:
 		return
 	
-	#if dir.length() <= PLAYER_DISTANCE_THRESHOLD:
-		#switch_state(attack_state)
-		#return
 	
 	if state_timer.is_done():
 		switch_state(selector_state)

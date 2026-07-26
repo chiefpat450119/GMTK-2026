@@ -40,17 +40,17 @@ func _windup():
 	var tween := create_tween().set_parallel()
 	tween.tween_property(anim, "scale:y", init_sprite_scale_y * 0.75, charge_time) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(anim, "modulate", Color.CRIMSON, charge_time) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		
-	await get_tree().create_timer(play_anim(&"Dash")).timeout
+	#tween.tween_property(anim, "modulate", Color.CRIMSON, charge_time) \
+		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		#
+	await get_tree().create_timer(play_anim(&"Dash", 1.5)).timeout
 
 # temp fx
 func _end_windup():
+	CameraShake.shake(1)
+	
 	var tween := create_tween().set_parallel()
 	tween.tween_property(anim, "scale:y", init_sprite_scale_y, 0.1) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(anim, "modulate", Color.WHITE, 0.1) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	play_anim(&"Dash_Airborne")
 

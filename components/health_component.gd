@@ -15,6 +15,11 @@ signal died()
 @onready var effective_max_hp := max_hp.current_val(base_hp)
 @onready var hp := effective_max_hp
 
+# queue_free() only frees at the end of the frame, so a dead entity keeps
+# colliding until then. Without this, every shotgun pellet landing on the same
+# frame re-triggers die() and the enemy drops its sand once per pellet.
+var _dead := false
+
 
 ## Returns the HealthComponent hanging off an entity, or null if it has none.
 ## Lets damage sources hurt anything with health without knowing its concrete type.
@@ -34,15 +39,20 @@ func remove_hp(amount: float) -> void:
 
 
 func _set_hp(value: float) -> void:
+	if _dead:
+		return
 	hp = clamp(value, 0, max_hp.current_val(base_hp))
 	hp_changed_signal.emit()
 	if hp_changed_event:
 		hp_changed_event.raise()
-	
+
 	if hp <= 0:
 		die()
 
 func die():
+	if _dead:
+		return
+	_dead = true
 	died.emit()
 	if death_event:
 		death_event.raise()

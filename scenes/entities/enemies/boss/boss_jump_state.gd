@@ -102,6 +102,8 @@ func land():
 	
 	_landed = true
 	
+	CameraShake.shake(1)
+	
 	jump_land_atk.set_active(true)
 	#play land anim or fx
 	await get_tree().create_timer(play_anim(&"Jump_End")).timeout
