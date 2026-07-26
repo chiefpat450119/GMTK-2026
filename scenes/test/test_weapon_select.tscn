@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b1pn1sdxnqf2r"]
+
+[ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="1_02m3x"]
+[ext_resource type="Script" uid="uid://kwp6fnre0pmt" path="res://scenes/test/test_weapon_select.gd" id="1_dnfc4"]
+[ext_resource type="Resource" uid="uid://bedsny34haj0h" path="res://resources/events/event_channels/gun_offer_event.tres" id="2_gvitj"]
+
+[node name="TestWeaponSelect" type="Node" unique_id=1479721839]
+script = ExtResource("1_dnfc4")
+gun_offer_event = ExtResource("2_gvitj")
+
+[node name="GunSelectUI" parent="." unique_id=1589139226 instance=ExtResource("1_02m3x")]

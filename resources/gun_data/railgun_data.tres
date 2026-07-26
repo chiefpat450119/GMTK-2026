@@ -2,10 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://be4yc6h34d76y" path="res://scenes/entities/weapons/railgun.tscn" id="1_odr21"]
 [ext_resource type="Script" uid="uid://cbngjjj8jpc1y" path="res://resources/gun_data/gun_data.gd" id="1_xvorg"]
+[ext_resource type="Texture2D" uid="uid://d1l1f21alsmai" path="res://assets/weapon_card/ICON_RAILGUN.png" id="2_711m2"]
 
 [resource]
 script = ExtResource("1_xvorg")
 title = "Rail Gun"
 description = "charge up"
+icon = ExtResource("2_711m2")
 gun_scene = ExtResource("1_odr21")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"

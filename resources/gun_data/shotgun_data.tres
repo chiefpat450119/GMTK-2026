@@ -2,10 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cnooxmd2m55c5" path="res://scenes/entities/weapons/shotgun.tscn" id="1_3hjsy"]
 [ext_resource type="Script" uid="uid://cbngjjj8jpc1y" path="res://resources/gun_data/gun_data.gd" id="1_uf0e4"]
+[ext_resource type="Texture2D" uid="uid://bybujkuqpc4l2" path="res://assets/weapon_card/ICON_SHOTGUN.png" id="2_wyo7q"]
 
 [resource]
 script = ExtResource("1_uf0e4")
 title = "Shotgun"
 description = "boom"
+icon = ExtResource("2_wyo7q")
 gun_scene = ExtResource("1_3hjsy")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"
