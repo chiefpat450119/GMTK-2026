@@ -50,7 +50,7 @@ base_speed = 300.0
 active_on_ready = false
 
 [node name="HealthComponent" parent="." index="4" unique_id=2054313803]
-base_hp = 2000.0
+base_hp = 1.0
 
 [node name="StateMachine" type="Node" parent="." index="5" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_boss")
@@ -175,6 +175,7 @@ offset_left = -37.0
 offset_top = 159.0
 offset_right = 33.0
 offset_bottom = 167.0
+displacement = Vector2(-25, 250)
 
 [node name="HitFeedback" type="Node" parent="." index="12" unique_id=986133604 node_paths=PackedStringArray("health")]
 script = ExtResource("17_d50xw")

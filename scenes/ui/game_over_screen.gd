@@ -96,6 +96,8 @@ func _apply_rest_state() -> void:
 
 
 func _start_intro() -> void:
+	SFX.play(&"game_over")
+	SFX.play(&"game_over2")
 	if _intro_tween and _intro_tween.is_valid():
 		_intro_tween.kill()
 

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://di1wg6dps7vk0"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_di0wf"]
+[ext_resource type="AudioStream" uid="uid://dlgd2ykcxqh0x" path="res://assets/sfx/Game over 2.wav" id="2_di0wf"]
+
+[resource]
+script = ExtResource("1_di0wf")
+id = &"game_over2"
+stream = ExtResource("2_di0wf")
+volume_db = -3.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

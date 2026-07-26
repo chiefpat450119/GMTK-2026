@@ -52,6 +52,7 @@ func swing_hand():
 
 func shoot_numbers():
 	for i in range(12):
+		SFX.play(&"boss_clock_shoot_num")
 		clock_numbers[i].shoot_projectile()
 		var delay := 0.3 - ((i / 12.0) * 0.15)
 		await get_tree().create_timer(delay).timeout
