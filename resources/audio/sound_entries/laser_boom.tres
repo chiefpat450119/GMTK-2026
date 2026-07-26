@@ -7,4 +7,5 @@
 script = ExtResource("1_wuaoc")
 id = &"laser_boom"
 stream = ExtResource("2_hi45t")
+volume_db = -5.0
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

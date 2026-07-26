@@ -21,6 +21,7 @@ var _gun: GunData
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
+	mouse_entered.connect(_on_mouse_entered)
 	# The root handles the click, so nothing layered on top may swallow it.
 	for child in get_children():
 		if child is Control:
@@ -39,3 +40,7 @@ func _on_pressed() -> void:
 	if _gun == null:
 		return
 	selected.emit(_gun)
+	SFX.play(&"ui_press")
+
+func _on_mouse_entered() -> void:
+	SFX.play(&"ui_hover")
