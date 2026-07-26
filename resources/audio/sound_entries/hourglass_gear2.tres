@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://r6l4urpbx7dy"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_u7b25"]
+[ext_resource type="AudioStream" uid="uid://ctv45f2yfvybs" path="res://assets/sfx/Hourglass Gear2.mp3" id="2_a25xc"]
+
+[resource]
+script = ExtResource("1_u7b25")
+id = &"hourglass_gear2"
+stream = ExtResource("2_a25xc")
+volume_db = -5.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

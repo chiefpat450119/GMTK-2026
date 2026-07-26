@@ -99,6 +99,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _start_charge() -> void:
+	SFX.play(&"bash_enemy_start_charge")
 	attack_cooldown.stop()
 	charge_timer.start()
 
@@ -121,6 +122,8 @@ func _update_charge(dir: Vector2, delta: float) -> void:
 
 
 func _start_bash(dir: Vector2) -> void:
+	SFX.play(&"bash_enemy_slide")
+	SFX.play(&"bash_enemy_slide2")
 	bash_dir = dir.normalized()  # Locked here, so the bash can be dodged
 	bash_timer.start()
 	atk.set_active(true)

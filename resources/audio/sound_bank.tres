@@ -12,7 +12,16 @@
 [ext_resource type="Resource" uid="uid://d3r6rf3vka34c" path="res://resources/audio/sound_entries/machine_gun.tres" id="9_2kr3y"]
 [ext_resource type="Resource" uid="uid://dpnt1ettijfc8" path="res://resources/audio/sound_entries/laser_charge.tres" id="10_1j31u"]
 [ext_resource type="Resource" uid="uid://rhm8canfdwlc" path="res://resources/audio/sound_entries/shotgun_reload.tres" id="11_0lsqa"]
+[ext_resource type="Resource" uid="uid://b84oql17bd5k5" path="res://resources/audio/sound_entries/player_damage.tres" id="12_7dr5y"]
+[ext_resource type="Resource" uid="uid://dhqt6xn4vb8vm" path="res://resources/audio/sound_entries/shooter_enemy_firing.tres" id="13_82ma5"]
+[ext_resource type="Resource" uid="uid://duf01d0itmpwt" path="res://resources/audio/sound_entries/enemy_hit.tres" id="14_p82ck"]
+[ext_resource type="Resource" uid="uid://cp27so6gsqiwx" path="res://resources/audio/sound_entries/base_enemy_start_charge.tres" id="15_lb50k"]
+[ext_resource type="Resource" uid="uid://cpbheqho3c24y" path="res://resources/audio/sound_entries/bash_enemy_slide2.tres" id="16_2kr3y"]
+[ext_resource type="Resource" uid="uid://da5kc1yrxckpn" path="res://resources/audio/sound_entries/bash_enemy_slide.tres" id="17_1j31u"]
+[ext_resource type="Resource" uid="uid://cq2b0y4ft8dly" path="res://resources/audio/sound_entries/hourglass_gear.tres" id="18_1j31u"]
+[ext_resource type="Resource" uid="uid://r6l4urpbx7dy" path="res://resources/audio/sound_entries/hourglass_gear2.tres" id="19_0lsqa"]
+[ext_resource type="Resource" uid="uid://c83w2h34hm1nk" path="res://resources/audio/sound_entries/dash.tres" id="20_0lsqa"]
 
 [resource]
 script = ExtResource("2_bank")
-entries = Array[ExtResource("1_entry")]([ExtResource("2_umckl"), ExtResource("3_7dr5y"), ExtResource("4_82ma5"), ExtResource("5_p82ck"), ExtResource("6_h2po5"), ExtResource("7_44ahy"), ExtResource("8_lb50k"), ExtResource("9_2kr3y"), ExtResource("10_1j31u"), ExtResource("11_0lsqa")])
+entries = Array[ExtResource("1_entry")]([ExtResource("2_umckl"), ExtResource("3_7dr5y"), ExtResource("4_82ma5"), ExtResource("5_p82ck"), ExtResource("6_h2po5"), ExtResource("7_44ahy"), ExtResource("8_lb50k"), ExtResource("9_2kr3y"), ExtResource("10_1j31u"), ExtResource("11_0lsqa"), ExtResource("12_7dr5y"), ExtResource("13_82ma5"), ExtResource("14_p82ck"), ExtResource("15_lb50k"), ExtResource("16_2kr3y"), ExtResource("17_1j31u"), ExtResource("18_1j31u"), ExtResource("19_0lsqa"), ExtResource("20_0lsqa")])

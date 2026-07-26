@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://dhqt6xn4vb8vm"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_0tl50"]
+[ext_resource type="AudioStream" uid="uid://dhfhimcq5c3ia" path="res://assets/sfx/Shooter Enemy Firing.wav" id="2_qlvau"]
+
+[resource]
+script = ExtResource("1_0tl50")
+id = &"shooter_enemy_firing"
+stream = ExtResource("2_qlvau")
+volume_db = -10.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"
