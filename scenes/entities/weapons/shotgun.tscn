@@ -20,6 +20,7 @@ base_damage = 8.0
 base_fire_cooldown = 1.0
 base_spread = 25.0
 base_cost = 1.0
+recoil_amt = 25.0
 damage_stat = ExtResource("2_nc227")
 fire_cooldown_stat = ExtResource("3_hyjqx")
 shot_spread_stat = ExtResource("4_5lrpp")
