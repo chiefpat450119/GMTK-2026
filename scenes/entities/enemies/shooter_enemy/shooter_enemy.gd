@@ -32,6 +32,7 @@ const MAX_HITCH_FRACTION := 0.6
 @export var wait_interval: float # Seconds after shooting where it doesnt move
 @export var projectile_scene: PackedScene
 @export var projectile_trail: TrailSettings
+@export var projectile_spawn_point : Node2D
 @export var min_range: float  # Backs away from the player inside this
 @export var max_range: float  # Closes on the player outside this
 @export var sprite: AnimatedSprite2D
@@ -106,7 +107,7 @@ func _shoot(dir: Vector2) -> void:
 	var projectile: Projectile = projectile_scene.instantiate()
 	projectile.trail_settings = projectile_trail
 	get_tree().current_scene.add_child(projectile)
-	projectile.launch(global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(shot_damage))
+	projectile.launch(projectile_spawn_point.global_position, dir.angle(), Projectile.Team.ENEMY, atk.damage_for(shot_damage))
 
 	recoil_lean = RECOIL_LEAN
 

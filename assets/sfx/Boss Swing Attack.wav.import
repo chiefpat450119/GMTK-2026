@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://brddu1hufa4nn"
+path="res://.godot/imported/Boss Swing Attack.wav-d9d9f40ed549fb1e75b40f2cc5e17b5b.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Boss Swing Attack.wav"
+dest_files=["res://.godot/imported/Boss Swing Attack.wav-d9d9f40ed549fb1e75b40f2cc5e17b5b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -27,6 +27,33 @@ var is_charging : bool = false
 func _exit_tree() -> void:
 	_end_charge_sfx()
 
+
+func _ready() -> void:
+	super._ready()
+	# When the tree is paused (upgrade screen, pause menu, gun select) the
+	# action_released event for Fire is never delivered. Without intervention
+	# is_charging stays true: the gun keeps draining time and playing the
+	# wind-up sound into the resumed game. Resetting on every return to
+	# PLAYING catches all modal screens in one place.
+	if GameStateManager.instance:
+		GameStateManager.instance.state_changed.connect(_on_state_changed)
+
+
+func _on_state_changed(_from: int, to: int) -> void:
+	if to == GameStateManager.GameState.PLAYING:
+		_cancel_charge()
+
+
+## Aborts an in-progress charge without firing: resets state, clears charge
+## accumulator, and silences the wind-up sound.
+func _cancel_charge() -> void:
+	if not is_charging:
+		return
+	is_charging = false
+	cur_charge_amt = 0.0
+	sprite.modulate = Color.WHITE
+	_end_charge_sfx()
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 
@@ -84,6 +111,10 @@ func shoot(charge: float = 0.0) -> void:
 
 	var charge_ratio := _charge_ratio(charge)
 	_shake_camera(shot_trauma * lerpf(1.0, CHARGED_TRAUMA_SCALE, charge_ratio))
+	# The one weapon whose flash varies shot to shot — a tapped shot barely sparks, a
+	# full coil dumps everything it was holding.
+	if muzzle_flash:
+		muzzle_flash.fire(charge_ratio)
 	# This overrides Gun.shoot() outright rather than calling into it, so the shot
 	# report has to be raised here as well.
 	SFX.play(fire_sfx)

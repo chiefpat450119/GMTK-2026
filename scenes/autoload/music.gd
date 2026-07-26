@@ -25,7 +25,7 @@ extends Node
 @export var fade_duration: float = 0.35
 
 ## The player's authored volume, so ducking is relative to whatever it is mixed at.
-var _full_db: float = 0.0
+var _full_db: float = -5
 var _fade: Tween
 
 
