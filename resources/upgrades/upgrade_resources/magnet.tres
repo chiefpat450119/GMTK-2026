@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_effect"]
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_upgrade"]
-[ext_resource type="Texture2D" uid="uid://c81sv46hr0hs1" path="res://assets/CARDPARTS/ICON_CLR/MAGNET_ICON.png" id="3_lq2e6"]
 [ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="3_pickup_range"]
 
 [sub_resource type="Resource" id="Resource_magnet"]
@@ -12,12 +11,15 @@ value = 0.5
 operation = 1
 metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gpll0"]
+load_path = "res://.godot/imported/MAGNET_ICON.png-ad19039c549c253acdbb5993fd43599f.ctex"
+
 [resource]
 script = ExtResource("2_upgrade")
 id = &"magnet"
 title = "Magnet"
 description_override = "+50% sand pickup range"
-icon = ExtResource("3_lq2e6")
+icon = SubResource("CompressedTexture2D_gpll0")
 rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_effect")]([SubResource("Resource_magnet")])
