@@ -76,7 +76,7 @@ position = Vector2(3, -17)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="4" unique_id=2054313803]
-base_hp = 27.0
+base_hp = 80.0
 
 [node name="HealthBar" parent="." index="5" unique_id=1031431274]
 offset_left = -24.0

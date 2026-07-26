@@ -3,6 +3,7 @@ extends Gun
 
 @export var max_charge_amount : float
 @export var charge_rate : float
+@export var max_damage : float
 
 # A full charge kicks this much harder than a tapped shot, since it's the one
 # weapon where the player chose to make the shot big.
@@ -66,7 +67,7 @@ func shoot(charge: float = 0.0) -> void:
 		projectile_spawn_point.global_position,
 		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
-		damage_stat.current_val(base_damage + pow(charge, 2)),
+		damage_stat.current_val(base_damage + pow(charge, 2) * (max_damage - base_damage) / pow(max_charge_amount, 2)),
 		base_penetration,
 	)
 

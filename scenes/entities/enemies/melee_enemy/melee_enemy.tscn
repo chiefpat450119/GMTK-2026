@@ -41,7 +41,7 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="3" unique_id=2054313803]
-base_hp = 30.0
+base_hp = 100.0
 
 [node name="HitFeedback" type="Node" parent="." index="5" unique_id=869397989 node_paths=PackedStringArray("health")]
 script = ExtResource("5_xb2f6")

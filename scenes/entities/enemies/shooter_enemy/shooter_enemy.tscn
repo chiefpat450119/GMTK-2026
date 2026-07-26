@@ -56,7 +56,7 @@ contact_damage = 2.0
 shape = null
 
 [node name="HealthComponent" parent="." index="3" unique_id=2054313803]
-base_hp = 24.0
+base_hp = 70.0
 
 [node name="HealthBar" parent="." index="4" unique_id=1031431274]
 offset_top = 67.0

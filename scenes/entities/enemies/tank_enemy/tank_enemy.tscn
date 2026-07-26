@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://48ic203hssk5" path="res://scenes/entities/enemies/base_enemy.tscn" id="1_omnr4"]
 [ext_resource type="Script" uid="uid://nvjvpqlhmrcl" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.gd" id="2_4yk45"]
 [ext_resource type="Resource" uid="uid://bdp8bm8s3w1uh" path="res://resources/stats/global_enemy_stats/global_enemy_sand_amt.tres" id="3_lqypu"]
-[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="4_lr41p"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_6bc1s"]
 [ext_resource type="Texture2D" uid="uid://bhotpk56w2vps" path="res://assets/enemies/tank/tank 1.png" id="5_gdray"]
 
@@ -38,24 +37,23 @@ knockback_time = 0.4
 sand_drop_amt_stat = ExtResource("3_lqypu")
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
-[node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]
+[node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
 position = Vector2(1, -27)
 shape = SubResource("RectangleShape2D_body")
 
-[node name="MovementComponent" parent="." index="1" unique_id=938060982]
-base_speed = 120.0
+[node name="MovementComponent" parent="." index="1" unique_id=1052880888]
+base_speed = 280.0
 
-[node name="AtkComponent" parent="." index="2" unique_id=1937951491]
+[node name="ContactDmgAtkComponent" parent="." index="2" unique_id=1937951491]
 contact_damage = 9.0
 attack_interval = 3.0
 
-[node name="CollisionShape2D" parent="AtkComponent/Area2D" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
+[node name="CollisionShape2D" parent="ContactDmgAtkComponent/Hitbox" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
 position = Vector2(0, -26)
 shape = SubResource("RectangleShape2D_hitbx")
 
-[node name="HealthComponent" parent="." index="3" unique_id=1764093225]
-base_hp = 136.5
-death_event = ExtResource("4_lr41p")
+[node name="HealthComponent" parent="." index="3" unique_id=2054313803]
+base_hp = 500.0
 
 [node name="HitFeedback" type="Node" parent="." index="5" unique_id=910637902 node_paths=PackedStringArray("health")]
 script = ExtResource("5_6bc1s")

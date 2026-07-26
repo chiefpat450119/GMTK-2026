@@ -91,5 +91,6 @@ sprite = NodePath("../AnimatedSprite2D")
 metadata/_custom_type_script = "uid://ctmy8gd1uy5we"
 
 [node name="GunHolder" type="Node2D" parent="." unique_id=1799549199]
+position = Vector2(0, -60)
 script = ExtResource("16_yywfu")
 metadata/_custom_type_script = "uid://cxenibyc3dfbv"

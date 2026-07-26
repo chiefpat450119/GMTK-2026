@@ -1,5 +1,5 @@
 class_name ClockNumber
-extends Node2D
+extends Sprite2D
 
 const TWEEN_TIME : float = 0.5
 

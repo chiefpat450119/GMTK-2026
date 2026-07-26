@@ -13,7 +13,7 @@
 script = ExtResource("1_qfmm5")
 spend_sand_event = ExtResource("2_s8eaq")
 sprite = NodePath("Sprite2D")
-base_damage = 8.0
+base_damage = 16.0
 base_fire_cooldown = 0.2
 base_spread = 5.0
 base_cost = 0.2
