@@ -31,7 +31,7 @@ process_mode = 3
 
 [node name="GameOverScreen" parent="UI" unique_id=961278474 instance=ExtResource("6_gameover")]
 
-[node name="MainMenu" parent="UI" unique_id=1728097420 instance=ExtResource("6_85g3d")]
+[node name="MainMenuCentred" parent="UI" unique_id=1728097420 instance=ExtResource("6_85g3d")]
 
 [node name="UpgradeUI" parent="." unique_id=961278475 node_paths=PackedStringArray("manager") instance=ExtResource("7_upgui")]
 manager = NodePath("../UpgradeManager")

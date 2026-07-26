@@ -23,7 +23,7 @@ bg_color = Color(0.34407574, 0.34407577, 0.3440756, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thkx5"]
 bg_color = Color(0.8, 0.8, 0.8, 1)
 
-[node name="MainMenu" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "quit_button")]
+[node name="MainMenuCentred" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "quit_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
