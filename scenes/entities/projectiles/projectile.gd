@@ -66,7 +66,7 @@ func _on_body_entered(body: Node2D) -> void:
 	var health := HealthComponent.find_in(body)
 	if health:
 		health.remove_hp(damage)
-		damage_popup.create_popup(damage, body.global_position)
+		damage_popup.create_popup(roundi(damage), body.global_position) # Round to nearest whole num
 	else:
 		var time := TimeComponent.find_in(body)
 		if time:
