@@ -33,10 +33,9 @@ const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 var can_fire : bool = true
 var ani_sprite
 # The node the draw order is actually toggled on. show_behind_parent only orders a
-# node against its own parent, so it has to be whichever ancestor of this gun is a
-# direct child of the player: the gun itself when one is placed in the player
-# scene, the GunHolder when the gun pick equipped it.
-var layer_node : Node2D
+# node against its own parent, so the flag has to live on the GunHolder — the gun
+# itself is nested under it and would only order against the holder.
+var gun_holder : Node2D
 
 func _ready() -> void:
 	#gets the animated sprite that the gun moves aroundd
@@ -46,11 +45,7 @@ func _ready() -> void:
 	for child in player.get_children():
 		if child is AnimatedSprite2D:
 			ani_sprite = child
-	layer_node = self
-	while layer_node.get_parent() != player:
-		layer_node = layer_node.get_parent() as Node2D
-		if layer_node == null:
-			return
+	gun_holder = player.gun_holder
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -63,14 +58,14 @@ func _physics_process(_delta: float) -> void:
 	# Makes the gun look like it's rotating around the player in 3D space
 	var left_threshold := -45
 	var right_threshold := -135
-	if ani_sprite and layer_node: #no need to do this if there is no sprite to go behind
+	if ani_sprite and gun_holder: #no need to do this if there is no sprite to go behind
 		if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
 			#including both of these is not techincally needed but
 			#if other things change it is probably more likely to work
-			layer_node.set_draw_behind_parent(true)
+			gun_holder.set_draw_behind_parent(true)
 			ani_sprite.set_draw_behind_parent(false)
 		else:
-			layer_node.set_draw_behind_parent(false)
+			gun_holder.set_draw_behind_parent(false)
 			ani_sprite.set_draw_behind_parent(true)
 
 func _unhandled_input(event: InputEvent) -> void:
