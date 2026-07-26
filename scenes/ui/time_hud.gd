@@ -180,7 +180,11 @@ func on_damage_tween_end():
 ## Creates a number popup to display amount of sand spent when shooting guns
 func _on_spend_sand() -> void:
 	var num_popup_instance : SandAmountPopup = num_popup_scene.instantiate()
-	var sand_spent_amt =  snapped(_previous - _shown, 0.1)
+	var sand_spent_amt : float
+	if (_previous - _shown > 0.1):
+		sand_spent_amt = snapped(_previous - _shown, 0.1)
+	else:
+		sand_spent_amt = snapped(_previous - _shown, 0.001)
 	num_popup_instance.number_popup.text = "-" + str(sand_spent_amt)
 	num_popup_instance.number_popup.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0, 1.0))
 	num_popup_spawn_point.add_child(num_popup_instance)

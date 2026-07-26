@@ -47,6 +47,8 @@ sprite = NodePath("AnimatedSprite2D")
 gun_holder = NodePath("GunHolder")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
+[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
 scale = Vector2(0.13148148, 0.13148148)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
@@ -63,8 +65,6 @@ scale = Vector2(0.94713265, 1.0591915)
 shape = SubResource("CapsuleShape2D_g4v7s")
 
 [node name="PlayerCamera" parent="." unique_id=1749758649 instance=ExtResource("6_70kwc")]
-
-[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
 
 [node name="MovementComponent" type="Node" parent="." unique_id=291962219 node_paths=PackedStringArray("body")]
 script = ExtResource("6_8akj5")
