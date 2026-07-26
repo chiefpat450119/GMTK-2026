@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cq8c1vnhfjykf" path="res://scenes/entities/projectiles/projectile.tscn" id="5_iqphh"]
 [ext_resource type="Texture2D" uid="uid://71d2yo7scc7y" path="res://assets/guns/railgun.png" id="8_yy7j6"]
 [ext_resource type="Script" uid="uid://bqx7n2rflatvm" path="res://scenes/entities/weapons/railgun_charge_fill.gd" id="9_2j11h"]
+[ext_resource type="PackedScene" uid="uid://csparkfx0001" path="res://scenes/effects/energy_sparks.tscn" id="10_2j11h"]
 
 [node name="Railgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("charge_fill", "sprite", "projectile_spawn_point")]
 script = ExtResource("1_2j11h")
@@ -39,8 +40,11 @@ position = Vector2(60.408268, 0.065790415)
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("8_yy7j6")
 
-[node name="ChargeFill" type="Node2D" parent="Sprite2D" unique_id=1441832556]
+[node name="ChargeFill" type="Node2D" parent="Sprite2D" unique_id=1441832556 node_paths=PackedStringArray("sparks")]
 script = ExtResource("9_2j11h")
+sparks = NodePath("EnergySparks")
+
+[node name="EnergySparks" parent="Sprite2D/ChargeFill" instance=ExtResource("10_2j11h")]
 
 [node name="Bullet Spawn Point" type="Node2D" parent="." unique_id=1642815895]
 position = Vector2(121, 0)
