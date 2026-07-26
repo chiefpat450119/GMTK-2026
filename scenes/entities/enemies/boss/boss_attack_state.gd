@@ -19,8 +19,11 @@ func enter():
 	#tween.tween_property(sprite, "rotation_degrees", 360, 0.1) \
 		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	#
+	SFX.play(&"boss_swing_charge")
 	atk_component.set_active(true)
 	await get_tree().create_timer(yield_time).timeout
 	atk_component.set_active(false)
+	SFX.play(&"boss_swing_attack")
+	SFX.play(&"boss_swing_attack2")
 	
 	switch_state(selector_state)

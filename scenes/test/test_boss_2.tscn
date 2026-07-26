@@ -9,7 +9,6 @@
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("1_40kw6")]
 position = Vector2(9, 132)
 
-[node name="Boss" parent="." unique_id=1807354954 instance=ExtResource("2_ibp5i")]
-position = Vector2(255, 125)
-
 [node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("3_ibp5i")]
+
+[node name="Boss" parent="." unique_id=1807354954 instance=ExtResource("2_ibp5i")]

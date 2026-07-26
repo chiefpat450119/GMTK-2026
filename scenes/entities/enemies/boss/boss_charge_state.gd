@@ -52,6 +52,7 @@ func _end_windup():
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(anim, "modulate", Color.WHITE, 0.1) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	SFX.play("bash_enemy_slide2")
 	play_anim(&"Dash_Airborne")
 
 func physics_tick(_delta: float):

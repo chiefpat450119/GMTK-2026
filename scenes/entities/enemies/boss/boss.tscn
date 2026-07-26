@@ -47,7 +47,7 @@ base_hp = 2000.0
 
 [node name="StateMachine" type="Node" parent="." index="5" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_boss")
-initial_state = NodePath("BossClockAtkState")
+initial_state = NodePath("Selector state")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
 [node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state", "attack_state", "contact_atk_component", "anim")]

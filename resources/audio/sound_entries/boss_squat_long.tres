@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cvtrmrew42huk"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_u64p8"]
+[ext_resource type="AudioStream" uid="uid://cc84td1nxdsdy" path="res://assets/sfx/Boss Squat Long.wav" id="2_in2jh"]
+
+[resource]
+script = ExtResource("1_u64p8")
+id = &"boss_squat_long"
+stream = ExtResource("2_in2jh")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

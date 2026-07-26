@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ojtavx1xuyw1"
+path="res://.godot/imported/Machine Gun Firing.wav-5ce66bfd5cee6b692ac9c213a2287045.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Machine Gun Firing.wav"
+dest_files=["res://.godot/imported/Machine Gun Firing.wav-5ce66bfd5cee6b692ac9c213a2287045.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

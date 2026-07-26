@@ -25,8 +25,8 @@ shot_cost_stat = ExtResource("5_nc227")
 projectile_scene = ExtResource("5_1hj3y")
 projectile_spawn_point = NodePath("Projectile Spawn Point")
 projectile_count = 10
-fire_sfx = &"shotgun"
-reload_sfx = &"shotgun_reload"
+fire_sfx = &"shotgun_firing"
+reload_sfx = &"shotgun_pump"
 shot_trauma = 0.4
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1441832555]
