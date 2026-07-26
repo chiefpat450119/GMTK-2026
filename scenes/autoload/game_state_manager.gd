@@ -57,6 +57,10 @@ var _world: GameWorld = null
 var _pending_upgrades: int = 0
 var _won: bool = false
 
+## Returns the active GameWorld for the current run, or null if no run is in progress.
+func get_world() -> GameWorld:
+	return _world
+
 
 func _enter_tree() -> void:
 	if instance != null and instance != self:

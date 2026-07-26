@@ -38,6 +38,9 @@ static func find_in(entity: Node) -> TimeComponent:
 
 
 func _process(delta: float) -> void:
+	# God mode: freeze the time bar so it never drains.
+	if OS.is_debug_build() and DebugMenu.god_mode:
+		return
 	remove_time(time_decay_scale.current_val() * delta)
 	
 	
@@ -53,6 +56,8 @@ func remove_time(amount: float) -> void:
 ## reactions can play off it. Damage sources should come through here; anything
 ## the player spends by choice, and the decay itself, stays on remove_time.
 func damage(amount: float) -> void:
+	if OS.is_debug_build() and DebugMenu.god_mode:
+		return
 	remove_time(amount)
 	damaged.emit(amount)
 	time_damaged_event.raise()

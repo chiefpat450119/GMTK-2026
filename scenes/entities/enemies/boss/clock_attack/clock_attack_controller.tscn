@@ -20,7 +20,7 @@
 [node name="ClockAttackController" type="Node2D" unique_id=1284821148 node_paths=PackedStringArray("clock_numbers", "clock_hand", "clock_edge")]
 z_index = 1
 script = ExtResource("1_3tmyi")
-clock_radius = 500.0
+clock_radius = 600.0
 clock_numbers = [NodePath("Numbers/ClockNumber"), NodePath("Numbers/ClockNumber2"), NodePath("Numbers/ClockNumber3"), NodePath("Numbers/ClockNumber4"), NodePath("Numbers/ClockNumber5"), NodePath("Numbers/ClockNumber6"), NodePath("Numbers/ClockNumber7"), NodePath("Numbers/ClockNumber8"), NodePath("Numbers/ClockNumber9"), NodePath("Numbers/ClockNumber10"), NodePath("Numbers/ClockNumber11"), NodePath("Numbers/ClockNumber12")]
 clock_hand = NodePath("HourHand")
 clock_edge = NodePath("Clock Edge")

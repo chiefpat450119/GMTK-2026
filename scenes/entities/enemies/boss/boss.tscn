@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dxixpb5jluxll" path="res://scenes/entities/enemies/boss/boss_charge_state.gd" id="7_boss"]
 [ext_resource type="Script" uid="uid://cfa7wfp8t2gmq" path="res://scenes/entities/enemies/boss/boss_jump_state.gd" id="8_boss"]
 [ext_resource type="Script" uid="uid://lajktjxbrn2c" path="res://components/movement_component.gd" id="9_boss"]
+[ext_resource type="Resource" uid="uid://krdtiwmyqohy" path="res://resources/trails/boss_charge_trail.tres" id="9_vadhy"]
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="10_boss"]
 [ext_resource type="Script" uid="uid://csnnnjtxxmpny" path="res://scenes/entities/enemies/boss/boss_clock_atk_state.gd" id="10_obr17"]
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="11_boss"]
@@ -53,7 +54,7 @@ base_hp = 2000.0
 
 [node name="StateMachine" type="Node" parent="." index="5" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_boss")
-initial_state = NodePath("BossClockAtkState")
+initial_state = NodePath("BossChargeState")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
 [node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state", "attack_state", "contact_atk_component", "anim")]
@@ -87,6 +88,7 @@ script = ExtResource("7_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 movement = NodePath("../../MovementComponent")
+trail_settings = ExtResource("9_vadhy")
 charge_time = 0.35
 speed_mul = 7.0
 anim = NodePath("../../Visuals")
