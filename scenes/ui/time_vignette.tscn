@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cvignette0001"]
+
+[ext_resource type="Script" path="res://scenes/ui/time_vignette.gd" id="1_vign"]
+[ext_resource type="Shader" path="res://assets/shaders/time_vignette.gdshader" id="2_vignsh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vign"]
+shader = ExtResource("2_vignsh")
+shader_parameter/intensity = 0.0
+shader_parameter/pulse = 1.0
+shader_parameter/tint = Color(0.62, 0.09, 0.08, 1)
+shader_parameter/radius_weak = 1.35
+shader_parameter/radius_full = 0.72
+shader_parameter/feather = 0.5
+shader_parameter/max_opacity = 0.85
+shader_parameter/desaturation = 0.5
+
+[node name="TimeVignette" type="ColorRect" unique_id=1950000001]
+process_mode = 1
+material = SubResource("ShaderMaterial_vign")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 1)
+script = ExtResource("1_vign")
