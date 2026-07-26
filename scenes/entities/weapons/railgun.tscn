@@ -18,7 +18,7 @@
 script = ExtResource("1_2j11h")
 max_charge_amount = 4.0
 charge_rate = 1.0
-max_damage = 700.0
+max_damage = 500.0
 charge_fill = NodePath("Sprite2D/ChargeFill")
 charge_sfx = &"laser_charge"
 base_speed = 25
