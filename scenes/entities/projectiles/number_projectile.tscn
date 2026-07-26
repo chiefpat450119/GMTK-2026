@@ -11,7 +11,7 @@
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_h20tt")
-homing_speed = 0.8
+homing_speed = 1.1
 speed = 1000.0
 lifetime = 4.0
 damage_popup = NodePath("DamagePopupComponent")
