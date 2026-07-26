@@ -29,8 +29,12 @@ func _apply_visibility(current: int) -> void:
 	var showing := current == GameStateManager.GameState.PLAYING \
 		or current == GameStateManager.GameState.PAUSED \
 		or current == GameStateManager.GameState.UPGRADING
-	visible = showing
+	# Readouts one by one rather than this Control as a whole: the drain and the
+	# vignette hang off here too, and they have to survive into GAME_OVER so the
+	# screen comes up over the drained, closed-in run rather than a clean one.
+	# They hide themselves once they've nothing to draw.
 	time_hud.visible = showing
+	xp_ui.visible = showing
 	if showing:
 		# The meter is still drawing the last run's level at this point — this HUD
 		# outlives the world that owns the LevelComponent, and nothing raises the

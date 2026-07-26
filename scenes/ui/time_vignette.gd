@@ -33,14 +33,60 @@ const OFF_EPSILON := 0.001
 ## rest of the run creeping to full. 1.0 for the plain linear ramp.
 @export_range(1.0, 8.0) var ramp: float = 4.0
 
+@export_group("Death")
+## What the ring's tint bleeds to once the run is over. Multiplied over the
+## screen, so this reads as how much colour the edges keep — the default is the
+## same luminance as the red it starts from, just neutral, which drains the
+## warning out of the effect without the corners visibly lifting or dropping.
+@export var death_tint: Color = Color(0.25, 0.25, 0.26, 1.0)
+## Seconds to bleed across. Runs long on purpose: it should settle about as the
+## game over screen's buttons finish sliding in, not race the gears.
+@export var death_fade: float = 1.0
+
 var _current: float = 0.0
 var _phase: float = 0.0
+var _death_tween: Tween
 @onready var _material: ShaderMaterial = _own_material()
+@onready var _base_tint: Color = _material.get_shader_parameter("tint")
 
 
 func _ready() -> void:
-	_apply(0.0, 1.0)
-	visible = false
+	_clear()
+	GameStateManager.instance.state_changed.connect(_on_state_changed)
+
+
+# The tree is paused for GAME_OVER, so the ring freezes exactly where the run
+# left it and holds under the screen — which is the point. Clearing has to be
+# explicit: everything a retry passes through is paused as well, so the ease in
+# _process wouldn't get a frame until the next run was already being played.
+func _on_state_changed(from: int, to: int) -> void:
+	if to == GameStateManager.GameState.GAME_OVER:
+		_bleed_out()
+	elif from == GameStateManager.GameState.GAME_OVER:
+		_clear()
+
+
+# The intensity is already frozen by the pause, so this is the one thing still
+# moving under the screen: the red goes out of the edges while everything else
+# holds. TWEEN_PAUSE_PROCESS because the tree is paused for the whole of
+# GAME_OVER — bound to a pausable node, the tween would otherwise sit still too.
+func _bleed_out() -> void:
+	_kill_death_tween()
+	# Nothing on screen to bleed. Skipped rather than tweened invisibly, so a
+	# death that lands with the vignette down doesn't leave the tint parked on
+	# grey for the next run.
+	if not visible:
+		return
+	_death_tween = create_tween()
+	_death_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_death_tween.tween_property(_material, "shader_parameter/tint", death_tint, death_fade) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+func _kill_death_tween() -> void:
+	if _death_tween and _death_tween.is_valid():
+		_death_tween.kill()
+	_death_tween = null
 
 
 func _process(delta: float) -> void:
@@ -50,12 +96,7 @@ func _process(delta: float) -> void:
 	_current = lerpf(_current, target, 1.0 - exp(-response * delta))
 
 	if _current < OFF_EPSILON and target <= 0.0:
-		_current = 0.0
-		# Reset so the next time the player drops low the pulse opens on the
-		# swing up rather than wherever the last one happened to stop.
-		_phase = 0.0
-		_apply(0.0, 1.0)
-		visible = false
+		_clear()
 		return
 
 	visible = true
@@ -76,6 +117,17 @@ func _read_target() -> float:
 		return 0.0
 	var t := clampf(inverse_lerp(appear_at, full_at, clock.time_percentage()), 0.0, 1.0)
 	return 1.0 - pow(1.0 - t, ramp)
+
+
+func _clear() -> void:
+	_kill_death_tween()
+	_material.set_shader_parameter("tint", _base_tint)
+	_current = 0.0
+	# Reset so the next time the player drops low the pulse opens on the swing up
+	# rather than wherever the last one happened to stop.
+	_phase = 0.0
+	_apply(0.0, 1.0)
+	visible = false
 
 
 # The beat rides on the opacity alone. Folded into the intensity it would drag
