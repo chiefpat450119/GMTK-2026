@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dumj0l15qw3my"
-path="res://.godot/imported/Desert_tile_set.png-86136481e1501ab7b16ad1e54df3b4b4.ctex"
+uid="uid://dt08epetd6n1m"
+path="res://.godot/imported/Desert_Objects.png-1a3a00bd995b784991bb2ccb1b7df587.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Desert_tile_set.png"
-dest_files=["res://.godot/imported/Desert_tile_set.png-86136481e1501ab7b16ad1e54df3b4b4.ctex"]
+source_file="res://assets/Desert_Objects.png"
+dest_files=["res://.godot/imported/Desert_Objects.png-1a3a00bd995b784991bb2ccb1b7df587.ctex"]
 
 [params]
 

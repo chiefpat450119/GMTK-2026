@@ -9,7 +9,7 @@ extends StateScreen
 
 func _ready() -> void:
 	super()
-	resume_button.pressed.connect(GameStateManager.resume)
+	resume_button.pressed.connect(GameStateManager.instance.resume)
 	# Quit means quit the run, not the game: it drops the world and goes back to
 	# the title, where Play starts a clean run.
-	quit_button.pressed.connect(GameStateManager.to_main_menu)
+	quit_button.pressed.connect(GameStateManager.instance.to_main_menu)

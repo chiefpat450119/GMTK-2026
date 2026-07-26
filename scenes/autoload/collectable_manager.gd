@@ -10,12 +10,7 @@ var all: Array[Collectable] = []
 var _container: Node2D = null
 
 func _ready() -> void:
-	_register_resettable.call_deferred()
-
-func _register_resettable() -> void:
-	var manager := get_node_or_null("/root/GameStateManager")
-	if manager:
-		manager.register_resettable(self)
+	GameStateManager.register_resettable(self)
 
 func bind_container(container: Node2D) -> void:
 	_container = container
@@ -32,6 +27,9 @@ func spawn_sand(pos: Vector2, sand_amt: float) -> void:
 	_drop_parent().add_child(sand)
 	sand.setup(sand_amt)
 	sand.global_position = pos
+	# Same teleport-on-spawn as everything else placed after add_child; without this
+	# the drop streaks in from world origin.
+	sand.reset_physics_interpolation()
 	all.append(sand)
 
 func erase(collectable: Collectable) -> void:

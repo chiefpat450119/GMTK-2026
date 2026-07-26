@@ -41,7 +41,7 @@ const DELAY_BEFORE_WORDS = 0.2
 
 func _ready() -> void:
 	super()
-	play_button.pressed.connect(GameStateManager.start_run)
+	play_button.pressed.connect(GameStateManager.instance.start_run)
 	quit_button.pressed.connect(get_tree().quit)
 
 

@@ -25,9 +25,6 @@ atk = NodePath("AtkComponent")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://t6dhj0sncyou"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=712163586]
-scale = Vector2(0.25, 0.25)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2036067485]
 shape = SubResource("RectangleShape2D_body")
 

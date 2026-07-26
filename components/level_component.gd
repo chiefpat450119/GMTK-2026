@@ -40,13 +40,14 @@ func add_xp(amount: float) -> void:
 	if amount <= 0.0:
 		return
 	xp += amount
-	# At most one level per pickup. The upgrade screen is modal with no queue
-	# behind it, so a pickup big enough for two levels banks the overflow and the
-	# next one collects the second level.
+	# A single pickup can carry several levels' worth of XP, and each one is worth
+	# an upgrade. GameStateManager queues the extra offers, so emitting more than
+	# once here just stacks up screens rather than losing the levels.
 	var needed := requirement()
-	if xp >= needed:
+	while needed > 0.0 and xp >= needed:
 		xp -= needed
 		level += 1
 		leveled_up.emit(level)
+		needed = requirement()
 	if xp_changed_event:
 		xp_changed_event.raise()
