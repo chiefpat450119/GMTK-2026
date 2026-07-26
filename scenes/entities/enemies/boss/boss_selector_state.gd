@@ -14,9 +14,15 @@ const FAR_THRESHOLD: int = 1000
 @export var far_state_pool: Array[State]
 
 
+@export_range(0,1) var chance_of_minion_spawn = 0.1
+@export var minion_spawner: MinionSpawner
+
 func enter():
 	#maybe ignore prev state
 	play_anim(&"Idle")
+	
+	if randf() <= chance_of_minion_spawn:
+		minion_spawner.spawn()
 	
 	await get_tree().create_timer(IDLE_TIME).timeout
 	

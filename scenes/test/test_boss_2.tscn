@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://bj05rhju2m4ul"]
 
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="1_40kw6"]
-[ext_resource type="PackedScene" uid="uid://bnhbn3cs1fog7" path="res://scenes/entities/enemies/boss/boss.tscn" id="2_ibp5i"]
 [ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="3_ibp5i"]
+[ext_resource type="PackedScene" uid="uid://dkqk6rl7ptow5" path="res://scenes/entities/enemies/boss_spawner.tscn" id="3_rdjrr"]
 
 [node name="test_boss_2" type="Node2D" unique_id=725668365]
 
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("1_40kw6")]
 position = Vector2(9, 132)
 
-[node name="Boss" parent="." unique_id=1807354954 instance=ExtResource("2_ibp5i")]
-position = Vector2(255, 125)
-
 [node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("3_ibp5i")]
+
+[node name="BossSpawner" parent="." unique_id=1586118304 instance=ExtResource("3_rdjrr")]

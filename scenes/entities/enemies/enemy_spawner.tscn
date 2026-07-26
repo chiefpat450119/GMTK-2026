@@ -7,29 +7,30 @@
 [ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.tscn" id="4_vagx5"]
 [ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="5_vbtlo"]
 [ext_resource type="PackedScene" uid="uid://dp3qwlpjcoxug" path="res://scenes/entities/enemies/tank_enemy/tank_enemy.tscn" id="7_vbtlo"]
+[ext_resource type="PackedScene" uid="uid://dkqk6rl7ptow5" path="res://scenes/entities/enemies/boss_spawner.tscn" id="8_eklk0"]
 
 [sub_resource type="Resource" id="Resource_wqkcr"]
 script = ExtResource("3_6mcpi")
 enemy_scene = ExtResource("4_vagx5")
-difficulty_rating = 2
+difficulty_rating = 4
 metadata/_custom_type_script = "uid://b87kvmux6rpvl"
 
 [sub_resource type="Resource" id="Resource_p0kws"]
 script = ExtResource("3_6mcpi")
 enemy_scene = ExtResource("5_vbtlo")
-difficulty_rating = 2
+difficulty_rating = 6
 metadata/_custom_type_script = "uid://b87kvmux6rpvl"
 
 [sub_resource type="Resource" id="Resource_dunn1"]
 script = ExtResource("3_6mcpi")
 enemy_scene = ExtResource("2_6mcpi")
-difficulty_rating = 4
+difficulty_rating = 8
 metadata/_custom_type_script = "uid://b87kvmux6rpvl"
 
 [sub_resource type="Resource" id="Resource_6gnc1"]
 script = ExtResource("3_6mcpi")
 enemy_scene = ExtResource("7_vbtlo")
-difficulty_rating = 6
+difficulty_rating = 24
 metadata/_custom_type_script = "uid://b87kvmux6rpvl"
 
 [node name="EnemySpawner" type="Node" unique_id=1487899817 node_paths=PackedStringArray("wave_timer")]
@@ -37,7 +38,8 @@ script = ExtResource("1_6iiwg")
 wave_timer = NodePath("Timer")
 wave_changed_event = ExtResource("3_0okg5")
 enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubResource("Resource_p0kws"), SubResource("Resource_dunn1"), SubResource("Resource_6gnc1")])
+boss_spawner = ExtResource("8_eklk0")
 metadata/_custom_type_script = "uid://c680wy8q4de83"
 
 [node name="Timer" type="Timer" parent="." unique_id=681572550]
-wait_time = 10.0
+wait_time = 6.0

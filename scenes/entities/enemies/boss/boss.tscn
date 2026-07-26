@@ -17,6 +17,10 @@
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="12_boss"]
 [ext_resource type="PackedScene" uid="uid://bjv5cryiwlck2" path="res://scenes/entities/enemies/boss/boss_visuals.tscn" id="16_nvjhm"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="17_d50xw"]
+[ext_resource type="Script" uid="uid://ckj6rgr44um6i" path="res://scenes/entities/enemies/boss/boss_minion_spawner.gd" id="18_ntimd"]
+[ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.tscn" id="19_g3w23"]
+[ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="20_g3w23"]
+[ext_resource type="Script" uid="uid://ctv4tlomt05hp" path="res://components/victory_on_death.gd" id="21_vadhy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nvjhm"]
 radius = 111.91
@@ -31,7 +35,8 @@ radius = 129.38702
 collision_mask = 2
 sand_drop_amt_stat = ExtResource("2_boss")
 
-[node name="AnimationPlayer" parent="." index="0" unique_id=646501567 instance=ExtResource("16_nvjhm")]
+[node name="Visuals" parent="." index="0" unique_id=646501567 instance=ExtResource("16_nvjhm")]
+y_sort_enabled = true
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=2036067485]
 position = Vector2(0, -3)
@@ -48,7 +53,7 @@ base_hp = 2000.0
 
 [node name="StateMachine" type="Node" parent="." index="5" unique_id=550507866 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_boss")
-initial_state = NodePath("BossClockAtkState")
+initial_state = NodePath("Selector state")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
 [node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state", "attack_state", "contact_atk_component", "anim")]
@@ -57,23 +62,24 @@ enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 attack_state = NodePath("../BossAttackState")
 contact_atk_component = NodePath("../../ContactDmgAtkComponent")
-anim = NodePath("../../AnimationPlayer")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("enemy", "mid_state_pool", "close_state_pool", "far_state_pool", "anim")]
+[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("enemy", "mid_state_pool", "close_state_pool", "far_state_pool", "minion_spawner", "anim")]
 script = ExtResource("5_boss")
 enemy = NodePath("../..")
 mid_state_pool = [NodePath("../Move state"), NodePath("../BossChargeState"), NodePath("../BossJumpState"), NodePath("../BossClockAtkState")]
 close_state_pool = [NodePath("../BossAttackState"), NodePath("../BossJumpAwayState")]
 far_state_pool = [NodePath("../BossChargeState"), NodePath("../BossJumpState")]
-anim = NodePath("../../AnimationPlayer")
+minion_spawner = NodePath("../../MinionSpawner")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
 [node name="BossAttackState" type="Node" parent="StateMachine" index="2" unique_id=1069010376 node_paths=PackedStringArray("selector_state", "atk_component", "anim")]
 script = ExtResource("6_boss")
 selector_state = NodePath("../Selector state")
 atk_component = NodePath("../../MeleeAtkComponent")
-anim = NodePath("../../AnimationPlayer")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
 
 [node name="BossChargeState" type="Node" parent="StateMachine" index="3" unique_id=1504210145 node_paths=PackedStringArray("enemy", "selector_state", "movement", "anim")]
@@ -83,7 +89,7 @@ selector_state = NodePath("../Selector state")
 movement = NodePath("../../MovementComponent")
 charge_time = 0.35
 speed_mul = 7.0
-anim = NodePath("../../AnimationPlayer")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://dxixpb5jluxll"
 
 [node name="BossJumpState" type="Node" parent="StateMachine" index="4" unique_id=1914301936 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "collider", "anim")]
@@ -93,7 +99,7 @@ selector_state = NodePath("../Selector state")
 jump_land_atk = NodePath("../../JumpAtkComponent")
 collider = NodePath("../../CollisionShape2D")
 jump_height = 500.0
-anim = NodePath("../../AnimationPlayer")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
 
 [node name="BossJumpAwayState" type="Node" parent="StateMachine" index="5" unique_id=974032606 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "collider", "anim")]
@@ -104,7 +110,7 @@ selector_state = NodePath("../Selector state")
 jump_land_atk = NodePath("../../JumpAtkComponent")
 collider = NodePath("../../CollisionShape2D")
 jump_height = 500.0
-anim = NodePath("../../AnimationPlayer")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
 
 [node name="BossClockAtkState" type="Node" parent="StateMachine" index="6" unique_id=648173324 node_paths=PackedStringArray("enemy", "selector_state", "anim")]
@@ -112,7 +118,7 @@ script = ExtResource("10_obr17")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 clock_attack = ExtResource("11_nvjhm")
-anim = NodePath("../../AnimationPlayer")
+anim = NodePath("../../Visuals")
 metadata/_custom_type_script = "uid://csnnnjtxxmpny"
 
 [node name="ChargeMovementComponent" type="Node" parent="." index="6" unique_id=1169370034 node_paths=PackedStringArray("body")]
@@ -172,3 +178,12 @@ offset_bottom = 167.0
 script = ExtResource("17_d50xw")
 health = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://sqe3naukul5d"
+
+[node name="MinionSpawner" type="Node" parent="." index="14" unique_id=853227253]
+script = ExtResource("18_ntimd")
+enemies_to_spawn = Array[PackedScene]([ExtResource("19_g3w23"), ExtResource("19_g3w23"), ExtResource("20_g3w23"), ExtResource("20_g3w23")])
+metadata/_custom_type_script = "uid://ckj6rgr44um6i"
+
+[node name="VictoryOnDeath" type="Node" parent="." index="15" unique_id=1962911324 node_paths=PackedStringArray("health")]
+script = ExtResource("21_vadhy")
+health = NodePath("../HealthComponent")

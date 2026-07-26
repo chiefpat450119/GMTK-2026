@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://douuysflw2ei8"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_7p2qd"]
+[ext_resource type="AudioStream" uid="uid://ojtavx1xuyw1" path="res://assets/sfx/Machine Gun Firing.wav" id="2_rjewb"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rjewb"]
+random_pitch = 1.0594631
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("2_rjewb")
+
+[resource]
+script = ExtResource("1_7p2qd")
+id = &"machine_gun_firing"
+stream = SubResource("AudioStreamRandomizer_rjewb")
+volume_db = -16.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

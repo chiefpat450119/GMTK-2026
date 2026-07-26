@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dkqk6rl7ptow5"]
+
+[ext_resource type="Script" uid="uid://dp4vms3diqs0l" path="res://scenes/entities/enemies/boss_spawner.gd" id="1_lc4p8"]
+[ext_resource type="PackedScene" uid="uid://br0nj154avgma" path="res://scenes/entities/enemies/boss/clock_attack/clock_attack_controller.tscn" id="2_kebxl"]
+[ext_resource type="PackedScene" uid="uid://bnhbn3cs1fog7" path="res://scenes/entities/enemies/boss/boss.tscn" id="2_xcy3c"]
+[ext_resource type="PackedScene" uid="uid://bjv5cryiwlck2" path="res://scenes/entities/enemies/boss/boss_visuals.tscn" id="3_kebxl"]
+[ext_resource type="PackedScene" uid="uid://csteamfx0001" path="res://scenes/effects/steam_effect.tscn" id="4_pibhc"]
+
+[node name="BossSpawner" type="Node2D" unique_id=1586118304 node_paths=PackedStringArray("clock", "boss_visual", "steam")]
+script = ExtResource("1_lc4p8")
+clock = NodePath("ClockAttackController")
+boss_visual = NodePath("BossVisuals")
+steam = NodePath("SteamEffect2")
+boss_scene = ExtResource("2_xcy3c")
+
+[node name="ClockAttackController" parent="." unique_id=1284821148 instance=ExtResource("2_kebxl")]
+
+[node name="BossVisuals" parent="." unique_id=524099003 instance=ExtResource("3_kebxl")]
+modulate = Color(1, 1, 1, 0)
+
+[node name="SteamEffect2" parent="." unique_id=2014328004 instance=ExtResource("4_pibhc")]
+position = Vector2(0, 134)
+scale = Vector2(6, 6)
+intensity = 15.0
+wind = Vector2(-2.365, -0.615)
+burst_explosiveness = 0.408
+autostart = false

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://2a0yom0jg6ss"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_cihee"]
+[ext_resource type="AudioStream" uid="uid://brddu1hufa4nn" path="res://assets/sfx/Boss Swing Attack.wav" id="2_cihee"]
+
+[resource]
+script = ExtResource("1_cihee")
+id = &"boss_swing_attack"
+stream = ExtResource("2_cihee")
+volume_db = -4.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

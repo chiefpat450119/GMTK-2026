@@ -27,13 +27,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+[node name="ShooterEnemy" unique_id=833281361 node_paths=PackedStringArray("projectile_spawn_point", "sprite") instance=ExtResource("1_base")]
 collision_mask = 2
 script = ExtResource("2_sht")
 shot_damage = 2.0
 shoot_interval = 0.5
 wait_interval = 0.2
 projectile_scene = ExtResource("3_sht")
+projectile_trail = null
+projectile_spawn_point = NodePath("ProjectileSpawnPoint")
 min_range = 300.0
 max_range = 331.66
 sprite = NodePath("AnimatedSprite2D")
@@ -41,7 +43,7 @@ range_stat = ExtResource("4_sht")
 accel_time = 0.2
 decel_time = 0.3
 sand_drop_amt_stat = ExtResource("5_jtqir")
-sand_drop_amt_base = 5.0
+sand_drop_amt_base = 8.0
 metadata/_custom_type_script = "uid://bxuivfn5rjpl5"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -63,6 +65,7 @@ base_hp = 70.0
 [node name="HealthBar" parent="." index="4" unique_id=1031431274]
 offset_top = 67.0
 offset_bottom = 75.0
+displacement = Vector2(-25, 65)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5" unique_id=370399703]
 position = Vector2(2.000001, 6.000003)
@@ -76,3 +79,6 @@ script = ExtResource("8_do2mk")
 health = NodePath("../HealthComponent")
 sprite = NodePath("../AnimatedSprite2D")
 burst_scene = ExtResource("9_burst")
+
+[node name="ProjectileSpawnPoint" type="Node2D" parent="." index="8" unique_id=1184357379]
+position = Vector2(-28, 54)

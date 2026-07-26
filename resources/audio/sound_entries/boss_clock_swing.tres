@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://h3dhivrgg2h1"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_xyul7"]
+[ext_resource type="AudioStream" uid="uid://cshb0oi2bo62s" path="res://assets/sfx/Boss Clock Swing.wav" id="2_xyul7"]
+
+[resource]
+script = ExtResource("1_xyul7")
+id = &"boss_clock_swing"
+stream = ExtResource("2_xyul7")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

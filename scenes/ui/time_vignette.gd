@@ -55,14 +55,18 @@ func _ready() -> void:
 	GameStateManager.instance.state_changed.connect(_on_state_changed)
 
 
-# The tree is paused for GAME_OVER, so the ring freezes exactly where the run
-# left it and holds under the screen — which is the point. Clearing has to be
-# explicit: everything a retry passes through is paused as well, so the ease in
+# The tree is paused for GAME_OVER and VICTORY, so the ring freezes exactly where
+# the run left it and holds under the screen — which is the point. Clearing has to
+# be explicit: everything a retry passes through is paused as well, so the ease in
 # _process wouldn't get a frame until the next run was already being played.
+#
+# Only GAME_OVER bleeds out: the red going out of the edges reads as the clock
+# finishing you off, which is not what a win is.
 func _on_state_changed(from: int, to: int) -> void:
 	if to == GameStateManager.GameState.GAME_OVER:
 		_bleed_out()
-	elif from == GameStateManager.GameState.GAME_OVER:
+	elif from == GameStateManager.GameState.GAME_OVER \
+			or from == GameStateManager.GameState.VICTORY:
 		_clear()
 
 
