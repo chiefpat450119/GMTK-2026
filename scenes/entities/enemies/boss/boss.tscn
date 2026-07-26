@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://ckj6rgr44um6i" path="res://scenes/entities/enemies/boss/boss_minion_spawner.gd" id="18_ntimd"]
 [ext_resource type="PackedScene" uid="uid://dsh7ter2enmy0" path="res://scenes/entities/enemies/shooter_enemy/shooter_enemy.tscn" id="19_g3w23"]
 [ext_resource type="PackedScene" uid="uid://cw8l1thf35u38" path="res://scenes/entities/enemies/melee_enemy/melee_enemy.tscn" id="20_g3w23"]
+[ext_resource type="Script" uid="uid://ctv4tlomt05hp" path="res://components/victory_on_death.gd" id="21_vadhy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nvjhm"]
 radius = 111.91
@@ -184,3 +185,7 @@ metadata/_custom_type_script = "uid://sqe3naukul5d"
 script = ExtResource("18_ntimd")
 enemies_to_spawn = Array[PackedScene]([ExtResource("19_g3w23"), ExtResource("19_g3w23"), ExtResource("20_g3w23"), ExtResource("20_g3w23")])
 metadata/_custom_type_script = "uid://ckj6rgr44um6i"
+
+[node name="VictoryOnDeath" type="Node" parent="." index="15" unique_id=1962911324 node_paths=PackedStringArray("health")]
+script = ExtResource("21_vadhy")
+health = NodePath("../HealthComponent")

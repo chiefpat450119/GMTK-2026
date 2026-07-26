@@ -19,9 +19,10 @@ extends Node
 
 static var instance: GameStateManager
 
-## SELECTING_GUN sits at the end rather than beside the other modal states: these
-## are serialised by value in the scenes that a StateScreen belongs to, so
-## inserting one in the middle would quietly re-point every screen after it.
+## SELECTING_GUN and VICTORY sit at the end rather than beside the other modal
+## states: these are serialised by value in the scenes that a StateScreen belongs
+## to, so inserting one in the middle would quietly re-point every screen after
+## it. New states go on the end for the same reason.
 enum GameState {
 	MAIN_MENU,
 	PLAYING,
@@ -29,6 +30,7 @@ enum GameState {
 	UPGRADING,
 	GAME_OVER,
 	SELECTING_GUN,
+	VICTORY,
 }
 
 ## Emitted after `state` is already updated, so handlers can read it directly.
@@ -53,6 +55,7 @@ static var _resettables: Array[Node] = []
 var _world_mount: Node = null
 var _world: GameWorld = null
 var _pending_upgrades: int = 0
+var _won: bool = false
 
 
 func _enter_tree() -> void:
@@ -78,20 +81,16 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed(PAUSE_ACTION):
 		return
-	# Ignored during UPGRADING, SELECTING_GUN and GAME_OVER — modal by design.
+	# Ignored during UPGRADING, SELECTING_GUN, GAME_OVER and VICTORY — modal by design.
 	if state == GameState.PLAYING or state == GameState.PAUSED:
 		get_viewport().set_input_as_handled()
 		toggle_pause()
 
 
-## Handed the node that runs are instanced under, by main.tscn on ready.
 func bind_shell(world_mount: Node) -> void:
 	_world_mount = world_mount
 
 
-## Registers a node whose reset() drops run-scoped state — EnemyStatScaler's
-## wave scaling, UpgradeManager's stack counts. Keeps this manager from needing
-## to know either type, or the order they happen to load in.
 static func register_resettable(node: Node) -> void:
 	if not _resettables.has(node):
 		_resettables.append(node)
@@ -101,11 +100,6 @@ static func unregister_resettable(node: Node) -> void:
 	_resettables.erase(node)
 
 
-# --- transitions ---
-
-## Starts a fresh run: tears the old world down, wipes run state, rebuilds, and
-## opens on the gun pick. Retry goes through here too, so nothing can leak
-## between attempts and every attempt gets its own choice of gun.
 func start_run() -> void:
 	if _world_mount == null:
 		push_error("start_run() called before bind_shell() — no world mount")
@@ -130,8 +124,6 @@ func start_run() -> void:
 	gun_offer_event.raise()
 
 
-## Called by GunSelectUI once the chosen gun is equipped, and by the same screen
-## when it has nothing to offer. Hands the run over to the first wave.
 func close_gun_select() -> void:
 	if state != GameState.SELECTING_GUN:
 		return
@@ -157,9 +149,6 @@ func toggle_pause() -> void:
 		resume()
 
 
-## Puts the upgrade screen up, or queues another one behind the one already up.
-## Safe to call several times in the same frame — a big XP pickup does exactly
-## that, once per level it granted.
 func request_upgrade() -> void:
 	if state != GameState.PLAYING and state != GameState.UPGRADING:
 		return
@@ -173,8 +162,6 @@ func request_upgrade() -> void:
 	upgrade_offer_event.raise()
 
 
-## Called by UpgradeUI once a card has been applied. Stays in UPGRADING and
-## offers again if more level-ups are still owed.
 func close_upgrades() -> void:
 	if state != GameState.UPGRADING:
 		return
@@ -185,9 +172,6 @@ func close_upgrades() -> void:
 	_set_state(GameState.PLAYING)
 
 
-## Drops every queued offer and hands the game back. For when the screen has
-## nothing to show — an empty pool would otherwise leave the player staring at
-## a queue that can never be worked through.
 func cancel_upgrades() -> void:
 	if state != GameState.UPGRADING:
 		return
@@ -195,11 +179,21 @@ func cancel_upgrades() -> void:
 	_set_state(GameState.PLAYING)
 
 
-## Time ran out. Only reachable from PLAYING — the clock doesn't tick anywhere else.
 func game_over() -> void:
-	if state != GameState.PLAYING:
+	if state != GameState.PLAYING or _won:
 		return
 	_set_state(GameState.GAME_OVER)
+
+
+func victory(delay: float = 0.0) -> void:
+	if state != GameState.PLAYING:
+		return
+	_won = true
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+		if not _won or state == GameState.MAIN_MENU:
+			return
+	_set_state(GameState.VICTORY)
 
 
 func to_main_menu() -> void:
@@ -223,6 +217,8 @@ func _reset_run() -> void:
 	# Offers owed to the previous run die with it — a retry out of a queued
 	# upgrade screen would otherwise open cards over the fresh world.
 	_pending_upgrades = 0
+	# Left set, a won run would leave the next one unable to ever run out of time.
+	_won = false
 	# Stats are shared Resources, cached by the engine for the whole process, so
 	# a run's Modifiers outlive the scene they were picked in. Reloading the
 	# scene does not undo them — this does.

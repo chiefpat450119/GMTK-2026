@@ -38,7 +38,7 @@ hitstop_time = 0.13
 hit_knockback = 280.0
 knockback_time = 0.4
 sand_drop_amt_stat = ExtResource("3_lqypu")
-sand_drop_amt_base = 10.0
+sand_drop_amt_base = 20.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
@@ -57,7 +57,7 @@ position = Vector2(0, -26)
 shape = SubResource("RectangleShape2D_hitbx")
 
 [node name="HealthComponent" parent="." index="3" unique_id=2054313803]
-base_hp = 500.0
+base_hp = 400.0
 
 [node name="HealthBar" parent="." index="4" unique_id=1031431274]
 offset_top = 66.47058
