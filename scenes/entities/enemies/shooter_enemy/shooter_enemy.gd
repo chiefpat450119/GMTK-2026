@@ -97,6 +97,7 @@ func _hitch_time() -> float:
 
 
 func _shoot(dir: Vector2) -> void:
+	SFX.play(&"shooter_enemy_firing")
 	shoot_cooldown.start()
 
 	# Parented to the scene, not the enemy, so shots outlive the shooter. The launch

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ctv45f2yfvybs"
+path="res://.godot/imported/Hourglass Gear2.mp3-3f1189157bb10ef5abe2cf9940510aac.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Hourglass Gear2.mp3"
+dest_files=["res://.godot/imported/Hourglass Gear2.mp3-3f1189157bb10ef5abe2cf9940510aac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

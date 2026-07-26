@@ -15,4 +15,3 @@ func update_xp(level: int, xp: int, requirement: int) -> void:
 	xp_bar.value = xp
 	level_label.text = "Lv %d" % level
 	xp_label.text = "%d / %d" % [xp, requirement]
-

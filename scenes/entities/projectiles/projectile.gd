@@ -65,6 +65,7 @@ func _on_body_entered(body: Node2D) -> void:
 	# spend health; the player spends time.
 	var health := HealthComponent.find_in(body)
 	if health:
+		SFX.play(&"enemy_hit")
 		health.remove_hp(damage)
 		damage_popup.create_popup(roundi(damage), body.global_position) # Round to nearest whole num
 	else:

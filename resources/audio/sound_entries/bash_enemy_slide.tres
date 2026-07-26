@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://da5kc1yrxckpn"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_ikctt"]
+[ext_resource type="AudioStream" uid="uid://t46tghfxke36" path="res://assets/sfx/Base Enemy Slide.wav" id="2_7ujxg"]
+
+[resource]
+script = ExtResource("1_ikctt")
+id = &"bash_enemy_slide"
+stream = ExtResource("2_7ujxg")
+volume_db = -10.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"
