@@ -28,7 +28,7 @@ func setup(amt: float):
 
 func _process(delta: float) -> void:
 	time_elapsed += delta
-	sprite.scale = Vector2.ONE * (1 + (0.2 * sin(time_elapsed)))
+	sprite.scale = Vector2.ONE * (1 + (0.4 * sin(time_elapsed)))
 	sprite.offset.y = sin(time_elapsed) * 10
 
 func _on_collected(player: Player) -> void:
