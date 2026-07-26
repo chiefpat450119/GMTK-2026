@@ -16,6 +16,7 @@ const FAR_THRESHOLD: int = 1000
 
 func enter():
 	#maybe ignore prev state
+	play_anim(&"Idle")
 	
 	await get_tree().create_timer(IDLE_TIME).timeout
 	

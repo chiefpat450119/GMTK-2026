@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://ctu6nvxq3k8yl"]
+
+[ext_resource type="Script" uid="uid://bwwa02q616ifb" path="res://scenes/ui/utils/nine_patch_button.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://byvuer7qmyxym" path="res://assets/BUTTON_NOBACK.png" id="2_btn"]
+[ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="3_i3l8r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7yma7"]
+font = ExtResource("3_i3l8r")
+font_size = 28
+outline_size = 8
+outline_color = Color(0.7019608, 0.19215687, 0.22352941, 1)
+
+[node name="NinePatchButton" type="Button" unique_id=1619015523]
+custom_minimum_size = Vector2(118, 52)
+offset_right = 280.0
+offset_bottom = 78.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_btn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_btn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_btn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_btn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btn")
+script = ExtResource("1_script")
+
+[node name="Background" type="NinePatchRect" parent="." unique_id=487670772]
+show_behind_parent = true
+layout_mode = 0
+offset_top = 4.0
+offset_right = 1076.9231
+offset_bottom = 304.0
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("2_btn")
+region_rect = Rect2(0, 0, 1078, 451)
+patch_margin_left = 180
+patch_margin_top = 85
+patch_margin_right = 200
+patch_margin_bottom = 120
+
+[node name="Label" type="Label" parent="." unique_id=1094783511]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 4.16
+offset_right = -26.0
+offset_bottom = -6.7599998
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Button"
+label_settings = SubResource("LabelSettings_7yma7")
+horizontal_alignment = 1
+vertical_alignment = 1

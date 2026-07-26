@@ -20,6 +20,8 @@ const MIN_MOVE_TIME: float = 1.0 # will move for atleast this long
 func enter():
 	state_timer.start()
 	contact_atk_component.set_active(true)
+	
+	play_anim(&"Walk")
 
 
 func physics_tick(_delta: float):
