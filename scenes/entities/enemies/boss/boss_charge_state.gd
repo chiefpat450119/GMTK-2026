@@ -5,6 +5,9 @@ extends State
 @export var enemy: Enemy
 @export var selector_state: SelectorState
 @export var movement: MovementComponent
+
+@export var trail_settings: TrailSettings
+var trail: ProjectileTrail
 #@export var sprite: Sprite2D
 
 @onready var init_sprite_scale_y := anim.scale.y
@@ -54,6 +57,9 @@ func _end_windup():
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	SFX.play("bash_enemy_slide2")
 	play_anim(&"Dash_Airborne")
+	
+	trail = ProjectileTrail.spawn(enemy, trail_settings)
+	
 
 func physics_tick(_delta: float):
 	if not charge_timer.is_started():
@@ -69,6 +75,8 @@ func physics_tick(_delta: float):
 func wind_down():
 	charge_timer.stop()
 	play_anim(&"Dash_End")
+	
+	trail.queue_free()
 
 	switch_state(selector_state)
 
