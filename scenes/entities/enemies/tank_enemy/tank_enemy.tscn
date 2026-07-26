@@ -35,6 +35,7 @@ hitstop_time = 0.13
 hit_knockback = 280.0
 knockback_time = 0.4
 sand_drop_amt_stat = ExtResource("3_lqypu")
+sand_drop_amt_base = 10.0
 metadata/_custom_type_script = "uid://nvjvpqlhmrcl"
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2036067485]
