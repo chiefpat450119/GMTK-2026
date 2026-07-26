@@ -4,6 +4,10 @@ extends Gun
 @export var max_charge_amount : float
 @export var charge_rate : float
 
+# A full charge kicks this much harder than a tapped shot, since it's the one
+# weapon where the player chose to make the shot big.
+const CHARGED_TRAUMA_SCALE : float = 3.0
+
 var cur_charge_amt : float = 0.0
 var is_charging : bool = false
 
@@ -16,10 +20,10 @@ func _physics_process(delta: float) -> void:
 		sprite.modulate = Color.RED.lerp(Color.WHITE, 1.0 - (cur_charge_amt / max_charge_amount))
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("M1") and can_fire:
+	if event.is_action_pressed("Fire") and can_fire:
 		is_charging = true
 
-	if event.is_action_released("M1") and is_charging:
+	if event.is_action_released("Fire") and is_charging:
 		is_charging = false
 		var charge := cur_charge_amt
 		cur_charge_amt = 0.0
@@ -40,6 +44,9 @@ func shoot(charge: float = 0.0) -> void:
 		damage_stat.current_val(base_damage + pow(charge, 2)),
 		base_penetration,
 	)
+
+	var charge_ratio := charge / max_charge_amount if max_charge_amount > 0.0 else 0.0
+	_shake_camera(shot_trauma * lerpf(1.0, CHARGED_TRAUMA_SCALE, clampf(charge_ratio, 0.0, 1.0)))
 
 	# Fire cooldown
 	sprite.modulate = Color(0.198, 0.198, 0.198, 1.0)

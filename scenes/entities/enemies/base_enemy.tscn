@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c38ipi1h7w7jy" path="res://components/health_component.gd" id="6_base"]
 [ext_resource type="Resource" uid="uid://rbm0mbdiob6l" path="res://resources/stats/global_enemy_stats/global_enemy_hp.tres" id="7_base"]
 [ext_resource type="PackedScene" uid="uid://y3u6w8i67cnw" path="res://scenes/entities/enemies/enemy_hp_bar/health_bar.tscn" id="8_base"]
+[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="8_i2g43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(128, 128)
@@ -15,7 +16,7 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(140, 112)
 
-[node name="BaseEnemy" type="CharacterBody2D" unique_id=1890709955 node_paths=PackedStringArray("movement", "atk", "hp")]
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=2035923575 node_paths=PackedStringArray("movement", "atk", "hp")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_base")
@@ -24,10 +25,10 @@ atk = NodePath("ContactDmgAtkComponent")
 hp = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://t6dhj0sncyou"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028412287]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2036067485]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="MovementComponent" type="Node" parent="." unique_id=938060982 node_paths=PackedStringArray("body")]
+[node name="MovementComponent" type="Node" parent="." unique_id=1052880888 node_paths=PackedStringArray("body")]
 script = ExtResource("2_base")
 body = NodePath("..")
 speed_stat = ExtResource("3_base")
@@ -48,13 +49,14 @@ monitoring = false
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_hitbx")
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1764093225]
+[node name="HealthComponent" type="Node" parent="." unique_id=2054313803]
 script = ExtResource("6_base")
 max_hp = ExtResource("7_base")
 base_hp = 25.0
+death_event = ExtResource("8_i2g43")
 metadata/_custom_type_script = "uid://c38ipi1h7w7jy"
 
-[node name="HealthBar" parent="." unique_id=1371187517 node_paths=PackedStringArray("health_component") instance=ExtResource("8_base")]
+[node name="HealthBar" parent="." unique_id=1031431274 node_paths=PackedStringArray("health_component") instance=ExtResource("8_base")]
 offset_left = -25.0
 offset_top = 72.0
 offset_right = 25.0

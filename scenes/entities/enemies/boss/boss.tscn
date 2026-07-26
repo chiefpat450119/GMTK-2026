@@ -15,10 +15,7 @@
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="11_boss"]
 [ext_resource type="PackedScene" uid="uid://br0nj154avgma" path="res://scenes/entities/enemies/boss/clock_attack/clock_attack_controller.tscn" id="11_nvjhm"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="12_boss"]
-<<<<<<< Updated upstream
 [ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="14_boss"]
-=======
->>>>>>> Stashed changes
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(56, 134)
@@ -35,26 +32,14 @@ radius = 62.39391
 collision_mask = 2
 sand_drop_amt_stat = ExtResource("2_boss")
 
-<<<<<<< Updated upstream
-[node name="CollisionShape2D" parent="." index="0" unique_id=1028412287]
-shape = SubResource("RectangleShape2D_body")
-
-[node name="MovementComponent" parent="." index="1" unique_id=938060982]
-base_speed = 300.0
-
-[node name="ContactDmgAtkComponent" parent="." index="2" unique_id=1937951491]
-hurtbox = NodePath("../JumpAtkComponent/hurtbox")
-active_on_ready = false
-
-[node name="CollisionShape2D" parent="ContactDmgAtkComponent/Hitbox" parent_id_path=PackedInt32Array(305433825) index="0" unique_id=829799730]
-shape = SubResource("CircleShape2D_contact")
-
-[node name="HealthComponent" parent="." index="3" unique_id=1764093225]
-=======
 [node name="Sprite2D" parent="." index="0" unique_id=712163586]
 position = Vector2(-9.536743e-07, -9.999998)
 scale = Vector2(0.7804878, 0.74641144)
 texture = ExtResource("3_t78gy")
+
+[node name="HealthComponent" parent="." index="3" unique_id=1764093225]
+base_hp = 2000.0
+death_event = ExtResource("14_boss")
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=2036067485]
 shape = SubResource("RectangleShape2D_body")
@@ -72,11 +57,7 @@ shape = SubResource("CircleShape2D_contact")
 >>>>>>> Stashed changes
 base_hp = 100.0
 
-<<<<<<< Updated upstream
-[node name="HealthBar" parent="." index="4" unique_id=1371187517]
-=======
 [node name="HealthBar" parent="." index="5" unique_id=1031431274]
->>>>>>> Stashed changes
 offset_left = -35.0
 offset_top = 80.0
 offset_right = 35.0
@@ -114,15 +95,9 @@ metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
 script = ExtResource("7_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
-<<<<<<< Updated upstream
 movement = NodePath("../../MovementComponent")
-sprite = NodePath("../../temp sprite")
-speed_mul = 3.3
-=======
-charge_movement = NodePath("../../ChareMovementComponent")
 sprite = NodePath("../../Sprite2D")
-charge_time = 0.6
->>>>>>> Stashed changes
+speed_mul = 3.3
 metadata/_custom_type_script = "uid://dxixpb5jluxll"
 
 [node name="BossJumpState" type="Node" parent="StateMachine" index="4" unique_id=1914301936 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider")]

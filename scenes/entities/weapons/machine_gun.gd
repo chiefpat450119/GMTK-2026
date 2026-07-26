@@ -7,9 +7,9 @@ extends Gun
 var _trigger_held: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("M1"):
+	if event.is_action_pressed("Fire"):
 		_trigger_held = true
-	elif event.is_action_released("M1"):
+	elif event.is_action_released("Fire"):
 		_trigger_held = false
 
 func _physics_process(delta: float) -> void:

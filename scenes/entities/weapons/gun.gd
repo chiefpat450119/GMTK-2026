@@ -17,9 +17,17 @@ extends Node2D
 @export_category("Projectile Info")
 @export var projectile_scene : PackedScene
 @export var projectile_spawn_point : Node2D
+
+
 ## Projectiles per shot. Above 1 they all leave on the same trigger pull, each
 ## rolling its own spread — that alone makes a shotgun.
 @export var projectile_count : int = 1
+
+@export_category("Feel")
+## Camera trauma per trigger pull. Well under what a hit is worth: this fires
+## constantly, so it wants to read as recoil rather than as an event.
+@export var shot_trauma : float = 0.2
+const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 
 var can_fire : bool = true
 
@@ -40,7 +48,7 @@ func _physics_process(_delta: float) -> void:
 		sprite.z_index = 3
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("M1"):
+	if event.is_action_pressed("Fire"):
 		shoot()
 
 func shoot() -> void:
@@ -52,9 +60,15 @@ func shoot() -> void:
 	for i in projectile_count:
 		_spawn_projectile()
 
+	# Once per trigger pull, not per pellet — a shotgun blast is one kick.
+	_shake_camera(shot_trauma)
+
 	# Fire cooldown
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
 	can_fire = true
+
+func _shake_camera(trauma : float) -> void:
+	CameraShake.shake_capped(trauma, trauma * SUSTAINED_TRAUMA_LIMIT)
 
 func _spawn_projectile() -> void:
 	var projectile : Projectile = projectile_scene.instantiate()

@@ -9,12 +9,7 @@ const spawn_radius: float = 1000.0
 @export var wave_changed_event : GameEvent
 @export var enemy_pool: Array[EnemySpawnData]
 
-@onready var budget: int = 10
-
-# test spawn -- replace with custom spawning behavior
-func _ready() -> void:
-	begin_waves()
-
+@onready var budget: int = 5
 
 func begin_waves():
 	spawn_wave()
@@ -36,7 +31,7 @@ func spawn_wave():
 
 #TODO: not this
 func increase_budget():
-	budget += 5
+	budget += 1
 
 
 func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
@@ -50,7 +45,10 @@ func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	var pos := find_spawn_pos(Player.instance.get_global_position())
 	add_child(enemy)
 	enemy.position = pos
-	
+	# Spawned at the origin and moved here, which physics interpolation would render
+	# as the enemy flying in from world origin at spawn_radius per tick.
+	enemy.reset_physics_interpolation()
+
 	return enemy
 
 

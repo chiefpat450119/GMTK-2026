@@ -46,4 +46,10 @@ func remove_mod(id: StringName):
 		func(mod: Modifier) -> bool:
 			return mod.id != id
 	)
+
+# drops every modifier, returning the stat to its base value.
+# Stats are shared resources that outlive the scenes using them, so this is how
+# a run's upgrades stop applying to the next one. See StatRegistry.
+func clear_mods():
+	mods.clear()
 	

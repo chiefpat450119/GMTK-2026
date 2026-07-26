@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_kxq5m"]
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="2_yb508"]
 [ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="3_0eyjx"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_yb508"]
+[ext_resource type="Texture2D" uid="uid://c3qeyt0tpuhnn" path="res://assets/CARDPARTS/ICON_CLR/S_NET__ICON.png" id="4_yb508"]
 
 [sub_resource type="Resource" id="Resource_gptf0"]
 script = ExtResource("1_gptf0")
@@ -21,10 +21,12 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_kxq5m")
+id = &"safety_net"
 title = "Safety Net"
 description_override = "Gain 10s max time, but deal 7.5% less damage
 "
 icon = ExtResource("4_yb508")
 max_stacks = 5
 effects = Array[ExtResource("1_gptf0")]([SubResource("Resource_gptf0"), SubResource("Resource_7cyci")])
+is_tradeoff = true
 metadata/_custom_type_script = "uid://031polniagv2"

@@ -11,10 +11,12 @@ extends Node2D
 ## Leave hurtbox unset for attacks that land somewhere else — a projectile, say —
 ## and use damage_for() at the point the hit is rolled.
 
-## Every valid contact, whether or not it dealt damage. Bounce/recoil off this
-## one so an entity never sits inside its target on a blocked hit.
+## Fired the moment a body enters the hurtbox, whether or not it dealt damage.
+## For reactions that should only fire on a real strike — recoil, hitstop — use
+## hit_landed instead.
 signal contacted(body: Node2D)
 ## A contact that got through the attack_interval gate and actually dealt damage.
+## Also fires for a body that stays inside the hurtbox across intervals.
 signal hit_landed(body: Node2D, damage: float)
 
 @export var atk_stat: Stat
@@ -39,6 +41,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_attack_cd.tick(delta)
 
+	# body_entered only fires on the way in, so a target we're already sitting inside
+	# would never be hit again. Re-roll against whatever is still overlapping once the
+	# interval is up, so an entity that stays in contact keeps attacking.
+	if hurtbox.monitoring and _can_attack():
+		for body in hurtbox.get_overlapping_bodies():
+			if _try_hit(body):
+				break
+
 
 ## Turns contact damage on and off, for attacks that only connect during part of
 ## their animation — a bash that hurts while travelling but not while winding up.
@@ -59,8 +69,7 @@ func attack(base: float, target: Node) -> bool:
 
 	var time := TimeComponent.find_in(target)
 	if time:
-		time.remove_time(damage)
-		print(name, " HIT PLAYER FOR ", damage)
+		time.damage(damage)
 		return true
 
 	return false
@@ -72,13 +81,22 @@ func damage_for(base: float) -> float:
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	contacted.emit(body)
+	_try_hit(body)
 
-	# is_started() is false until the first hit, so the opening contact always lands.
-	if _attack_cd.is_started() and not _attack_cd.is_done():
-		return
+
+# is_started() is false until the first hit, so the opening contact always lands.
+func _can_attack() -> bool:
+	return not _attack_cd.is_started() or _attack_cd.is_done()
+
+
+# Rolls a hit against body if the interval allows it. Returns whether damage landed.
+func _try_hit(body: Node2D) -> bool:
+	if not _can_attack():
+		return false
 
 	if not attack(contact_damage, body):
-		return
+		return false
 
 	_attack_cd.start()
 	hit_landed.emit(body, damage_for(contact_damage))
+	return true

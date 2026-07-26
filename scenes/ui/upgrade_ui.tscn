@@ -37,6 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.45, 0.45)
 pivot_offset = Vector2(1170, 540)
+size_flags_horizontal = 3
 
 [node name="CardUI" parent="HBoxContainer" unique_id=1354915375 instance=ExtResource("1_a5oe3")]
 layout_mode = 2
