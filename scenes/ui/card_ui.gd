@@ -1,9 +1,15 @@
 class_name CardUI
-extends Control
+extends Button
 ## One selectable upgrade card.
 ##
-## Stateless until setup() fills it in. Emits selected() with the GunData it is
-## showing so the owning GunUI can apply it.
+## Stateless until setup() fills it in. Emits selected() with the Upgrade it is
+## showing so the owning UpgradeUI can apply it.
+##
+## A Button with every state stylebox emptied in the scene, rather than a Control
+## that reads raw mouse events: the card art *is* the button skin, and Button
+## already owns the click rule this needs — action_mode defaults to
+## ACTION_MODE_BUTTON_RELEASE, so a press only claims the click and dragging off
+## the card before letting go cancels it.
 
 signal selected(upgrade: Upgrade)
 
@@ -17,6 +23,7 @@ var _upgrade: Upgrade
 
 
 func _ready() -> void:
+	pressed.connect(_on_pressed)
 	# The root handles the click, so nothing layered on top may swallow it.
 	for child in get_children():
 		if child is Control:
@@ -39,7 +46,10 @@ func setup(upgrade: Upgrade) -> void:
 	if upgrade.icon:
 		icon_rect.texture = upgrade.icon
 
-func _gui_input(event: InputEvent) -> void:
+# Only reachable once the row has dealt this card an upgrade. A blank card left
+# over from a short offer is hidden rather than disabled, so this is belt and
+# braces against a press arriving before the first setup().
+func _on_pressed() -> void:
 	if _upgrade == null:
 		return
 	if event is InputEventMouseButton:
