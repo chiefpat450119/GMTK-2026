@@ -47,6 +47,7 @@ func _on_damaged(amount: float) -> void:
 	if time.time_left <= 0.0:
 		return  # The run ends on this same call, so there's nothing left to react with.
 	_play(amount)
+	SFX.play(&"player_damage")
 
 
 func _play(damage: float) -> void:

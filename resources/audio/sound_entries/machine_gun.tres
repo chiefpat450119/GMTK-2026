@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://d3r6rf3vka34c"]
 
 [ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_hs5vn"]
-[ext_resource type="AudioStream" uid="uid://dlokdoe3rtk4g" path="res://assets/sfx/Machine Gun.wav" id="2_6vvch"]
+[ext_resource type="AudioStream" uid="uid://gasxo2l4vmr8" path="res://assets/sfx/Machine Gun (fixed).mp3" id="2_6vvch"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wuaoc"]
+random_pitch = 1.7817973
+streams_count = 1
+stream_0/stream = ExtResource("2_6vvch")
 
 [resource]
 script = ExtResource("1_hs5vn")
 id = &"machine_gun"
-stream = ExtResource("2_6vvch")
+stream = SubResource("AudioStreamRandomizer_wuaoc")
+volume_db = -7.0
 max_polyphony = 16
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

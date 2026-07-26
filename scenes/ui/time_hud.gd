@@ -233,6 +233,8 @@ func _apply(value: float) -> void:
 
 
 func _play_mechanism() -> void:
+	SFX.play(&"hourglass_gear")
+	SFX.play(&"hourglass_gear2")
 	var gear_tween := create_tween()
 	var hourglass_tween := create_tween()
 

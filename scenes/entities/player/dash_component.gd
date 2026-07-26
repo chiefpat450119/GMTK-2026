@@ -26,6 +26,7 @@ func request_dash(start: bool = false) -> void:
 	if not start:
 		return
 	if _cooldown_timer >= dash_cooldown.current_val():
+		SFX.play(&"dash")
 		_dashing = true
 		_dash_timer = 0.0
 

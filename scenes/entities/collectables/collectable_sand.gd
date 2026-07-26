@@ -26,7 +26,7 @@ func _on_collected(player: Player) -> void:
 	# A cleared wave drops a lot of these at once and the player walks through
 	# them in a burst, so this is the one sound that genuinely needs polyphony —
 	# see its max_polyphony and retrigger_cooldown in sound_bank.tres.
-	SFX.play(&"gain_exp")
+	#SFX.play(&"gain_exp")
 
 	# picking up sand tops the player's time back up
 	player.time_component.add_time(pickup_amt)

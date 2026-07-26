@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://c83w2h34hm1nk"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_xgeyq"]
+[ext_resource type="AudioStream" uid="uid://dflkdv7mhaun1" path="res://assets/sfx/dash.wav" id="2_lklpk"]
+
+[resource]
+script = ExtResource("1_xgeyq")
+id = &"dash"
+stream = ExtResource("2_lklpk")
+volume_db = -7.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

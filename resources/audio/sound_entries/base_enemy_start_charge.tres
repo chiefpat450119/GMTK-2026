@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://cp27so6gsqiwx"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_oxs51"]
+[ext_resource type="AudioStream" uid="uid://gphgoutyjwff" path="res://assets/sfx/Bash Enemy Start Charge.mp3" id="2_4ntye"]
+
+[resource]
+script = ExtResource("1_oxs51")
+id = &"bash_enemy_start_charge"
+stream = ExtResource("2_4ntye")
+metadata/_custom_type_script = "uid://my4saxjc4cnj"
