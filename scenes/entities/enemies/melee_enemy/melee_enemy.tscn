@@ -11,6 +11,7 @@
 size = Vector2(90.5, 88)
 
 [node name="MeleeEnemy" unique_id=2001656991 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+scale = Vector2(0.6, 0.6)
 collision_mask = 2
 script = ExtResource("2_mel")
 accel_time = 0.5
