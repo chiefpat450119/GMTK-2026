@@ -54,26 +54,21 @@ func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 
 func find_spawn_pos(target_pos: Vector2) -> Vector2:
 	randomize()
-	# I literally just manually walked to the borders of the map and wrote down the numbers lol
-	var left_border : float = -2800
-	var right_border : float = 4800
-	var top_border : float = -1200
-	var bottom_border : float = 2600
-	var theta : float = randf_range(0,360) # By default enemies can spawn all around player
-	
-	# If player can see the border, enemies won't spawn from that direction
-	if Player.instance.global_position.x < left_border:
-		theta = randf_range(-90,90)
-	if Player.instance.global_position.x > right_border:
-		theta = randf_range(90,270)
-	if Player.instance.global_position.y > bottom_border:
-		theta = randf_range(180,360)
-	if Player.instance.global_position.y < top_border:
-		theta = randf_range(0,180)
-
-	var offset = spawn_radius * Vector2.from_angle(deg_to_rad(theta))
-	return target_pos + offset
-
+	#if map size changes we might need to manually find these again );
+	var left_border : float = -3200
+	var right_border : float = 5200
+	var top_border : float = -1400
+	var bottom_border : float = 2800
+	for i in range(10): #did loop instead of recursion because the debugger got mad at me
+		var theta : float = randf_range(0,360) # By default enemies can spawn all around playe
+		var offset = spawn_radius * Vector2.from_angle(deg_to_rad(theta))
+		var spawn_pos = target_pos + offset
+		if not (spawn_pos.x < left_border 
+		or spawn_pos.x > right_border 
+		or spawn_pos.y > bottom_border
+		or spawn_pos.y < top_border): #no spawning outside for our enemies
+			return spawn_pos
+	return Vector2.ZERO #dont want it going forever, very unlikely
 
 # returns array of EnemySpawnData by randomly assigning the ratings within the budget
 # idk just read the code bro
