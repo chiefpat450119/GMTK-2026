@@ -19,7 +19,7 @@ enum Difficulty { EASY, HARD }
 
 ## How fast enemy stats climb per wave.
 const ENEMY_GROWTH_MULTIPLIERS := {
-	Difficulty.EASY: 1.0,
+	Difficulty.EASY: 0.9,
 	Difficulty.HARD: 2.5,
 }
 
