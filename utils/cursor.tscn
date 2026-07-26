@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cojo50vc4w71x"]
+
+[ext_resource type="Script" uid="uid://dlgm2cc1ivf8m" path="res://utils/cursor.gd" id="1_e0hae"]
+[ext_resource type="Texture2D" uid="uid://m87pxpt68heb" path="res://assets/placeholder_cursor_playing.png" id="2_bgpn4"]
+
+[node name="Cursor" type="Node2D" unique_id=1313991467]
+script = ExtResource("1_e0hae")
+custom_cursor_img = ExtResource("2_bgpn4")

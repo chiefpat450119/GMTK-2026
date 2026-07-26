@@ -1,5 +1,6 @@
-extends Sprite2D
+extends Node2D
 
+@export var custom_cursor_img: CompressedTexture2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,17 +18,8 @@ func _on_state_changed(_from: int, _to: int) -> void:
 		
 #shows curser and hides menu cursor
 func show_custom_cursor():
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	show()
+	Input.set_custom_mouse_cursor(custom_cursor_img, Input.CURSOR_ARROW, Vector2(0, 0))
 	
 #hides curser and shows menu cursor
 func regular_cursor():
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	hide()
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#it is a good thing tutorials exist
-	global_position = lerp(global_position, get_global_mouse_position(), 40*delta)
-	
+	Input.set_custom_mouse_cursor(null)	

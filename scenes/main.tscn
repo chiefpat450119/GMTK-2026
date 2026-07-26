@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="10_gunsel"]
 [ext_resource type="PackedScene" uid="uid://bmusicplr0001" path="res://scenes/autoload/music.tscn" id="11_music"]
 [ext_resource type="PackedScene" uid="uid://cgn3cu48w3bmr" path="res://scenes/ui/victory_screen.tscn" id="12_victory"]
-[ext_resource type="PackedScene" uid="uid://byxl2sxdwh583" path="res://utils/playing_cursor.tscn" id="14_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://bdebugmenu001" path="res://scenes/ui/debug_menu.tscn" id="13_debug"]
+[ext_resource type="PackedScene" uid="uid://cojo50vc4w71x" path="res://utils/cursor.tscn" id="15_jkv2x"]
 
 [node name="Main" type="Node" unique_id=961278468 node_paths=PackedStringArray("world_mount")]
 script = ExtResource("1_o5qli")
@@ -52,4 +52,5 @@ manager = NodePath("../UpgradeManager")
 
 [node name="GunSelectUI" parent="." unique_id=961278490 instance=ExtResource("10_gunsel")]
 
-[node name="PlayingCursor" parent="." unique_id=318351273 instance=ExtResource("14_a8y0u")]
+[node name="Cursor" parent="." unique_id=1313991467 instance=ExtResource("15_jkv2x")]
+position = Vector2(162, 805)

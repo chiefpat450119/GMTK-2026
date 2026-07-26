@@ -1,11 +1,39 @@
 [gd_scene format=3 uid="uid://byxl2sxdwh583"]
 
-[ext_resource type="Texture2D" uid="uid://m87pxpt68heb" path="res://assets/cursor_playing.png" id="1_ssfnk"]
-[ext_resource type="Script" uid="uid://cdq6v6srhb67h" path="res://utils/sprite_2d.gd" id="2_lnkok"]
+[ext_resource type="Texture2D" uid="uid://o8y226lyhqio" path="res://assets/CURSOR_B.png" id="2_3jevi"]
+
+[sub_resource type="GDScript" id="GDScript_ssfnk"]
+script/source = "extends Sprite2D
+
+@export var custom_cursor_img: CompressedTexture2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	#ripped this out of gun select ui
+	if GameStateManager.instance:
+		GameStateManager.instance.state_changed.connect(_on_state_changed)
+	hide()
+
+func _on_state_changed(_from: int, _to: int) -> void:
+	#only shows battle cursor when playing
+	if GameStateManager.instance.state == GameStateManager.GameState.PLAYING:
+		show_custom_cursor()
+	else:
+		regular_cursor()
+		
+#shows curser and hides menu cursor
+func show_custom_cursor():
+	Input.set_custom_mouse_cursor(custom_cursor_img, Input.CURSOR_ARROW, Vector2(0, 0))
+	
+#hides curser and shows menu cursor
+func regular_cursor():
+	Input.set_custom_mouse_cursor(null)	
+"
 
 [node name="PlayingCursor" type="CanvasLayer" unique_id=318351273]
 layer = 128
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1376870162]
-texture = ExtResource("1_ssfnk")
-script = ExtResource("2_lnkok")
+visible = false
+script = SubResource("GDScript_ssfnk")
+custom_cursor_img = ExtResource("2_3jevi")

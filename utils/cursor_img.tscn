@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bnj6voefspye3"]
+
+[sub_resource type="GDScript" id="GDScript_q6qwo"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+"
+
+[node name="CursorImg" type="Node2D" unique_id=1178866237]
+script = SubResource("GDScript_q6qwo")
