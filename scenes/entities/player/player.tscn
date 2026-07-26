@@ -37,6 +37,8 @@ radius = 30.61873
 height = 118.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1339333072 node_paths=PackedStringArray("time_component", "movement_component", "dash_component", "sprite", "gun_holder")]
+z_index = 1
+y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_xy2vv")
 time_component = NodePath("TimeComponent")

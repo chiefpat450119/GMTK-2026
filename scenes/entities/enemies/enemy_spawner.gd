@@ -52,8 +52,10 @@ func begin_waves():
 	wave_counter = 0
 	_wave_running = true
 	spawn_wave()
-	wave_timer.start()
-	wave_timer.timeout.connect(spawn_wave)
+	
+	if wave_timer:
+		wave_timer.start()
+		wave_timer.timeout.connect(spawn_wave)
 
 
 func spawn_wave():
@@ -69,7 +71,9 @@ func spawn_wave():
 	
 	increase_budget(wave_counter)
 	wave_counter += 1
-	wave_changed_event.raise()
+	
+	if wave_changed_event:
+		wave_changed_event.raise()
 
 func spawn_enemies(enemies: Array[EnemySpawnData]):
 	var msg := "BUDGET: " + str(budget) + ", RATINGS: ["
@@ -132,6 +136,7 @@ func find_spawn_pos(target_pos: Vector2) -> Vector2:
 
 # returns array of EnemySpawnData by randomly assigning the ratings within the budget
 # idk just read the code bro
+@warning_ignore("shadowed_variable")
 func enemy_budget_breakdown(budget: int) -> Array[EnemySpawnData]:
 	var breakdown : Array[EnemySpawnData] = []
 	while budget > 0:
