@@ -3,9 +3,12 @@ extends State
 
 
 const PLAYER_DISTANCE_THRESHOLD : int = 50
+const MIN_MOVE_TIME: float = 1.0 # will move for atleast this long
 
 @export var enemy: Enemy
 @export var selector_state: SelectorState
+@export var attack_state: State
+@export var contact_atk_component: AtkComponent
 
 @export_category("STATE INFO")
 @export var accel_time: float = 0.25
@@ -16,6 +19,7 @@ const PLAYER_DISTANCE_THRESHOLD : int = 50
 
 func enter():
 	state_timer.start()
+	contact_atk_component.set_active(true)
 
 
 func physics_tick(_delta: float):
@@ -24,9 +28,21 @@ func physics_tick(_delta: float):
 	var dir := enemy.get_to_player_vec()
 	enemy.accelerate(dir.normalized(), 1, accel_time, deccel_time, _delta)
 	
-	if dir.length() <= PLAYER_DISTANCE_THRESHOLD or state_timer.is_done():
-		switch_state(selector_state)
+	_check_switch(dir)
 
+
+func _check_switch(dir: Vector2):
+	# move for atleast Min move time
+	if state_timer.time_elapsed() < MIN_MOVE_TIME and state_timer._duration > MIN_MOVE_TIME:
+		return
+	
+	#if dir.length() <= PLAYER_DISTANCE_THRESHOLD:
+		#switch_state(attack_state)
+		#return
+	
+	if state_timer.is_done():
+		switch_state(selector_state)
 
 func exit():
 	state_timer.stop()
+	contact_atk_component.set_active(false)

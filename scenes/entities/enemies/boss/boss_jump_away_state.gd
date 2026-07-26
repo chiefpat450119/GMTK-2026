@@ -1,17 +1,8 @@
-class_name BossJumpState
+class_name BossJumpAwayState
 extends State
 
-enum LandTargetType {
-	TOWARD_PLAYER,
-	AWAY_FROM_PLAYER
-}
-
 const JUMP_SQUAT_TIME: float = 0.5
-const JUMP_SQUAT_TIME_FAST: float = 0.2
-const JUMP_COOLDOWN: float = 0.5 # delay before starting next state
-const JUMP_AWAY_DISTANCE: int = 100
-
-@export var land_target_type: LandTargetType
+const jump_cooldown: float = 0.5 # delay before starting next state
 
 @export var enemy: Enemy
 @export var selector_state: SelectorState
@@ -34,10 +25,10 @@ func enter():
 	# play animation
 	super()
 	
-	await jump_squat_delay(land_target_type)
+	await get_tree().create_timer(JUMP_SQUAT_TIME).timeout
 	
-	land_target = get_land_pos(land_target_type)
-	var jump_distance := enemy.position.distance_to(land_target)
+	land_target = enemy.get_player_pos()
+	var jump_distance := enemy.get_to_player_vec().length()
 	jump_speed = jump_distance / jump_duration
 	
 	jump_timer.start()
@@ -47,32 +38,6 @@ func physics_tick(_delta: float):
 		jump(land_target, _delta)
 		jump_timer.tick(_delta)
 
-func jump_squat_delay(target_type: LandTargetType):
-	var yield_time: float
-	match target_type:
-		LandTargetType.TOWARD_PLAYER:
-			yield_time = JUMP_SQUAT_TIME
-		LandTargetType.AWAY_FROM_PLAYER:
-			yield_time = JUMP_SQUAT_TIME_FAST
-		_:
-			return JUMP_SQUAT_TIME
-	
-	await get_tree().create_timer(yield_time).timeout
-
-func get_land_pos(target_type: LandTargetType) -> Vector2:
-	match target_type:
-		LandTargetType.TOWARD_PLAYER:
-			return enemy.get_player_pos()
-		LandTargetType.AWAY_FROM_PLAYER:
-			return _find_away_target()
-		_:
-			return Vector2.ZERO
-		
-
-func _find_away_target() -> Vector2:
-	var rot := randf() * 2 * PI
-	var pos := Vector2.from_angle(rot) * JUMP_AWAY_DISTANCE
-	return pos
 
 func jump(land_pos: Vector2, delta: float):
 	enemy.global_position = enemy.global_position.move_toward(land_pos, jump_speed * delta)
@@ -90,7 +55,7 @@ func land():
 	
 	jump_land_atk.set_active(true)
 	#play land anim or fx
-	await get_tree().create_timer(JUMP_COOLDOWN).timeout
+	await get_tree().create_timer(jump_cooldown).timeout
 	jump_land_atk.set_active(false)
 
 	

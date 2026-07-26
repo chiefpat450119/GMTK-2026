@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://om5flrq002hr"]
+
+[ext_resource type="Script" uid="uid://bnmtirum7st0s" path="res://scenes/entities/enemies/boss/clock_attack/hour_hand.gd" id="1_d270n"]
+[ext_resource type="Texture2D" uid="uid://23tuumu7hsi1" path="res://assets/hud/BAR_ENDcopy.png" id="2_15ypc"]
+[ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="3_1fpuy"]
+[ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="4_21rit"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lbiil"]
+height = 204.0
+
+[node name="HourHand" type="Node2D" unique_id=165784733 node_paths=PackedStringArray("atk_component")]
+script = ExtResource("1_d270n")
+atk_component = NodePath("AtkComponent")
+metadata/_custom_type_script = "uid://bnmtirum7st0s"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2079034982]
+texture = ExtResource("2_15ypc")
+offset = Vector2(0, -100)
+
+[node name="AtkComponent" type="Node2D" parent="." unique_id=439638076 node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("3_1fpuy")
+atk_stat = ExtResource("4_21rit")
+hurtbox = NodePath("Hurtbox")
+contact_damage = 10.0
+active_on_ready = false
+metadata/_custom_type_script = "uid://c1mak22ii3tpp"
+
+[node name="Hurtbox" type="Area2D" parent="AtkComponent" unique_id=1919352273]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AtkComponent/Hurtbox" unique_id=674832623]
+position = Vector2(0, -92)
+shape = SubResource("CapsuleShape2D_lbiil")

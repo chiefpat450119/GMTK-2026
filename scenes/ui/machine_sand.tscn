@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dyvm7fbulb8r8"]
+
+[ext_resource type="Script" uid="uid://bt71bpl2ygx8y" path="res://scenes/ui/machine_sand.gd" id="1_1yqpt"]
+[ext_resource type="Texture2D" uid="uid://dvitp8b68rv41" path="res://assets/sand_drop.png" id="1_wfb0p"]
+
+[node name="MachineSand" type="Control" unique_id=1654624199 node_paths=PackedStringArray("sand_drop")]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(1.6858203, 1.6858203)
+script = ExtResource("1_1yqpt")
+sand_drop = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1288376630]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.02525
+offset_top = -137.02525
+offset_right = 137.02528
+offset_bottom = 137.02528
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wfb0p")
+expand_mode = 1

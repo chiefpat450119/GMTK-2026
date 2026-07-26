@@ -8,6 +8,15 @@
 
 [node name="WinterTestScene" type="Node2D" unique_id=512743553]
 
+[node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("1_uwv7y")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=64128626]
+position = Vector2(726, 399)
+scale = Vector2(154.5, 152.5)
+texture = SubResource("PlaceholderTexture2D_n1ogh")
+
+[node name="ShooterEnemy" parent="." unique_id=833281361 instance=ExtResource("3_ia5xm")]
+
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("2_ia5xm")]
 position = Vector2(532, 33)
 
