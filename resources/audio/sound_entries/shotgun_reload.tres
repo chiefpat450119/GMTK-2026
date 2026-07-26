@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://rhm8canfdwlc"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_markg"]
+[ext_resource type="AudioStream" uid="uid://xnf6ouvixqxp" path="res://assets/sfx/Shotgun Reload.mp3" id="2_markg"]
+
+[resource]
+script = ExtResource("1_markg")
+id = &"shotgun_reload"
+stream = ExtResource("2_markg")
+max_polyphony = 5
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

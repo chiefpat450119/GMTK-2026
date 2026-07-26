@@ -46,8 +46,6 @@ sprite = NodePath("AnimatedSprite2D")
 gun_holder = NodePath("GunHolder")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
-[node name="Shotgun" parent="." unique_id=933200610 instance=ExtResource("3_j0oqr")]
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
 scale = Vector2(0.13148148, 0.13148148)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
