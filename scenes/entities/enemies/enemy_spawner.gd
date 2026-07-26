@@ -1,6 +1,35 @@
 class_name EnemySpawner
 extends Node
 
+# indexed by wave_count 
+# tweak pls i pulled these numbers out of my ass
+const BUDGET_TABLE: Array[int] = [
+	10,
+	12,
+	14,
+	15,
+	16,
+	23,
+	24,
+	26,
+	27,
+	28,
+	30,
+	31,
+	33,
+	35,
+	38,
+	40,
+	41,
+	42,
+	43,
+	44,
+	45,
+]
+
+# when budget table surpassed, fallback to increase budget by this
+const DEFAULT_BUDGET_SCALING: int = 2
+
 # Distance away from player to spawn enemy. 
 # Should be off screen
 const spawn_radius: float = 1000.0
@@ -9,30 +38,54 @@ const spawn_radius: float = 1000.0
 @export var wave_changed_event : GameEvent
 @export var enemy_pool: Array[EnemySpawnData]
 
+@export var boss_spawner: PackedScene
+
 @onready var budget: int = 5
+
+
+@export var boss_spawn_wave: int = 20
+var wave_counter: int = 0
+
 
 func begin_waves():
 	spawn_wave()
 	wave_timer.start()
 	wave_timer.timeout.connect(spawn_wave)
+	wave_counter = 0
 
 
 func spawn_wave():
+	if wave_counter >= boss_spawn_wave: 
+		spawn_boss()
+		return
+	
 	var enemies : Array[EnemySpawnData] = enemy_budget_breakdown(budget)
+	spawn_enemies(enemies)
+	
+	increase_budget(wave_counter)
+	wave_counter += 1
+	wave_changed_event.raise()
+
+func spawn_enemies(enemies: Array[EnemySpawnData]):
 	var msg := "BUDGET: " + str(budget) + ", RATINGS: ["
 	for enemy in enemies:
 		spawn_enemy(enemy.enemy_scene)
 		msg += str(enemy.difficulty_rating) + ","
 	msg += "]"
 	print(msg)
-	increase_budget()
-	wave_changed_event.raise()
 
 
-#TODO: not this
-func increase_budget():
-	budget += 1
+func increase_budget(wave_index: int):
+	if wave_index >= BUDGET_TABLE.size():
+		budget += 2 # default scaling
+		return
+	
+	budget = BUDGET_TABLE[wave_index]
 
+func spawn_boss():
+	var instance: BossSpawner = boss_spawner.instantiate()
+	get_tree().current_scene.add_child(instance)
+	instance.global_position = Player.instance.global_position
 
 func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	# instantiate enemy 

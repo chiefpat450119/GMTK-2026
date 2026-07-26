@@ -40,4 +40,4 @@ enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubRe
 metadata/_custom_type_script = "uid://c680wy8q4de83"
 
 [node name="Timer" type="Timer" parent="." unique_id=681572550]
-wait_time = 10.0
+wait_time = 5.0
