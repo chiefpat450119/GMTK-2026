@@ -108,7 +108,7 @@ func shoot(charge: float = 0.0) -> void:
 		global_rotation + deg_to_rad(randf_range(-shot_spread, shot_spread)),
 		Projectile.Team.PLAYER,
 		damage_stat.current_val(base_damage + pow(charge, 2) * (max_damage - base_damage) / pow(max_charge_amount, 2)),
-		base_penetration,
+		get_penetration(),
 	)
 
 	var charge_ratio := _charge_ratio(charge)

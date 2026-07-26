@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_effect"]
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_upgrade"]
 [ext_resource type="Resource" uid="uid://druhlk17ja37p" path="res://resources/stats/player_stats/player_dash_cooldown.tres" id="3_dash_cooldown"]
-[ext_resource type="Texture2D" uid="uid://8flur7omopd8" path="res://assets/CARDPARTS/ICON_CLR/DASH_UPGRADE_ICON.png" id="4_fxq2v"]
 [ext_resource type="Resource" uid="uid://frrqtqnfhira" path="res://resources/stats/player_stats/player_max_time_stat.tres" id="4_max_time"]
 
 [sub_resource type="Resource" id="Resource_adrenaline_cd"]
@@ -19,12 +18,15 @@ target_stat = ExtResource("4_max_time")
 value = -8.0
 metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rd44s"]
+load_path = "res://.godot/imported/DASH_UPGRADE_ICON.png-18f95f526932fc741839181baa3c686b.ctex"
+
 [resource]
 script = ExtResource("2_upgrade")
 id = &"adrenaline"
 title = "Adrenaline"
 description_override = "Dash recharges 35% faster, but -8s of max time capacity"
-icon = ExtResource("4_fxq2v")
+icon = SubResource("CompressedTexture2D_rd44s")
 rarity = 2
 max_stacks = 3
 effects = Array[ExtResource("1_effect")]([SubResource("Resource_adrenaline_cd"), SubResource("Resource_adrenaline_time")])

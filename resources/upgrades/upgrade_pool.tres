@@ -22,8 +22,9 @@
 [ext_resource type="Resource" uid="uid://cn8sv1tp06ym4" path="res://resources/upgrades/upgrade_resources/adrenaline.tres" id="18_adrnl"]
 [ext_resource type="Resource" uid="uid://dl5rkafbq0wc3" path="res://resources/upgrades/upgrade_resources/afterimage.tres" id="19_aftim"]
 [ext_resource type="Resource" uid="uid://bx2mg6khv7td8" path="res://resources/upgrades/upgrade_resources/sandblast.tres" id="20_sndbl"]
+[ext_resource type="Resource" uid="uid://daprc1ngr0nds" path="res://resources/upgrades/upgrade_resources/piercing_rounds.tres" id="21_pierc"]
 
 [resource]
 script = ExtResource("1_norry")
-upgrades = Array[ExtResource("2_bcv5u")]([ExtResource("3_v83e7"), ExtResource("4_2t3ge"), ExtResource("5_51q4s"), ExtResource("6_fghbw"), ExtResource("3_jboiu"), ExtResource("8_uj431"), ExtResource("4_xyatx"), ExtResource("5_pt8kk"), ExtResource("9_jboiu"), ExtResource("8_lu444"), ExtResource("7_yoi5h"), ExtResource("9_jhxsh"), ExtResource("15_8pq2o"), ExtResource("7_ojb35"), ExtResource("6_t1se2"), ExtResource("16_mgnt0"), ExtResource("17_qkstp"), ExtResource("18_adrnl"), ExtResource("19_aftim"), ExtResource("20_sndbl")])
+upgrades = Array[ExtResource("2_bcv5u")]([ExtResource("3_v83e7"), ExtResource("4_2t3ge"), ExtResource("5_51q4s"), ExtResource("6_fghbw"), ExtResource("3_jboiu"), ExtResource("8_uj431"), ExtResource("4_xyatx"), ExtResource("5_pt8kk"), ExtResource("9_jboiu"), ExtResource("8_lu444"), ExtResource("7_yoi5h"), ExtResource("9_jhxsh"), ExtResource("15_8pq2o"), ExtResource("7_ojb35"), ExtResource("6_t1se2"), ExtResource("16_mgnt0"), ExtResource("17_qkstp"), ExtResource("18_adrnl"), ExtResource("19_aftim"), ExtResource("20_sndbl"), ExtResource("21_pierc")])
 metadata/_custom_type_script = "uid://dc7mnrafluqc"

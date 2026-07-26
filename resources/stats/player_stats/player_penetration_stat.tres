@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://b8pen3tr4t10n"]
+
+[ext_resource type="Script" uid="uid://bnaam37pn33wi" path="res://resources/stats/stat.gd" id="1_pntrn"]
+
+[resource]
+script = ExtResource("1_pntrn")
+stat_name = "Penetration"
+min_val = 0.0
+metadata/_custom_type_script = "uid://bnaam37pn33wi"
