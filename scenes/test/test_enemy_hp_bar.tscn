@@ -12,6 +12,21 @@ position = Vector2(-550, -119)
 
 [node name="MeleeEnemy" parent="." unique_id=2072227410 instance=ExtResource("3_2qh7e")]
 position = Vector2(52, 70)
+walk_squash = 0.95
+walk_cycle_time = 0.36
+walk_settle_time = 0.12
+walk_min_speed = 5.0
+lunge_dist = 26.0
+lunge_stretch = 1.18
+lunge_narrow = 0.87
+lunge_time = 0.05
+lunge_return = 0.3
+lunge_pitch_deg = 15.0
+rear_pitch_deg = -12.0
+pitch_smooth = 14.0
+hitstop_time = 0.06
+hit_knockback = 950.0
+knockback_time = 0.28
 
 [node name="ShooterEnemy" parent="." unique_id=1808921831 instance=ExtResource("4_h03kp")]
 position = Vector2(-364, 197)

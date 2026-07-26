@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dcxndarlb8md6"]
+
+[ext_resource type="Script" uid="uid://bg8ighkmw8vcl" path="res://scenes/test/test_sand_pickup.gd" id="1_vjo7o"]
+[ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="2_4ax1b"]
+[ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="3_4ax1b"]
+
+[node name="TestSandPickup" type="Node2D" unique_id=1262810612]
+script = ExtResource("1_vjo7o")
+
+[node name="Player" parent="." unique_id=1339333072 instance=ExtResource("2_4ax1b")]
+
+[node name="spawn" type="Node2D" parent="." unique_id=353347709]
+position = Vector2(574, 251)
+
+[node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("3_4ax1b")]
