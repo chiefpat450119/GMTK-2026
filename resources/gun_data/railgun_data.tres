@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_xvorg")
 title = "Rail Gun"
-description = "After a full charge of your railgun you might find the guy in front of you mysteriously disappear"
+description = "You should only pick this gun if you think patience is a virtue."
 icon = ExtResource("2_711m2")
 gun_scene = ExtResource("1_odr21")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"

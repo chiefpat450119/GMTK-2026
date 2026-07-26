@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_cwyi0")
 title = "Machine Gun "
-description = "The machine gun overwhelms its foes with a steady stream of glass shards"
+description = "Ever wondered why a machine gun was called a \"machine\" gun? Me neither."
 icon = ExtResource("2_307ol")
 gun_scene = ExtResource("1_307ol")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"

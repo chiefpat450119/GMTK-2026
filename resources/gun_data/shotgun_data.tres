@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_uf0e4")
 title = "Shotgun"
-description = "If you want to fill your enemies with glass, the shotgun is the gun for you"
+description = "Why would you shoot one bullet at a time when you can shoot eight?"
 icon = ExtResource("2_wyo7q")
 gun_scene = ExtResource("1_3hjsy")
 metadata/_custom_type_script = "uid://cbngjjj8jpc1y"
