@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_sandblast"]
 script = ExtResource("1_effect")
 target_stat = ExtResource("3_shockwave_dmg")
-value = 25.0
+value = 35.0
 metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vyntl"]
@@ -17,7 +17,7 @@ load_path = "res://.godot/imported/SAND_BLAST_ICON.png-d8173e7069052305ae749fd96
 script = ExtResource("2_upgrade")
 id = &"sandblast"
 title = "Sandblast"
-description_override = "Dashing blasts nearby enemies for 25 damage (Can stack multiple times)"
+description_override = "Dashing blasts nearby enemies for 35 damage per stack"
 icon = SubResource("CompressedTexture2D_vyntl")
 rarity = 2
 max_stacks = 3
