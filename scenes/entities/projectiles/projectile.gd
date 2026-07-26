@@ -16,6 +16,7 @@ enum Team { PLAYER, ENEMY }
 var team: Team = Team.PLAYER
 var damage: float
 var penetration: int = 0
+var trail_settings: TrailSettings
 
 var _velocity := Vector2.ZERO
 var _spent_on: Array[Node2D] = []
@@ -45,6 +46,12 @@ func launch(from: Vector2, angle: float, fired_by: Team, dmg: float, pierce: int
 	# physically incapable of overlapping a friendly and no hit-time check for
 	# "is this one of mine" is needed.
 	collision_mask = CollisionLayers.ENEMY if team == Team.PLAYER else CollisionLayers.PLAYER
+
+	# After the interpolation reset above, so the trail's first sample is the muzzle
+	# rather than the origin the node was added at. The trail is parented to the scene
+	# and outlives this projectile on purpose; see projectile_trail.gd.
+	if trail_settings:
+		ProjectileTrail.spawn(self, trail_settings)
 
 
 func _physics_process(delta: float) -> void:

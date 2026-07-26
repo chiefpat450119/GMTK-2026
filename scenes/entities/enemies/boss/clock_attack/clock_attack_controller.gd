@@ -38,6 +38,13 @@ func expand_hand(mod: float = 1.3):
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	await tween.finished
 
+func tick_hand(rot: float):
+	var tween := create_tween()
+	tween.tween_property(clock_hand, "rotation", 
+	rot, 0.1) \
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await tween.finished
+
 
 func swing_hand():
 	await clock_hand.rotate_hand()

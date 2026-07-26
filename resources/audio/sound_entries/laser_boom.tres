@@ -12,4 +12,5 @@ stream_0/stream = ExtResource("2_hi45t")
 script = ExtResource("1_wuaoc")
 id = &"laser_boom"
 stream = SubResource("AudioStreamRandomizer_22pgc")
+volume_db = -10.0
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

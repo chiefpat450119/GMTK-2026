@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmusicplr0001"]
 
-[ext_resource type="Script" path="res://scenes/autoload/music.gd" id="1_music"]
+[ext_resource type="Script" uid="uid://c3rld6qwhbagg" path="res://scenes/autoload/music.gd" id="1_music"]
 [ext_resource type="AudioStream" uid="uid://cbibum7vt064b" path="res://assets/music/Sand of Time - Battle Track_24Bit48kHz.WAV MASTER (Back-Up).wav" id="2_battle"]
 
 [node name="Music" type="Node" unique_id=1940000001 node_paths=PackedStringArray("player")]
