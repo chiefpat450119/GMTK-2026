@@ -41,6 +41,7 @@ extends Node2D
 ## Camera trauma per trigger pull. Well under what a hit is worth: this fires
 ## constantly, so it wants to read as recoil rather than as an event.
 @export var shot_trauma : float = 0.2
+@export var muzzle_flash : MuzzleFlash
 const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 
 var can_fire : bool = true
@@ -100,6 +101,8 @@ func shoot() -> void:
 	# swapped out or freed while it rings.
 	_shake_camera(shot_trauma)
 	SFX.play(fire_sfx)
+	if muzzle_flash:
+		muzzle_flash.fire()
 
 	# Fire cooldown
 	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout

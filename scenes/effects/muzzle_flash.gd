@@ -38,6 +38,12 @@ extends Node2D
 @export var flash_time := 0.055
 ## What each polygon grows to over [member flash_time], against its authored scale.
 @export var flash_growth := 1.9
+## Multiplied into every layer's colour, alpha included. White leaves the scene's own
+## alone. This is how a gun recolours its flash: the gradients and polygon colours are
+## sub-resources of this scene and so are shared by every instance of it, meaning a gun
+## that edited them directly would recolour every other gun's flash too.
+@export var tint := Color.WHITE:
+	set = set_tint
 ## Fire once as soon as this enters the tree. For spawn-per-shot use.
 @export var autostart := false
 ## Free this node once a flash has fully died out, embers included.
@@ -49,7 +55,10 @@ const TAIL_MARGIN := 0.15
 
 var _emitters: Array[CPUParticles2D] = []
 var _polygons: Array[Polygon2D] = []
+# Every emitter and polygon, in one list, purely so tint has something to walk.
+var _layers: Array[CanvasItem] = []
 var _base_scale := Vector2.ONE
+var _base_modulates: Array[Color] = []
 var _base_poly_scales: Array[Vector2] = []
 var _base_poly_alphas: Array[float] = []
 var _flash_tween: Tween
@@ -60,18 +69,28 @@ func _ready() -> void:
 	_base_scale = scale
 
 	for child in get_children():
-		if child is CPUParticles2D:
-			var emitter := child as CPUParticles2D
+		var layer := child as CanvasItem
+		if layer == null:
+			continue
+
+		if layer is CPUParticles2D:
+			var emitter := layer as CPUParticles2D
 			_emitters.append(emitter)
 			emitter.one_shot = false
 			emitter.emitting = false
-		elif child is Polygon2D:
-			var poly := child as Polygon2D
+		elif layer is Polygon2D:
+			var poly := layer as Polygon2D
 			_polygons.append(poly)
 			_base_poly_scales.append(poly.scale)
 			_base_poly_alphas.append(poly.modulate.a)
 			poly.modulate.a = 0.0
+		else:
+			continue
 
+		_layers.append(layer)
+		_base_modulates.append(layer.self_modulate)
+
+	_apply_tint()
 	set_process(false)
 	reset_physics_interpolation()
 
@@ -102,6 +121,18 @@ func stop() -> void:
 		emitter.emitting = false
 		emitter.restart()
 		emitter.emitting = false
+
+
+func set_tint(value: Color) -> void:
+	tint = value
+	_apply_tint()
+
+
+# self_modulate rather than modulate, because the polygons' modulate is what the flash
+# tween drives — writing a tint there would be wiped on the next shot.
+func _apply_tint() -> void:
+	for i in _layers.size():
+		_layers[i].self_modulate = _base_modulates[i] * tint
 
 
 func _process(delta: float) -> void:

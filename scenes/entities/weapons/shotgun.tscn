@@ -9,8 +9,9 @@
 [ext_resource type="Resource" uid="uid://btmnp0s0wl3jj" path="res://resources/stats/player_stats/player_shot_cost_stat.tres" id="5_nc227"]
 [ext_resource type="Texture2D" uid="uid://b603kdu3cjyds" path="res://assets/guns/shotgun.png" id="8_hyjqx"]
 [ext_resource type="Resource" uid="uid://ctrailsg0001" path="res://resources/trails/shotgun_trail.tres" id="9_trlsg"]
+[ext_resource type="PackedScene" uid="uid://cmu00lefx0001" path="res://scenes/effects/muzzle_flash.tscn" id="10_mflash"]
 
-[node name="Shotgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point")]
+[node name="Shotgun" type="Node2D" unique_id=933200610 node_paths=PackedStringArray("sprite", "projectile_spawn_point", "muzzle_flash")]
 script = ExtResource("1_2b38s")
 spend_sand_event = ExtResource("2_hyjqx")
 sprite = NodePath("Sprite2D")
@@ -30,6 +31,7 @@ projectile_count = 10
 fire_sfx = &"shotgun"
 reload_sfx = &"shotgun_reload"
 shot_trauma = 0.4
+muzzle_flash = NodePath("Projectile Spawn Point/MuzzleFlash")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1441832555]
 position = Vector2(60.408268, 0.065790415)
@@ -38,3 +40,14 @@ texture = ExtResource("8_hyjqx")
 
 [node name="Projectile Spawn Point" type="Node2D" parent="." unique_id=1642815895]
 position = Vector2(130, -8)
+
+[node name="MuzzleFlash" parent="Projectile Spawn Point" unique_id=1732749152 instance=ExtResource("10_mflash")]
+z_index = 1
+scale = Vector2(1.25, 1.25)
+scale_max = 1.0
+emit_window = 0.07
+size_jitter = 0.09
+flash_roll = 17.0
+flash_time = 0.08
+flash_growth = 2.4
+tint = Color(1, 0.88, 0.7, 1)

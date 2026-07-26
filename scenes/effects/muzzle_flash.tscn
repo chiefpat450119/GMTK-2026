@@ -83,7 +83,7 @@ color_ramp = SubResource("Gradient_streak")
 
 [node name="Embers" type="CPUParticles2D" parent="." unique_id=1565995307]
 emitting = false
-amount = 72
+amount = 50
 texture = ExtResource("4_ember")
 lifetime = 0.32
 lifetime_randomness = 0.5

@@ -84,6 +84,10 @@ func shoot(charge: float = 0.0) -> void:
 
 	var charge_ratio := _charge_ratio(charge)
 	_shake_camera(shot_trauma * lerpf(1.0, CHARGED_TRAUMA_SCALE, charge_ratio))
+	# The one weapon whose flash varies shot to shot — a tapped shot barely sparks, a
+	# full coil dumps everything it was holding.
+	if muzzle_flash:
+		muzzle_flash.fire(charge_ratio)
 	# This overrides Gun.shoot() outright rather than calling into it, so the shot
 	# report has to be raised here as well.
 	SFX.play(fire_sfx)
