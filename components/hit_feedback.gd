@@ -59,7 +59,7 @@ func _ready() -> void:
 	if health == null:
 		health = HealthComponent.find_in(get_parent())
 	if sprite == null:
-		sprite = _find_sprite()
+		sprite = Sprites.find_in(get_parent())
 
 	body = get_parent() as CharacterBody2D
 
@@ -167,15 +167,6 @@ func _physics_process(delta: float) -> void:
 
 	var t := knockback.time_left / KNOCKBACK_TIME  # 1 -> 0 over the shove
 	body.move_and_collide(knockback_dir * knockback_speed * knockback_scale * t * delta)
-
-
-# Sprites are Sprite2D on some enemies and AnimatedSprite2D on others, and both
-# only need to be a Node2D from here.
-func _find_sprite() -> Node2D:
-	for child in get_parent().get_children():
-		if child is Sprite2D or child is AnimatedSprite2D:
-			return child
-	return null
 
 
 # Only one tween may own a property at a time, otherwise a hit landing during the
