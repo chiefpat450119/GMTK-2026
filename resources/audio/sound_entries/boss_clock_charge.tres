@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEntry" format=3 uid="uid://dsrwjw8q1uocy"]
+
+[ext_resource type="Script" uid="uid://my4saxjc4cnj" path="res://resources/audio/sound_entry.gd" id="1_tnf2c"]
+[ext_resource type="AudioStream" uid="uid://d1ytdldmwxkyc" path="res://assets/sfx/Boss Clock Charge.wav" id="2_tnf2c"]
+
+[resource]
+script = ExtResource("1_tnf2c")
+id = &"boss_clock_charge"
+stream = ExtResource("2_tnf2c")
+volume_db = -5.0
+metadata/_custom_type_script = "uid://my4saxjc4cnj"

@@ -28,8 +28,8 @@ projectile_scene = ExtResource("5_1hj3y")
 projectile_spawn_point = NodePath("Sprite2D/Projectile Spawn Point")
 projectile_trail = ExtResource("9_trlsg")
 projectile_count = 10
-fire_sfx = &"shotgun"
-reload_sfx = &"shotgun_reload"
+fire_sfx = &"shotgun_firing"
+reload_sfx = &"shotgun_pump"
 shot_trauma = 0.4
 muzzle_flash = NodePath("Sprite2D/Projectile Spawn Point/MuzzleFlash")
 
