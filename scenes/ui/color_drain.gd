@@ -21,12 +21,13 @@ func _ready() -> void:
 	GameStateManager.instance.state_changed.connect(_on_state_changed)
 
 
-# The tree is paused for GAME_OVER, so the drain freezes exactly where the run
-# left it and holds under the screen — which is the point. Clearing has to be
-# explicit: everything a retry passes through is paused as well, so the ease in
-# _process wouldn't get a frame until the next run was already being played.
+# The tree is paused for GAME_OVER and VICTORY, so the drain freezes exactly
+# where the run left it and holds under the screen — which is the point. Clearing
+# has to be explicit: everything a retry passes through is paused as well, so the
+# ease in _process wouldn't get a frame until the next run was already being played.
 func _on_state_changed(from: int, _to: int) -> void:
-	if from == GameStateManager.GameState.GAME_OVER:
+	if from == GameStateManager.GameState.GAME_OVER \
+			or from == GameStateManager.GameState.VICTORY:
 		_clear()
 
 

@@ -19,9 +19,10 @@ extends Node
 
 static var instance: GameStateManager
 
-## SELECTING_GUN sits at the end rather than beside the other modal states: these
-## are serialised by value in the scenes that a StateScreen belongs to, so
-## inserting one in the middle would quietly re-point every screen after it.
+## SELECTING_GUN and VICTORY sit at the end rather than beside the other modal
+## states: these are serialised by value in the scenes that a StateScreen belongs
+## to, so inserting one in the middle would quietly re-point every screen after
+## it. New states go on the end for the same reason.
 enum GameState {
 	MAIN_MENU,
 	PLAYING,
@@ -29,6 +30,7 @@ enum GameState {
 	UPGRADING,
 	GAME_OVER,
 	SELECTING_GUN,
+	VICTORY,
 }
 
 ## Emitted after `state` is already updated, so handlers can read it directly.
@@ -78,7 +80,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed(PAUSE_ACTION):
 		return
-	# Ignored during UPGRADING, SELECTING_GUN and GAME_OVER — modal by design.
+	# Ignored during UPGRADING, SELECTING_GUN, GAME_OVER and VICTORY — modal by design.
 	if state == GameState.PLAYING or state == GameState.PAUSED:
 		get_viewport().set_input_as_handled()
 		toggle_pause()
@@ -200,6 +202,15 @@ func game_over() -> void:
 	if state != GameState.PLAYING:
 		return
 	_set_state(GameState.GAME_OVER)
+
+
+## The run was won. The mirror of game_over(): same modal, same paused world
+## underneath, so the victory screen comes up over the run as it was left rather
+## than over a world that kept moving. Only reachable from PLAYING.
+func victory() -> void:
+	if state != GameState.PLAYING:
+		return
+	_set_state(GameState.VICTORY)
 
 
 func to_main_menu() -> void:

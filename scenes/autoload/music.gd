@@ -6,7 +6,7 @@ extends Node
 ##   PLAYING    — running at full volume.
 ##   UPGRADING  — still running, ducked, so the cards read over a quieter mix.
 ##   PAUSED     — held at its playhead. Silent, and resumes where it left off.
-##   everything else (MAIN_MENU, GAME_OVER, SELECTING_GUN) — stopped, so the next
+##   everything else (MAIN_MENU, GAME_OVER, VICTORY, SELECTING_GUN) — stopped, so the next
 ##   run opens from the top of the track rather than halfway through the last one.
 ##
 ## Ducking moves this player's volume, never the Music bus: the bus is what a
