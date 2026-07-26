@@ -12,6 +12,7 @@ extends Node2D
 @export var base_spread : float
 @export var base_cost : float
 @export var base_penetration : int = 0
+@export var recoil_amt: float
 
 @export_category("Player Weapon Stats")
 @export var damage_stat : Stat
@@ -55,6 +56,9 @@ var ani_sprite
 # itself is nested under it and would only order against the holder.
 var gun_holder : Node2D
 
+var recoil_tween : Tween
+var original_pos : Vector2
+
 func _ready() -> void:
 	#gets the animated sprite that the gun moves around
 	var player := Player.instance
@@ -64,6 +68,7 @@ func _ready() -> void:
 		if child is AnimatedSprite2D:
 			ani_sprite = child
 	gun_holder = player.gun_holder
+	original_pos = sprite.position
 	
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -93,6 +98,7 @@ func shoot() -> void:
 	if not can_fire:
 		return
 
+	_recoil_animation()
 	can_fire = false
 	Player.instance.time_component.remove_time(shot_cost_stat.current_val(base_cost))
 	spend_sand_event.raise()
@@ -127,6 +133,7 @@ func _shake_camera(trauma : float) -> void:
 	CameraShake.shake_capped(trauma, trauma * SUSTAINED_TRAUMA_LIMIT)
 
 func _spawn_projectile() -> void:
+	
 	var projectile : Projectile = projectile_scene.instantiate()
 	projectile.speed = projectile_speed
 	projectile.trail_settings = projectile_trail
@@ -143,3 +150,14 @@ func _spawn_projectile() -> void:
 		damage_stat.current_val(base_damage),
 		get_penetration(),
 	)
+	
+func _recoil_animation():
+	var dest : Vector2 = original_pos - Vector2.from_angle(sprite.rotation) * recoil_amt
+	recoil_tween = create_tween()
+	sprite.position = original_pos
+	recoil_tween.tween_property(sprite, "position", dest, 0.05)\
+	.set_ease(Tween.EASE_IN)\
+	.set_trans(Tween.TRANS_CUBIC)
+	recoil_tween.tween_property(sprite, "position", original_pos, 0.7)\
+	.set_ease(Tween.EASE_IN_OUT)\
+	.set_trans(Tween.TRANS_CUBIC)

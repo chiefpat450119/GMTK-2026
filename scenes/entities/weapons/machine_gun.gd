@@ -6,7 +6,6 @@ extends Gun
 # poll that flag every physics tick to call shoot().
 var _trigger_held: bool = false
 
-
 func _ready() -> void:
 	super._ready()
 	# When the tree is paused (upgrade screen, pause menu, gun select) the
@@ -32,4 +31,5 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	if _trigger_held:
+		_recoil_animation()
 		shoot()
