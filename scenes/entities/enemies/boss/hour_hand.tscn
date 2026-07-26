@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bnmtirum7st0s" path="res://scenes/entities/enemies/boss/clock_attack/hour_hand.gd" id="1_1n5s5"]
 [ext_resource type="Texture2D" uid="uid://bxjwhvh6dd0ys" path="res://assets/Clock/Hand.png" id="2_1n5s5"]
+[gd_scene format=3 uid="uid://c260ol1x8ie5v"]
+
+[ext_resource type="Script" uid="uid://bnmtirum7st0s" path="res://scenes/entities/enemies/boss/clock_attack/hour_hand.gd" id="1_1n5s5"]
+[ext_resource type="Texture2D" path="res://assets/Clock/Hand.png" id="2_1n5s5"]
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="3_g5us2"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="4_esvx4"]
 
