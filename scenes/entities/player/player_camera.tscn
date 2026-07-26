@@ -19,4 +19,5 @@ metadata/_custom_type_script = "uid://ceefjo2r83hdl"
 [node name="CameraShake" type="Node" parent="." unique_id=1309063959 node_paths=PackedStringArray("camera")]
 script = ExtResource("3_hbahr")
 camera = NodePath("..")
+decay = 0.7
 metadata/_custom_type_script = "uid://cxe3gxrs3d831"

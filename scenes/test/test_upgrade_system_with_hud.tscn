@@ -2,19 +2,20 @@
 
 [ext_resource type="Script" uid="uid://btstupgsys01a" path="res://scenes/test/test_upgrade_system.gd" id="1_iui5b"]
 [ext_resource type="Resource" uid="uid://cupgofferevt7" path="res://resources/events/event_channels/upgrade_offer_event.tres" id="2_rlr3w"]
-[ext_resource type="Resource" uid="uid://sqhjwk7e6goh" path="res://resources/stats/player_stats/player_damage_stat.tres" id="3_8xieo"]
+[ext_resource type="Resource" uid="uid://bedsny34haj0h" path="res://resources/events/event_channels/gun_offer_event.tres" id="3_2u420"]
 [ext_resource type="PackedScene" uid="uid://dt2rievpqwg1n" path="res://scenes/ui/hp_time_bar.tscn" id="4_2u420"]
 [ext_resource type="Script" uid="uid://cupgmgr7x8a2b" path="res://scenes/upgrades/upgrade_manager.gd" id="5_6uuqg"]
 [ext_resource type="Resource" uid="uid://djt61kvxc6j0h" path="res://resources/upgrades/upgrade_pool.tres" id="6_mi2ay"]
 [ext_resource type="PackedScene" uid="uid://m3vhsbglajvm" path="res://scenes/ui/upgrade_ui.tscn" id="7_7tidj"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="8_v65ji"]
 [ext_resource type="PackedScene" uid="uid://dmju5rt15nlc0" path="res://scenes/ui/time_hud.tscn" id="9_rlr3w"]
+[ext_resource type="PackedScene" uid="uid://dpqceutpfpejv" path="res://scenes/ui/gun_select/gun_select_ui.tscn" id="10_2u420"]
 [ext_resource type="PackedScene" uid="uid://cfcpevtu3ea0l" path="res://scenes/entities/enemies/bash_enemy/bash_enemy.tscn" id="10_8xieo"]
 
 [node name="TestUpgradeSystem+HUD" type="Node2D" unique_id=1037445340]
 script = ExtResource("1_iui5b")
 offer_event = ExtResource("2_rlr3w")
-stattest = ExtResource("3_8xieo")
+gun_offer_event = ExtResource("3_2u420")
 
 [node name="HpTimeBar" parent="." unique_id=733327054 node_paths=PackedStringArray("time_component") instance=ExtResource("4_2u420")]
 time_component = NodePath("../Player/TimeComponent")
@@ -29,9 +30,15 @@ manager = NodePath("..")
 
 [node name="Player" parent="." unique_id=1339333072 instance=ExtResource("8_v65ji")]
 
+[node name="Shotgun" parent="Player" index="3" unique_id=933200610]
+base_fire_cooldown = 0.5
+base_cost = 3.0
+
 [node name="TimeHud" parent="." unique_id=1439624027 instance=ExtResource("9_rlr3w")]
 
 [node name="BashEnemy" parent="." unique_id=1427456001 instance=ExtResource("10_8xieo")]
-sand_drop_amt_base = 1.0
+
+[node name="GunSelectUI" parent="." unique_id=1589139226 instance=ExtResource("10_2u420")]
+process_mode = 0
 
 [editable path="Player"]

@@ -25,3 +25,7 @@ func setup(amt: float):
 func _on_collected(player: Player) -> void:
 	# picking up sand tops the player's time back up
 	player.time_component.add_time(pickup_amt)
+	# ...and is the only XP source in the run, so the same pickup drives progression
+	var level := LevelComponent.find_in(player)
+	if level:
+		level.add_xp(pickup_amt)

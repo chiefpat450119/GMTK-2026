@@ -1,4 +1,4 @@
-extends Control
+extends StateScreen
 
 @export var hourglass_white: Control
 @export var real_icon: Control
@@ -6,6 +6,8 @@ extends Control
 @export var sand: Control
 @export var of: Control
 @export var time: Control
+@export var play_button: Button
+@export var quit_button: Button
 
 
 # The white silhouette enters alone: up from under the frame, unwinding a
@@ -37,7 +39,24 @@ const WORD_SLIDE_DURATION = 0.4
 const DELAY_BEFORE_WORDS = 0.2
 
 
-func _ready():
+func _ready() -> void:
+	super()
+	play_button.pressed.connect(GameStateManager.instance.start_run)
+	quit_button.pressed.connect(get_tree().quit)
+
+
+## Re-play the intro animation each time the menu comes up.
+func _on_shown() -> void:
+	# Snap to the animation-start state immediately, before any frame is
+	# rendered, so the finished layout is never visible. We don't need sizes
+	# for alpha/rotation — only position/scale math needs a layout pass.
+	hourglass_white.modulate.a = 1
+	hourglass_white.rotation_degrees = SPIN_DEGREES
+	real_icon.modulate.a = 0
+	for word in [sand, of, time]:
+		word.modulate.a = 0
+	# Now wait one frame so Control sizes are valid for the tween position math.
+	await get_tree().process_frame
 	start_anim()
 
 

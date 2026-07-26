@@ -14,7 +14,17 @@ font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_size = 24
 
-[node name="MainMenu" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5seab"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xg86"]
+bg_color = Color(0.34407574, 0.34407577, 0.3440756, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thkx5"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="MainMenu" type="Control" unique_id=1728097420 node_paths=PackedStringArray("hourglass_white", "real_icon", "gear", "sand", "of", "time", "play_button", "quit_button")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +38,8 @@ gear = NodePath("ColorRect/Real Icon/Gear")
 sand = NodePath("ColorRect/Sand")
 of = NodePath("ColorRect/Of")
 time = NodePath("ColorRect/Time")
+play_button = NodePath("MarginContainer/Buttons/PlayButton")
+quit_button = NodePath("MarginContainer/Buttons/QuitButton")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1525688302]
 layout_mode = 1
@@ -116,3 +128,40 @@ text = "Of"
 label_settings = SubResource("LabelSettings_5seab")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=93433754]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer" unique_id=573013305]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="PlayButton" type="Button" parent="MarginContainer/Buttons" unique_id=1032437129]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5seab")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4xg86")
+theme_override_styles/hover = SubResource("StyleBoxFlat_thkx5")
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/Buttons" unique_id=1321001028]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5seab")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4xg86")
+theme_override_styles/hover = SubResource("StyleBoxFlat_thkx5")
+text = "Quit"

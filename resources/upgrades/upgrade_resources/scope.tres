@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c4g5trltj6fty" path="res://resources/upgrades/upgrade_effect.gd" id="1_egk1a"]
 [ext_resource type="Script" uid="uid://031polniagv2" path="res://resources/upgrades/upgrade.gd" id="2_bskhf"]
 [ext_resource type="Resource" uid="uid://itxxgy1mnmef" path="res://resources/stats/player_stats/player_shot_spread_stat.tres" id="2_wj4nx"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_ejpwx"]
+[ext_resource type="Texture2D" uid="uid://b6medij4ca8n" path="res://assets/CARDPARTS/ICON_CLR/SCOPE__ICON.png" id="3_wj4nx"]
 
 [sub_resource type="Resource" id="Resource_wj4nx"]
 script = ExtResource("1_egk1a")
@@ -14,9 +14,10 @@ metadata/_custom_type_script = "uid://c4g5trltj6fty"
 
 [resource]
 script = ExtResource("2_bskhf")
+id = &"scope"
 title = "Scope"
 description_override = "+10% accuracy"
-icon = ExtResource("3_ejpwx")
+icon = ExtResource("3_wj4nx")
 max_stacks = 5
 effects = Array[ExtResource("1_egk1a")]([SubResource("Resource_wj4nx")])
 metadata/_custom_type_script = "uid://031polniagv2"

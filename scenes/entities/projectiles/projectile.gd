@@ -32,6 +32,10 @@ func _ready() -> void:
 func launch(from: Vector2, angle: float, fired_by: Team, dmg: float, pierce: int = 0) -> void:
 	global_position = from
 	global_rotation = angle
+	# Physics interpolation blends between the last two physics transforms, and this
+	# node's first one is wherever add_child() left it — the origin. Without this the
+	# shot renders streaking in from world origin instead of leaving the muzzle.
+	reset_physics_interpolation()
 	team = fired_by
 	damage = dmg
 	penetration = pierce
@@ -66,7 +70,7 @@ func _on_body_entered(body: Node2D) -> void:
 	else:
 		var time := TimeComponent.find_in(body)
 		if time:
-			time.remove_time(damage)
+			time.damage(damage)
 
 	# A body with no damageable pool still soaks a pierce — it blocked the shot
 	# either way.
