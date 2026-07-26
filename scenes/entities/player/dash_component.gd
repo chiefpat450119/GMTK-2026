@@ -24,6 +24,7 @@ var _charges : int = 1
 var _max_charges : int = 1
 var _dash_dir : Vector2 = Vector2.RIGHT
 
+
 func _ready() -> void:
 	# The player is rebuilt between runs, so starting full here is also what hands
 	# a fresh run its dashes back.
