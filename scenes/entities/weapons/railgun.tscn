@@ -39,7 +39,6 @@ shot_trauma = 0.18
 muzzle_flash = NodePath("Sprite2D/Bullet Spawn Point/MuzzleFlash")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1441832555]
-z_index = 3
 position = Vector2(60.408268, 0.065790415)
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("8_yy7j6")

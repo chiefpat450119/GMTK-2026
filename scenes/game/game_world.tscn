@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cgw0rld1shell"]
 
 [ext_resource type="Script" uid="uid://0hvpwbynmmg" path="res://scenes/game/game_world.gd" id="1_gwrld"]
-[ext_resource type="PackedScene" uid="uid://dljq5qhsbbgsw" path="res://scenes/map/map.tscn" id="2_map"]
+[ext_resource type="PackedScene" uid="uid://daw0350ihy34g" path="res://scenes/map/map.tscn" id="2_map"]
 [ext_resource type="PackedScene" uid="uid://cnt7cah78t0v5" path="res://scenes/entities/player/player.tscn" id="3_plyr"]
 [ext_resource type="Texture2D" uid="uid://dt08epetd6n1m" path="res://assets/Desert_Objects.png" id="4_jmprd"]
 [ext_resource type="PackedScene" uid="uid://df53qtwd8bi4i" path="res://scenes/entities/enemies/enemy_spawner.tscn" id="5_spwn"]
@@ -93,6 +93,8 @@ tile_map_data = PackedByteArray("AADx/wUAAAACAAAAAADz/wMAAAACAAAAAAD4/wQAAAACAAA
 tile_set = SubResource("TileSet_wj4nx")
 
 [node name="Player" parent="YSortedItems" unique_id=1900000003 instance=ExtResource("3_plyr")]
+z_index = 0
+y_sort_enabled = false
 
 [node name="LevelComponent" type="Node" parent="YSortedItems/Player" unique_id=1900000007]
 script = ExtResource("6_level")

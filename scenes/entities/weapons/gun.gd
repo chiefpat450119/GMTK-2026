@@ -46,6 +46,7 @@ const SUSTAINED_TRAUMA_LIMIT : float = 2.0
 
 var can_fire : bool = true
 var ani_sprite
+var gun = null
 # The node the draw order is actually toggled on. show_behind_parent only orders a
 # node against its own parent, so the flag has to live on the GunHolder — the gun
 # itself is nested under it and would only order against the holder.
@@ -61,6 +62,11 @@ func _ready() -> void:
 			ani_sprite = child
 	gun_holder = player.gun_holder
 	
+func find_gun():
+	for child in gun_holder.get_children():
+		if child is Node2D:
+			gun = child
+	
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	if abs(rad_to_deg(transform.get_rotation())) > 90:
@@ -71,15 +77,18 @@ func _physics_process(_delta: float) -> void:
 	# Makes the gun look like it's rotating around the player in 3D space
 	var left_threshold := -45
 	var right_threshold := -135
-	if ani_sprite and gun_holder: #no need to do this if there is no sprite to go behind
-		if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
-			#including both of these is not techincally needed but
-			#if other things change it is probably more likely to work
-			gun_holder.set_draw_behind_parent(true)
-			ani_sprite.set_draw_behind_parent(false)
-		else:
-			gun_holder.set_draw_behind_parent(false)
-			ani_sprite.set_draw_behind_parent(true)
+	if not gun:
+		find_gun()
+	if gun is not MachineGun:
+		if ani_sprite and gun_holder: #no need to do this if there is no sprite to go behind
+			if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
+				#including both of these is not techincally needed but
+				#if other things change it is probably more likely to work
+				gun_holder.set_draw_behind_parent(true)
+				ani_sprite.set_draw_behind_parent(false)
+			else:
+				gun_holder.set_draw_behind_parent(false)
+				ani_sprite.set_draw_behind_parent(true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Fire"):
