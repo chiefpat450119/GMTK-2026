@@ -50,7 +50,7 @@ var ani_sprite
 var gun_holder : Node2D
 
 func _ready() -> void:
-	#gets the animated sprite that the gun moves aroundd
+	#gets the animated sprite that the gun moves around
 	var player := Player.instance
 	if player == null:
 		return
@@ -58,14 +58,13 @@ func _ready() -> void:
 		if child is AnimatedSprite2D:
 			ani_sprite = child
 	gun_holder = player.gun_holder
-
+	
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
-
 	if abs(rad_to_deg(transform.get_rotation())) > 90:
-		sprite.flip_v = true
+		sprite.scale.y = -abs(sprite.scale.y)
 	else:
-		sprite.flip_v = false
+		sprite.scale.y = abs(sprite.scale.y)
 
 	# Makes the gun look like it's rotating around the player in 3D space
 	var left_threshold := -45
