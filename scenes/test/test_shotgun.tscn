@@ -14,6 +14,9 @@
 [ext_resource type="Resource" uid="uid://disb0styegk4s" path="res://resources/events/event_channels/player_time_changed_event.tres" id="12_oywfs"]
 [ext_resource type="Script" uid="uid://cqrsojktw5g4r" path="res://scenes/entities/player/player_pickup.gd" id="13_3bjq6"]
 [ext_resource type="Resource" uid="uid://drku7nh75ai2v" path="res://resources/stats/player_stats/player_pickup_range_stat.tres" id="14_f1r1u"]
+[ext_resource type="Texture2D" uid="uid://dj0i6tyr4byxx" path="res://assets/Dash_Up.PNG" id="dash_up"]
+[ext_resource type="Texture2D" uid="uid://75n0ttebb5ym" path="res://assets/Dash_Down.PNG" id="dash_down"]
+[ext_resource type="Texture2D" uid="uid://banlpwd0nn8fu" path="res://assets/Dash_Left_Right.PNG" id="dash_lr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
@@ -26,6 +29,30 @@ animations = [{
 }],
 "loop": 1,
 "name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("dash_up")
+}],
+"loop": 1,
+"name": &"Dash_Up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("dash_down")
+}],
+"loop": 1,
+"name": &"Dash_Down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("dash_lr")
+}],
+"loop": 1,
+"name": &"Dash_Left_Right",
 "speed": 5.0
 }]
 
