@@ -2172,7 +2172,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2.0314121, 2.3555737, 2.7337623, 3),
 "transitions": PackedFloat32Array(0.20306307, 0.20306307, 1, 1, 0.20306307),
 "update": 0,
-"values": [0.03490658, 2.2614443, -0.38222710618675776, -0.42236967898262756, 0.03490658]
+"values": [0.03490658, 2.2614443, -0.38222710618675776, -0.4223696789826275, 0.03490658]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -2555,84 +2555,89 @@ _data = {
 &"Walk": SubResource("Animation_0u3kq")
 }
 
-[node name="BossVisuals" type="Node2D" unique_id=524099003]
+[node name="BossAnimation" type="AnimationPlayer" unique_id=646501567]
+root_node = NodePath("BossVisuals")
+libraries/ = SubResource("AnimationLibrary_i05g6")
 
-[node name="Visuals" type="Node2D" parent="." unique_id=2080359473]
+[node name="BossVisuals" type="Node2D" parent="." unique_id=524099003]
+
+[node name="Visuals" type="Node2D" parent="BossVisuals" unique_id=2080359473]
 scale = Vector2(0.33, 0.33)
 
-[node name="Left Leg" type="Node2D" parent="Visuals" unique_id=1465532876]
-position = Vector2(-72.72727, 112.12121)
+[node name="Left Leg" type="Node2D" parent="BossVisuals/Visuals" unique_id=1465532876]
+position = Vector2(-72.727, 126.916)
+rotation = -0.17453292
 
-[node name="Lower Leg" type="Node2D" parent="Visuals/Left Leg" unique_id=981808399]
+[node name="Lower Leg" type="Node2D" parent="BossVisuals/Visuals/Left Leg" unique_id=981808399]
 position = Vector2(-110.060486, 121.04416)
+rotation = 0.36711693
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Left Leg/Lower Leg" unique_id=1024497062]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Left Leg/Lower Leg" unique_id=1024497062]
 position = Vector2(172.20134, -251.50685)
 texture = ExtResource("3_y3o55")
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Left Leg" unique_id=248634233]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Left Leg" unique_id=248634233]
 position = Vector2(71, -117)
 texture = ExtResource("2_enw1s")
 
-[node name="Right Leg" type="Node2D" parent="Visuals" unique_id=1981774955]
-position = Vector2(81.81818, 121.21211)
+[node name="Right Leg" type="Node2D" parent="BossVisuals/Visuals" unique_id=1981774955]
+position = Vector2(81.81811, 131.49464)
+rotation = 0.15397978
 
-[node name="Lower Leg" type="Node2D" parent="Visuals/Right Leg" unique_id=725834837]
+[node name="Lower Leg" type="Node2D" parent="BossVisuals/Visuals/Right Leg" unique_id=725834837]
 position = Vector2(81.92349, 123.71962)
+rotation = -0.047996677
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Right Leg/Lower Leg" unique_id=1256820594]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Right Leg/Lower Leg" unique_id=1256820594]
 position = Vector2(-150.76581, -244.34134)
 texture = ExtResource("4_qa4jw")
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Right Leg" unique_id=2030751612]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Right Leg" unique_id=2030751612]
 position = Vector2(-79.92354, -123.70216)
 texture = ExtResource("4_y3o55")
 
-[node name="Left Arm" type="Node2D" parent="Visuals" unique_id=1034800268]
+[node name="Left Arm" type="Node2D" parent="BossVisuals/Visuals" unique_id=1034800268]
 position = Vector2(-230.30302, -284.84848)
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Left Arm" unique_id=1242348221]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Left Arm" unique_id=1242348221]
 position = Vector2(228, 258)
 texture = ExtResource("4_nvim2")
 
-[node name="Front Arm" type="Node2D" parent="Visuals/Left Arm" unique_id=1058427987]
+[node name="Front Arm" type="Node2D" parent="BossVisuals/Visuals/Left Arm" unique_id=1058427987]
 z_index = 1
 position = Vector2(-106.268036, 201.19984)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Left Arm/Front Arm" unique_id=1028684644]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Left Arm/Front Arm" unique_id=1028684644]
 position = Vector2(367.46265, 50.271255)
 texture = ExtResource("5_xe06o")
 
-[node name="Right Arm" type="Node2D" parent="Visuals" unique_id=1434993906]
+[node name="Right Arm" type="Node2D" parent="BossVisuals/Visuals" unique_id=1434993906]
 position = Vector2(228.69698, -273.697)
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Right Arm" unique_id=746797104]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Right Arm" unique_id=746797104]
 position = Vector2(-231.00006, 242.99995)
 texture = ExtResource("6_tljjl")
 
-[node name="Front Arm" type="Node2D" parent="Visuals/Right Arm" unique_id=415651671]
+[node name="Front Arm" type="Node2D" parent="BossVisuals/Visuals/Right Arm" unique_id=415651671]
 z_index = 1
 position = Vector2(134.63632, 197.66669)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals/Right Arm/Front Arm" unique_id=304350928]
+[node name="Sprite2D" type="Sprite2D" parent="BossVisuals/Visuals/Right Arm/Front Arm" unique_id=304350928]
 position = Vector2(-398.22485, 37.643265)
 texture = ExtResource("7_3rfph")
 
-[node name="Body" type="Sprite2D" parent="Visuals" unique_id=762723819]
-position = Vector2(0, -45.454544)
+[node name="Body" type="Sprite2D" parent="BossVisuals/Visuals" unique_id=762723819]
+position = Vector2(0, -8.48481)
 texture = ExtResource("1_wa33t")
 
-[node name="Butt" type="Sprite2D" parent="Visuals/Body" unique_id=1751708151]
+[node name="Butt" type="Sprite2D" parent="BossVisuals/Visuals/Body" unique_id=1751708151]
 z_index = -1
 position = Vector2(0, -8.484812)
 scale = Vector2(0.9999999, 0.9999999)
 texture = ExtResource("3_qa4jw")
 
-[node name="Head" type="Sprite2D" parent="Visuals" unique_id=927771088]
-position = Vector2(-3.0005717, -22.657019)
+[node name="Head" type="Sprite2D" parent="BossVisuals/Visuals" unique_id=927771088]
+position = Vector2(-3, -23)
 texture = ExtResource("3_lnnpo")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=646501567]
-libraries/ = SubResource("AnimationLibrary_i05g6")

@@ -7,6 +7,8 @@ extends State
 @export var charge_movement: MovementComponent
 @export var sprite: Sprite2D
 
+@export var anim: AnimationPlayer
+
 @onready var init_sprite_scale_y := sprite.scale.y
 
 @export_category("STATE INFO")
@@ -36,19 +38,21 @@ func enter():
 
 # temp fx
 func _windup():
-	var tween := create_tween().set_parallel()
-	tween.tween_property(sprite, "scale:y", init_sprite_scale_y * 0.75, charge_time) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(sprite, "modulate", Color.CRIMSON, charge_time) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	#var tween := create_tween().set_parallel()
+	#tween.tween_property(sprite, "scale:y", init_sprite_scale_y * 0.75, charge_time) \
+		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	#tween.tween_property(sprite, "modulate", Color.CRIMSON, charge_time) \
+		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	anim.play(&"Dash")
 
 # temp fx
 func _end_windup():
-	var tween := create_tween().set_parallel()
-	tween.tween_property(sprite, "scale:y", init_sprite_scale_y, 0.1) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1) \
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	#var tween := create_tween().set_parallel()
+	#tween.tween_property(sprite, "scale:y", init_sprite_scale_y, 0.1) \
+		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	#tween.tween_property(sprite, "modulate", Color.WHITE, 0.1) \
+		#.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	anim.play(&"Dash_Airborne")
 
 func physics_tick(_delta: float):
 	if not charge_timer.is_started():
@@ -59,7 +63,16 @@ func physics_tick(_delta: float):
 	charge_movement.move(charge_dir)
 
 	if charge_timer.is_done():
-		switch_state(selector_state)
+		charge_timer.stop()
+		wind_down()
+	else:
+		movement.move(charge_dir * speed_mul)
+
+func wind_down():
+	anim.play(&"Dash_End")
+	await get_tree().create_timer(anim.current_animation_length).timeout
+	switch_state(selector_state)
+
 
 func exit():
 	charge_timer.stop()

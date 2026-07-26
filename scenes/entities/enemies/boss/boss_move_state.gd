@@ -7,6 +7,8 @@ const PLAYER_DISTANCE_THRESHOLD : int = 50
 @export var enemy: Enemy
 @export var selector_state: SelectorState
 
+@export var anim: AnimationPlayer
+
 @export_category("STATE INFO")
 @export var accel_time: float = 0.25
 @export var deccel_time: float = 0.15
@@ -16,6 +18,9 @@ const PLAYER_DISTANCE_THRESHOLD : int = 50
 
 func enter():
 	state_timer.start()
+	contact_atk_component.set_active(true)
+	
+	anim.play(&"Walk")
 
 
 func physics_tick(_delta: float):

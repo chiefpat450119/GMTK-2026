@@ -12,14 +12,7 @@
 [ext_resource type="Resource" uid="uid://l8rdrn5s8wak" path="res://resources/stats/global_enemy_stats/global_enemy_speed.tres" id="10_boss"]
 [ext_resource type="Script" uid="uid://c1mak22ii3tpp" path="res://components/atk_component.gd" id="11_boss"]
 [ext_resource type="Resource" uid="uid://dxy7pi8tp1v4k" path="res://resources/stats/global_enemy_stats/global_enemy_atk.tres" id="12_boss"]
-[ext_resource type="Texture2D" uid="uid://k4amyww0ccea" path="res://assets/player_sprites/Idle_2.png" id="13_boss"]
-[ext_resource type="Resource" uid="uid://ckrtrybo1rv1s" path="res://resources/events/event_channels/enemy_died_event.tres" id="14_boss"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
-size = Vector2(56, 134)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_contact"]
-radius = 62.39391
+[ext_resource type="PackedScene" uid="uid://bjv5cryiwlck2" path="res://scenes/entities/enemies/boss/boss_visuals.tscn" id="16_nvjhm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hurtbox"]
 radius = 62.39391
@@ -61,41 +54,74 @@ script = ExtResource("3_boss")
 initial_state = NodePath("BossJumpState")
 metadata/_custom_type_script = "uid://1lk5qevh2w7y"
 
-[node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state")]
+[node name="Move state" type="Node" parent="StateMachine" index="0" unique_id=95586965 node_paths=PackedStringArray("enemy", "selector_state", "attack_state", "contact_atk_component", "anim")]
 script = ExtResource("4_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
+attack_state = NodePath("../BossAttackState")
+contact_atk_component = NodePath("../../ContactDmgAtkComponent")
+anim = NodePath("../../BossAnimation")
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("state_pool")]
+[node name="Selector state" type="Node" parent="StateMachine" index="1" unique_id=870328088 node_paths=PackedStringArray("enemy", "anim", "mid_state_pool", "close_state_pool", "far_state_pool")]
 script = ExtResource("5_boss")
-state_pool = [NodePath("../Move state"), NodePath("../BossAttackState"), NodePath("../BossChargeState"), NodePath("../BossJumpState")]
+enemy = NodePath("../..")
+anim = NodePath("../../BossAnimation")
+mid_state_pool = [NodePath("../Move state"), NodePath("../BossChargeState"), NodePath("../BossJumpState"), NodePath("../BossClockAtkState")]
+close_state_pool = [NodePath("../BossAttackState"), NodePath("../BossJumpAwayState")]
+far_state_pool = [NodePath("../BossChargeState"), NodePath("../BossChargeState")]
 metadata/_custom_type_script = "uid://cljx0jp8vul5h"
 
-[node name="BossAttackState" type="Node" parent="StateMachine" index="2" unique_id=1069010376 node_paths=PackedStringArray("selector_state")]
+[node name="BossAttackState" type="Node" parent="StateMachine" index="2" unique_id=1069010376 node_paths=PackedStringArray("selector_state", "anim", "atk_component", "sprite")]
 script = ExtResource("6_boss")
 selector_state = NodePath("../Selector state")
+anim = NodePath("../../BossAnimation")
+atk_component = NodePath("../../MeleeAtkComponent")
+sprite = NodePath("../../temp sprite")
 metadata/_custom_type_script = "uid://7e4yn3vgx3tj"
 
-[node name="BossChargeState" type="Node" parent="StateMachine" index="3" unique_id=1504210145 node_paths=PackedStringArray("enemy", "selector_state", "charge_movement", "sprite")]
+[node name="BossChargeState" type="Node" parent="StateMachine" index="3" unique_id=1504210145 node_paths=PackedStringArray("enemy", "selector_state", "movement", "sprite", "anim")]
 script = ExtResource("7_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
-charge_movement = NodePath("../../ChareMovementComponent")
-sprite = NodePath("../../Sprite2D")
+movement = NodePath("../../MovementComponent")
+sprite = NodePath("../../temp sprite")
+anim = NodePath("../../BossAnimation")
+speed_mul = 3.3
 metadata/_custom_type_script = "uid://dxixpb5jluxll"
 
-[node name="BossJumpState" type="Node" parent="StateMachine" index="4" unique_id=1914301936 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider")]
+[node name="BossJumpState" type="Node" parent="StateMachine" index="4" unique_id=1914301936 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider", "anim")]
 script = ExtResource("8_boss")
 enemy = NodePath("../..")
 selector_state = NodePath("../Selector state")
 jump_land_atk = NodePath("../../JumpAtkComponent")
 sprite = NodePath("../../Sprite2D")
 collider = NodePath("../../CollisionShape2D")
+anim = NodePath("../../BossAnimation")
 jump_height = 1200.0
 metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
 
-[node name="ChareMovementComponent" type="Node" parent="." index="7" unique_id=1169370034 node_paths=PackedStringArray("body")]
+[node name="BossJumpAwayState" type="Node" parent="StateMachine" index="5" unique_id=974032606 node_paths=PackedStringArray("enemy", "selector_state", "jump_land_atk", "sprite", "collider", "anim")]
+script = ExtResource("8_boss")
+land_target_type = 1
+enemy = NodePath("../..")
+selector_state = NodePath("../Selector state")
+jump_land_atk = NodePath("../../JumpAtkComponent")
+sprite = NodePath("../../temp sprite")
+collider = NodePath("../../CollisionShape2D")
+anim = NodePath("../../BossAnimation")
+jump_height = 1200.0
+metadata/_custom_type_script = "uid://cfa7wfp8t2gmq"
+
+[node name="BossClockAtkState" type="Node" parent="StateMachine" index="6" unique_id=648173324 node_paths=PackedStringArray("enemy", "selector_state", "anim")]
+script = ExtResource("10_obr17")
+enemy = NodePath("../..")
+selector_state = NodePath("../Selector state")
+clock_attack = ExtResource("11_nvjhm")
+anim = NodePath("../../BossAnimation")
+metadata/_custom_type_script = "uid://csnnnjtxxmpny"
+
+[node name="ChargeMovementComponent" type="Node" parent="." index="5" unique_id=1169370034 node_paths=PackedStringArray("body")]
 script = ExtResource("9_boss")
 body = NodePath("..")
 speed_stat = ExtResource("10_boss")
@@ -122,3 +148,14 @@ z_index = -2
 position = Vector2(3, 62)
 scale = Vector2(122.88891, 28.750011)
 mesh = SubResource("SphereMesh_shadow")
+
+[node name="temp sprite" type="Sprite2D" parent="." index="9" unique_id=1797294995]
+texture = ExtResource("3_t78gy")
+
+[node name="HealthBar" parent="." index="10" unique_id=1031431274]
+offset_left = -35.0
+offset_top = 80.0
+offset_right = 35.0
+offset_bottom = 88.0
+
+[node name="BossAnimation" parent="." index="11" unique_id=646501567 instance=ExtResource("16_nvjhm")]

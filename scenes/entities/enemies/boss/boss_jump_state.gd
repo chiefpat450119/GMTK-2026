@@ -12,6 +12,7 @@ const jump_cooldown: float = 0.5 # delay before starting next state
 @export var sprite: Sprite2D
 @export var collider: CollisionShape2D
 
+@export var anim: AnimationPlayer
 
 @export var jump_duration: float = 1.0 # duration from jump to land
 @export var jump_height: float = 100.0 # sprite/collider y offset 
