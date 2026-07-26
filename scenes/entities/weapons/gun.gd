@@ -88,16 +88,23 @@ func _physics_process(_delta: float) -> void:
 	var right_threshold := -135
 	if not gun:
 		find_gun()
-	if gun is not MachineGun:
-		if ani_sprite and gun_holder: #no need to do this if there is no sprite to go behind
-			if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
-				#including both of these is not techincally needed but
-				#if other things change it is probably more likely to work
-				gun_holder.set_draw_behind_parent(true)
-				ani_sprite.set_draw_behind_parent(false)
-			else:
-				gun_holder.set_draw_behind_parent(false)
-				ani_sprite.set_draw_behind_parent(true)
+	if ani_sprite and gun_holder:
+		if ani_sprite.animation == "Move_Up":
+			gun_holder.set_draw_behind_parent(true)
+			ani_sprite.set_draw_behind_parent(false)
+		else:
+			gun_holder.set_draw_behind_parent(false)
+			ani_sprite.set_draw_behind_parent(true)
+	#if gun is not MachineGun:
+		#if ani_sprite and gun_holder: #no need to do this if there is no sprite to go behind
+			#if rad_to_deg(transform.get_rotation()) < left_threshold and rad_to_deg(transform.get_rotation()) > right_threshold:
+				##including both of these is not techincally needed but
+				##if other things change it is probably more likely to work
+				#gun_holder.set_draw_behind_parent(true)
+				#ani_sprite.set_draw_behind_parent(false)
+			#else:
+				#gun_holder.set_draw_behind_parent(false)
+				#ani_sprite.set_draw_behind_parent(true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Fire"):
