@@ -38,6 +38,7 @@ animations = [{
 size = Vector2(140, 39)
 
 [node name="BashEnemy" unique_id=1427456001 node_paths=PackedStringArray("sprite") instance=ExtResource("1_base")]
+scale = Vector2(1.6, 1.6)
 collision_mask = 2
 script = ExtResource("2_bsh")
 attack_interval = 1.0
@@ -81,9 +82,10 @@ base_hp = 80.0
 
 [node name="HealthBar" parent="." index="5" unique_id=1031431274]
 offset_left = -24.0
-offset_top = 71.0
+offset_top = 76.25
 offset_right = 26.0
-offset_bottom = 79.0
+offset_bottom = 84.25
+displacement = Vector2(-40, 50)
 
 [node name="HitFeedback" type="Node" parent="." index="6" unique_id=175156074 node_paths=PackedStringArray("health", "sprite")]
 script = ExtResource("9_lfiob")

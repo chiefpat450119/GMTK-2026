@@ -6,4 +6,4 @@ extends Node2D
 # returns anim time
 func play(anim_name: StringName, speed_mul : float = 1.0) -> float:
 	anim.play(anim_name, -1, speed_mul)
-	return anim.current_animation_length
+	return anim.current_animation_length / speed_mul

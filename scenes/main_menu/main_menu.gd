@@ -11,6 +11,13 @@ extends StateScreen
 # rewrites their positions on every sort, so a per-button slide would be undone the
 # next time the container laid itself out -- the container is what gets animated.
 @export var buttons_root: Control
+# The box everything above is laid out inside: a fixed 1280x720 -- the project's base
+# resolution -- centred in the window. The engine scales that base to the screen for
+# us (Display > Stretch is canvas_items), so this box is not what makes the menu
+# scale; it is what keeps the composition together. Anchored to the window instead,
+# the pieces drift apart on any aspect but 16:9 -- the buttons chase the true bottom
+# edge while the title stays where it is.
+@export var content: Control
 
 var _anim_tween: Tween
 var _base_white_scale: Vector2
@@ -31,7 +38,7 @@ var _buttons_base_bottom := 0.0
 # climb -- both collapse up onto the title spot on the same curve, sharing one scale
 # so the two silhouettes stay stacked, and the swap is a dissolve spread across that
 # whole climb rather than a cut at the end of it.
-const RISE_DISTANCE = 470.0     # starts just below the viewport, so nothing pops in
+const RISE_DISTANCE = 470.0     # starts below the design box, so nothing pops in
 const RISE_DURATION = 0.49
 const SPIN_DEGREES = 270.0      # unwinds counter-clockwise into upright
 const SPIN_DURATION = 0.55
@@ -78,7 +85,9 @@ func _ready() -> void:
 
 	# Resizing the window moves every anchored position under the animation, whether
 	# the menu is up or sitting hidden behind a run, so rebuild against the new
-	# layout instead of leaving the logo parked where the old one put it.
+	# layout instead of leaving the logo parked where the old one put it. The design
+	# box is a fixed size, so in practice this only fires if that box is re-sized --
+	# the window growing under it does not touch a single position inside it.
 	layout_parent().resized.connect(_on_layout_changed)
 
 	super()
@@ -125,7 +134,7 @@ func animated_nodes() -> Array:
 
 
 func layout_parent() -> Control:
-	return real_icon.get_parent() as Control
+	return content
 
 
 # Where a node's anchors put it at the current window size. This is what `position`

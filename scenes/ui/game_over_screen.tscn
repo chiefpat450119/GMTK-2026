@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://bgameover0001"]
 
-[ext_resource type="Script" path="res://scenes/ui/game_over_screen.gd" id="1_over"]
+[ext_resource type="Script" uid="uid://dd3d4scuj2m4y" path="res://scenes/ui/game_over_screen.gd" id="1_over"]
+[ext_resource type="Texture2D" uid="uid://bf2ldmt85hxkm" path="res://assets/game_over/BIG_GEAER.png" id="2_sopbp"]
+[ext_resource type="Texture2D" uid="uid://bpypre4w1jnqf" path="res://assets/game_over/SMALL_GEAR.png" id="3_bllgf"]
+[ext_resource type="Texture2D" uid="uid://dtko14qfjf4si" path="res://assets/game_over/HG_CRACKED.png" id="3_xra47"]
+[ext_resource type="LabelSettings" uid="uid://ckd02qkdvmyfw" path="res://scenes/main_menu/title_big.tres" id="5_ndg0r"]
+[ext_resource type="PackedScene" uid="uid://ctu6nvxq3k8yl" path="res://scenes/ui/utils/nine_patch_button.tscn" id="6_q5i70"]
+[ext_resource type="Script" uid="uid://cmsxlf7g3o8rg" path="res://components/button_feedback.gd" id="7_r3cfu"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0, 0, 0, 1)
-
-[node name="GameOverScreen" type="Control" unique_id=1930000001 node_paths=PackedStringArray("retry_button", "menu_button")]
+[node name="GameOverScreen" type="Control" unique_id=1930000001 node_paths=PackedStringArray("retry_button", "menu_button", "big_gear", "small_gear_left", "small_gear_right", "hourglass", "dim", "title", "buttons_root")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,62 +16,128 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_over")
+retry_button = NodePath("VBoxContainer/NinePatchButton")
+menu_button = NodePath("VBoxContainer/NinePatchButton2")
+big_gear = NodePath("Back Gear")
+small_gear_left = NodePath("Small1")
+small_gear_right = NodePath("Small2")
+hourglass = NodePath("Hourglass")
+dim = NodePath("Dim")
+title = NodePath("Dim/Label")
+buttons_root = NodePath("VBoxContainer")
 state = 4
-retry_button = NodePath("Panel/Layout/RetryButton")
-menu_button = NodePath("Panel/Layout/MenuButton")
+
+[node name="Back Gear" type="TextureRect" parent="." unique_id=642667651]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -330.0
+offset_top = -157.0
+offset_right = 330.0
+offset_bottom = 503.0
+grow_horizontal = 2
+scale = Vector2(0.392, 0.392)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_sopbp")
+
+[node name="Hourglass" type="TextureRect" parent="." unique_id=808224849]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -346.0
+offset_top = -302.4
+offset_right = 346.0
+offset_bottom = 620.6
+grow_horizontal = 2
+scale = Vector2(0.317, 0.317)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_xra47")
+
+[node name="Small1" type="TextureRect" parent="." unique_id=924030452]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -387.0
+offset_top = 107.0
+offset_right = -1.0
+offset_bottom = 493.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_bllgf")
+
+[node name="Small2" type="TextureRect" parent="." unique_id=2102850059]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1.0
+offset_top = 107.0
+offset_right = 387.0
+offset_bottom = 493.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_bllgf")
 
 [node name="Dim" type="ColorRect" parent="." unique_id=1930000002]
 layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 110.0
+offset_bottom = 327.0
+grow_horizontal = 2
+color = Color(0.12941177, 0.12941177, 0.12941177, 0)
+
+[node name="Label" type="Label" parent="Dim" unique_id=1432284602]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Out of Time!"
+label_settings = ExtResource("5_ndg0r")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Panel" type="ColorRect" parent="." unique_id=1930000003]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1980761754]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -200.0
-offset_right = 240.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Layout" type="VBoxContainer" parent="Panel" unique_id=1930000004]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = -32.0
-offset_bottom = -32.0
+offset_left = -140.0
+offset_top = -247.0
+offset_right = 140.0
+offset_bottom = -119.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Title" type="Label" parent="Panel/Layout" unique_id=1930000005]
+[node name="NinePatchButton" parent="VBoxContainer" unique_id=1619015523 instance=ExtResource("6_q5i70")]
+custom_minimum_size = Vector2(109.2, 52)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 70
-text = "Out of Time"
-horizontal_alignment = 1
+label_text = "Retry"
 
-[node name="RetryButton" type="Button" parent="Panel/Layout" unique_id=1930000006]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Retry"
+[node name="ButtonFeedback" type="Node" parent="VBoxContainer/NinePatchButton" unique_id=2063139088 node_paths=PackedStringArray("target")]
+script = ExtResource("7_r3cfu")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"
 
-[node name="MenuButton" type="Button" parent="Panel/Layout" unique_id=1930000007]
+[node name="NinePatchButton2" parent="VBoxContainer" unique_id=1019271811 instance=ExtResource("6_q5i70")]
+custom_minimum_size = Vector2(109.2, 52)
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Main Menu"
+label_text = "Quit"
+
+[node name="ButtonFeedback" type="Node" parent="VBoxContainer/NinePatchButton2" unique_id=1936035099 node_paths=PackedStringArray("target")]
+script = ExtResource("7_r3cfu")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cmsxlf7g3o8rg"

@@ -208,7 +208,7 @@ tracks/0/path = NodePath("Visuals/Right Leg/Lower Leg:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.26666668, 0.5, 0.7333334, 1.0171115, 1.2539265, 2.2666667),
+"times": PackedFloat32Array(0.28377798, 0.5171113, 0.7504447, 1.0342228, 1.2710378, 2.283778),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.4677482395344805, -0.2617993877991494, -0.5637413483941687, -0.5637413483941687, 1.836846, 1.836846]
@@ -220,7 +220,7 @@ tracks/1/path = NodePath("Visuals/Right Leg:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5, 0.76666665, 1.0108054, 1.2539265, 2.2666667),
+"times": PackedFloat32Array(0.017111301, 0.3171113, 0.5171113, 0.78377795, 1.0279167, 1.2710378, 2.283778),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.15397978, 0.0, 0.0, 0.15397978, 0.15397978, 0.04222729, 0.04222729]
@@ -232,7 +232,7 @@ tracks/2/path = NodePath("Visuals/Left Leg:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2979626, 0.4948308, 1.0108054, 1.2539265, 2.2828887),
+"times": PackedFloat32Array(0.017111301, 0.3150739, 0.5119421, 1.0279167, 1.2710378, 2.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [-0.17453292519943295, -0.3490658503988659, -0.3490658503988659, -0.3490658503988659, -0.52833986, -0.52833986]
@@ -244,7 +244,7 @@ tracks/3/path = NodePath("Visuals/Left Leg/Lower Leg:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.33333334, 0.6, 1, 1.2539265, 2.2666667),
+"times": PackedFloat32Array(0.017111301, 0.35044464, 0.6171113, 1.0171113, 1.2710378, 2.283778),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.36711693, 0.6963863715457371, 0.7243116395776468, 0.7243116395776468, -0.26210397, -0.26210397]
@@ -256,7 +256,7 @@ tracks/4/path = NodePath("Visuals/Head:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.1, 0.36666673, 0.9333335, 1.0265115, 1.4, 2.2691307, 2.5035093),
+"times": PackedFloat32Array(0.1171113, 0.38377804, 0.9504448, 1.0436229, 1.4171113, 2.286242, 2.5035093),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-3, -23), Vector2(-3.03, -5), Vector2(-3, 80.205), Vector2(-3, 80.205), Vector2(-3, -40), Vector2(-3, -40), Vector2(-3, -30.55)]
@@ -268,7 +268,7 @@ tracks/5/path = NodePath("Visuals/Body:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.09666669, 0.36666667, 0.64488935, 1.1507734, 1.3333334, 2.2603881),
+"times": PackedFloat32Array(0.017111301, 0.113777995, 0.38377798, 0.66200066, 1.1678847, 1.3504447, 2.2774994),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -8.484812), Vector2(0, 6.003), Vector2(0, 6.003), Vector2(0, 84.84847), Vector2(0, 84.84847), Vector2(0, -42.42424), Vector2(0, -29.699)]
@@ -280,7 +280,7 @@ tracks/6/path = NodePath("Visuals/Right Arm:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.35657766, 0.73333335, 1.1129546, 1.350673, 2.4242892),
+"times": PackedFloat32Array(0.37368897, 0.75044465, 1.1300659, 1.3677843, 2.4242892),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(228.96097, -264.5348), Vector2(228.96097, -197.85632), Vector2(228.96097, -197.85632), Vector2(228.96097, -337.2503), Vector2(228.96097, -337.2503)]
@@ -352,7 +352,7 @@ tracks/12/path = NodePath("Visuals/Right Leg:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0.36666667, 0.6429204, 1.1333333, 1.3560758),
+"times": PackedFloat32Array(0.38377798, 0.6600317, 1.1504446, 1.3731871),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(81.818, 148.627), Vector2(81.81794, 231.65619), Vector2(81.81794, 231.65619), Vector2(72.72702, 107.4625)]
@@ -364,7 +364,7 @@ tracks/13/path = NodePath("Visuals/Left Leg:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0.33333334, 0.6429204, 1.1333333, 1.3560758),
+"times": PackedFloat32Array(0.35044464, 0.6600317, 1.1504446, 1.3731871),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-72.727, 126.916), Vector2(-72.72727, 200), Vector2(-72.72727, 200), Vector2(-81.818184, 81.81818)]
@@ -2162,7 +2162,7 @@ tracks/17/keys = {
 
 [sub_resource type="Animation" id="Animation_m413n"]
 resource_name = "Swing"
-length = 3.0000000000000004
+length = 2.5000000000000004
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -2170,7 +2170,7 @@ tracks/0/path = NodePath("Visuals/Left Arm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.0314121, 2.3555737, 2.7337623, 3),
+"times": PackedFloat32Array(0, 0.5, 0.9945974, 1.372786, 1.6390238),
 "transitions": PackedFloat32Array(0.20306307, 0.20306307, 1, 1, 0.20306307),
 "update": 0,
 "values": [0.03490658, 2.2614443, -0.38222710618675776, -0.4223696789826275, 0.03490658]
@@ -2182,7 +2182,7 @@ tracks/1/path = NodePath("Visuals/Right Arm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.0314121, 2.3555737, 3),
+"times": PackedFloat32Array(0, 0.5, 0.9945974, 1.6390238),
 "transitions": PackedFloat32Array(0.20306307, 0.20306307, 1, 0.20306307),
 "update": 0,
 "values": [0.0, -2.3143065, 0.4782202150464459, 0.0]
@@ -2194,7 +2194,7 @@ tracks/2/path = NodePath("Visuals/Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.2, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.6685879, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -12.121212), Vector2(0, -45.454544), Vector2(0, 54.54545), Vector2(0, -12.121212)]
@@ -2206,7 +2206,7 @@ tracks/3/path = NodePath("Visuals/Right Arm:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.2, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.6685879, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(228.72523, -261.57574), Vector2(228.72523, -310.0606), Vector2(228.72523, -128.24243), Vector2(228.72523, -261.57574)]
@@ -2218,7 +2218,7 @@ tracks/4/path = NodePath("Visuals/Left Arm:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.2, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.6685879, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-230.27477, -272.72726), Vector2(-230.27477, -321.2121), Vector2(-230.27477, -139.39394), Vector2(-230.27477, -272.72726)]
@@ -2230,7 +2230,7 @@ tracks/5/path = NodePath("Visuals/Head:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.6666667, 2.10705, 2.296144, 3),
+"times": PackedFloat32Array(0, 0.43333334, 0.5756378, 0.7647319, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-3.0005717, -22.657019), Vector2(-3.0005717, -3.030304), Vector2(-3.0005717, -22.657019), Vector2(-3.0005717, 54.54545), Vector2(-3.0005717, -22.657019)]
@@ -2242,7 +2242,7 @@ tracks/6/path = NodePath("Visuals/Left Arm/Front Arm:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 2.0314121, 3),
+"times": PackedFloat32Array(0, 0.5, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.012695067, 0.34906584, 0.012695067]
@@ -2254,7 +2254,7 @@ tracks/7/path = NodePath("Visuals/Right Arm/Front Arm:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 3),
+"times": PackedFloat32Array(0, 0.49459743, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [-0.012695068, -0.5078908, -0.012695068]
@@ -2266,7 +2266,7 @@ tracks/8/path = NodePath("Visuals/Left Leg:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.1988957, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.66748357, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-72.72724, 113.01267), Vector2(-72.72724, 75.75758), Vector2(-72.72724, 175.75755), Vector2(-72.72724, 113.01267)]
@@ -2278,7 +2278,7 @@ tracks/9/path = NodePath("Visuals/Right Leg:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.1988957, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.66748357, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(82.16644, 121.97799), Vector2(82.16644, 84.72289), Vector2(82.16644, 184.72287), Vector2(82.16644, 121.97799)]
@@ -2290,7 +2290,7 @@ tracks/10/path = NodePath("Visuals/Left Leg:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 2.0333333, 2.2042983, 3),
+"times": PackedFloat32Array(0, 0.5019212, 0.67288613, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.004823862, -0.17901576, 0.87615526, 0.004823862]
@@ -2302,7 +2302,7 @@ tracks/11/path = NodePath("Visuals/Left Leg/Lower Leg:rotation")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.1988957, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.66748357, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [-0.007222334, 0.3393025, -0.9800323, -0.007222334]
@@ -2314,7 +2314,7 @@ tracks/12/path = NodePath("Visuals/Right Leg:rotation")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 2.0314121, 2.209701, 3),
+"times": PackedFloat32Array(0, 0.5, 0.67828894, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [-0.0031381224, 0.10471975511965978, -0.9896017, -0.0031381224]
@@ -2326,7 +2326,7 @@ tracks/13/path = NodePath("Visuals/Right Leg/Lower Leg:rotation")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0, 2.0260096, 2.209701, 3),
+"times": PackedFloat32Array(0, 0.49459743, 0.67828894, 1.6390238),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.009941458, -0.10471976, 1.3980087, 0.009941458]
@@ -2629,7 +2629,7 @@ texture = ExtResource("1_wa33t")
 
 [node name="Butt" type="Sprite2D" parent="Visuals/Body" unique_id=1751708151]
 z_index = -1
-position = Vector2(0, -8.484812)
+position = Vector2(0, 7.383)
 scale = Vector2(0.9999999, 0.9999999)
 texture = ExtResource("3_qa4jw")
 

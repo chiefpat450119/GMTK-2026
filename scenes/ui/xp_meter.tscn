@@ -3,58 +3,63 @@
 [ext_resource type="Script" uid="uid://cy5ra7ww3efq" path="res://scenes/ui/xp_meter.gd" id="1_a1p61"]
 [ext_resource type="Texture2D" uid="uid://rac0ic3tuaju" path="res://assets/hud/LV_BAR_BACK.png" id="1_m0s7y"]
 [ext_resource type="Texture2D" uid="uid://1bp1lyhxug4c" path="res://assets/hud/LV_BAR_FRONT.png" id="1_xrhem"]
+[ext_resource type="Texture2D" uid="uid://cyssa3jrrj6s" path="res://assets/hud/LV_BAR_PROGRESS.png" id="2_2xyfa"]
 [ext_resource type="FontFile" uid="uid://bpe3chac1mwiw" path="res://assets/fonts/JainiPurva-Regular.ttf" id="3_wysr6"]
 
 [node name="XpMeter" type="Control" unique_id=634241522 node_paths=PackedStringArray("xp_bar", "level_label", "xp_label")]
-custom_minimum_size = Vector2(1280, 100)
+custom_minimum_size = Vector2(1280, 40)
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -640.0
-offset_right = 640.0
-offset_bottom = 100.0
-grow_horizontal = 2
+anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_a1p61")
-xp_bar = NodePath("XpBar")
-level_label = NodePath("LevelLabel")
-xp_label = NodePath("XpLabel")
+xp_bar = NodePath("MarginContainer/XpBar")
+level_label = NodePath("HBoxContainer/LevelLabel")
+xp_label = NodePath("HBoxContainer/XpLabel")
 
-[node name="XpBar" type="TextureProgressBar" parent="." unique_id=595026823]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1345694554]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.176768
-anchor_top = 0.088235
-anchor_right = 0.823232
-anchor_bottom = 0.696343
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-value = 100.0
-nine_patch_stretch = true
-texture_progress = ExtResource("1_m0s7y")
+offset_right = 1200.0
+offset_bottom = 100.0
+theme_override_constants/margin_left = 210
+theme_override_constants/margin_right = 210
 
-[node name="Frame" type="TextureProgressBar" parent="." unique_id=1422961342]
+[node name="XpBar" type="TextureProgressBar" parent="MarginContainer" unique_id=595026823]
+modulate = Color(0.27510625, 0.6613538, 0.9265421, 1)
+custom_minimum_size = Vector2(900, 100)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_m0s7y")
+texture_progress = ExtResource("2_2xyfa")
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=2015452027]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 100.0
+
+[node name="TextureRect" type="TextureProgressBar" parent="MarginContainer2" unique_id=1422961342]
+custom_minimum_size = Vector2(1280, 100)
+layout_mode = 2
+nine_patch_stretch = true
+texture_over = ExtResource("1_xrhem")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2116059031]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-nine_patch_stretch = true
-texture_over = ExtResource("1_xrhem")
 
-[node name="LevelLabel" type="Label" parent="." unique_id=1623478393]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.052525
-anchor_top = 0.052941
-anchor_right = 0.136364
-anchor_bottom = 0.388235
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Spacer1" type="Control" parent="HBoxContainer" unique_id=1951617159]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer" unique_id=1623478393]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -64,15 +69,13 @@ text = "LV. 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="XpLabel" type="Label" parent="." unique_id=299960833]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.863131
-anchor_top = 0.052941
-anchor_right = 0.94697
-anchor_bottom = 0.388235
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Spacer3" type="Control" parent="HBoxContainer" unique_id=530278929]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="XpLabel" type="Label" parent="HBoxContainer" unique_id=299960833]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -81,3 +84,7 @@ theme_override_font_sizes/font_size = 36
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Spacer4" type="Control" parent="HBoxContainer" unique_id=1058869218]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2

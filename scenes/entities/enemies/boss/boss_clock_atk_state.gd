@@ -13,8 +13,19 @@ func enter():
 	
 	await windup()
 	await swing()
+	await delay(0.2)
+	
+	await clock_instance.shoot_numbers()
+	
+	await delay(0.75)
+	
+	await retract()
 	
 	switch_state(selector_state)
+
+func retract():
+	clock_instance.expand_clock_edge(0)
+	await clock_instance.expand_hand(0)
 
 func delay(time: float):
 	await get_tree().create_timer(time).timeout
@@ -32,6 +43,8 @@ func windup():
 	await delay(0.1)
 	
 	clock_instance.expand_hand()
+	
+	play_anim(&"Clock")
 	
 	await delay(0.5)
 	
