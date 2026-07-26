@@ -13,11 +13,42 @@ extends Button
 
 signal selected(upgrade: Upgrade)
 
+## Tint per rarity, multiplied into the gem art and used neat as the rarity label's
+## text colour. Lives here rather than on Upgrade because it is skin, not data: the
+## same tiers on a differently-drawn card want different tints, and nothing in the
+## roll should be able to read a colour.
+const RARITY_COLORS := {
+	Upgrade.Rarity.COMMON: Color(0.5, 0.5, 0.5),
+	Upgrade.Rarity.RARE: Color(0.594, 0.864, 0.94),
+	Upgrade.Rarity.EPIC: Color(0.65, 0.29, 1.0),
+	Upgrade.Rarity.LEGENDARY: Color(0.75, 0, 0.07),
+}
+
+const RARITY_NAMES := {
+	Upgrade.Rarity.COMMON: "Common",
+	Upgrade.Rarity.RARE: "Rare",
+	Upgrade.Rarity.EPIC: "Epic",
+	Upgrade.Rarity.LEGENDARY: "Legendary",
+}
+
+## Applied at display time rather than baked into RARITY_NAMES, so the flourish
+## stays one edit away from changing and the names stay usable as plain words.
+const RARITY_LABEL_FORMAT := "- %s -"
+
+## How far the backing layer travels from white toward the rarity colour. The gem
+## is a small bright shape and takes the tint neat; the back is most of the card,
+## and the same colour at full strength there drowns the icon and the text sitting
+## on top of it. Raise to 1.0 to have the two match exactly.
+const BACK_TINT_STRENGTH := 1.0
+
 @export var icon_rect: TextureRect
 @export var title_label: Label
 @export var description_label: Label
 @export var normal_icon_frame: TextureRect
 @export var tradeoff_icon_frame: TextureRect
+@export var gem_rect: TextureRect
+@export var back_rect: TextureRect
+@export var rarity_label: Label
 
 var _upgrade: Upgrade
 
@@ -45,6 +76,25 @@ func setup(upgrade: Upgrade) -> void:
 		normal_icon_frame.visible = true
 	if upgrade.icon:
 		icon_rect.texture = upgrade.icon
+	_apply_rarity(upgrade.rarity)
+
+
+# Cards are reused across offers, so every field a rarity touches has to be
+# rewritten on each setup() — falling back to the common tint rather than leaving
+# the previous card's colour behind if the enum ever grows a tier this misses.
+func _apply_rarity(rarity: Upgrade.Rarity) -> void:
+	var color := RARITY_COLORS.get(rarity, RARITY_COLORS[Upgrade.Rarity.COMMON]) as Color
+	if gem_rect:
+		gem_rect.modulate = color
+	if back_rect:
+		back_rect.modulate = Color.WHITE.lerp(color, BACK_TINT_STRENGTH)
+	if rarity_label:
+		var tier_name := RARITY_NAMES.get(rarity, RARITY_NAMES[Upgrade.Rarity.COMMON]) as String
+		rarity_label.text = RARITY_LABEL_FORMAT % tier_name
+		# An override rather than modulate: the label carries no art of its own, so
+		# the tier colour is the text colour outright instead of a multiply against
+		# whatever white the theme happens to hand it.
+		rarity_label.add_theme_color_override(&"font_color", color)
 
 # Only reachable once the row has dealt this card an upgrade. A blank card left
 # over from a short offer is hidden rather than disabled, so this is belt and

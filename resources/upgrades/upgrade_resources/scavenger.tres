@@ -25,6 +25,7 @@ id = &"scavenger"
 title = "Scavenger"
 description_override = "Gain 30% more sand from enemies, but -5s of max time capacity"
 icon = ExtResource("4_25mu8")
+rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_ltmnc")]([SubResource("Resource_ltmnc"), SubResource("Resource_kbsmk")])
 is_tradeoff = true

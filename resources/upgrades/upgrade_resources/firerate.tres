@@ -18,6 +18,7 @@ id = &"firerate"
 title = "Firerate"
 description_override = "+20% firerate"
 icon = ExtResource("3_smq2q")
+rarity = 1
 max_stacks = 3
 effects = Array[ExtResource("1_wgish")]([SubResource("Resource_smq2q")])
 metadata/_custom_type_script = "uid://031polniagv2"

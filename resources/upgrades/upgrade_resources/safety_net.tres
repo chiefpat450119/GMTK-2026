@@ -26,6 +26,7 @@ title = "Safety Net"
 description_override = "Gain 10s max time, but deal 7.5% less damage
 "
 icon = ExtResource("4_yb508")
+rarity = 1
 max_stacks = 5
 effects = Array[ExtResource("1_gptf0")]([SubResource("Resource_gptf0"), SubResource("Resource_7cyci")])
 is_tradeoff = true
