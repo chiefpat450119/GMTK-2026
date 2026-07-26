@@ -8,5 +8,4 @@ lifetime = 0.45
 width = 11.0
 color = Color(1.4, 2.4, 3.4, 1)
 min_distance = 6.0
-additive = true
 metadata/_custom_type_script = "uid://ctrailcfg0001"
