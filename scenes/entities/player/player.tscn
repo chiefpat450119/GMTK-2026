@@ -121,7 +121,7 @@ after_image = NodePath("AfterImageSpawner")
 metadata/_custom_type_script = "uid://cec0glmuud386"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2050727879]
-scale = Vector2(0.176, 0.131)
+scale = Vector2(0.131, 0.131)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"Move_Down"
 autoplay = "Idle"
