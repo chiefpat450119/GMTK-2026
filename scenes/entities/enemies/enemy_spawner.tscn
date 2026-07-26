@@ -39,6 +39,7 @@ wave_timer = NodePath("Timer")
 wave_changed_event = ExtResource("3_0okg5")
 enemy_pool = Array[ExtResource("3_6mcpi")]([SubResource("Resource_wqkcr"), SubResource("Resource_p0kws"), SubResource("Resource_dunn1"), SubResource("Resource_6gnc1")])
 boss_spawner = ExtResource("8_eklk0")
+boss_spawn_wave = 15
 metadata/_custom_type_script = "uid://c680wy8q4de83"
 
 [node name="Timer" type="Timer" parent="." unique_id=681572550]

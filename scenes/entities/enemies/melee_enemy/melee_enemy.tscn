@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bvrxrup6avivh" path="res://assets/enemies/melee/fastenemy1.png" id="4_yy0l1"]
 [ext_resource type="Script" uid="uid://sqe3naukul5d" path="res://components/hit_feedback.gd" id="5_xb2f6"]
 [ext_resource type="PackedScene" uid="uid://chitburst0001" path="res://scenes/effects/hit_burst.tscn" id="6_burst"]
+[ext_resource type="PackedScene" uid="uid://ld5ydlw5hpva" path="res://scenes/entities/Shadow.tscn" id="7_0rll7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbx"]
 size = Vector2(90.5, 88)
@@ -68,3 +69,7 @@ offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
 displacement = Vector2(-14, 35)
+
+[node name="Shadow" parent="." index="9" unique_id=852542226 instance=ExtResource("7_0rll7")]
+position = Vector2(-1.6666679, 46.66667)
+scale = Vector2(0.20320311, 0.062376305)
