@@ -7,5 +7,5 @@
 script = ExtResource("1_jvkfr")
 id = &"player_damage"
 stream = ExtResource("2_vqe8b")
-volume_db = -10.0
+volume_db = -5.0
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

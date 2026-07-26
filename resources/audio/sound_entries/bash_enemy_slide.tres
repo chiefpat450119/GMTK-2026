@@ -7,5 +7,5 @@
 script = ExtResource("1_ikctt")
 id = &"bash_enemy_slide"
 stream = ExtResource("2_7ujxg")
-volume_db = -10.0
+volume_db = -25.0
 metadata/_custom_type_script = "uid://my4saxjc4cnj"
