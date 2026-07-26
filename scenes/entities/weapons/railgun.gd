@@ -22,7 +22,7 @@ const CHARGE_PITCH_RISE : float = 0.6
 var cur_charge_amt : float = 0.0
 var is_charging : bool = false
 
-@export var base_speed := 200
+@export var base_speed := 500
 
 # The sound lives on the SFX autoload, not on this node, so nothing stops it if
 # the run is torn down mid-charge — it would hold that note over the menus.

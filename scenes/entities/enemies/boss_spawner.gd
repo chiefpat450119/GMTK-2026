@@ -47,9 +47,7 @@ func tick_hand():
 			SFX.play(&"boss_clock_tick2")
 		
 		await clock.tick_hand(i * PI / 6)
-		
 		disapear_number(i)
-		
 		await get_tree().create_timer(0.4).timeout
 	
 
@@ -59,8 +57,7 @@ func disapear_number(i: int):
 	if i > 12:
 		return
 	var tween := create_tween()
-	tween.tween_property(clock.clock_numbers[i - 1], "modulate", 
-	Color(1,1,1,0), .1) \
+	tween.tween_property(clock.clock_numbers[i - 1], "modulate", Color(1,1,1,0), .1) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	await tween.finished
 
@@ -69,8 +66,7 @@ func fade_in_visual():
 	steam.start()
 	
 	var tween := create_tween()
-	tween.tween_property(boss_visual, "modulate", 
-	WHITE, 7) \
+	tween.tween_property(boss_visual, "modulate", WHITE, 7) \
 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	await tween.finished
 	

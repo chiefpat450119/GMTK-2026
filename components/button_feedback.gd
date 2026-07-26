@@ -66,6 +66,8 @@ var _rest_modulate: Color
 var _rest_z: int
 
 var _hovered := false
+# Focused *and* worth highlighting for it, which is not the same as having focus —
+# see _on_focus_changed.
 var _focused := false
 var _held := false
 # Whether the release that is arriving was a real click, or the button being let
@@ -148,10 +150,18 @@ func _on_hover_changed(hovered: bool) -> void:
 		_settle()
 
 
+# Focus taken by a click belongs to the mouse, not to focus. Clicking a Control
+# focuses it, and that focus outlives the click, so a button that counted it as a
+# highlight would sit in the hover pose for good: the cursor leaving clears
+# _hovered, and _focused holds the pose up behind it. The cursor being on the
+# button is what says the mouse put the focus there — it had to move onto it to
+# click it — and hover is already lighting the button up in that case. Navigation
+# focus arrives with the cursor elsewhere, and still gets the highlight.
 func _on_focus_changed(focused: bool) -> void:
-	if _focused == focused:
+	var highlights := focused and not _hovered
+	if _focused == highlights:
 		return
-	_focused = focused
+	_focused = highlights
 	if not _held:
 		_settle()
 
