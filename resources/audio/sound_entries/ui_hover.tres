@@ -7,4 +7,5 @@
 script = ExtResource("1_65axh")
 id = &"ui_hover"
 stream = ExtResource("2_ha5vu")
+max_polyphony = 5
 metadata/_custom_type_script = "uid://my4saxjc4cnj"

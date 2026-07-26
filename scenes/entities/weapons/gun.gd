@@ -74,10 +74,11 @@ func shoot() -> void:
 	SFX.play(fire_sfx)
 
 	# Fire cooldown
-	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown)).timeout
-	can_fire = true
+	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout
 	if reload_sfx:
 		SFX.play(reload_sfx)
+	await get_tree().create_timer(fire_cooldown_stat.current_val(base_fire_cooldown) / 2).timeout
+	can_fire = true
 
 func _shake_camera(trauma : float) -> void:
 	CameraShake.shake_capped(trauma, trauma * SUSTAINED_TRAUMA_LIMIT)

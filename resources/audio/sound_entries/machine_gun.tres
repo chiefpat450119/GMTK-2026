@@ -7,4 +7,5 @@
 script = ExtResource("1_hs5vn")
 id = &"machine_gun"
 stream = ExtResource("2_6vvch")
+max_polyphony = 16
 metadata/_custom_type_script = "uid://my4saxjc4cnj"
