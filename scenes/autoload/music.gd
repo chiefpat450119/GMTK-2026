@@ -11,6 +11,7 @@ extends Node
 
 var _active_player: AudioStreamPlayer
 var _full_db: Dictionary[AudioStreamPlayer, float] = {}
+var _saved_position: Dictionary[AudioStreamPlayer, float] = {}
 var _fade: Tween
 
 
@@ -46,6 +47,7 @@ func _on_state_changed(from: int, to: int) -> void:
 func _on_wave_end() -> void:
 	_cancel_fade()
 
+	_saved_position[battle_player] = battle_player.get_playback_position()
 	battle_player.stop()
 	battle_player.stream_paused = false
 	battle_player.volume_db = _full_db[battle_player]
@@ -62,6 +64,7 @@ func _switch_track(next_player: AudioStreamPlayer) -> void:
 	_cancel_fade()
 
 	if _active_player != null and _active_player != next_player:
+		_saved_position[_active_player] = _active_player.get_playback_position()
 		_active_player.stop()
 		_active_player.stream_paused = false
 		_active_player.volume_db = _full_db[_active_player]
@@ -108,7 +111,9 @@ func _play_active(ducked: bool) -> void:
 	if not running:
 		_cancel_fade()
 		_active_player.volume_db = target_db
-		_active_player.play()
+		var resume_pos: float = _saved_position.get(_active_player, 0.0)
+		_saved_position.erase(_active_player)
+		_active_player.play(resume_pos)
 		return
 
 	_fade_to(target_db)
@@ -116,6 +121,7 @@ func _play_active(ducked: bool) -> void:
 
 func _stop_all() -> void:
 	_cancel_fade()
+	_saved_position.clear()
 
 	for music_player: AudioStreamPlayer in [battle_player, boss_player]:
 		music_player.stop()
