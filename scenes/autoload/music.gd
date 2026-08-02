@@ -62,6 +62,10 @@ func _select_track(state: int) -> void:
 		GameStateManager.GameState.MAIN_MENU:
 			_switch_track(menu_player)
 
+		GameStateManager.GameState.PAUSED:
+			# Keep the current track active.
+			pass
+
 		_:
 			_active_player = null
 
