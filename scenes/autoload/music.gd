@@ -8,11 +8,14 @@ extends Node
 
 @export var battle_player: AudioStreamPlayer
 @export var boss_player: AudioStreamPlayer
+@export var menu_player: AudioStreamPlayer
 
 var _active_player: AudioStreamPlayer
 var _full_db: Dictionary[AudioStreamPlayer, float] = {}
 var _saved_position: Dictionary[AudioStreamPlayer, float] = {}
 var _fade: Tween
+var _audio_players: Array[AudioStreamPlayer] = []
+var _boss_spawned: bool = false
 
 
 func _ready() -> void:
@@ -20,6 +23,11 @@ func _ready() -> void:
 
 	_full_db[battle_player] = battle_player.volume_db
 	_full_db[boss_player] = boss_player.volume_db
+	_full_db[menu_player] = menu_player.volume_db
+
+	for node: Node in get_children():
+		if node is AudioStreamPlayer:
+			_audio_players.append(node)
 
 	_active_player = battle_player
 
@@ -57,10 +65,13 @@ func _on_wave_end() -> void:
 
 
 func _on_boss_start() -> void:
-	_switch_track(boss_player)
+	_boss_spawned = true
+	_apply(GameStateManager.instance.state)
 
 
 func _switch_track(next_player: AudioStreamPlayer) -> void:
+	if next_player == _active_player:
+		return
 	_cancel_fade()
 
 	if _active_player != null and _active_player != next_player:
@@ -70,10 +81,23 @@ func _switch_track(next_player: AudioStreamPlayer) -> void:
 		_active_player.volume_db = _full_db[_active_player]
 
 	_active_player = next_player
-	_apply(GameStateManager.instance.state)
 
+func _select_track(state: int) -> void:
+	match state:
+		GameStateManager.GameState.PLAYING, GameStateManager.GameState.UPGRADING:
+			if _boss_spawned:
+				_switch_track(boss_player)
+			else:
+				_switch_track(battle_player)
+
+		GameStateManager.GameState.MAIN_MENU:
+			_switch_track(menu_player)
+
+		_:
+			_active_player = null
 
 func _apply(state: int) -> void:
+	_select_track(state)
 	match state:
 		GameStateManager.GameState.PLAYING:
 			_play_active(false)
@@ -82,14 +106,18 @@ func _apply(state: int) -> void:
 			_play_active(true)
 
 		GameStateManager.GameState.PAUSED:
-			if _active_player != null:
-				_active_player.stream_paused = true
+			_pause_active()
+
+		GameStateManager.GameState.MAIN_MENU:
+			_stop_all()
+			_play_active(false)
 
 		_:
 			_stop_all()
 
 			# Every new run begins with the battle track selected.
-			_active_player = battle_player
+			_switch_track(battle_player)
+			_boss_spawned = false
 
 
 func _play_active(ducked: bool) -> void:
@@ -118,12 +146,18 @@ func _play_active(ducked: bool) -> void:
 
 	_fade_to(target_db)
 
+func _pause_active() -> void:
+	if _active_player == null:
+		return
+
+	_cancel_fade()
+	_active_player.stream_paused = true
 
 func _stop_all() -> void:
 	_cancel_fade()
 	_saved_position.clear()
 
-	for music_player: AudioStreamPlayer in [battle_player, boss_player]:
+	for music_player: AudioStreamPlayer in _audio_players:
 		music_player.stop()
 		music_player.stream_paused = false
 		music_player.volume_db = _full_db[music_player]
