@@ -14,13 +14,23 @@ var _full_db: Dictionary[AudioStreamPlayer, float] = {}
 var _fade: Tween
 var _boss_active: bool = false
 
+# --- Web-safe playback tracking ---
+# stream_paused is unreliable on the HTML5 export: the browser's Web Audio API
+# can report .playing as false mid-stream, and toggling stream_paused on a live
+# node can trigger a restart. Instead we own the state entirely:
+#   _is_playing  – true while we consider the player live (between play() and stop())
+#   _saved_pos   – the position we stashed when we stopped so we can resume there
+var _is_playing: Dictionary[AudioStreamPlayer, bool] = {}
+var _saved_pos:  Dictionary[AudioStreamPlayer, float] = {}
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-	_full_db[battle_player] = battle_player.volume_db
-	_full_db[boss_player] = boss_player.volume_db
-	_full_db[menu_player] = menu_player.volume_db
+	for p: AudioStreamPlayer in [battle_player, boss_player, menu_player]:
+		_full_db[p]    = p.volume_db
+		_is_playing[p] = false
+		_saved_pos[p]  = 0.0
 
 	_active_player = battle_player
 
@@ -34,7 +44,6 @@ func _on_state_changed(_from: int, to: int) -> void:
 	_apply(to)
 
 
-
 func _on_boss_start() -> void:
 	_boss_active = true
 	_apply(GameStateManager.instance.state)
@@ -46,7 +55,7 @@ func _switch_track(next_player: AudioStreamPlayer) -> void:
 	_cancel_fade()
 
 	if _active_player != null:
-		_active_player.stream_paused = true
+		_stop_player(_active_player)
 		_active_player.volume_db = _full_db[_active_player]
 
 	_active_player = next_player
@@ -101,32 +110,43 @@ func _play_active(ducked: bool) -> void:
 	if ducked:
 		target_db += duck_db
 
-	var running := _active_player.playing or _active_player.stream_paused
-
-	_active_player.stream_paused = false
-
-	if not running:
-		_cancel_fade()
-		_active_player.volume_db = target_db
-		_active_player.play()
+	# If the track is already live just adjust the volume — don't touch playback.
+	if _is_playing[_active_player]:
+		_fade_to(target_db)
 		return
 
-	_fade_to(target_db)
+	# Not running: start (or resume) from the saved position.
+	_cancel_fade()
+	_active_player.volume_db = target_db
+	_active_player.play(_saved_pos[_active_player])
+	_is_playing[_active_player] = true
+
 
 func _pause_active() -> void:
 	if _active_player == null:
 		return
 
 	_cancel_fade()
-	_active_player.stream_paused = true
+	_stop_player(_active_player)
+
 
 func _stop_all() -> void:
 	_cancel_fade()
 
-	for music_player: AudioStreamPlayer in [battle_player, boss_player, menu_player]:
-		music_player.stop()
-		music_player.stream_paused = false
-		music_player.volume_db = _full_db[music_player]
+	for p: AudioStreamPlayer in [battle_player, boss_player, menu_player]:
+		_stop_player(p)
+		p.volume_db = _full_db[p]
+		_saved_pos[p] = 0.0		# discard saved positions — this is a hard reset
+
+
+# Saves the current playback position and stops the player.
+# Use this instead of stream_paused everywhere so the position is always
+# under our control and never depends on the browser's audio state.
+func _stop_player(p: AudioStreamPlayer) -> void:
+	if _is_playing[p]:
+		_saved_pos[p] = p.get_playback_position()
+	_is_playing[p] = false
+	p.stop()
 
 
 func _fade_to(db: float) -> void:
