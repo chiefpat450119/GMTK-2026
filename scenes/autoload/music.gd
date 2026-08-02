@@ -3,6 +3,7 @@ extends Node
 @export var duck_db: float = -12.0
 @export var fade_duration: float = 0.35
 
+@export var wave_end_event: GameEventListener
 @export var boss_event: GameEventListener
 
 @export var battle_player: AudioStreamPlayer
@@ -35,6 +36,7 @@ func _ready() -> void:
 	_active_player = battle_player
 
 	GameStateManager.instance.state_changed.connect(_on_state_changed)
+	wave_end_event.response.connect(_on_wave_end)
 	boss_event.response.connect(_on_boss_start)
 
 	_apply(GameStateManager.instance.state)
@@ -42,6 +44,22 @@ func _ready() -> void:
 
 func _on_state_changed(_from: int, to: int) -> void:
 	_apply(to)
+
+
+func _on_wave_end() -> void:
+	# The last wave before the boss has finished. Stop the battle track so there
+	# is silence through the upgrade screen; the boss track will take over once
+	# the boss spawns. We discard the saved position — the battle theme should
+	# restart from the top if the track is ever needed again.
+	_cancel_fade()
+
+	if _active_player == battle_player:
+		_active_player = null
+
+	_is_playing[battle_player] = false
+	_saved_pos[battle_player]  = 0.0
+	battle_player.stop()
+	battle_player.volume_db = _full_db[battle_player]
 
 
 func _on_boss_start() -> void:

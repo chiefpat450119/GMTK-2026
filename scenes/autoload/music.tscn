@@ -8,8 +8,9 @@
 [ext_resource type="Resource" uid="uid://c77jcnl1d6ufe" path="res://resources/events/event_channels/boss_spawn_event.tres" id="5_0ee3t"]
 [ext_resource type="Resource" uid="uid://bflkttrkfcadw" path="res://resources/events/event_channels/waves_end_event.tres" id="6_8487r"]
 
-[node name="Music" type="Node" unique_id=1940000001 node_paths=PackedStringArray("boss_event", "battle_player", "boss_player", "menu_player")]
+[node name="Music" type="Node" unique_id=1940000001 node_paths=PackedStringArray("wave_end_event", "boss_event", "battle_player", "boss_player", "menu_player")]
 script = ExtResource("1_music")
+wave_end_event = NodePath("WaveEndEventListener")
 boss_event = NodePath("BossEventListener")
 battle_player = NodePath("BattleTheme")
 boss_player = NodePath("bossTheme")
