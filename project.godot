@@ -13,7 +13,7 @@ config_version=5
 config/name="SandOfSouls"
 run/main_scene="uid://ctae7kpgvna66"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://b7pmtlq50gy5p"
 
 [audio]
 
